@@ -19,8 +19,14 @@ local opts = {
       --   end,
       -- })
       vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
         buffer = bufnr,
-        command = "EslintFixAll",
+        -- command = "EslintFixAll",
+        callback = function ()
+          pcall(function()
+            vim.cmd('EslintFixAll')
+          end)
+        end,
       })
     end
   end,
