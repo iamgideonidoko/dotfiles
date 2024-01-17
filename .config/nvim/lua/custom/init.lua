@@ -19,3 +19,8 @@ opt.foldcolumn = "1"
 -- Bindings for Lspsaga
 local lspsaga_binding_opt = { noremap = true, silent = true }
 keymap.set('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', lspsaga_binding_opt)
+
+-- Binding to run http request under the cursor
+api.nvim_set_keymap('n', '<leader>rr', '<Plug>RestNvim', {})
+-- Binding to preview http request to be made with cURL
+api.nvim_set_keymap('n', '<leader>rp', '<Plug>RestNvimPreview', {})
