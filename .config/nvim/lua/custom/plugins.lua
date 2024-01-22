@@ -90,6 +90,18 @@ local plugins = {
       -- Get config options at: https://github.com/rest-nvim/rest.nvim?tab=readme-ov-file#packernvim
     })
     end
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    event = "VeryLazy",
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup({
+        options = {
+          theme = 'powerline'
+        }
+      })
+    end
   }
 }
 
