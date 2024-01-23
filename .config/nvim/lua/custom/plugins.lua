@@ -18,14 +18,17 @@ local plugins = {
     -- The benefit of this is that if we move our Neovim configuration to another machine
     -- our deps will come along with it.
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
+    opts = function ()
+      local opts = require "plugins.configs.mason"
+      opts.ensure_installed = {
+        "lua-language-server",
         "eslint-lsp",
         "prettierd",
         "tailwindcss-language-server",
         "typescript-language-server",
+        "css-lsp"
       }
-    }
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
