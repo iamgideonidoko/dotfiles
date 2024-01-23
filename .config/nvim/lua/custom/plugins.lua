@@ -114,7 +114,7 @@ local plugins = {
       require("tabnine").setup({
         -- Options here => https://github.com/codota/tabnine-nvim?tab=readme-ov-file#activate-mandatory
         disable_auto_comment=true,
-        accept_keymap="<S-Space>",
+        accept_keymap="<A-Space>",
         dismiss_keymap = "<C-]>",
         debounce_ms = 1000,
         suggestion_color = {gui = "##768390", cterm = 244},
