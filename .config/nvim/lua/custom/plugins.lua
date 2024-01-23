@@ -42,7 +42,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function ()
-      opts = require "plugins.configs.treesitter"
+      local opts = require "plugins.configs.treesitter"
       opts.ensure_installed = {
         "lua",
         "javascript",
@@ -64,7 +64,7 @@ local plugins = {
     event = "VeryLazy"
   },
   {
-    'nvimdev/lspsaga.nvim',
+    "nvimdev/lspsaga.nvim",
     ft = {
       "javascript",
       "javascriptreact",
@@ -72,11 +72,11 @@ local plugins = {
       "typescriptreact",
     },
     config = function()
-        require('lspsaga').setup({})
+        require("lspsaga").setup({})
     end,
     dependencies = {
-        'nvim-treesitter/nvim-treesitter', -- optional
-        'nvim-tree/nvim-web-devicons'     -- optional
+        "nvim-treesitter/nvim-treesitter", -- optional
+        "nvim-tree/nvim-web-devicons"     -- optional
     }
   },
   {
@@ -92,14 +92,31 @@ local plugins = {
     end
   },
   {
-    'nvim-lualine/lualine.nvim',
+    "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require('lualine').setup({
+      require("lualine").setup({
         options = {
-          theme = 'powerline'
+          theme = "powerline"
         }
+      })
+    end
+  },
+  {
+    "codota/tabnine-nvim",
+    event = "VeryLazy",
+    build = "./dl_binaries.sh",
+    config = function()
+      require("tabnine").setup({
+        -- Options here => https://github.com/codota/tabnine-nvim?tab=readme-ov-file#activate-mandatory
+        disable_auto_comment=true,
+        accept_keymap="<S-Space>",
+        dismiss_keymap = "<C-]>",
+        debounce_ms = 1000,
+        suggestion_color = {gui = "##768390", cterm = 244},
+        exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+        log_file_path = nil, -- absolute path to Tabnine log file
       })
     end
   }
