@@ -122,6 +122,12 @@ local plugins = {
         log_file_path = nil, -- absolute path to Tabnine log file
       })
     end
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   }
 }
 
