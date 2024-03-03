@@ -57,7 +57,8 @@ local plugins = {
         "markdown",
         "markdown_inline",
         "http",
-        "json"
+        "json",
+        "prisma"
       }
       return opts
     end
@@ -101,7 +102,8 @@ local plugins = {
     config = function()
       require("lualine").setup({
         options = {
-          theme = "powerline"
+          -- theme = "powerline"
+          theme = "gruvbox"
         }
       })
     end
