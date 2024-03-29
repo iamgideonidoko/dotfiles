@@ -82,3 +82,6 @@ Pods/
 .config/nvim/LICENSE
 .config/nvim/.ignore
 **/.DS_Store
+
+
+/.config/tmux/plugins

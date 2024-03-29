@@ -132,10 +132,14 @@ local plugins = {
     build = function() vim.fn["mkdp#util#install"]() end,
   },
   {
-    'barrett-ruth/live-server.nvim',
-    build = 'pnpm add -g live-server',
-    cmd = { 'LiveServerStart', 'LiveServerStop' },
+    "barrett-ruth/live-server.nvim",
+    build = "pnpm add -g live-server",
+    cmd = { "LiveServerStart", "LiveServerStop" },
     config = true
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false
   }
 }
 
