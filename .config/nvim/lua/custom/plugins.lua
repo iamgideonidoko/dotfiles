@@ -59,7 +59,9 @@ local plugins = {
         "markdown_inline",
         "http",
         "json",
-        "prisma"
+        "prisma",
+        "vim",
+        "vimdoc"
       }
       return opts
     end
