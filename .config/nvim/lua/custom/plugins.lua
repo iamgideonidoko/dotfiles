@@ -26,7 +26,8 @@ local plugins = {
         "prettierd",
         "tailwindcss-language-server",
         "typescript-language-server",
-        "css-lsp"
+        "css-lsp",
+        "phpactor"
       }
     end,
   },
