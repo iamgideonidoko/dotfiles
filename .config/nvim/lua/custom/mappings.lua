@@ -54,6 +54,10 @@ M.custom = {
     ["<leader>lpt"] = {"<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
     ["<leader>lph"] = {"<cmd>Lspsaga hover_doc<CR>", "Peek type in hover" },
 
+    -- DAP
+    ["<leader>drd"] = {"<cmd> DapToggleBreakpoint <CR>", "Add breakpoint at line" },
+    ["<leader>drr"] = {"<cmd> DapContinue <CR>", "Start or continue the debugger" },
+
   },
 }
 
