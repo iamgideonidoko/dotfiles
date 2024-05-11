@@ -71,17 +71,15 @@ Pods/
 # nvim
 .config/**/.git/
 .config/**/.gitignore
-.config/nvim/.github
-.config/nvim/spell
-.config/nvim/ftplugin
-.config/nvim/syntax
-.config/nvim/coc-settings.json
-.config/nvim/.luarc.json
-.config/nvim/lazy-lock.json
-.config/nvim/after
-.config/nvim/LICENSE
-.config/nvim/.ignore
+.config/**/.github
+.config/**/.ignore
+.config/nvim-chad/spell
+.config/nvim-chad/ftplugin
+.config/nvim-chad/syntax
+.config/nvim-chad/coc-settings.json
+.config/nvim-chad/.luarc.json
+.config/nvim-chad/after
+.config/nvim-chad/LICENSE
 **/.DS_Store
-
 
 /.config/tmux/plugins
