@@ -35,7 +35,17 @@ require("lazy").setup({
 
 	require("plugins.autopairs"),
 
-	require("plugins.neo-tree"),
+	-- require("plugins.neo-tree"),
+
+	require("plugins.tabnine"),
+
+	require("plugins.autotag"),
+
+	require("plugins.rest"),
+
+	require("plugins.markdown"),
+
+	require("plugins.server"),
 }, {
 	ui = {
 		-- If nerd font is enabled, set icons to an empty table which will use the

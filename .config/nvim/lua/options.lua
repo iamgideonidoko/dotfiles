@@ -19,7 +19,13 @@ vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
---
+
+-- Set fold based on treesitter expression
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.cmd([[ set nofoldenable ]])
+vim.opt.foldcolumn = "1"
+
 -- Save undo history
 vim.opt.undofile = true
 
