@@ -19,13 +19,15 @@ return {
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
 
-		-- Add your own debuggers here
+		-- Start: Go
 		"leoluz/nvim-dap-go",
 		{
 			"microsoft/vscode-js-debug",
 			opt = {},
 			build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
 		},
+		-- End: Go
+		-- Start: JS
 		{
 			"mxsdev/nvim-dap-vscode-js",
 			dependencies = {
@@ -36,6 +38,7 @@ return {
 			"Joakker/lua-json5",
 			build = "./install.sh",
 		},
+		-- End: JS
 	},
 	config = function()
 		local dap = require("dap")
