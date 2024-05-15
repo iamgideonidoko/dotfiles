@@ -4,7 +4,26 @@ return {
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"vim",
+				"vimdoc",
+				"javascript",
+				"typescript",
+				"http",
+				"json",
+				"tsx",
+				"glsl",
+				"xml",
+				"graphql",
+			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 
