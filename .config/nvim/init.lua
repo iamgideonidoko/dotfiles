@@ -14,6 +14,9 @@ require("options")
 -- Keymaps
 require("keymaps")
 
+-- Terminal
+require("terminal")
+
 -- Autocommands
 require("autocmds")
 

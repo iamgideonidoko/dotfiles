@@ -7,16 +7,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
-vim.keymap.set("n", "<leader>m", vim.diagnostic.open_float, { desc = "Show diagnostic error [m]essages" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [e]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [q]uickfix list" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Escape terminal mode" })
 
 -- Disable arrow keys in normal mode
 vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
@@ -27,7 +19,7 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 vim.keymap.set("n", "<Tab>", "<cmd>bnext!<CR>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
 vim.keymap.set("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close current buffer" })
-vim.keymap.set("n", "<leader>e", "<cmd>Explore<CR>", { desc = "Open Netrw" })
+vim.keymap.set("n", "-", "<cmd>Explore<CR>", { desc = "Open Netrw" })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -43,6 +35,12 @@ vim.keymap.set("i", "<C-h>", "<Left>", { desc = "Move left" })
 vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Move right" })
 vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Move down" })
 vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
+
+-- Control the size of splits (height/width)
+vim.keymap.set("n", "<M-,>", "<C-w>5<", { desc = "Decrease width" })
+vim.keymap.set("n", "<M-.>", "<C-w>5>", { desc = "Increase width" })
+vim.keymap.set("n", "<M-i>", "<C-W>-", { desc = "Decrease height" })
+vim.keymap.set("n", "<M-o>", "<C-W>+", { desc = "Increase height" })
 
 -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
