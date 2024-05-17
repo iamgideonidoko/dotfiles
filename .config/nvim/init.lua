@@ -5,6 +5,9 @@ NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Set to true if you want to files with set configured languages to be formatted on save
+vim.g.autoformat = false
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
