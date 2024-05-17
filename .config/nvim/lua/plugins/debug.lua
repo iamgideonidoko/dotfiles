@@ -23,10 +23,6 @@ return {
 				"mfussenegger/nvim-dap",
 			},
 		},
-		{
-			"Joakker/lua-json5",
-			build = "./install.sh",
-		},
 		-- End: JS
 	},
 	config = function()
