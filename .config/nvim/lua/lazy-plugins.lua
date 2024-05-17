@@ -4,6 +4,8 @@
 -- See `:help lazy.nvim-lazy.nvim-structuring-your-plugins` for more information on how to structure plugins
 -- NOTE: Use `opts = {}` to force a plugin to be loaded. (equivalent to: `require('Comment').setup({})`)
 require("lazy").setup({
+	-- Package manager
+	require("plugins.mason"),
 	-- Helper plugins
 	{ import = "plugins.utils" },
 

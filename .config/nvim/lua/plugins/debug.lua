@@ -1,33 +1,22 @@
-local js_based_languages = {
-	"typescript",
-	"javascript",
-	"typescriptreact",
-	"javascriptreact",
-	"vue",
-}
-
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
 		-- Creates a beautiful debugger UI
 		"rcarriga/nvim-dap-ui",
-
 		-- Required dependency for nvim-dap-ui
 		"nvim-neotest/nvim-nio",
-
-		-- Installs the debug adapters for you
+		-- Dependencies for managing debug adapters
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
-
 		-- Start: Go
-		"leoluz/nvim-dap-go",
+		-- "leoluz/nvim-dap-go",
+		-- End: Go
+		-- Start: JS
 		{
 			"microsoft/vscode-js-debug",
 			opt = {},
 			build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
 		},
-		-- End: Go
-		-- Start: JS
 		{
 			"mxsdev/nvim-dap-vscode-js",
 			dependencies = {
@@ -43,25 +32,21 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
-
 		require("mason-nvim-dap").setup({
 			-- Makes a best effort to setup the various debuggers with reasonable debug configurations
 			automatic_installation = true,
-
 			-- You can provide additional configuration to the handlers,
 			-- see mason-nvim-dap README for more information
 			handlers = {},
-
 			-- Check that you have the required things installed online
 			ensure_installed = {
 				-- Update this to ensure that you have the debuggers for the langs you want
 				"delve",
 			},
 		})
-
+		local js_related_language = require("utils").js_related_languages
 		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-
-		for _, language in ipairs(js_based_languages) do
+		for _, language in ipairs(js_related_language) do
 			dap.configurations[language] = {
 				-- Debug single nodejs files
 				{
@@ -115,22 +100,23 @@ return {
 			}
 		end
 
-		-- Basic debugging keymaps
-		vim.keymap.set("n", "<leader>drs", dap.continue, { desc = "Debug: Start/Continue" })
-		vim.keymap.set("n", "<leader>dri", dap.step_into, { desc = "Debug: Step Into" })
-		vim.keymap.set("n", "<leader>drO", dap.step_over, { desc = "Debug: Step Over" })
-		vim.keymap.set("n", "<leader>dro", dap.step_out, { desc = "Debug: Step Out" })
-		vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-		vim.keymap.set("n", "<leader>B", function()
+		local set = vim.keymap.set
+		-- Debugging keymaps
+		set("n", "<leader>drs", dap.continue, { desc = "Debug: Start/Continue" })
+		set("n", "<leader>dri", dap.step_into, { desc = "Debug: Step Into" })
+		set("n", "<leader>drO", dap.step_over, { desc = "Debug: Step Over" })
+		set("n", "<leader>dro", dap.step_out, { desc = "Debug: Step Out" })
+		set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
+		set("n", "<leader>B", function()
 			dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 		end, { desc = "Debug: Set Breakpoint" })
-		vim.keymap.set("n", "<leader>dra", function()
+		set("n", "<leader>dra", function()
 			if vim.fn.filereadable(".vscode/launch.json") then
 				local dap_vscode = require("dap.ext.vscode")
 				dap_vscode.load_launchjs(nil, {
-					["pwa-node"] = js_based_languages,
-					["chrome"] = js_based_languages,
-					["pwa-chrome"] = js_based_languages,
+					["pwa-node"] = js_related_language,
+					["chrome"] = js_related_language,
+					["pwa-chrome"] = js_related_language,
 				})
 			end
 			dap.continue()
@@ -138,6 +124,7 @@ return {
 
 		-- Dap UI setup
 		-- For more information, see |:help nvim-dap-ui|
+		---@diagnostic disable: missing-fields
 		dapui.setup({
 			-- Set icons to characters that are more likely to work in every terminal.
 			icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
@@ -164,14 +151,16 @@ return {
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
 		-- Install golang specific config
-		require("dap-go").setup({
-			delve = {
-				-- On Windows delve must be run attached or it crashes.
-				-- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-				detached = vim.fn.has("win32") == 0,
-			},
-		})
+		-- require("dap-go").setup({
+		-- 	delve = {
+		-- 		-- On Windows delve must be run attached or it crashes.
+		-- 		-- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+		-- 		detached = vim.fn.has("win32") == 0,
+		-- 	},
+		-- })
+
 		-- Install js specific config
+		---@diagnostic disable: missing-fields
 		require("dap-vscode-js").setup({
 			-- Path of node executable. Defaults to $NODE_PATH, and then "node"
 			-- node_path = "node",
