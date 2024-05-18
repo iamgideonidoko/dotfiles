@@ -6,6 +6,7 @@ U.js_related_languages = {
 	"typescriptreact",
 	"javascriptreact",
 	"vue",
+	"angular",
 }
 
 return U

@@ -10,16 +10,24 @@ return {
 		config = function()
 			local formatters = {
 				lua = { "stylua" },
-				-- You can use a sub-list to tell conform to run *until* a formatter is found.
-				javascript = {
-					{
-						"prettierd" --[[, "prettier"]],
-					},
-				},
-				html = { "htmlbeautifier" },
 			}
 			local js_related_language = require("utils").js_related_languages
-			for _, language in ipairs(js_related_language) do
+			local prettier_supported = vim.tbl_values(js_related_language or {})
+			vim.list_extend(prettier_supported, {
+				"css",
+				"scss",
+				"less",
+				"html",
+				"json",
+				"jsonc",
+				"yaml",
+				"markdown",
+				"markdown.mdx",
+				"graphql",
+				"handlebars",
+			})
+			for _, language in ipairs(prettier_supported) do
+				-- You can use a sub-list to tell conform to run *until* a formatter is found.
 				formatters[language] = {
 					{
 						"prettierd" --[[, "prettier"]],
