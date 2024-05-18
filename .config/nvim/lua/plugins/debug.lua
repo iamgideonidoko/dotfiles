@@ -37,7 +37,7 @@ return {
 			-- Check that you have the required things installed online
 			ensure_installed = {
 				-- Update this to ensure that you have the debuggers for the langs you want
-				"delve",
+				-- "delve",
 			},
 		})
 		local js_related_language = require("utils").js_related_languages
@@ -140,11 +140,14 @@ return {
 		})
 
 		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-		vim.keymap.set("n", "drt", dapui.toggle, { desc = "Debug: See last session result." })
+		vim.keymap.set("n", "<leader>drt", dapui.toggle, { desc = "Debug: Toggle last result." })
+		vim.keymap.set("n", "<leader>drp", dapui.open, { desc = "Debug: Open session result." })
+		vim.keymap.set("n", "<leader>drc", dapui.close, { desc = "Debug: Close session result." })
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
 		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
+
 
 		-- Install golang specific config
 		-- require("dap-go").setup({
