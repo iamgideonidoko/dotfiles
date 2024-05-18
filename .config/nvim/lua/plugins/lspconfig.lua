@@ -141,6 +141,7 @@ return {
 				tailwindcss = {},
 				eslint = {},
 				cssls = {},
+				html = {},
 
 				lua_ls = {
 					-- cmd = {...},
