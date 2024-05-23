@@ -61,6 +61,7 @@ return {
 							["<c-k>"] = actions.move_selection_previous,
 						},
 					},
+					file_ignore_patterns = { "node_modules" },
 				},
 				-- pickers = {}
 				extensions = {
