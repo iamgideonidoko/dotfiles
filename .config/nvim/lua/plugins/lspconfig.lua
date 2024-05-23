@@ -142,7 +142,7 @@ return {
 				eslint = {},
 				cssls = {},
 				html = {},
-
+        intelephense = {}, -- PHP
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
