@@ -13,11 +13,12 @@ return {
 				markdown = { "markdownlint" },
 			}
 
-			-- WARN: ESLint will require configuration to work or it will throw an error
-			-- local js_related_language = require("utils").js_related_languages
-			-- for _, language in ipairs(js_related_language) do
-			-- 	linters[language] = { "eslint_d" }
-			-- end
+			local js_related_language = require("utils").js_related_languages
+			for _, language in ipairs(js_related_language) do
+				linters[language] = {
+					"eslint_d",
+				}
+			end
 
 			-- Configure linters
 			local lint = require("lint")
@@ -25,7 +26,7 @@ return {
 
 			-- Create autocommand which carries out the actual linting on the specified events.
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
 				group = lint_augroup,
 				callback = function()
 					lint.try_lint()
