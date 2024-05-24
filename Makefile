@@ -11,3 +11,6 @@ sync-nvim-chad:
 
 sync-tmux:
 	rsync -av --delete --exclude='plugins'  ~/.config/tmux/ ./.config/tmux/
+
+sync-svim:
+	rsync -av --delete --exclude='.git' ~/.config/svim/ ./.config/svim/
