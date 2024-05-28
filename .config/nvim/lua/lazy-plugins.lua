@@ -48,6 +48,8 @@ require("lazy").setup({
 	require("plugins.markdown"),
 
 	require("plugins.server"),
+
+	require("plugins.oil"),
 }, {
 	ui = {
 		-- If nerd font is enabled, set icons to an empty table which will use the

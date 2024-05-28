@@ -23,7 +23,6 @@ set("n", "<Tab>", "<cmd>bnext!<CR>")
 set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
 set("n", "<leader>x", require('utils').smart_close_buffer, { desc = "Close current buffer" })
 set("n", "<leader>X", function() require('utils').smart_close_buffer(true) end, { desc = "Force close current buffer" })
-set("n", "-", "<cmd>Explore<CR>", { desc = "Open Netrw" })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
