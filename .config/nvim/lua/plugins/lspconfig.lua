@@ -143,6 +143,7 @@ return {
 				cssls = {},
 				html = {},
         intelephense = {}, -- PHP
+        glslls = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
