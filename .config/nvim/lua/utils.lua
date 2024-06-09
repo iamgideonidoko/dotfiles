@@ -66,6 +66,21 @@ U.smart_close_buffer = function(force)
 	vim.api.nvim_buf_delete(bufnr, { force = force })
 end
 
+U.check_keybinding_exists = function(mode, lhs)
+	local keymaps = vim.api.nvim_get_keymap(mode)
+	for _, keymap in pairs(keymaps) do
+		---@diagnostic disable: undefined-field
+		if keymap.lhs == lhs then
+			return true
+		end
+	end
+	return false
+end
+
+U.command_exists = function(name)
+	return vim.api.nvim_get_commands({})[name] ~= nil
+end
+
 return U
 
 -- vim: ts=2 sts=2 sw=2 et
