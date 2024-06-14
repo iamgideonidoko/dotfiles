@@ -91,7 +91,9 @@ return {
 			set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [d]iagnostics" })
 			set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [r]esume" })
 			set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind recent files ("." for repeat)' })
-			set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind existing [b]uffers" })
+			set("n", "<leader>fb", function()
+				builtin.buffers({ sort_mru = true, ignore_current_buffer = true })
+			end, { desc = "[F]ind existing [b]uffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			set("n", "<leader>f/", function()
