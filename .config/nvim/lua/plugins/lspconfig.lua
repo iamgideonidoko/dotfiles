@@ -144,6 +144,7 @@ return {
 				html = {},
         intelephense = {}, -- PHP
         glsl_analyzer = {},
+        pyright = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
