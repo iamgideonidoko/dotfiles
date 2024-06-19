@@ -11,7 +11,7 @@ return {
 			-- Specify the linters to run (see https://github.com/mfussenegger/nvim-lint?tab=readme-ov-file#usage)
 			local linters = {
 				markdown = { "markdownlint" },
-				python = { "pylint" },
+				python = { "flake8" },
 			}
 
 			local js_related_language = require("utils").js_related_languages
