@@ -27,6 +27,9 @@ U.smart_close_buffer = function(force)
 	if not force and vim.api.nvim_buf_get_option(bufnr, "modified") then
 		return vim.api.nvim_err_writeln("Buffer is modified. Force required.")
 	end
+	if not force and vim.api.nvim_buf_get_option(bufnr, "buftype") == "terminal" then
+		return vim.api.nvim_err_writeln("Buffer is a terminal. Force required.")
+	end
 	-- Alternate bufnr
 	---@diagnostic disable: param-type-mismatch
 	local alt_bufnr = vim.fn.bufnr("#")
