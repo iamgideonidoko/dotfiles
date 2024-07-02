@@ -48,6 +48,7 @@ return {
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			local actions = require("telescope.actions")
+			local action_state = require("telescope.actions.state")
 			require("telescope").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`
@@ -59,6 +60,12 @@ return {
 							["<c-l>"] = false,
 							["<c-j>"] = actions.move_selection_next,
 							["<c-k>"] = actions.move_selection_previous,
+							["<c-d>"] = function(prompt_bufnr)
+								local picker = action_state.get_current_picker(prompt_bufnr)
+								if picker.prompt_title == "Buffers" then
+									actions.delete_buffer(prompt_bufnr)
+								end
+							end,
 						},
 					},
 					file_ignore_patterns = { "node_modules", ".git", ".next", ".nx" },
