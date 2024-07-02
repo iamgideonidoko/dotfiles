@@ -56,6 +56,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		if normalized_path:sub(1, #cwd) ~= cwd then
 			return
 		end
+    -- Make exceptions for RestNvim buffer
+		if string.find(normalized_path, "rest_nvim") then
+			return
+		end
 		-- The current buffer file path is not valid so delete buffer
 		U.smart_close_buffer(true)
 	end,
