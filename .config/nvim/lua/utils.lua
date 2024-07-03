@@ -22,8 +22,8 @@ U.js_related_languages = {
 
 -- Delete a buffer without closing splits
 -- Switch a loaded alt buffer
-U.smart_close_buffer = function(force)
-	local bufnr = vim.api.nvim_get_current_buf()
+U.smart_close_buffer = function(force, given_bufnr)
+	local bufnr = given_bufnr or vim.api.nvim_get_current_buf()
 	if not force and vim.api.nvim_buf_get_option(bufnr, "modified") then
 		return vim.api.nvim_err_writeln("Buffer is modified. Force required.")
 	end

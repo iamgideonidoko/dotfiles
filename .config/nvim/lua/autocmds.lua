@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+-- Delete buffers that return E211 i.e file no longer available
 vim.api.nvim_create_autocmd("BufEnter", {
 	group = vim.api.nvim_create_augroup("delete_e211_buffers", { clear = true }),
 	callback = function()
@@ -56,7 +57,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		if normalized_path:sub(1, #cwd) ~= cwd then
 			return
 		end
-    -- Make exceptions for RestNvim buffer
+		-- Make exceptions for RestNvim buffer
 		if string.find(normalized_path, "rest_nvim") then
 			return
 		end
@@ -65,4 +66,28 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
+-- Immediately close buffer of deleted file via oil.nvim
+vim.api.nvim_create_autocmd("User", {
+	pattern = "OilActionsPost",
+	callback = function(args)
+		local parse_url = function(url)
+			return url:match("^.*://(.*)$")
+		end
+
+		if args.data.err then
+			return
+		end
+
+		for _, action in ipairs(args.data.actions) do
+			if action.type == "delete" and action.entry_type == "file" then
+				local path = parse_url(action.url)
+				local bufnr = vim.fn.bufnr(path)
+				if bufnr == -1 then
+					return
+				end
+				U.smart_close_buffer(true, bufnr)
+			end
+		end
+	end,
+})
 -- vim: ts=2 sts=2 sw=2 et
