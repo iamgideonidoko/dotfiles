@@ -68,7 +68,7 @@ return {
 							end,
 						},
 					},
-					file_ignore_patterns = { "node_modules", ".git", ".next", ".nx" },
+					-- file_ignore_patterns = { "node_modules", ".git", ".next", ".nx" },
 				},
 				-- pickers = {}
 				extensions = {
@@ -99,7 +99,7 @@ return {
 			set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [r]esume" })
 			set("n", "<leader>f.", builtin.oldfiles, { desc = '[F]ind recent files ("." for repeat)' })
 			set("n", "<leader>fb", function()
-				builtin.buffers({ sort_mru = true, ignore_current_buffer = true })
+				builtin.buffers({ sort_mru = true, ignore_current_buffer = true, show_all_buffers = true })
 			end, { desc = "[F]ind existing [b]uffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
