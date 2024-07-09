@@ -47,6 +47,11 @@ set("n", "<M-.>", "<C-w>5>", { desc = "Increase width" })
 set("n", "<M-i>", "<C-W>-", { desc = "Decrease height" })
 set("n", "<M-o>", "<C-W>+", { desc = "Increase height" })
 
+
+-- Shift left and right in visual mode (and remain in visual mode)
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
+
 -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
