@@ -14,9 +14,6 @@ vim.g.have_nerd_font = true
 -- Setting options
 require("options")
 
--- Keymaps
-require("keymaps")
-
 -- Terminal
 require("terminal")
 
@@ -28,6 +25,9 @@ require("lazy-bootstrap")
 
 -- Configure and install plugins
 require("lazy-plugins")
+
+-- Keymaps
+require("keymaps")
 
 -- Modeline (see `:modeline`)
 -- vim: ts=2 sts=2 sw=2 et

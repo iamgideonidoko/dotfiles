@@ -84,6 +84,18 @@ U.command_exists = function(name)
 	return vim.api.nvim_get_commands({})[name] ~= nil
 end
 
+--- Adds an empty line either above or below the current line
+--- @param to_below boolean
+--- @return nil
+U.add_empty_line = function(to_below)
+	local current_line = vim.api.nvim_win_get_cursor(0)[1] -- Get the current line number
+	if to_below then
+		vim.api.nvim_buf_set_lines(0, current_line, current_line, false, { "" }) -- Insert an empty line below the current line
+	else
+		vim.api.nvim_buf_set_lines(0, current_line - 1, current_line - 1, false, { "" }) -- Insert an empty line above the current line
+	end
+end
+
 return U
 
 -- vim: ts=2 sts=2 sw=2 et
