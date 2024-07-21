@@ -26,14 +26,14 @@ set("n", "<leader>X", function()
 	require("utils").smart_close_buffer(true)
 end, { desc = "Force close current buffer" })
 
--- Keybinds to make split navigation easier.
+-- Keybinds to make split navigation easier. (already properly handled by `christoomey/vim-tmux-navigator`)
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+-- set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+-- set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+-- set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Move in insert mode
 set("i", "<C-h>", "<Left>", { desc = "Move left" })
@@ -55,13 +55,13 @@ vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
 -- Insert an empty line below
-set("n", "<C-J>", function()
+set("n", "<M-J>", function()
 	require("utils").add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
 
 set(
 	"n",
-	"<C-K>",
+	"<M-K>",
 	require("utils").add_empty_line,
 	{ desc = "Insert an empty line above current", noremap = true, silent = true }
 )
