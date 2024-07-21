@@ -1,4 +1,6 @@
 local U = {}
+_G.buffer_usage = _G.buffer_usage or {}
+U.updating_buffer = false
 
 local function get_loaded_buffers()
 	local result = {}
@@ -9,6 +11,18 @@ local function get_loaded_buffers()
 		end
 	end
 	return result
+end
+
+-- Function to clean up invalid buffers from the buffer usage list
+local function cleanup_buffer_usage()
+	-- Filter out invalid buffers
+	local valid_buffers = {}
+	for _, buf in ipairs(_G.buffer_usage) do
+		if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+			table.insert(valid_buffers, buf)
+		end
+	end
+	_G.buffer_usage = valid_buffers
 end
 
 U.js_related_languages = {
@@ -94,6 +108,79 @@ U.add_empty_line = function(to_below)
 	else
 		vim.api.nvim_buf_set_lines(0, current_line - 1, current_line - 1, false, { "" }) -- Insert an empty line above the current line
 	end
+end
+
+U.update_buffer_usage = function()
+	local buf = vim.api.nvim_get_current_buf()
+	if U.updating_buffer then
+		return
+	end
+	-- Remove the buffer if it already exists to push it to the end
+	for i, b in ipairs(_G.buffer_usage) do
+		if b == buf then
+			table.remove(_G.buffer_usage, i)
+			break
+		end
+	end
+	-- Insert the buffer at the end (most recently used)
+	table.insert(_G.buffer_usage, buf)
+end
+
+-- Function to navigate to the next buffer in the most recently used order
+U.bnext_mru = function()
+	cleanup_buffer_usage()
+	-- If there are no buffers or only one buffer, do nothing
+	if #_G.buffer_usage <= 1 then
+		return
+	end
+
+	-- Get the current buffer and find its index in the buffer_usage list
+	local current_buf = vim.api.nvim_get_current_buf()
+	local current_index
+	for i, buf in ipairs(_G.buffer_usage) do
+		if buf == current_buf then
+			current_index = i
+			break
+		end
+	end
+
+	-- Calculate the next index in a circular manner
+	local next_index = (current_index % #_G.buffer_usage) + 1
+	local next_buf = _G.buffer_usage[next_index]
+
+	-- Switch to the next buffer
+	vim.api.nvim_set_current_buf(next_buf)
+end
+
+-- Function to navigate to the previous buffer in the most recently used order
+U.bprev_mru = function()
+	cleanup_buffer_usage()
+	-- If there are no buffers or only one buffer, do nothing
+	if #_G.buffer_usage <= 1 then
+		return
+	end
+
+	-- Get the current buffer and find its index in the buffer_usage list
+	local current_buf = vim.api.nvim_get_current_buf()
+	local current_index
+	for i, buf in ipairs(_G.buffer_usage) do
+		if buf == current_buf then
+			current_index = i
+			break
+		end
+	end
+
+	-- Calculate the previous index in a circular manner
+	local prev_index = current_index - 1
+	if prev_index < 1 then
+		prev_index = #_G.buffer_usage
+	end
+	local prev_buf = _G.buffer_usage[prev_index]
+
+	U.updating_buffer = true
+	-- Switch to the previous buffer
+	vim.api.nvim_set_current_buf(prev_buf)
+	U.updating_buffer = false
 end
 
 return U

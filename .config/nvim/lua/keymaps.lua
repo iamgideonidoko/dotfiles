@@ -1,5 +1,7 @@
 -- [[Keymaps (see `:help vim.keymap.set()`)]]
 
+local U = require("utils")
+
 local set = vim.keymap.set
 local opt = vim.opt
 
@@ -21,9 +23,9 @@ set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 set("n", "<Tab>", "<cmd>bnext!<CR>")
 set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
-set("n", "<leader>x", require("utils").smart_close_buffer, { desc = "Close current buffer" })
+set("n", "<leader>x", U.smart_close_buffer, { desc = "Close current buffer" })
 set("n", "<leader>X", function()
-	require("utils").smart_close_buffer(true)
+	U.smart_close_buffer(true)
 end, { desc = "Force close current buffer" })
 
 -- Keybinds to make split navigation easier. (already properly handled by `christoomey/vim-tmux-navigator`)
@@ -56,14 +58,13 @@ set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text
 
 -- Insert an empty line below
 set("n", "<M-J>", function()
-	require("utils").add_empty_line(true)
+	U.add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
+-- Insert an empty line above
+set("n", "<M-K>", U.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
-set(
-	"n",
-	"<M-K>",
-	require("utils").add_empty_line,
-	{ desc = "Insert an empty line above current", noremap = true, silent = true }
-)
+-- Keymaps to navigate through buffers in most recently used order
+set("n", "<M-l>", U.bnext_mru, { noremap = true, silent = true })
+set("n", "<M-h>", U.bprev_mru, { noremap = true, silent = true })
 
 -- vim: ts=2 sts=2 sw=2 et

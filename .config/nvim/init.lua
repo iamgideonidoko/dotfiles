@@ -11,6 +11,9 @@ vim.g.autoformat = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Global table to keep track of buffer usage
+vim.g.buffer_usage = {}
+
 -- Setting options
 require("options")
 
