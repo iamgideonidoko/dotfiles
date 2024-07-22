@@ -57,11 +57,11 @@ vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
 -- Insert an empty line below
-set("n", "<M-J>", function()
+set("n", "<M-j>", function()
 	U.add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
 -- Insert an empty line above
-set("n", "<M-K>", U.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
+set("n", "<M-k>", U.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- Keymaps to navigate through buffers in most recently used order
 set("n", "<Tab>", U.bnext_mru, { noremap = true, silent = true })
