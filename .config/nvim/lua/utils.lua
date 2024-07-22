@@ -148,8 +148,10 @@ U.bnext_mru = function()
 	local next_index = (current_index % #_G.buffer_usage) + 1
 	local next_buf = _G.buffer_usage[next_index]
 
+	U.updating_buffer = true
 	-- Switch to the next buffer
 	vim.api.nvim_set_current_buf(next_buf)
+	U.updating_buffer = false
 end
 
 -- Function to navigate to the previous buffer in the most recently used order

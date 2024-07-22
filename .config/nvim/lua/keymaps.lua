@@ -21,8 +21,8 @@ set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
-set("n", "<Tab>", "<cmd>bnext!<CR>")
-set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
+-- set("n", "<Tab>", "<cmd>bnext!<CR>")
+-- set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
 set("n", "<leader>x", U.smart_close_buffer, { desc = "Close current buffer" })
 set("n", "<leader>X", function()
 	U.smart_close_buffer(true)
@@ -64,7 +64,7 @@ end, { desc = "Insert an empty line below current", noremap = true, silent = tru
 set("n", "<M-K>", U.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- Keymaps to navigate through buffers in most recently used order
-set("n", "<M-l>", U.bnext_mru, { noremap = true, silent = true })
-set("n", "<M-h>", U.bprev_mru, { noremap = true, silent = true })
+set("n", "<Tab>", U.bnext_mru, { noremap = true, silent = true })
+set("n", "<S-Tab>", U.bprev_mru, { noremap = true, silent = true })
 
 -- vim: ts=2 sts=2 sw=2 et
