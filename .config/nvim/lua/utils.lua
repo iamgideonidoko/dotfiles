@@ -1,13 +1,13 @@
 local U = {}
 _G.buffer_usage = _G.buffer_usage or {}
 U.updating_buffer = false
-U.short_updating_buffer = false -- would be reset by the `update_buffer_usage` function
+U.auto_off_updating_buffer = false -- would be reset by the `update_buffer_usage` function
 
 local function get_loaded_buffers()
 	local result = {}
 	local buffers = vim.api.nvim_list_bufs()
 	for _, buf in ipairs(buffers) do
-		if vim.api.nvim_buf_is_loaded(buf) then
+		if 1 == vim.fn.buflisted(buf) then
 			table.insert(result, buf)
 		end
 	end
@@ -19,7 +19,7 @@ local function cleanup_buffer_usage()
 	-- Filter out invalid buffers
 	local valid_buffers = {}
 	for _, buf in ipairs(_G.buffer_usage) do
-		if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+		if 1 == vim.fn.buflisted(buf) then
 			table.insert(valid_buffers, buf)
 		end
 	end
@@ -126,16 +126,13 @@ U.is_oil_buffer = function()
 end
 
 U.update_buffer_usage = function()
-	if U.is_oil_buffer() then
-		U.short_updating_buffer = false
-		return
-	end
+	-- if U.is_floating_window() or U.updating_buffer then
 	if U.is_floating_window() or U.updating_buffer then
 		return
 	end
 	local buf = vim.api.nvim_get_current_buf()
-	if U.short_updating_buffer then
-		U.short_updating_buffer = false
+	if U.auto_off_updating_buffer then
+		U.auto_off_updating_buffer = false
 		return
 	end
 	-- Remove the buffer if it already exists to push it to the end
@@ -146,6 +143,9 @@ U.update_buffer_usage = function()
 		end
 	end
 	-- Insert the buffer at the end (most recently used)
+	if 1 ~= vim.fn.buflisted(buf) then
+		return
+	end
 	table.insert(_G.buffer_usage, buf)
 end
 
@@ -222,6 +222,26 @@ U.bprev_mru = function()
 	-- Switch to the previous buffer
 	vim.api.nvim_set_current_buf(prev_buf)
 	U.updating_buffer = false
+end
+
+U.mru_sorted_bufnrs = function()
+	local bufnrs = vim.tbl_filter(function(bufnr)
+		if 1 ~= vim.fn.buflisted(bufnr) then
+			return false
+		end
+		if bufnr == vim.api.nvim_get_current_buf() then
+			return false -- Exempt current buffer
+		end
+		return true
+	end, vim.api.nvim_list_bufs())
+	if not next(bufnrs) then
+		print("No buffers found")
+		return
+	end
+	table.sort(bufnrs, function(a, b)
+		return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
+	end)
+	return bufnrs
 end
 
 return U
