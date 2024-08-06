@@ -39,10 +39,10 @@ U.js_related_languages = {
 -- Switch a loaded alt buffer
 U.smart_close_buffer = function(force, given_bufnr)
 	local bufnr = given_bufnr or vim.api.nvim_get_current_buf()
-	if not force and vim.api.nvim_buf_get_option(bufnr, "modified") then
+	if not force and vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
 		return vim.api.nvim_err_writeln("Buffer is modified. Force required.")
 	end
-	if not force and vim.api.nvim_buf_get_option(bufnr, "buftype") == "terminal" then
+	if not force and vim.api.nvim_get_option_value("buftype", { buf = bufnr }) == "terminal" then
 		return vim.api.nvim_err_writeln("Buffer is a terminal. Force required.")
 	end
 	-- Alternate bufnr
