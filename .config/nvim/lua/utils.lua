@@ -126,7 +126,11 @@ U.is_oil_buffer = function()
 end
 
 U.update_buffer_usage = function()
-	if U.is_floating_window() or U.is_oil_buffer() or U.updating_buffer then
+	if U.is_oil_buffer() then
+		U.short_updating_buffer = false
+		return
+	end
+	if U.is_floating_window() or U.updating_buffer then
 		return
 	end
 	local buf = vim.api.nvim_get_current_buf()
