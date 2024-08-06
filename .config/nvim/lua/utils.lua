@@ -117,14 +117,16 @@ U.is_floating_window = function()
 	return win_config.relative ~= ""
 end
 
+U.is_oil_buffer = function()
+	local filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+	return filetype == "oil" -- Replace 'oil' with the actual filetype used by oil.nvim
+end
+
 U.update_buffer_usage = function()
-	if U.is_floating_window() then
+	if U.is_floating_window() or U.is_oil_buffer() or U.updating_buffer then
 		return
 	end
 	local buf = vim.api.nvim_get_current_buf()
-	if U.updating_buffer then
-		return
-	end
 	if U.short_updating_buffer then
 		U.short_updating_buffer = false
 		return
@@ -158,6 +160,11 @@ U.bnext_mru = function()
 		end
 	end
 
+	-- Buffer not found in record
+	if current_index == nil then
+		return
+	end
+
 	-- Calculate the next index in a circular manner
 	local next_index = (current_index % #_G.buffer_usage) + 1
 	local next_buf = _G.buffer_usage[next_index]
@@ -184,6 +191,11 @@ U.bprev_mru = function()
 			current_index = i
 			break
 		end
+	end
+
+	-- Buffer not found in record
+	if current_index == nil then
+		return
 	end
 
 	-- Calculate the previous index in a circular manner
