@@ -69,6 +69,7 @@ U.smart_close_buffer = function(force, given_bufnr)
 			break
 		end
 	end
+	U.updating_buffer = true
 	-- Loop through all windows that is displaying the current buffer
 	for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
 		if alt_bufnr_active then
@@ -82,6 +83,8 @@ U.smart_close_buffer = function(force, given_bufnr)
 	end
 	-- Finally, delete the original buffer
 	vim.api.nvim_buf_delete(bufnr, { force = force })
+	cleanup_buffer_usage()
+	U.updating_buffer = false
 end
 
 U.check_keybinding_exists = function(mode, lhs)
