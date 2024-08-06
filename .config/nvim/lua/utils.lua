@@ -1,6 +1,7 @@
 local U = {}
 _G.buffer_usage = _G.buffer_usage or {}
 U.updating_buffer = false
+U.short_updating_buffer = false -- would be reset by the `update_buffer_usage` function
 
 local function get_loaded_buffers()
 	local result = {}
@@ -110,9 +111,22 @@ U.add_empty_line = function(to_below)
 	end
 end
 
+U.is_floating_window = function()
+	local win_id = vim.api.nvim_get_current_win()
+	local win_config = vim.api.nvim_win_get_config(win_id)
+	return win_config.relative ~= ""
+end
+
 U.update_buffer_usage = function()
+	if U.is_floating_window() then
+		return
+	end
 	local buf = vim.api.nvim_get_current_buf()
 	if U.updating_buffer then
+		return
+	end
+	if U.short_updating_buffer then
+		U.short_updating_buffer = false
 		return
 	end
 	-- Remove the buffer if it already exists to push it to the end

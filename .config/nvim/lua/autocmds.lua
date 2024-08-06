@@ -96,4 +96,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = U.update_buffer_usage,
 })
 
+vim.api.nvim_create_autocmd("WinClosed", {
+	callback = function()
+		if U.is_floating_window() then
+			U.short_updating_buffer = true
+		end
+	end,
+})
 -- vim: ts=2 sts=2 sw=2 et
