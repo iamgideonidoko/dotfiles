@@ -148,6 +148,9 @@ end
 -- Function to navigate to the next buffer in the most recently used order
 U.bnext_mru = function()
 	cleanup_buffer_usage()
+	if U.is_oil_buffer() then
+		return U.smart_close_buffer()
+	end
 	-- If there are no buffers or only one buffer, do nothing
 	if #_G.buffer_usage <= 1 then
 		return
@@ -181,6 +184,9 @@ end
 -- Function to navigate to the previous buffer in the most recently used order
 U.bprev_mru = function()
 	cleanup_buffer_usage()
+	if U.is_oil_buffer() then
+		return U.smart_close_buffer()
+	end
 	-- If there are no buffers or only one buffer, do nothing
 	if #_G.buffer_usage <= 1 then
 		return
