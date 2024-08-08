@@ -2,7 +2,6 @@ local U = {}
 _G.buffer_usage = _G.buffer_usage or {}
 U.updating_buffer = false
 U.auto_off_updating_buffer = false -- would be reset by the `update_buffer_usage` function
-U.last_valid_buffer = nil
 
 local function get_loaded_buffers()
 	local result = {}
@@ -143,13 +142,7 @@ end
 
 U.update_buffer_usage = function()
 	local buf = vim.api.nvim_get_current_buf()
-	if U.last_valid_buffer == buf then
-		return
-	end
-	if 1 == vim.fn.buflisted(buf) then
-		U.last_valid_buffer = buf
-	end
-	if U.is_floating_window() or U.updating_buffer then -- is_floating_window here actually does nothing cause when the floating_window is
+	if U.is_floating_window() or U.updating_buffer then
 		return
 	end
 	if U.auto_off_updating_buffer then
