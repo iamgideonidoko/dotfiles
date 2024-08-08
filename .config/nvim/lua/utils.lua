@@ -2,6 +2,7 @@ local U = {}
 _G.buffer_usage = _G.buffer_usage or {}
 U.updating_buffer = false
 U.auto_off_updating_buffer = false -- would be reset by the `update_buffer_usage` function
+U.last_valid_buffer = nil
 
 local function get_loaded_buffers()
 	local result = {}
@@ -24,6 +25,21 @@ local function cleanup_buffer_usage()
 		end
 	end
 	_G.buffer_usage = valid_buffers
+end
+
+-- @param bufnr number
+U.is_buffer_in_other_splits = function(bufnr)
+	local current_win = vim.api.nvim_get_current_win()
+	local windows = vim.api.nvim_list_wins()
+	for _, win in ipairs(windows) do
+		if win ~= current_win then
+			local buf = vim.api.nvim_win_get_buf(win)
+			if buf == bufnr then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 U.js_related_languages = {
@@ -126,11 +142,16 @@ U.is_oil_buffer = function()
 end
 
 U.update_buffer_usage = function()
-	-- if U.is_floating_window() or U.updating_buffer then
-	if U.is_floating_window() or U.updating_buffer then
+	local buf = vim.api.nvim_get_current_buf()
+	if U.last_valid_buffer == buf then
 		return
 	end
-	local buf = vim.api.nvim_get_current_buf()
+	if 1 == vim.fn.buflisted(buf) then
+		U.last_valid_buffer = buf
+	end
+	if U.is_floating_window() or U.updating_buffer then -- is_floating_window here actually does nothing cause when the floating_window is
+		return
+	end
 	if U.auto_off_updating_buffer then
 		U.auto_off_updating_buffer = false
 		return
