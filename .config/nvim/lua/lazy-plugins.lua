@@ -52,6 +52,8 @@ require("lazy").setup({
 	require("plugins.oil"),
 
 	require("plugins.git-conflict"),
+
+	require("plugins.dashboard"),
 }, {
 	ui = {
 		-- If nerd font is enabled, set icons to an empty table which will use the

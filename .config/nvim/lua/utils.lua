@@ -60,6 +60,14 @@ U.smart_close_buffer = function(force, given_bufnr)
 	if not force and vim.api.nvim_get_option_value("buftype", { buf = bufnr }) == "terminal" then
 		return vim.api.nvim_err_writeln("Buffer is a terminal. Force required.")
 	end
+	local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+	if filetype == "dashboard" then
+		local last_buf = _G.buffer_usage[#_G.buffer_usage]
+		if last_buf == nil then
+			return
+		end
+		return vim.api.nvim_set_current_buf(last_buf)
+	end
 	-- Alternate bufnr
 	---@diagnostic disable: param-type-mismatch
 	local alt_bufnr = vim.fn.bufnr("#")
