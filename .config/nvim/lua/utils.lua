@@ -1,7 +1,8 @@
 local U = {}
 _G.buffer_usage = _G.buffer_usage or {}
 U.updating_buffer = false
-U.auto_off_updating_buffer = false -- would be reset by the `update_buffer_usage` function
+U.auto_off_disable_updating_buffer = false -- would be reset by the `update_buffer_usage` function
+U.telescope_selection_made = false
 
 local function get_loaded_buffers()
 	local result = {}
@@ -153,8 +154,8 @@ U.update_buffer_usage = function()
 	if U.is_floating_window() or U.updating_buffer then
 		return
 	end
-	if U.auto_off_updating_buffer then
-		U.auto_off_updating_buffer = false
+	if U.auto_off_disable_updating_buffer then
+		U.auto_off_disable_updating_buffer = false
 		return
 	end
 	-- Remove the buffer if it already exists to push it to the end

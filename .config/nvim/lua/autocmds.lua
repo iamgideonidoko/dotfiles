@@ -52,7 +52,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		local cwd = vim.fn.getcwd()
 		-- Ensure that the file path is normalized and absolute
 		local normalized_path = vim.fn.fnamemodify(path, ":p")
-		-- print("path: ", path, "normalized path: ", normalized_path)
 		-- Check if the file path starts with the current working directory
 		if normalized_path:sub(1, #cwd) ~= cwd then
 			return
@@ -96,4 +95,23 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = U.update_buffer_usage,
 })
 
+local last_closed_time = 0
+local debounce_duration = 1
+vim.api.nvim_create_autocmd("WinClosed", {
+	group = vim.api.nvim_create_augroup("telescope_selection", { clear = true }),
+	callback = function()
+		local current_time = vim.fn.reltimefloat(vim.fn.reltime())
+		if current_time - last_closed_time > debounce_duration then
+			last_closed_time = current_time
+			if U.is_floating_window() then
+				if not U.telescope_selection_made then
+					U.auto_off_disable_updating_buffer = true
+				else
+					U.auto_off_disable_updating_buffer = false
+					U.telescope_selection_made = false
+				end
+			end
+		end
+	end,
+})
 -- vim: ts=2 sts=2 sw=2 et

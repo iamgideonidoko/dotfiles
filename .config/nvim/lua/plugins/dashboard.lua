@@ -23,7 +23,6 @@ I/::::\...:´/\       \::::'/    /¯¯¯¯’/             /       /;;::· ´   
                        ¯¯ '               ¯                              ’'`*-::;/::::`*-::;/::::-·· ´´               
 ]]
 		logo = string.rep("\n", 1) .. logo .. "\n ...THE GRIND IS ETERNAL!!!...\n"
-		local telescope = require("telescope.builtin")
 		local opts = {
 			theme = "doom",
 			hide = {
@@ -35,7 +34,9 @@ I/::::\...:´/\       \::::'/    /¯¯¯¯’/             /       /;;::· ´   
 				header = vim.split(logo, "\n"),
         -- stylua: ignore
         center = {
-          { action = telescope.find_files, desc = " Find File",       icon = " ", key = "f" },
+          { action = function ()
+            vim.cmd('Telescope find_files')
+          end, desc = " Find File", icon = " ", key = "f" },
           { action = "qa", desc = " Quit", icon = " ", key = "q" },
         },
 				footer = function()

@@ -49,6 +49,7 @@ return {
 			-- See `:help telescope` and `:help telescope.setup()`
 			local actions = require("telescope.actions")
 			local action_state = require("telescope.actions.state")
+			local U = require("utils")
 			require("telescope").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`
@@ -65,6 +66,40 @@ return {
 								if picker.prompt_title == "Buffers" then
 									actions.delete_buffer(prompt_bufnr)
 								end
+							end,
+							["<CR>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_default(prompt_bufnr)
+							end,
+							["<C-x>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_horizontal(prompt_bufnr)
+							end,
+							["<C-v>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_vertical(prompt_bufnr)
+							end,
+							["<C-t>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_tab(prompt_bufnr)
+							end,
+						},
+						n = {
+							["<CR>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_default(prompt_bufnr)
+							end,
+							["<C-x>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_horizontal(prompt_bufnr)
+							end,
+							["<C-v>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_vertical(prompt_bufnr)
+							end,
+							["<C-t>"] = function(prompt_bufnr)
+								U.telescope_selection_made = true
+								actions.select_tab(prompt_bufnr)
 							end,
 						},
 					},
