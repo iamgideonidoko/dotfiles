@@ -6,6 +6,9 @@
 require("lazy").setup({
 	-- Package manager
 	require("plugins.mason"),
+
+	require("plugins.noice"),
+
 	-- Helper plugins
 	{ import = "plugins.utils" },
 
