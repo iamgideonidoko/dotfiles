@@ -23,6 +23,7 @@ return {
 				"glsl",
 				"xml",
 				"graphql",
+				"regex",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
