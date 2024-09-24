@@ -267,6 +267,38 @@ U.mru_sorted_bufnrs = function()
 	return bufnrs
 end
 
+U.manage_mru_buffers = function()
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local buf_names = {}
+	for _, buf in ipairs(_G.buffer_usage) do
+		local buffer = vim.fn.getbufinfo(buf)[1]
+		local bufname = buffer.name ~= "" and buffer.name or "[No Name]"
+		local bufnr = buffer.bufnr
+		local flags = ""
+		if buffer.listed == 1 then
+			flags = flags .. "a"
+		end
+		if buffer.hidden == 1 then
+			flags = flags .. "h"
+		end
+		local is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+		if is_modified then
+			flags = flags .. "+"
+		end
+		local relative_path = vim.fn.fnamemodify(bufname, ":.")
+		table.insert(buf_names, string.format("%d: %s %s", bufnr, flags, relative_path))
+	end
+	pickers
+		.new({}, {
+			prompt_title = "Buffer Manager",
+			finder = finders.new_table({
+				results = buf_names,
+			}),
+		})
+		:find()
+end
+
 return U
 
 -- vim: ts=2 sts=2 sw=2 et
