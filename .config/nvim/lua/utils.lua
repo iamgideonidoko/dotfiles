@@ -347,6 +347,7 @@ end
 
 U.open_buffer_manager = function()
 	_G.buffer_usage = _G.buffer_usage or {}
+  cleanup_buffer_usage()
 	-- Skip if the buffer manager window already exists
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
 		vim.api.nvim_set_current_window(_G.buf_manager_win_id)
