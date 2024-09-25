@@ -364,6 +364,7 @@ local function close_buffer_manager()
 end
 
 U.open_buffer_manager = function()
+	_G.last_win_b4_buf_manager = vim.api.nvim_get_current_win()
 	_G.buffer_usage = _G.buffer_usage or {}
 	cleanup_buffer_usage()
 	-- Skip if the buffer manager window already exists
@@ -434,6 +435,20 @@ U.open_buffer_manager = function()
 		silent = true,
 		callback = function()
 			close_buffer_manager()
+		end,
+	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<CR>", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			U.updating_buffer = true
+			local current_line = vim.fn.line(".")
+			close_buffer_manager()
+			local selected_buffer = _G.buffer_usage[current_line]
+			if selected_buffer ~= nil and _G.last_win_b4_buf_manager ~= nil then
+				vim.api.nvim_win_set_buf(_G.last_win_b4_buf_manager, _G.buffer_usage[current_line])
+			end
+			U.updating_buffer = false
 		end,
 	})
 end
