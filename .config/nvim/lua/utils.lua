@@ -267,83 +267,45 @@ U.mru_sorted_bufnrs = function()
 	return bufnrs
 end
 
-local function get_buf_names()
-	local buf_names = {}
-	for _, buf in ipairs(_G.buffer_usage) do
-		local buffer = vim.fn.getbufinfo(buf)[1]
-		local bufname = buffer.name ~= "" and buffer.name or "[No Name]"
-		local bufnr = buffer.bufnr
-		local flags = ""
-		if buffer.listed == 1 then
-			flags = flags .. "a"
-		end
-		if buffer.hidden == 1 then
-			flags = flags .. "h"
-		end
-		local is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
-		if is_modified then
-			flags = flags .. "+"
-		end
-		local relative_path = vim.fn.fnamemodify(bufname, ":.")
-		table.insert(buf_names, string.format("%d: %s %s", bufnr, flags, relative_path))
-	end
-	return buf_names
-end
-
--- Function to move buffer up or down
-local function move_buffer(direction, prompt_bufnr)
-	local action_state = require("telescope.actions.state")
-	local finders = require("telescope.finders")
-	local current_picker = action_state.get_current_picker(prompt_bufnr)
-	local selected_entry = action_state.get_selected_entry()
-	local selected_bufnr = selected_entry.value
-	-- Find the position of the selected buffer in _G.buffer_usage
-	local idx = nil
-	for i, bufnr in ipairs(_G.buffer_usage) do
-		if bufnr == selected_bufnr then
-			idx = i
-			break
+--- @param table table
+--- @param value any
+U.table_contains = function(table, value)
+	for _, buf in ipairs(table) do
+		if buf == value then
+			return true
 		end
 	end
-	if idx then
-		-- Swap the buffer position based on direction
-		if direction == "up" and idx > 1 then
-			_G.buffer_usage[idx], _G.buffer_usage[idx - 1] = _G.buffer_usage[idx - 1], _G.buffer_usage[idx]
-		elseif direction == "down" and idx < #_G.buffer_usage then
-			_G.buffer_usage[idx], _G.buffer_usage[idx + 1] = _G.buffer_usage[idx + 1], _G.buffer_usage[idx]
-		end
-	end
-	-- Refresh the picker
-	current_picker:refresh(
-		finders.new_table({
-			results = get_buf_names(),
-			-- entry_maker = function(entry)
-			-- 	local buf_name = vim.fn.bufname(entry)
-			-- 	return {
-			-- 		value = entry,
-			-- 		display = buf_name ~= "" and buf_name or ("[No Name] (Buffer " .. entry .. ")"),
-			-- 		ordinal = buf_name,
-			-- 	}
-			-- end,
-		}),
-		{ reset_prompt = true }
-	)
+	return false
 end
 
 -- Function to refresh the buffer manager content
 local function render_buffers_in_manager()
 	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
 		-- Make buffer modifiable to update content
-		vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", true)
+		vim.api.nvim_set_option_value("modifiable", true, {
+			buf = _G.buf_manager_buf_id,
+		})
 		-- Fill the buffer with buffer numbers and file names
 		local buf_lines = {}
 		for _, buf_id in ipairs(_G.buffer_usage) do
-			local buf_name = vim.fn.bufname(buf_id) or "[No Name]"
-			table.insert(buf_lines, string.format("Buf %d: %s", buf_id, buf_name))
+			local buffer = vim.fn.getbufinfo(buf_id)[1]
+			if buffer then
+				local bufname = buffer.name ~= "" and buffer.name or "[No Name]"
+				local bufnr = buffer.bufnr
+				local flags = ""
+				local is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+				if is_modified then
+					flags = flags .. "[+]"
+				end
+				local relative_path = vim.fn.fnamemodify(bufname, ":.")
+				table.insert(buf_lines, string.format("%s%d>%s", flags, bufnr, relative_path))
+			end
 		end
 		-- Set the lines and make buffer non-modifiable again
 		vim.api.nvim_buf_set_lines(_G.buf_manager_buf_id, 0, -1, false, buf_lines)
-		vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", false)
+		vim.api.nvim_set_option_value("modifiable", false, {
+			buf = _G.buf_manager_buf_id,
+		})
 	end
 end
 
@@ -374,7 +336,7 @@ end
 -- Delete
 local function close_buffer_manager()
 	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
-		vim.api.nvim_buf_delete(_G.buf_manager_win_id, { force = true })
+		vim.api.nvim_buf_delete(_G.buf_manager_buf_id, { force = true })
 		_G.buf_manager_buf_id = nil
 	end
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
@@ -384,8 +346,10 @@ local function close_buffer_manager()
 end
 
 U.open_buffer_manager = function()
+	_G.buffer_usage = _G.buffer_usage or {}
 	-- Skip if the buffer manager window already exists
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
+		vim.api.nvim_set_current_window(_G.buf_manager_win_id)
 		return
 	end
 	local win_width = 50
@@ -394,27 +358,52 @@ U.open_buffer_manager = function()
 	local win_opts = {
 		relative = "editor",
 		width = win_width,
-		height = #_G.buffer_usage + 0, -- Account for buffer lines + borders
+		height = #_G.buffer_usage > 0 and #_G.buffer_usage or 1, -- Account for buffer lines + borders
 		row = (vim.o.lines - #_G.buffer_usage) / 2,
 		col = (vim.o.columns - win_width) / 2,
 		style = "minimal",
 		border = "rounded",
 		title = "Buffer Manager",
 		title_pos = "center",
+		noautocmd = true,
 	}
 	-- Floating window for manager
 	_G.buf_manager_win_id = vim.api.nvim_open_win(_G.buf_manager_buf_id, true, win_opts)
-	vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", false)
+	vim.api.nvim_set_option_value("cursorline", true, {
+		win = _G.buf_manager_win_id,
+	})
+	vim.api.nvim_set_option_value("modifiable", false, {
+		buf = _G.buf_manager_buf_id,
+	})
+	vim.api.nvim_set_option_value("wrap", false, {
+		win = _G.buf_manager_win_id,
+	})
+	-- Render buffers
 	render_buffers_in_manager()
-	-- Keybindings
-	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Up>", "", {
+	-- Prevent the window manager buffer from being overridden
+	vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+		group = vim.api.nvim_create_augroup("BufferManagerPreventLoad", { clear = true }),
+		callback = function()
+			if vim.api.nvim_get_current_win() == _G.buf_manager_win_id then
+				local current_buf_id = vim.api.nvim_get_current_buf()
+				if current_buf_id ~= _G.buf_manager_buf_id then
+					vim.api.nvim_set_current_buf(_G.buf_manager_buf_id) -- Revert to the original buffer
+					if not U.table_contains(_G.buffer_usage, current_buf_id) then
+						vim.api.nvim_buf_delete(current_buf_id, { force = true })
+					end
+				end
+			end
+		end,
+	})
+	-- Add Keybindings
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-k>", "", {
 		noremap = true,
 		silent = true,
 		callback = function()
 			move_buffer_in_manager__up()
 		end,
 	})
-	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Down>", "", {
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-j>", "", {
 		noremap = true,
 		silent = true,
 		callback = function()
