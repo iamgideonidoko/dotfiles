@@ -278,7 +278,7 @@ U.table_contains = function(table, value)
 	return false
 end
 
--- Function to refresh the buffer manager content
+-- Refresh the buffer manager content/list
 local function render_buffers_in_manager()
 	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
 		-- Make buffer modifiable to update content
@@ -311,7 +311,6 @@ end
 
 -- Move the current buffer up in the buffer_usage table
 local function move_buffer_in_manager__up()
-	-- Get the index of the current line
 	local current_line = vim.fn.line(".")
 	if #_G.buffer_usage == 0 then
 		return
@@ -321,18 +320,19 @@ local function move_buffer_in_manager__up()
 		local temp = _G.buffer_usage[current_line]
 		_G.buffer_usage[current_line] = _G.buffer_usage[current_line - 1]
 		_G.buffer_usage[current_line - 1] = temp
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line - 1, 1 })
 	else
 		-- If we are at the first line, move it to the last position
 		local first_buffer = _G.buffer_usage[1]
 		table.remove(_G.buffer_usage, 1)
 		table.insert(_G.buffer_usage, first_buffer)
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_usage, 1 })
 	end
 	render_buffers_in_manager()
 end
 
 -- Move the current buffer down in the buffer_usage table
 local function move_buffer_in_manager_down()
-	-- Get the index of the current line
 	local current_line = vim.fn.line(".")
 	if #_G.buffer_usage == 0 then
 		return
@@ -342,16 +342,17 @@ local function move_buffer_in_manager_down()
 		local temp = _G.buffer_usage[current_line]
 		_G.buffer_usage[current_line] = _G.buffer_usage[current_line + 1]
 		_G.buffer_usage[current_line + 1] = temp
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line + 1, 1 })
 	else
 		-- If we are at the last line, move it to the first position
 		local last_buffer = _G.buffer_usage[#_G.buffer_usage]
 		table.remove(_G.buffer_usage)
 		table.insert(_G.buffer_usage, 1, last_buffer)
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { 1, 1 })
 	end
 	render_buffers_in_manager()
 end
 
--- Delete
 local function close_buffer_manager()
 	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
 		vim.api.nvim_buf_delete(_G.buf_manager_buf_id, { force = true })
@@ -367,18 +368,17 @@ U.open_buffer_manager = function()
 	_G.last_win_b4_buf_manager = vim.api.nvim_get_current_win()
 	_G.buffer_usage = _G.buffer_usage or {}
 	cleanup_buffer_usage()
-	-- Skip if the buffer manager window already exists
+	-- Focus buffer manager window already exists
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
-		vim.api.nvim_set_current_window(_G.buf_manager_win_id)
+		vim.api.nvim_set_current_win(_G.buf_manager_win_id)
 		return
 	end
 	local win_width = 50
-	-- Define buffer and window properties
-	_G.buf_manager_buf_id = vim.api.nvim_create_buf(false, true) -- Scratch
+	_G.buf_manager_buf_id = vim.api.nvim_create_buf(false, true)
 	local win_opts = {
 		relative = "editor",
 		width = win_width,
-		height = #_G.buffer_usage > 0 and #_G.buffer_usage or 1, -- Account for buffer lines + borders
+		height = #_G.buffer_usage > 0 and #_G.buffer_usage or 1,
 		row = (vim.o.lines - #_G.buffer_usage) / 2,
 		col = (vim.o.columns - win_width) / 2,
 		style = "minimal",
@@ -387,7 +387,7 @@ U.open_buffer_manager = function()
 		title_pos = "center",
 		noautocmd = true,
 	}
-	-- Floating window for manager
+	-- Floating buffer manager
 	_G.buf_manager_win_id = vim.api.nvim_open_win(_G.buf_manager_buf_id, true, win_opts)
 	vim.api.nvim_set_option_value("cursorline", true, {
 		win = _G.buf_manager_win_id,
@@ -398,16 +398,15 @@ U.open_buffer_manager = function()
 	vim.api.nvim_set_option_value("wrap", false, {
 		win = _G.buf_manager_win_id,
 	})
-	-- Render buffers
 	render_buffers_in_manager()
-	-- Prevent the window manager buffer from being overridden
+	-- Prevent overriding
 	vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
 		group = vim.api.nvim_create_augroup("BufferManagerPreventLoad", { clear = true }),
 		callback = function()
 			if vim.api.nvim_get_current_win() == _G.buf_manager_win_id then
 				local current_buf_id = vim.api.nvim_get_current_buf()
 				if current_buf_id ~= _G.buf_manager_buf_id then
-					vim.api.nvim_set_current_buf(_G.buf_manager_buf_id) -- Revert to the original buffer
+					vim.api.nvim_set_current_buf(_G.buf_manager_buf_id)
 					if not U.table_contains(_G.buffer_usage, current_buf_id) then
 						vim.api.nvim_buf_delete(current_buf_id, { force = true })
 					end
@@ -415,7 +414,6 @@ U.open_buffer_manager = function()
 			end
 		end,
 	})
-	-- Add Keybindings
 	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-k>", "", {
 		noremap = true,
 		silent = true,
@@ -423,11 +421,35 @@ U.open_buffer_manager = function()
 			move_buffer_in_manager__up()
 		end,
 	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "k", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			local current_line = vim.fn.line(".")
+			if current_line > 1 then
+				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line - 1, 1 })
+			else
+				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_usage, 1 })
+			end
+		end,
+	})
 	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-j>", "", {
 		noremap = true,
 		silent = true,
 		callback = function()
 			move_buffer_in_manager_down()
+		end,
+	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "j", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			local current_line = vim.fn.line(".")
+			if current_line < #_G.buffer_usage then
+				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line + 1, 1 })
+			else
+				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { 1, 1 })
+			end
 		end,
 	})
 	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Esc>", "", {
