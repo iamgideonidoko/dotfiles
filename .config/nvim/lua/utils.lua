@@ -445,7 +445,11 @@ U.open_buffer_manager = function()
 			local current_line = vim.fn.line(".")
 			close_buffer_manager()
 			local selected_buffer = _G.buffer_usage[current_line]
-			if selected_buffer ~= nil and _G.last_win_b4_buf_manager ~= nil then
+			if
+				selected_buffer ~= nil
+				and _G.last_win_b4_buf_manager ~= nil
+				and vim.api.nvim_win_is_valid(_G.last_win_b4_buf_manager)
+			then
 				vim.api.nvim_win_set_buf(_G.last_win_b4_buf_manager, _G.buffer_usage[current_line])
 			end
 			U.updating_buffer = false
