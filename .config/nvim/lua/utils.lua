@@ -278,6 +278,17 @@ U.table_contains = function(table, value)
 	return false
 end
 
+--- @param table table
+--- @param item any
+U.get_table_index = function(table, item)
+	for index, value in ipairs(table) do
+		if value == item then
+			return index
+		end
+	end
+	return nil
+end
+
 -- Refresh the buffer manager content/list
 local function render_buffers_in_manager()
 	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
@@ -365,7 +376,8 @@ local function close_buffer_manager()
 end
 
 U.open_buffer_manager = function()
-	_G.last_win_b4_buf_manager = vim.api.nvim_get_current_win()
+	local last_win_b4_manager = vim.api.nvim_get_current_win()
+	local last_buf_b4_manager = vim.api.nvim_get_current_buf()
 	_G.buffer_usage = _G.buffer_usage or {}
 	cleanup_buffer_usage()
 	-- Focus buffer manager window already exists
@@ -399,6 +411,10 @@ U.open_buffer_manager = function()
 		win = _G.buf_manager_win_id,
 	})
 	render_buffers_in_manager()
+	local last_buf_index = U.get_table_index(_G.buffer_usage, last_buf_b4_manager)
+	if last_buf_index then
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { last_buf_index, 1 })
+	end
 	-- Prevent overriding
 	vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
 		group = vim.api.nvim_create_augroup("BufferManagerPreventLoad", { clear = true }),
@@ -426,6 +442,9 @@ U.open_buffer_manager = function()
 		silent = true,
 		callback = function()
 			local current_line = vim.fn.line(".")
+			if #_G.buffer_usage == 0 then
+				return
+			end
 			if current_line > 1 then
 				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line - 1, 1 })
 			else
@@ -445,6 +464,9 @@ U.open_buffer_manager = function()
 		silent = true,
 		callback = function()
 			local current_line = vim.fn.line(".")
+			if #_G.buffer_usage == 0 then
+				return
+			end
 			if current_line < #_G.buffer_usage then
 				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line + 1, 1 })
 			else
@@ -469,10 +491,10 @@ U.open_buffer_manager = function()
 			local selected_buffer = _G.buffer_usage[current_line]
 			if
 				selected_buffer ~= nil
-				and _G.last_win_b4_buf_manager ~= nil
-				and vim.api.nvim_win_is_valid(_G.last_win_b4_buf_manager)
+				and last_win_b4_manager ~= nil
+				and vim.api.nvim_win_is_valid(last_win_b4_manager)
 			then
-				vim.api.nvim_win_set_buf(_G.last_win_b4_buf_manager, _G.buffer_usage[current_line])
+				vim.api.nvim_win_set_buf(last_win_b4_manager, _G.buffer_usage[current_line])
 			end
 			U.updating_buffer = false
 		end,
