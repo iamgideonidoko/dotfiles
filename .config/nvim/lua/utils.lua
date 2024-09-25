@@ -311,26 +311,44 @@ end
 
 -- Move the current buffer up in the buffer_usage table
 local function move_buffer_in_manager__up()
-	local current_line = vim.fn.line(".") -- Get current line (1-based index)
+	-- Get the index of the current line
+	local current_line = vim.fn.line(".")
+	if #_G.buffer_usage == 0 then
+		return
+	end
 	if current_line > 1 then
 		-- Swap the current buffer with the one above
 		local temp = _G.buffer_usage[current_line]
 		_G.buffer_usage[current_line] = _G.buffer_usage[current_line - 1]
 		_G.buffer_usage[current_line - 1] = temp
-		render_buffers_in_manager() -- Rerender list
+	else
+		-- If we are at the first line, move it to the last position
+		local first_buffer = _G.buffer_usage[1]
+		table.remove(_G.buffer_usage, 1)
+		table.insert(_G.buffer_usage, first_buffer)
 	end
+	render_buffers_in_manager()
 end
 
 -- Move the current buffer down in the buffer_usage table
 local function move_buffer_in_manager_down()
+	-- Get the index of the current line
 	local current_line = vim.fn.line(".")
+	if #_G.buffer_usage == 0 then
+		return
+	end
 	if current_line < #_G.buffer_usage then
 		-- Swap the current buffer with the one below
 		local temp = _G.buffer_usage[current_line]
 		_G.buffer_usage[current_line] = _G.buffer_usage[current_line + 1]
 		_G.buffer_usage[current_line + 1] = temp
-		render_buffers_in_manager() -- Rerender list
+	else
+		-- If we are at the last line, move it to the first position
+		local last_buffer = _G.buffer_usage[#_G.buffer_usage]
+		table.remove(_G.buffer_usage)
+		table.insert(_G.buffer_usage, 1, last_buffer)
 	end
+	render_buffers_in_manager()
 end
 
 -- Delete
@@ -347,7 +365,7 @@ end
 
 U.open_buffer_manager = function()
 	_G.buffer_usage = _G.buffer_usage or {}
-  cleanup_buffer_usage()
+	cleanup_buffer_usage()
 	-- Skip if the buffer manager window already exists
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
 		vim.api.nvim_set_current_window(_G.buf_manager_win_id)
