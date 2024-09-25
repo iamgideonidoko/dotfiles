@@ -267,9 +267,7 @@ U.mru_sorted_bufnrs = function()
 	return bufnrs
 end
 
-U.manage_mru_buffers = function()
-	local pickers = require("telescope.pickers")
-	local finders = require("telescope.finders")
+local function get_buf_names()
 	local buf_names = {}
 	for _, buf in ipairs(_G.buffer_usage) do
 		local buffer = vim.fn.getbufinfo(buf)[1]
@@ -289,14 +287,147 @@ U.manage_mru_buffers = function()
 		local relative_path = vim.fn.fnamemodify(bufname, ":.")
 		table.insert(buf_names, string.format("%d: %s %s", bufnr, flags, relative_path))
 	end
-	pickers
-		.new({}, {
-			prompt_title = "Buffer Manager",
-			finder = finders.new_table({
-				results = buf_names,
-			}),
-		})
-		:find()
+	return buf_names
+end
+
+-- Function to move buffer up or down
+local function move_buffer(direction, prompt_bufnr)
+	local action_state = require("telescope.actions.state")
+	local finders = require("telescope.finders")
+	local current_picker = action_state.get_current_picker(prompt_bufnr)
+	local selected_entry = action_state.get_selected_entry()
+	local selected_bufnr = selected_entry.value
+	-- Find the position of the selected buffer in _G.buffer_usage
+	local idx = nil
+	for i, bufnr in ipairs(_G.buffer_usage) do
+		if bufnr == selected_bufnr then
+			idx = i
+			break
+		end
+	end
+	if idx then
+		-- Swap the buffer position based on direction
+		if direction == "up" and idx > 1 then
+			_G.buffer_usage[idx], _G.buffer_usage[idx - 1] = _G.buffer_usage[idx - 1], _G.buffer_usage[idx]
+		elseif direction == "down" and idx < #_G.buffer_usage then
+			_G.buffer_usage[idx], _G.buffer_usage[idx + 1] = _G.buffer_usage[idx + 1], _G.buffer_usage[idx]
+		end
+	end
+	-- Refresh the picker
+	current_picker:refresh(
+		finders.new_table({
+			results = get_buf_names(),
+			-- entry_maker = function(entry)
+			-- 	local buf_name = vim.fn.bufname(entry)
+			-- 	return {
+			-- 		value = entry,
+			-- 		display = buf_name ~= "" and buf_name or ("[No Name] (Buffer " .. entry .. ")"),
+			-- 		ordinal = buf_name,
+			-- 	}
+			-- end,
+		}),
+		{ reset_prompt = true }
+	)
+end
+
+-- Function to refresh the buffer manager content
+local function render_buffers_in_manager()
+	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
+		-- Make buffer modifiable to update content
+		vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", true)
+		-- Fill the buffer with buffer numbers and file names
+		local buf_lines = {}
+		for _, buf_id in ipairs(_G.buffer_usage) do
+			local buf_name = vim.fn.bufname(buf_id) or "[No Name]"
+			table.insert(buf_lines, string.format("Buf %d: %s", buf_id, buf_name))
+		end
+		-- Set the lines and make buffer non-modifiable again
+		vim.api.nvim_buf_set_lines(_G.buf_manager_buf_id, 0, -1, false, buf_lines)
+		vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", false)
+	end
+end
+
+-- Move the current buffer up in the buffer_usage table
+local function move_buffer_in_manager__up()
+	local current_line = vim.fn.line(".") -- Get current line (1-based index)
+	if current_line > 1 then
+		-- Swap the current buffer with the one above
+		local temp = _G.buffer_usage[current_line]
+		_G.buffer_usage[current_line] = _G.buffer_usage[current_line - 1]
+		_G.buffer_usage[current_line - 1] = temp
+		render_buffers_in_manager() -- Rerender list
+	end
+end
+
+-- Move the current buffer down in the buffer_usage table
+local function move_buffer_in_manager_down()
+	local current_line = vim.fn.line(".")
+	if current_line < #_G.buffer_usage then
+		-- Swap the current buffer with the one below
+		local temp = _G.buffer_usage[current_line]
+		_G.buffer_usage[current_line] = _G.buffer_usage[current_line + 1]
+		_G.buffer_usage[current_line + 1] = temp
+		render_buffers_in_manager() -- Rerender list
+	end
+end
+
+-- Delete
+local function close_buffer_manager()
+	if _G.buf_manager_buf_id and vim.api.nvim_buf_is_valid(_G.buf_manager_buf_id) then
+		vim.api.nvim_buf_delete(_G.buf_manager_win_id, { force = true })
+		_G.buf_manager_buf_id = nil
+	end
+	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
+		vim.api.nvim_win_close(_G.buf_manager_win_id, true)
+		_G.buf_manager_win_id = nil
+	end
+end
+
+U.open_buffer_manager = function()
+	-- Skip if the buffer manager window already exists
+	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
+		return
+	end
+	local win_width = 50
+	-- Define buffer and window properties
+	_G.buf_manager_buf_id = vim.api.nvim_create_buf(false, true) -- Scratch
+	local win_opts = {
+		relative = "editor",
+		width = win_width,
+		height = #_G.buffer_usage + 0, -- Account for buffer lines + borders
+		row = (vim.o.lines - #_G.buffer_usage) / 2,
+		col = (vim.o.columns - win_width) / 2,
+		style = "minimal",
+		border = "rounded",
+		title = "Buffer Manager",
+		title_pos = "center",
+	}
+	-- Floating window for manager
+	_G.buf_manager_win_id = vim.api.nvim_open_win(_G.buf_manager_buf_id, true, win_opts)
+	vim.api.nvim_buf_set_option(_G.buf_manager_buf_id, "modifiable", false)
+	render_buffers_in_manager()
+	-- Keybindings
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Up>", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			move_buffer_in_manager__up()
+		end,
+	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Down>", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			move_buffer_in_manager_down()
+		end,
+	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<Esc>", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			close_buffer_manager()
+		end,
+	})
 end
 
 return U

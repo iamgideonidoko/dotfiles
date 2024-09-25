@@ -68,6 +68,6 @@ set("n", "<Tab>", U.bnext_mru, { noremap = true, silent = true })
 set("n", "<S-Tab>", U.bprev_mru, { noremap = true, silent = true })
 
 -- Set keymap to open the buffer manager picker
-set("n", "<leader>bm", U.manage_mru_buffers, { noremap = true, silent = true, desc = "[B]uffer [m]anager" })
+set("n", "<leader>bm", U.open_buffer_manager, { noremap = true, silent = true, desc = "[B]uffer [m]anager" })
 
 -- vim: ts=2 sts=2 sw=2 et
