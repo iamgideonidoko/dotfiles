@@ -385,13 +385,16 @@ U.open_buffer_manager = function()
 		vim.api.nvim_set_current_win(_G.buf_manager_win_id)
 		return
 	end
-	local win_width = 50
+	local max_height = vim.o.lines - 2
+	local max_width = vim.o.columns - 4
+	local win_height = math.min(#_G.buffer_usage > 0 and #_G.buffer_usage or 1, max_height)
+	local win_width = math.min(50, max_width)
 	_G.buf_manager_buf_id = vim.api.nvim_create_buf(false, true)
 	local win_opts = {
 		relative = "editor",
 		width = win_width,
-		height = #_G.buffer_usage > 0 and #_G.buffer_usage or 1,
-		row = (vim.o.lines - #_G.buffer_usage) / 2,
+		height = win_height,
+		row = (vim.o.lines - win_height) / 2,
 		col = (vim.o.columns - win_width) / 2,
 		style = "minimal",
 		border = "rounded",
