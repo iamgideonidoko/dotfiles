@@ -78,6 +78,7 @@ return {
 						win_options = {
 							winhighlight = { NormalFloat = "NormalFloat", FloatBorder = "NoiceCmdlinePopupBorder" },
 						},
+            scrollbar = false,
 					},
 					confirm = {
 						position = "50%",
