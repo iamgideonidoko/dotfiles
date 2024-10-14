@@ -375,6 +375,22 @@ local function close_buffer_manager()
 	end
 end
 
+local function delete_buffer_in_manager()
+	local current_line = vim.fn.line(".")
+	if #_G.buffer_usage == 0 then
+		return
+	end
+	local bufnr = _G.buffer_usage[current_line]
+	if bufnr == nil then
+		return
+	end
+	U.smart_close_buffer(false, bufnr)
+	render_buffers_in_manager()
+	local win_config = vim.api.nvim_win_get_config(_G.buf_manager_win_id)
+	win_config.height = math.min(#_G.buffer_usage > 0 and #_G.buffer_usage or 1, vim.o.lines - 2)
+	vim.api.nvim_win_set_config(_G.buf_manager_win_id, win_config)
+end
+
 U.open_buffer_manager = function()
 	local last_win_b4_manager = vim.api.nvim_get_current_win()
 	local last_buf_b4_manager = vim.api.nvim_get_current_buf()
@@ -500,6 +516,13 @@ U.open_buffer_manager = function()
 				vim.api.nvim_win_set_buf(last_win_b4_manager, _G.buffer_usage[current_line])
 			end
 			U.updating_buffer = false
+		end,
+	})
+	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-d>", "", {
+		noremap = true,
+		silent = true,
+		callback = function()
+			delete_buffer_in_manager()
 		end,
 	})
 end
