@@ -1,8 +1,8 @@
 local U = {}
-_G.buffer_usage = _G.buffer_usage or {}
-U.updating_buffer = false
-U.auto_off_disable_updating_buffer = false -- would be reset by the `update_buffer_usage` function
-U.telescope_selection_made = false
+_G.buffer_registry = _G.buffer_registry or {}
+U.prevent_buffer_registry_update = false
+U.prevent_buffer_registry_update_only_once = false
+U.make_telescope_selection = false
 
 local function get_loaded_buffers()
 	local result = {}
@@ -16,15 +16,15 @@ local function get_loaded_buffers()
 end
 
 -- Function to clean up invalid buffers from the buffer usage list
-local function cleanup_buffer_usage()
+local function cleanup_buffer_registry()
 	-- Filter out invalid buffers
 	local valid_buffers = {}
-	for _, buf in ipairs(_G.buffer_usage) do
+	for _, buf in ipairs(_G.buffer_registry) do
 		if 1 == vim.fn.buflisted(buf) then
 			table.insert(valid_buffers, buf)
 		end
 	end
-	_G.buffer_usage = valid_buffers
+	_G.buffer_registry = valid_buffers
 end
 
 -- @param bufnr number
@@ -53,7 +53,7 @@ U.js_related_languages = {
 
 -- Delete a buffer without closing splits
 -- Switch a loaded alt buffer
-U.smart_close_buffer = function(force, given_bufnr)
+U.smartly_close_buffer = function(force, given_bufnr)
 	local bufnr = given_bufnr or vim.api.nvim_get_current_buf()
 	if not force and vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
 		return vim.api.nvim_err_writeln("Buffer is modified. Force required.")
@@ -63,7 +63,7 @@ U.smart_close_buffer = function(force, given_bufnr)
 	end
 	local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 	if filetype == "dashboard" then
-		local last_buf = _G.buffer_usage[#_G.buffer_usage]
+		local last_buf = _G.buffer_registry[#_G.buffer_registry]
 		if last_buf == nil then
 			return
 		end
@@ -93,7 +93,7 @@ U.smart_close_buffer = function(force, given_bufnr)
 			break
 		end
 	end
-	U.updating_buffer = true
+	U.prevent_buffer_registry_update = true
 	-- Loop through all windows that is displaying the current buffer
 	for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
 		if alt_bufnr_active then
@@ -107,8 +107,8 @@ U.smart_close_buffer = function(force, given_bufnr)
 	end
 	-- Finally, delete the original buffer
 	vim.api.nvim_buf_delete(bufnr, { force = force })
-	cleanup_buffer_usage()
-	U.updating_buffer = false
+	cleanup_buffer_registry()
+	U.prevent_buffer_registry_update = false
 end
 
 U.check_keybinding_exists = function(mode, lhs)
@@ -149,19 +149,19 @@ U.is_oil_buffer = function()
 	return filetype == "oil" -- Replace 'oil' with the actual filetype used by oil.nvim
 end
 
-U.update_buffer_usage = function()
+U.update_buffer_registry = function()
 	local buf = vim.api.nvim_get_current_buf()
-	if U.is_floating_window() or U.updating_buffer then
+	if U.is_floating_window() or U.prevent_buffer_registry_update then
 		return
 	end
-	if U.auto_off_disable_updating_buffer then
-		U.auto_off_disable_updating_buffer = false
+	if U.prevent_buffer_registry_update_only_once then
+		U.prevent_buffer_registry_update_only_once = false
 		return
 	end
-	-- Remove the buffer if it already exists to push it to the end
-	for i, b in ipairs(_G.buffer_usage) do
+	-- Remove the buffer if it already exists
+	for i, b in ipairs(_G.buffer_registry) do
 		if b == buf then
-			table.remove(_G.buffer_usage, i)
+			table.remove(_G.buffer_registry, i)
 			break
 		end
 	end
@@ -169,24 +169,24 @@ U.update_buffer_usage = function()
 	if 1 ~= vim.fn.buflisted(buf) then
 		return
 	end
-	table.insert(_G.buffer_usage, buf)
+	table.insert(_G.buffer_registry, buf)
 end
 
 -- Function to navigate to the next buffer in the most recently used order
 U.bnext_mru = function()
-	cleanup_buffer_usage()
+	cleanup_buffer_registry()
 	if U.is_oil_buffer() then
-		return U.smart_close_buffer()
+		return U.smartly_close_buffer()
 	end
 	-- If there are no buffers or only one buffer, do nothing
-	if #_G.buffer_usage <= 1 then
+	if #_G.buffer_registry <= 1 then
 		return
 	end
 
-	-- Get the current buffer and find its index in the buffer_usage list
+	-- Get the current buffer and find its index in the buffer_registry list
 	local current_buf = vim.api.nvim_get_current_buf()
 	local current_index
-	for i, buf in ipairs(_G.buffer_usage) do
+	for i, buf in ipairs(_G.buffer_registry) do
 		if buf == current_buf then
 			current_index = i
 			break
@@ -199,52 +199,48 @@ U.bnext_mru = function()
 	end
 
 	-- Calculate the next index in a circular manner
-	local next_index = (current_index % #_G.buffer_usage) + 1
-	local next_buf = _G.buffer_usage[next_index]
+	local next_index = (current_index % #_G.buffer_registry) + 1
+	local next_buf = _G.buffer_registry[next_index]
 
-	U.updating_buffer = true
+	U.prevent_buffer_registry_update = true
 	-- Switch to the next buffer
 	vim.api.nvim_set_current_buf(next_buf)
-	U.updating_buffer = false
+	U.prevent_buffer_registry_update = false
 end
 
 -- Function to navigate to the previous buffer in the most recently used order
 U.bprev_mru = function()
-	cleanup_buffer_usage()
+	cleanup_buffer_registry()
 	if U.is_oil_buffer() then
-		return U.smart_close_buffer()
+		return U.smartly_close_buffer()
 	end
 	-- If there are no buffers or only one buffer, do nothing
-	if #_G.buffer_usage <= 1 then
+	if #_G.buffer_registry <= 1 then
 		return
 	end
-
-	-- Get the current buffer and find its index in the buffer_usage list
+	-- Get the current buffer and find its index in the buffer_registry list
 	local current_buf = vim.api.nvim_get_current_buf()
 	local current_index
-	for i, buf in ipairs(_G.buffer_usage) do
+	for i, buf in ipairs(_G.buffer_registry) do
 		if buf == current_buf then
 			current_index = i
 			break
 		end
 	end
-
 	-- Buffer not found in record
 	if current_index == nil then
 		return
 	end
-
 	-- Calculate the previous index in a circular manner
 	local prev_index = current_index - 1
 	if prev_index < 1 then
-		prev_index = #_G.buffer_usage
+		prev_index = #_G.buffer_registry
 	end
-	local prev_buf = _G.buffer_usage[prev_index]
-
-	U.updating_buffer = true
+	local prev_buf = _G.buffer_registry[prev_index]
+	U.prevent_buffer_registry_update = true
 	-- Switch to the previous buffer
 	vim.api.nvim_set_current_buf(prev_buf)
-	U.updating_buffer = false
+	U.prevent_buffer_registry_update = false
 end
 
 U.mru_sorted_bufnrs = function()
@@ -298,7 +294,7 @@ local function render_buffers_in_manager()
 		})
 		-- Fill the buffer with buffer numbers and file names
 		local buf_lines = {}
-		for _, buf_id in ipairs(_G.buffer_usage) do
+		for _, buf_id in ipairs(_G.buffer_registry) do
 			local buffer = vim.fn.getbufinfo(buf_id)[1]
 			if buffer then
 				local bufname = buffer.name ~= "" and buffer.name or "[No Name]"
@@ -320,45 +316,45 @@ local function render_buffers_in_manager()
 	end
 end
 
--- Move the current buffer up in the buffer_usage table
-local function move_buffer_in_manager__up()
+-- Move the current buffer up in the buffer_registry table
+local function move_buffer_in_manager_up()
 	local current_line = vim.fn.line(".")
-	if #_G.buffer_usage == 0 then
+	if #_G.buffer_registry == 0 then
 		return
 	end
 	if current_line > 1 then
 		-- Swap the current buffer with the one above
-		local temp = _G.buffer_usage[current_line]
-		_G.buffer_usage[current_line] = _G.buffer_usage[current_line - 1]
-		_G.buffer_usage[current_line - 1] = temp
+		local temp = _G.buffer_registry[current_line]
+		_G.buffer_registry[current_line] = _G.buffer_registry[current_line - 1]
+		_G.buffer_registry[current_line - 1] = temp
 		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line - 1, 1 })
 	else
 		-- If we are at the first line, move it to the last position
-		local first_buffer = _G.buffer_usage[1]
-		table.remove(_G.buffer_usage, 1)
-		table.insert(_G.buffer_usage, first_buffer)
-		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_usage, 1 })
+		local first_buffer = _G.buffer_registry[1]
+		table.remove(_G.buffer_registry, 1)
+		table.insert(_G.buffer_registry, first_buffer)
+		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_registry, 1 })
 	end
 	render_buffers_in_manager()
 end
 
--- Move the current buffer down in the buffer_usage table
+-- Move the current buffer down in the buffer_registry table
 local function move_buffer_in_manager_down()
 	local current_line = vim.fn.line(".")
-	if #_G.buffer_usage == 0 then
+	if #_G.buffer_registry == 0 then
 		return
 	end
-	if current_line < #_G.buffer_usage then
+	if current_line < #_G.buffer_registry then
 		-- Swap the current buffer with the one below
-		local temp = _G.buffer_usage[current_line]
-		_G.buffer_usage[current_line] = _G.buffer_usage[current_line + 1]
-		_G.buffer_usage[current_line + 1] = temp
+		local temp = _G.buffer_registry[current_line]
+		_G.buffer_registry[current_line] = _G.buffer_registry[current_line + 1]
+		_G.buffer_registry[current_line + 1] = temp
 		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line + 1, 1 })
 	else
 		-- If we are at the last line, move it to the first position
-		local last_buffer = _G.buffer_usage[#_G.buffer_usage]
-		table.remove(_G.buffer_usage)
-		table.insert(_G.buffer_usage, 1, last_buffer)
+		local last_buffer = _G.buffer_registry[#_G.buffer_registry]
+		table.remove(_G.buffer_registry)
+		table.insert(_G.buffer_registry, 1, last_buffer)
 		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { 1, 1 })
 	end
 	render_buffers_in_manager()
@@ -377,25 +373,25 @@ end
 
 local function delete_buffer_in_manager()
 	local current_line = vim.fn.line(".")
-	if #_G.buffer_usage == 0 then
+	if #_G.buffer_registry == 0 then
 		return
 	end
-	local bufnr = _G.buffer_usage[current_line]
+	local bufnr = _G.buffer_registry[current_line]
 	if bufnr == nil then
 		return
 	end
-	U.smart_close_buffer(false, bufnr)
+	U.smartly_close_buffer(false, bufnr)
 	render_buffers_in_manager()
 	local win_config = vim.api.nvim_win_get_config(_G.buf_manager_win_id)
-	win_config.height = math.min(#_G.buffer_usage > 0 and #_G.buffer_usage or 1, vim.o.lines - 2)
+	win_config.height = math.min(#_G.buffer_registry > 0 and #_G.buffer_registry or 1, vim.o.lines - 2)
 	vim.api.nvim_win_set_config(_G.buf_manager_win_id, win_config)
 end
 
 U.open_buffer_manager = function()
 	local last_win_b4_manager = vim.api.nvim_get_current_win()
 	local last_buf_b4_manager = vim.api.nvim_get_current_buf()
-	_G.buffer_usage = _G.buffer_usage or {}
-	cleanup_buffer_usage()
+	_G.buffer_registry = _G.buffer_registry or {}
+	cleanup_buffer_registry()
 	-- Focus buffer manager window already exists
 	if _G.buf_manager_win_id and vim.api.nvim_win_is_valid(_G.buf_manager_win_id) then
 		vim.api.nvim_set_current_win(_G.buf_manager_win_id)
@@ -403,7 +399,7 @@ U.open_buffer_manager = function()
 	end
 	local max_height = vim.o.lines - 2
 	local max_width = vim.o.columns - 4
-	local win_height = math.min(#_G.buffer_usage > 0 and #_G.buffer_usage or 1, max_height)
+	local win_height = math.min(#_G.buffer_registry > 0 and #_G.buffer_registry or 1, max_height)
 	local win_width = math.min(50, max_width)
 	_G.buf_manager_buf_id = vim.api.nvim_create_buf(false, true)
 	local win_opts = {
@@ -430,7 +426,7 @@ U.open_buffer_manager = function()
 		win = _G.buf_manager_win_id,
 	})
 	render_buffers_in_manager()
-	local last_buf_index = U.get_table_index(_G.buffer_usage, last_buf_b4_manager)
+	local last_buf_index = U.get_table_index(_G.buffer_registry, last_buf_b4_manager)
 	if last_buf_index then
 		vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { last_buf_index, 1 })
 	end
@@ -442,7 +438,7 @@ U.open_buffer_manager = function()
 				local current_buf_id = vim.api.nvim_get_current_buf()
 				if current_buf_id ~= _G.buf_manager_buf_id then
 					vim.api.nvim_set_current_buf(_G.buf_manager_buf_id)
-					if not U.table_contains(_G.buffer_usage, current_buf_id) then
+					if not U.table_contains(_G.buffer_registry, current_buf_id) then
 						vim.api.nvim_buf_delete(current_buf_id, { force = true })
 					end
 				end
@@ -453,7 +449,7 @@ U.open_buffer_manager = function()
 		noremap = true,
 		silent = true,
 		callback = function()
-			move_buffer_in_manager__up()
+			move_buffer_in_manager_up()
 		end,
 	})
 	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "k", "", {
@@ -461,13 +457,13 @@ U.open_buffer_manager = function()
 		silent = true,
 		callback = function()
 			local current_line = vim.fn.line(".")
-			if #_G.buffer_usage == 0 then
+			if #_G.buffer_registry == 0 then
 				return
 			end
 			if current_line > 1 then
 				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line - 1, 1 })
 			else
-				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_usage, 1 })
+				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { #_G.buffer_registry, 1 })
 			end
 		end,
 	})
@@ -483,10 +479,10 @@ U.open_buffer_manager = function()
 		silent = true,
 		callback = function()
 			local current_line = vim.fn.line(".")
-			if #_G.buffer_usage == 0 then
+			if #_G.buffer_registry == 0 then
 				return
 			end
-			if current_line < #_G.buffer_usage then
+			if current_line < #_G.buffer_registry then
 				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { current_line + 1, 1 })
 			else
 				vim.api.nvim_win_set_cursor(_G.buf_manager_win_id, { 1, 1 })
@@ -504,18 +500,18 @@ U.open_buffer_manager = function()
 		noremap = true,
 		silent = true,
 		callback = function()
-			U.updating_buffer = true
+			U.prevent_buffer_registry_update = true
 			local current_line = vim.fn.line(".")
 			close_buffer_manager()
-			local selected_buffer = _G.buffer_usage[current_line]
+			local selected_buffer = _G.buffer_registry[current_line]
 			if
 				selected_buffer ~= nil
 				and last_win_b4_manager ~= nil
 				and vim.api.nvim_win_is_valid(last_win_b4_manager)
 			then
-				vim.api.nvim_win_set_buf(last_win_b4_manager, _G.buffer_usage[current_line])
+				vim.api.nvim_win_set_buf(last_win_b4_manager, _G.buffer_registry[current_line])
 			end
-			U.updating_buffer = false
+			U.prevent_buffer_registry_update = false
 		end,
 	})
 	vim.api.nvim_buf_set_keymap(_G.buf_manager_buf_id, "n", "<C-d>", "", {

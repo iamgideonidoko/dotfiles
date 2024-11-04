@@ -14,11 +14,9 @@ end
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
-		-- Creates a beautiful debugger UI
 		{
 			"rcarriga/nvim-dap-ui",
 			dependencies = {
-				-- Required dependency for nvim-dap-ui
 				"nvim-neotest/nvim-nio",
 			},
 		},
@@ -26,12 +24,9 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 			opts = {},
 		},
-		-- Dependencies for installing debug adapters
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
-		-- Dependencies for configuring debug adapters
-		-- Start: JS
-		-- lazy spec to build "microsoft/vscode-js-debug" from source
+		-- START: JS
 		{
 			"microsoft/vscode-js-debug",
 			build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
@@ -42,18 +37,14 @@ return {
 				"mfussenegger/nvim-dap",
 			},
 		},
-		-- JSON for VsCode launch.json parsing
-		{ "nvim-lua/plenary.nvim" },
-		-- End: JS
-		--
-		-- Start: Go
-		-- "leoluz/nvim-dap-go",
-		-- End: Go
+		{
+			"nvim-lua/plenary.nvim",
+		},
+		-- END: JS
 	},
 	config = function()
-		local debug_adapters = {
-			-- "delve",
-		}
+		-- Add debug adapters here
+		local debug_adapters = {}
 		local dap = require("dap")
 		local dapui = require("dapui")
 
@@ -80,24 +71,10 @@ return {
 		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
-		-- Set up adapters
-		--
-		-- Golang setup
-		-- require("dap-go").setup({
-		-- 	delve = {
-		-- 		-- On Windows delve must be run attached or it crashes.
-		-- 		-- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-		-- 		detached = vim.fn.has("win32") == 0,
-		-- 	},
-		-- })
-
-		-- JS related setup
-		---@diagnostic disable: missing-fields
+		-- SETUP JS
 		require("dap-vscode-js").setup({
-			-- For other options see here: https://github.com/mxsdev/nvim-dap-vscode-js?tab=readme-ov-file#configurations
-			-- Path to vscode-js-debug installation.
 			debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-			-- which adapters to register in nvim-dap
+			-- adapters to register in nvim-dap
 			adapters = {
 				"pwa-node",
 				"pwa-chrome",
@@ -206,14 +183,11 @@ return {
 		set("n", "<leader>dn", dapui.open, { desc = "Debug: Open session result." })
 		set("n", "<leader>dx", dapui.close, { desc = "Debug: Close session result." })
 
-		-- Close the gap between `mason.nvim` and `nvim-dap` ensuring specified adapters are installed
-		-- See https://github.com/jay-babu/mason-nvim-dap.nvim?tab=readme-ov-file#default-configuration
+		-- Bridge between `mason.nvim` and `nvim-dap`
 		require("mason-nvim-dap").setup({
-			-- A list of adapters to install if they aren't already installed
 			ensure_installed = debug_adapters,
 			-- Automtically install all adapters set up via dap
 			automatic_installation = false,
-			-- Provide additional configuration to the handlers here,
 			handlers = {},
 		})
 

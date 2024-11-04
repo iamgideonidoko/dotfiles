@@ -23,19 +23,10 @@ set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 -- set("n", "<Tab>", "<cmd>bnext!<CR>")
 -- set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
-set("n", "<leader>x", U.smart_close_buffer, { desc = "Close current buffer" })
+set("n", "<leader>x", U.smartly_close_buffer, { desc = "Close current buffer" })
 set("n", "<leader>X", function()
-	U.smart_close_buffer(true)
+	U.smartly_close_buffer(true)
 end, { desc = "Force close current buffer" })
-
--- Keybinds to make split navigation easier. (already properly handled by `christoomey/vim-tmux-navigator`)
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
--- set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
--- set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
--- set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
--- set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Move in insert mode
 set("i", "<C-h>", "<Left>", { desc = "Move left" })

@@ -1,7 +1,6 @@
 local U = require("utils")
--- [[Autocommands (see `:help lua-guide-autocommands`)]]
 
--- Highlight when yanking (copying) text (see `:help vim.highlight.on_yank()`)
+-- Highlight when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -10,8 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- EslintFixAll
--- Check if the ESLint fix command exists when a buffer is read and init keybinding if true
+-- Add keybinding if `EslintFixAll` is executable
 vim.api.nvim_create_autocmd("BufReadPost", {
 	group = vim.api.nvim_create_augroup("custom-buffer-eslint-fix", { clear = true }),
 	callback = function()
@@ -35,23 +33,19 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("BufEnter", {
 	group = vim.api.nvim_create_augroup("delete_e211_buffers", { clear = true }),
 	callback = function()
-		-- Get the file path of the current buffer
-		local path = vim.api.nvim_buf_get_name(0)
-		-- Check if the path is empty
-		if path == "" then
-			-- The buffer does not have a file path
+		local file_path = vim.api.nvim_buf_get_name(0)
+		if file_path == "" then
 			return
 		end
-
 		-- Check if the file path exists
-		local stat = vim.loop.fs_stat(path)
+		local stat = vim.loop.fs_stat(file_path)
 		if stat then
 			-- The current buffer file path is valid
 			return
 		end
 		local cwd = vim.fn.getcwd()
 		-- Ensure that the file path is normalized and absolute
-		local normalized_path = vim.fn.fnamemodify(path, ":p")
+		local normalized_path = vim.fn.fnamemodify(file_path, ":p")
 		-- Check if the file path starts with the current working directory
 		if normalized_path:sub(1, #cwd) ~= cwd then
 			return
@@ -61,7 +55,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 			return
 		end
 		-- The current buffer file path is not valid so delete buffer
-		U.smart_close_buffer(true)
+		U.smartly_close_buffer(true)
 	end,
 })
 
@@ -72,11 +66,9 @@ vim.api.nvim_create_autocmd("User", {
 		local parse_url = function(url)
 			return url:match("^.*://(.*)$")
 		end
-
 		if args.data.err then
 			return
 		end
-
 		for _, action in ipairs(args.data.actions) do
 			if action.type == "delete" and action.entry_type == "file" then
 				local path = parse_url(action.url)
@@ -84,17 +76,19 @@ vim.api.nvim_create_autocmd("User", {
 				if bufnr == -1 then
 					return
 				end
-				U.smart_close_buffer(true, bufnr)
+				U.smartly_close_buffer(true, bufnr)
 			end
 		end
 	end,
 })
 
+-- Update buffer usage when a buffer is entered
 vim.api.nvim_create_autocmd("BufEnter", {
 	group = vim.api.nvim_create_augroup("buffer_navigate", { clear = true }),
-	callback = U.update_buffer_usage,
+	callback = U.update_buffer_registry,
 })
 
+-- Prevent updateing buffer usage only when
 local last_closed_time = 0
 local debounce_duration = 1
 vim.api.nvim_create_autocmd("WinClosed", {
@@ -104,11 +98,11 @@ vim.api.nvim_create_autocmd("WinClosed", {
 		if current_time - last_closed_time > debounce_duration then
 			last_closed_time = current_time
 			if U.is_floating_window() then
-				if not U.telescope_selection_made then
-					U.auto_off_disable_updating_buffer = true
+				if not U.make_telescope_selection then
+					U.prevent_buffer_registry_update_only_once = true
 				else
-					U.auto_off_disable_updating_buffer = false
-					U.telescope_selection_made = false
+					U.prevent_buffer_registry_update_only_once = false
+					U.make_telescope_selection = false
 				end
 			end
 		end
