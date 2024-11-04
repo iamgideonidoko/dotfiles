@@ -10,7 +10,7 @@ return { -- Collection of small independent packages
 			local recording = ""
 			local record_reg = vim.fn.reg_recording()
 			if record_reg ~= "" then
-				recording = " %#ErrorMsg# Recording @" .. record_reg -- red highlight for visibility
+				recording = " %#ErrorMsg# recording @" .. record_reg -- red highlight for visibility
 			end
 			return "%2l:%-2v" .. recording
 		end
