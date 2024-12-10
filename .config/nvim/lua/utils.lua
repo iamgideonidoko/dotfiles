@@ -19,10 +19,19 @@ end
 local function cleanup_buffer_registry()
 	-- Filter out invalid buffers
 	local valid_buffers = {}
+	local current_buf = vim.api.nvim_get_current_buf()
+	local current_buf_exists_in_registry = false
 	for _, buf in ipairs(_G.buffer_registry) do
 		if 1 == vim.fn.buflisted(buf) then
 			table.insert(valid_buffers, buf)
+			if current_buf == buf then
+				current_buf_exists_in_registry = true
+			end
 		end
+	end
+	-- Add current buffer to the end of the registry if valid and doesn't already exist
+	if 1 == vim.fn.buflisted(current_buf) and not current_buf_exists_in_registry then
+		table.insert(valid_buffers, current_buf)
 	end
 	_G.buffer_registry = valid_buffers
 end
