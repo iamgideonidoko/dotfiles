@@ -30,6 +30,16 @@ return { -- Autocompletion
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		{
+			"zbirenbaum/copilot-cmp",
+			event = "InsertEnter",
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+			dependencies = {
+				"zbirenbaum/copilot.lua",
+			},
+		},
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -68,6 +78,7 @@ return { -- Autocompletion
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "copilot" },
 			},
 		})
 	end,
