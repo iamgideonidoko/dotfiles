@@ -22,7 +22,6 @@ require("lazy").setup({
 	require("plugins.indent_line"),
 	require("plugins.lint"),
 	require("plugins.autopairs"),
-	require("plugins.tabnine"),
 	require("plugins.autotag"),
 	require("plugins.rest"),
 	require("plugins.markdown"),
