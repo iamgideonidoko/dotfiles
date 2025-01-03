@@ -2,6 +2,8 @@
 
 My config for Neovim, Tmux, SketchyVim, etc.
 
+![Preview](./preview.png)
+
 ## `nvim`
 
 ## `svim`
