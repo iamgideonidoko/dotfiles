@@ -2,9 +2,14 @@ return { -- Useful plugin to show you pending keybinds.
 	"folke/which-key.nvim",
 	event = "VimEnter",
 	config = function()
-		require("which-key").setup()
+		local which_key = require("which-key")
+		which_key.setup({
+			win = {
+				border = "rounded",
+			},
+		})
 		-- Document existing key chains
-		require("which-key").add({
+		which_key.add({
 			{ "<leader>c", group = "[C]ode" },
 			{ "<leader>d", group = "[D]ebug" },
 			{ "<leader>r", group = "[R]ename" },
