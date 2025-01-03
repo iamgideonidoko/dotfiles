@@ -2,8 +2,8 @@ return { -- Collection of small independent packages
 	"echasnovski/mini.nvim",
 	config = function()
 		local statusline = require("mini.statusline")
+		vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
 		statusline.setup({ use_icons = vim.g.have_nerd_font })
-		-- Set the section for cursor location to LINE:COLUMN
 		---@diagnostic disable-next-line: duplicate-set-field
 		statusline.section_location = function()
 			-- Macro recording indicator
