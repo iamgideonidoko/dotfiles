@@ -5,7 +5,17 @@ return { -- LSP Configuration & Plugins
 		"williamboman/mason-lspconfig.nvim",
 		-- Useful UI notification and status updates for LSP.
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-		{ "j-hui/fidget.nvim", opts = {} },
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				notification = {
+					window = {
+						winblend = 0,
+						border = "rounded",
+					},
+				},
+			},
+		},
 		-- Configure Lua LSP for Neovim config, runtime and plugins
 		-- (completion, annotations and signatures of Neovim apis)
 		{ "folke/neodev.nvim", opts = {} },
