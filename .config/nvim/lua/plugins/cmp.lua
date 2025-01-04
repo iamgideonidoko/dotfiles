@@ -81,12 +81,8 @@ return { -- Autocompletion
 				{ name = "copilot" },
 			},
 			window = {
-				completion = {
-					border = "rounded",
-				},
-				documentation = {
-					border = "rounded",
-				},
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
 			},
 		})
 	end,
