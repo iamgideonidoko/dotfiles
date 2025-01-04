@@ -80,6 +80,14 @@ return { -- Autocompletion
 				{ name = "path" },
 				{ name = "copilot" },
 			},
+			window = {
+				completion = {
+					border = "rounded",
+				},
+				documentation = {
+					border = "rounded",
+				},
+			},
 		})
 	end,
 }
