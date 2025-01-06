@@ -62,7 +62,7 @@ return { -- Autocompletion
 				-- Manually trigger completion
 				["<C-Space>"] = cmp.mapping.complete({}),
 				-- Manually abort completion
-				["<C-e>"] = cmp.mapping.abort(),
+				["<Esc>"] = cmp.mapping.abort(),
 				-- Move to the left of each of the expansion locations
 				["<C-n>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
