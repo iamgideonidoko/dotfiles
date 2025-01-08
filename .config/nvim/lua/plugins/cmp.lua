@@ -53,16 +53,20 @@ return { -- Autocompletion
 			},
 			completion = { completeopt = "menu,menuone,noinsert" },
 			mapping = cmp.mapping.preset.insert({
+				-- Manual trigger
+				["<A-Space>"] = function()
+					if cmp.visible() then
+						cmp.abort()
+					else
+						cmp.complete({})
+					end
+				end,
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 				["<Tab>"] = cmp.mapping.select_next_item(),
 				["<S-Tab>"] = cmp.mapping.select_prev_item(),
-				-- Manually trigger completion
-				["<C-Space>"] = cmp.mapping.complete({}),
-				-- Manually abort completion
-				["<A-Space>"] = cmp.mapping.abort(),
 				-- Move to the left of each of the expansion locations
 				["<C-n>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
