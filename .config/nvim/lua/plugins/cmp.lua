@@ -44,7 +44,7 @@ return { -- Autocompletion
 			completion = { completeopt = "menu,menuone,noinsert" },
 			mapping = cmp.mapping.preset.insert({
 				-- Manual trigger
-				["<A-Space>"] = function()
+				["<M-Space>"] = function()
 					if cmp.visible() then
 						cmp.abort()
 					else
