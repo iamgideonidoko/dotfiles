@@ -12,7 +12,9 @@ set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
-set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [e]rror messages" })
+set("n", "<leader>e", function()
+	vim.diagnostic.open_float({ border = "rounded" })
+end, { desc = "Show diagnostic [e]rror messages" })
 set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [q]uickfix list" })
 
 -- Disable arrow keys in normal mode
