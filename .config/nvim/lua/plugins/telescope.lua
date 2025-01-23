@@ -18,7 +18,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
 	config = function()
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
-		local U = require("utils")
 		require("telescope").setup({
 			defaults = {
 				mappings = {
@@ -31,40 +30,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
 							if picker.prompt_title == "Buffers" then
 								actions.delete_buffer(prompt_bufnr)
 							end
-						end,
-						["<CR>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_default(prompt_bufnr)
-						end,
-						["<C-x>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_horizontal(prompt_bufnr)
-						end,
-						["<C-v>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_vertical(prompt_bufnr)
-						end,
-						["<C-t>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_tab(prompt_bufnr)
-						end,
-					},
-					n = {
-						["<CR>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_default(prompt_bufnr)
-						end,
-						["<C-x>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_horizontal(prompt_bufnr)
-						end,
-						["<C-v>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_vertical(prompt_bufnr)
-						end,
-						["<C-t>"] = function(prompt_bufnr)
-							U.make_telescope_selection = true
-							actions.select_tab(prompt_bufnr)
 						end,
 					},
 				},

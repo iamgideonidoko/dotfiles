@@ -1,4 +1,4 @@
-local U = require("utils")
+local utils = require("utils")
 
 -- Highlight when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -14,14 +14,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	group = vim.api.nvim_create_augroup("custom-buffer-eslint-fix", { clear = true }),
 	callback = function()
 		vim.defer_fn(function()
-			if U.command_exists("EslintFixAll") then
-				if not U.check_keybinding_exists("n", "<leader>fe") then
+			if utils.command_exists("EslintFixAll") then
+				if not utils.check_keybinding_exists("n", "<leader>fe") then
 					vim.keymap.set("n", "<leader>fe", function()
 						vim.cmd("EslintFixAll")
 					end, { desc = "[F]ix [E]SLint" })
 				end
 			else
-				if U.check_keybinding_exists("n", "<leader>fe") then
+				if utils.check_keybinding_exists("n", "<leader>fe") then
 					vim.api.nvim_del_keymap("n", "<leader>fe")
 				end
 			end
@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 			return
 		end
 		-- The current buffer file path is not valid so delete buffer
-		U.smartly_close_buffer(true)
+		-- close_buffer(true)
 	end,
 })
 
@@ -76,38 +76,12 @@ vim.api.nvim_create_autocmd("User", {
 				if bufnr == -1 then
 					return
 				end
-				U.smartly_close_buffer(true, bufnr)
+				-- close_buffer(true, bufnr)
 			end
 		end
 	end,
 })
 
--- Update buffer usage when a buffer is entered
-vim.api.nvim_create_autocmd("BufEnter", {
-	group = vim.api.nvim_create_augroup("buffer_navigate", { clear = true }),
-	callback = U.update_buffer_registry,
-})
-
--- Prevent updateing buffer usage only when
-local last_closed_time = 0
-local debounce_duration = 1
-vim.api.nvim_create_autocmd("WinClosed", {
-	group = vim.api.nvim_create_augroup("telescope_selection", { clear = true }),
-	callback = function()
-		local current_time = vim.fn.reltimefloat(vim.fn.reltime())
-		if current_time - last_closed_time > debounce_duration then
-			last_closed_time = current_time
-			if U.is_floating_window() then
-				if not U.make_telescope_selection then
-					U.prevent_buffer_registry_update_only_once = true
-				else
-					U.prevent_buffer_registry_update_only_once = false
-					U.make_telescope_selection = false
-				end
-			end
-		end
-	end,
-})
 -- Refresh status line on when recording starts and ends
 vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
 	callback = function()

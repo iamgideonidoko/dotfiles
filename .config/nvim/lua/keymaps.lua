@@ -1,6 +1,6 @@
 -- [[Keymaps (see `:help vim.keymap.set()`)]]
 
-local U = require("utils")
+local utils = require("utils")
 
 local set = vim.keymap.set
 local opt = vim.opt
@@ -23,13 +23,6 @@ set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
--- set("n", "<Tab>", "<cmd>bnext!<CR>")
--- set("n", "<S-Tab>", "<cmd>bprevious!<CR>")
-set("n", "<leader>x", U.smartly_close_buffer, { desc = "Close current buffer" })
-set("n", "<leader>X", function()
-	U.smartly_close_buffer(true)
-end, { desc = "Force close current buffer" })
-
 -- Move in insert mode
 set("i", "<C-h>", "<Left>", { desc = "Move left" })
 set("i", "<C-l>", "<Right>", { desc = "Move right" })
@@ -51,16 +44,9 @@ set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text
 
 -- Insert an empty line below
 set("n", "<M-j>", function()
-	U.add_empty_line(true)
+	utils.add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
 -- Insert an empty line above
-set("n", "<M-k>", U.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
-
--- Keymaps to navigate through buffers in most recently used order
-set("n", "<Tab>", U.bnext_mru, { noremap = true, silent = true })
-set("n", "<S-Tab>", U.bprev_mru, { noremap = true, silent = true })
-
--- Set keymap to open the buffer manager picker
-set("n", "<leader>bm", U.open_buffer_manager, { noremap = true, silent = true, desc = "[B]uffer [m]anager" })
+set("n", "<M-k>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- vim: ts=2 sts=2 sw=2 et
