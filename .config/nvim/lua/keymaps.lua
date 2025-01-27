@@ -13,7 +13,7 @@ set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
 set("n", "<leader>e", function()
-	vim.diagnostic.open_float({ border = "rounded" })
+  vim.diagnostic.open_float({ border = "rounded" })
 end, { desc = "Show diagnostic [e]rror messages" })
 set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [q]uickfix list" })
 
@@ -44,7 +44,7 @@ set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text
 
 -- Insert an empty line below
 set("n", "<M-j>", function()
-	utils.add_empty_line(true)
+  utils.add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
 -- Insert an empty line above
 set("n", "<M-k>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
