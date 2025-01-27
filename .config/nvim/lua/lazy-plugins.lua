@@ -31,7 +31,8 @@ require("lazy").setup({
 	require("plugins.dashboard"),
 	require("plugins.noice"),
 	require("plugins.copilot"),
-	require("plugins._dev"),
+	--- Dev plugins
+	require("plugins._dev.loft"),
 }, {
 	ui = {
 		icons = vim.g.have_nerd_font and {} or {
