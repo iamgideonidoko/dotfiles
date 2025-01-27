@@ -12,7 +12,13 @@ return { -- Collection of small independent packages
 			if record_reg ~= "" then
 				recording = " %#ErrorMsg# recording @" .. record_reg -- red highlight for visibility
 			end
+
 			return "%2l:%-2v" .. recording
+		end
+		local original_section_filename = statusline.section_filename
+		---@diagnostic disable-next-line: duplicate-set-field
+		statusline.section_filename = function(...)
+			return original_section_filename(...) .. require("loft.ui"):get_buffer_mark()
 		end
 	end,
 }
