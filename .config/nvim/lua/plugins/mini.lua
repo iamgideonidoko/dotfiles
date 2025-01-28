@@ -3,26 +3,41 @@ return { -- Collection of small independent packages
   config = function()
     local statusline = require("mini.statusline")
     vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
-    statusline.setup({ use_icons = vim.g.have_nerd_font })
-    ---@diagnostic disable-next-line: duplicate-set-field
-    statusline.section_location = function()
-      -- Macro recording indicator
-      local recording = ""
-      local record_reg = vim.fn.reg_recording()
-      if record_reg ~= "" then
-        recording = " %#ErrorMsg# recording @" .. record_reg -- red highlight for visibility
-      end
-
-      return "%2l:%-2v" .. recording
-    end
-    local original_section_filename = statusline.section_filename
-    ---@diagnostic disable-next-line: duplicate-set-field
-    statusline.section_filename = function(...)
-      return original_section_filename(...) .. require("loft.ui"):get_buffer_mark()
-    end
+    vim.api.nvim_set_hl(0, "StatusLineLoftSmartOrder", { fg = "#ffffff", bg = "#005f87", bold = true })
+    statusline.setup({
+      use_icons = vim.g.have_nerd_font,
+      content = {
+        active = function()
+          local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
+          local git = statusline.section_git({ trunc_width = 75 })
+          local diff = statusline.section_diff({ trunc_width = 75 })
+          local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
+          local lsp = statusline.section_lsp({ trunc_width = 75 })
+          local filename = statusline.section_filename({ trunc_width = 140 })
+          local fileinfo = statusline.section_fileinfo({ trunc_width = 120 })
+          local location = "%l:%-2v"
+          local search = statusline.section_searchcount({ trunc_width = 75 })
+          local loft_ui = require("loft.ui")
+          local smart_order_status = "%#StatusLineLoftSmartOrder#" .. loft_ui:smart_order_indicator()
+          local buffer_mark = loft_ui:get_buffer_mark()
+          local record_reg = vim.fn.reg_recording()
+          local recording = (string.len(record_reg) > 0 and "recording @" or "") .. record_reg
+          return statusline.combine_groups({
+            { hl = mode_hl, strings = { mode } },
+            { hl = "StatusLineLoftSmartOrder", strings = { smart_order_status } },
+            "%<",
+            { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
+            "%<",
+            { hl = "MiniStatuslineFilename", strings = { filename .. buffer_mark } },
+            "%=",
+            { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+            { hl = mode_hl, strings = { search, location } },
+            { hl = "ErrorMsg", strings = { recording } },
+          })
+        end,
+      },
+    })
   end,
 }
-
--- " %s ",
 
 -- vim: ts=2 sts=2 sw=2 et
