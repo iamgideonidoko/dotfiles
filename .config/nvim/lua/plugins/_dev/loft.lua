@@ -8,6 +8,12 @@ return {
         general = {
           ["<M-l>"] = actions.switch_to_next_marked_buffer,
           ["<M-h>"] = actions.switch_to_prev_marked_buffer,
+          ["<leader>ls"] = {
+            callback = function()
+              actions.toggle_smart_order(false)
+            end,
+            desc = "Toggle Smart Order ON and OFF",
+          },
         },
       },
     })
