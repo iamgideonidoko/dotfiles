@@ -10,7 +10,7 @@ return {
           ["<M-h>"] = actions.switch_to_prev_marked_buffer,
           ["<leader>ls"] = {
             callback = function()
-              actions.toggle_smart_order(false)
+              actions.toggle_smart_order({ notify = false })
             end,
             desc = "Toggle Smart Order ON and OFF",
           },
