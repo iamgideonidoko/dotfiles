@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("User", {
-  pattern = "LoftSmartOrderToggle",
+  pattern = { "LoftSmartOrderToggle", "LoftBufferMark" },
   callback = function()
     vim.cmd("redrawstatus") -- Redraw statusline
   end,
