@@ -36,4 +36,11 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- Refresh status line on when recording starts and ends
+vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+  callback = function()
+    vim.cmd("redrawstatus")
+  end,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
