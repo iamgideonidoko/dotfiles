@@ -28,9 +28,7 @@ return { -- Autoformat
     })
     for _, language in ipairs(prettier_supported) do
       formatters[language] = {
-        {
-          "prettierd",
-        },
+        "prettierd",
       }
     end
 
@@ -57,7 +55,7 @@ return { -- Autoformat
     {
       "<leader>fm",
       function()
-        require("conform").format({ async = true, lsp_fallback = true })
+        require("conform").format({ async = true, lsp_format = "fallback" })
       end,
       mode = "",
       desc = "[F]or[m]at buffer",
