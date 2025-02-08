@@ -49,4 +49,8 @@ end, { desc = "Insert an empty line below current", noremap = true, silent = tru
 -- Insert an empty line above
 set("n", "<M-k>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
--- vim: ts=2 sts=2 sw=2 et
+-- Move line(s) up or down
+set("n", "<S-M-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+set("n", "<S-M-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+set("v", "<S-M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+set("v", "<S-M-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
