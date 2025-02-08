@@ -3,14 +3,14 @@ return {
   event = "VimEnter",
   opts = function()
     local logo = [[
- _____  ___    _______    ______  ___      ___  __     ___      ___ 
+ _____  ___    _______    ______  ___      ___  __     ___      ___
 (\"   \|"  \  /"     "|  /    " \|"  \    /"  ||" \   |"  \    /"  |
 |.\\   \    |(: ______) // ____  \\   \  //  / ||  |   \   \  //   |
 |: \.   \\  | \/    |  /  /    ) :)\\  \/. ./  |:  |   /\\  \/.    |
 |.  \    \. | // ___)_(: (____/ //  \.    //   |.  |  |: \.        |
 |    \    \ |(:      "|\        /    \\   /    /\  |\ |.  \    /:  |
  \___|\____\) \_______) \"_____/      \__/    (__\_|_)|___|\__/|___|
-                                                                    
+
 ]]
     logo = string.rep("\n\n\n", 1) .. logo .. ""
     local opts = {
@@ -34,12 +34,10 @@ return {
         end,
       },
     }
-
     for _, button in ipairs(opts.config.center) do
       button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
       button.key_format = "  %s"
     end
-
     -- close Lazy and re-open when the dashboard is ready
     if vim.o.filetype == "lazy" then
       vim.cmd.close()
@@ -50,9 +48,6 @@ return {
         end,
       })
     end
-
     return opts
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et

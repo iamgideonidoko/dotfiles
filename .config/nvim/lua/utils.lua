@@ -37,5 +37,3 @@ utils.add_empty_line = function(to_below)
 end
 
 return utils
-
--- vim: ts=2 sts=2 sw=2 et

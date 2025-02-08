@@ -1,6 +1,6 @@
 local utils = require("utils")
 
--- Highlight when yanking text
+-- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Add keybinding if `EslintFixAll` is executable
+-- Keybinding for `EslintFixAll`
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = vim.api.nvim_create_augroup("custom-buffer-eslint-fix", { clear = true }),
   callback = function()
@@ -32,15 +32,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("User", {
   pattern = { "LoftSmartOrderToggle", "LoftBufferMark" },
   callback = function()
-    vim.cmd("redrawstatus") -- Redraw statusline
+    vim.cmd("redrawstatus")
   end,
 })
 
--- Refresh status line on when recording starts and ends
 vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
   callback = function()
     vim.cmd("redrawstatus")
   end,
 })
-
--- vim: ts=2 sts=2 sw=2 et

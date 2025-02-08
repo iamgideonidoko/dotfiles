@@ -1,4 +1,3 @@
--- Autotag for Treesitter
 return {
   "windwp/nvim-ts-autotag",
   ft = {
@@ -24,5 +23,3 @@ return {
     require("nvim-ts-autotag").setup()
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et

@@ -1,4 +1,4 @@
-return { -- Linting
+return {
   "mfussenegger/nvim-lint",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
@@ -18,7 +18,6 @@ return { -- Linting
     end
     local lint = require("lint")
     lint.linters_by_ft = linters
-    -- Autocommand for linting on specified events
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
       group = lint_augroup,
@@ -30,5 +29,3 @@ return { -- Linting
     require("mason-nvim-lint").setup()
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et

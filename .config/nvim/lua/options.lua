@@ -1,5 +1,3 @@
--- [[Setting options (see `:help vim.opt` & `:help option-list`)]]
-
 local opt = vim.opt
 opt.relativenumber = true
 opt.number = true
@@ -32,5 +30,3 @@ opt.shortmess:append("sI") -- disable nvim intro
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
-
--- vim: ts=2 sts=2 sw=2 et

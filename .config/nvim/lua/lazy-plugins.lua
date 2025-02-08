@@ -1,7 +1,3 @@
--- [[Configure and install plugins]]
-
--- Check status with `:Lazy` and update plugins with `:Lazy update`
--- NOTE: Use `opts = {}` to force a plugin to be loaded. (equivalent to: `require('Comment').setup({})`)
 require("lazy").setup({
   require("plugins.mason"),
   require("plugins.git"),
@@ -29,7 +25,7 @@ require("lazy").setup({
   require("plugins.tmux"),
   require("plugins.comment"),
   require("plugins.sleuth"),
-  --- Dev plugins
+  -- DEV
   { import = "plugins._dev.loft" },
 }, {
   ui = {
@@ -51,5 +47,3 @@ require("lazy").setup({
     border = "rounded",
   },
 })
-
--- vim: ts=2 sts=2 sw=2 et

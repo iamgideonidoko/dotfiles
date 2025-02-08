@@ -23,5 +23,3 @@ return { -- Add indentation guides
     require("ibl").setup({ indent = { highlight = highlight }, exclude = { filetypes = { "dashboard" } } })
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et

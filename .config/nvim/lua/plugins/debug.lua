@@ -207,5 +207,3 @@ return {
     vscode.load_launchjs(nil, filetypes)
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et

@@ -1,5 +1,3 @@
--- [[Determine if their system is setup correctly]]
-
 local check_version = function()
   local verstr = string.format("%s.%s.%s", vim.version().major, vim.version().minor, vim.version().patch)
   if not vim.version.cmp then
@@ -14,7 +12,6 @@ local check_version = function()
 end
 
 local check_external_reqs = function()
-  -- Basic utils: `git`, `make`, `unzip`
   for _, exe in ipairs({ "git", "make", "unzip", "rg" }) do
     local is_executable = vim.fn.executable(exe) == 1
     if is_executable then
@@ -40,5 +37,3 @@ return {
     check_external_reqs()
   end,
 }
-
--- vim: ts=2 sts=2 sw=2 et
