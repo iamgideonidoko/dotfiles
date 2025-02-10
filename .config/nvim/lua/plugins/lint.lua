@@ -9,6 +9,7 @@ return {
     local linters = {
       markdown = { "markdownlint" },
       python = { "flake8" },
+      lua = { "luacheck" },
     }
     local js_related_language = require("utils").js_related_languages
     for _, language in ipairs(js_related_language) do
