@@ -25,8 +25,9 @@ require("lazy").setup({
   require("plugins.tmux"),
   require("plugins.comment"),
   require("plugins.sleuth"),
+  require("plugins.loft"),
   -- DEV
-  { import = "plugins._dev.loft" },
+  -- { import = "plugins._dev.loft" },
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
