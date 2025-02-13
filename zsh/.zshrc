@@ -1,5 +1,5 @@
 ##############################################################################
-# DO_NOT_BACK_UP
+# DO_NOT_BACK_UP_FILE
 ##############################################################################
 # Overrides all locale settings to enforce a consistent language, encoding, and formatting.
 export LC_ALL=en_US.UTF-8
@@ -8,71 +8,6 @@ export LC_CTYPE=en_US.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1
 # Prepend to system path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-##############################################################################
-# ASCII color codes
-boldGreen="\033[1;32m"
-boldYellow="\033[1;33m"
-boldRed="\033[1;31m"
-boldPurple="\033[1;35m"
-boldBlue="\033[1;34m"
-noColor="\033[0m"
-##############################################################################
-# SYMLINK
-mkdir -p ~/.config
-mkdir -p ~/.config/ghostty
-mkdir -p ~/.config/yazi
-mkdir -p ~/.config/btop
-mkdir -p ~/.config/fastfetch
-# Helper function for creating symlinks
-create_symlink() {
-  local source_path=$1
-  local target_path=$2
-  local backup_needed=true
-  # Check if the target is a file and contains the unique identifier
-  if [ -f "$target_path" ] && grep -q "DO_NOT_BACK_UP" "$target_path"; then
-    backup_needed=false
-  fi
-  # Check if the target is a directory and contains the UNIQUE_ID.sh file with the unique identifier
-  if [ -d "$target_path" ] && [ -f "$target_path/DO_NOT_BACK_UP" ]; then
-    backup_needed=false
-  fi
-  # Check if symlink already exists and points to the correct source
-  if [ -L "$target_path" ]; then
-    if [ "$(readlink "$target_path")" = "$source_path" ]; then
-      # echo "$target_path exists and is correct, no action needed"
-      return 0
-    else
-      echo -e "${boldYellow}'$target_path' is a symlink"
-      echo -e "but it points to a different source, updating it${noColor}"
-    fi
-  fi
-  # Backup the target if it's not a symlink and backup is needed
-  if [ -e "$target_path" ] && [ ! -L "$target_path" ] && [ "$backup_needed" = true ]; then
-    local backup_path="${target_path}_backup_$(date +%Y%m%d%H%M%S)"
-    echo -e "${boldYellow}Backing up your existing file '$target_path' to '$backup_path'${noColor}"
-    mv "$target_path" "$backup_path"
-  fi
-  # Create the symlink
-  ln -snf "$source_path" "$target_path"
-  echo -e "${boldPurple}Created or updated symlink"
-  echo -e "${boldGreen}FROM: '$source_path'"
-  echo -e "  TO: '$target_path'${noColor}"
-}
-# Creating symlinks for files
-create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
-create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
-create_symlink ~/dotfiles/bash/.bashrc ~/.bashrc
-create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-create_symlink ~/dotfiles/yabai/.yabairc ~/.yabairc
-create_symlink ~/dotfiles/.prettierrc.yaml ~/.prettierrc.yaml
-# Creating symlinks for directories
-create_symlink ~/dotfiles/nvim/ ~/.config/nvim
-create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
-create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
-create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
-create_symlink ~/dotfiles/yazi/ ~/.config/yazi
-create_symlink ~/dotfiles/btop/ ~/.config/btop
-create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
 ##############################################################################
 # Print execution time after every terminal command
 preexec() {
