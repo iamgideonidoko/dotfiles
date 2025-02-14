@@ -4,6 +4,7 @@ tap "homebrew/services"
 # tap "felixkratz/formulae"
 ##############################################################################
 # LANGUAGES
+brew "node"
 brew "python@3.12"
 # brew "go"
 # brew "php"
