@@ -12,6 +12,11 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion"
+# Enable Starship prompt
+if command -v starship &> /dev/null; then
+  export STARSHIP_CONFIG=~/.config/starship/starship.toml
+  eval "$(starship init zsh)"
+fi
 ##############################################################################
 # Print execution time after every terminal command
 preexec() {

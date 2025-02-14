@@ -10,6 +10,7 @@ noColor="\033[0m"
 ##############################################################################
 mkdir -p ~/.config
 mkdir -p ~/.config/ghostty
+mkdir -p ~/.config/starship
 # mkdir -p ~/.config/yazi
 # mkdir -p ~/.config/btop
 # mkdir -p ~/.config/fastfetch
@@ -66,4 +67,5 @@ create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
 # create_symlink ~/dotfiles/yazi/ ~/.config/yazi
 # create_symlink ~/dotfiles/btop/ ~/.config/btop
 # create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
+create_symlink ~/dotfiles/starship/ ~/.config/starship
 ##############################################################################
