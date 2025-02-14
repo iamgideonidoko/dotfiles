@@ -30,6 +30,7 @@ brew "zsh-autosuggestions"
 brew "zsh-vi-mode"
 brew "watchman" # Watch files and take action when they change
 brew "wget"
+brew "starship"
 # brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 # brew "jq"
 # brew "sketchybar"
