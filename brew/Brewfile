@@ -15,6 +15,7 @@ brew "luarocks"
 brew "nvm"
 brew "yarn"
 ##############################################################################
+brew "coreutils"
 brew "bat" # Better cat
 brew "fzf"
 brew "git"
