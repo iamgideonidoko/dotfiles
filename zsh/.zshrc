@@ -17,6 +17,10 @@ if command -v starship &> /dev/null; then
   export STARSHIP_CONFIG=~/.config/starship/starship.toml
   eval "$(starship init zsh)"
 fi
+# Homebrew setup (macOS)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 ##############################################################################
 # Print execution time after every terminal command
 preexec() {
