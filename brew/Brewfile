@@ -1,6 +1,7 @@
 ##############################################################################
 tap "homebrew/bundle"
 tap "homebrew/services"
+tap "koekeishiya/formulae"
 # tap "felixkratz/formulae"
 ##############################################################################
 # LANGUAGES
@@ -34,6 +35,7 @@ brew "watchman" # Watch files and take action when they change
 brew "wget"
 brew "starship"
 brew "bash"
+brew "koekeishiya/formulae/yabai"
 # brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 # brew "jq"
 # brew "sketchybar"
