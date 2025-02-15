@@ -96,3 +96,8 @@ alias history='history -30'
 alias x='exit'
 alias chrome="open -a 'Google Chrome'"
 ##############################################################################
+# Ensure Tmux Plugin Manager is installed
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+##############################################################################
