@@ -28,6 +28,8 @@ brew "eza" # Replacement for ls
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-vi-mode"
+brew "zsh-completions"
+brew "zsh-syntax-highlighting"
 brew "watchman" # Watch files and take action when they change
 brew "wget"
 brew "starship"
