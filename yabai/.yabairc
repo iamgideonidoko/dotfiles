@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Start Yabai (if not running)
+yabai --check || brew services start yabai
+
+# Set up layout (default is BSP tiling)
+yabai -m config layout bsp
+
+# Gaps and Padding
+yabai -m config top_padding 10
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config window_gap 8
+
+# Mouse Follows Focus
+yabai -m config focus_follows_mouse autoraise
+yabai -m config mouse_follows_focus on
+
+# Window Opacity (requires macOS Sonoma+)
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+
+# Window Borders (only for active/focused windows)
+yabai -m config window_border on
+yabai -m config window_border_width 2
+yabai -m config active_window_border_color 0xff5e81ac
+yabai -m config normal_window_border_color 0xff4c566a
+
+# Multimonitor Setup
+yabai -m config mouse_modifier fn
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
+
+# Fixing issues with focus (macOS quirks)
+yabai -m signal --add event=window_focused action="yabai -m window --focus $(yabai -m query --windows --space | jq 'map(select(.focused != 1)) | first | .id')"

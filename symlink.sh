@@ -56,7 +56,7 @@ create_symlink() {
 create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
 # create_symlink ~/dotfiles/bash/.bashrc ~/.bashrc
 create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-# create_symlink ~/dotfiles/yabai/.yabairc ~/.yabairc
+create_symlink ~/dotfiles/yabai/.yabairc ~/.yabairc
 # create_symlink ~/dotfiles/.prettierrc.yaml ~/.prettierrc.yaml
 ##############################################################################
 # Creating symlinks for directories
