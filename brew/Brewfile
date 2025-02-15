@@ -46,6 +46,7 @@ brew "koekeishiya/formulae/yabai"
 cask "ghostty"
 cask "google-chrome"
 cask "spotify"
+cask "karabiner-elements"
 # cask "expo-orbit"
 # cask "scoot" # Cursor actuator
 # cask "hammerspoon"
