@@ -46,8 +46,8 @@ cask "google-chrome"
 cask "spotify"
 cask "karabiner-elements"
 cask "rectangle"
+cask "scoot" # Cursor actuator
 # cask "expo-orbit"
-# cask "scoot" # Cursor actuator
 # cask "hammerspoon"
 # cask "ngrok"
 # cask "orbstack"
