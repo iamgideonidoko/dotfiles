@@ -33,7 +33,13 @@ const rules: KarabinerRules[] = [
         ],
         to_if_alone: [
           {
-            key_code: 'caps_lock',
+            set_variable: {
+              name: 'hyper',
+              value: 0,
+            },
+          },
+          {
+            key_code: 'escape',
           },
         ],
         type: 'basic',
@@ -67,12 +73,47 @@ const rules: KarabinerRules[] = [
       g: app('Ghostty'),
       f: app('Finder'),
       s: app('Spotify'),
+      d: app('Dictionary'),
+      n: app('Notes'),
       // w: open('WhatsApp'),
       // d: app('Discord'),
       // s: app('Slack'),
     },
+    // e = Mous"e"
+    e: {
+      j: {
+        to: [{ mouse_key: { y: 1536 } }],
+      },
+      k: {
+        to: [{ mouse_key: { y: -1536 } }],
+      },
+      h: {
+        to: [{ mouse_key: { x: -1536 } }],
+      },
+      l: {
+        to: [{ mouse_key: { x: 1536 } }],
+      },
+      spacebar: {
+        to: [{ pointing_button: 'button1' }],
+      },
+      i: {
+        to: [{ mouse_key: { vertical_wheel: -32 } }],
+      },
+      o: {
+        to: [{ mouse_key: { vertical_wheel: 32 } }],
+      },
+      comma: {
+        to: [{ mouse_key: { horizontal_wheel: -32 } }],
+      },
+      period: {
+        to: [{ mouse_key: { horizontal_wheel: 32 } }],
+      },
+    },
     // w = "W"indow via rectangle.app
     w: {
+      e: {
+        to: [{ key_code: 'h' }, { key_code: 'i', repeat: false }],
+      },
       semicolon: {
         description: 'Window: Hide',
         to: [
@@ -82,14 +123,13 @@ const rules: KarabinerRules[] = [
           },
         ],
       },
-      y: rectangle('previous-display'),
-      o: rectangle('next-display'),
       k: rectangle('top-half'),
       j: rectangle('bottom-half'),
       h: rectangle('left-half'),
       l: rectangle('right-half'),
       f: rectangle('maximize'),
-      u: {
+      r: rectangle('restore'),
+      i: {
         description: 'Window: Previous Tab',
         to: [
           {
@@ -98,7 +138,7 @@ const rules: KarabinerRules[] = [
           },
         ],
       },
-      i: {
+      o: {
         description: 'Window: Next Tab',
         to: [
           {
@@ -116,51 +156,32 @@ const rules: KarabinerRules[] = [
           },
         ],
       },
-      b: {
-        description: 'Window: Back',
-        to: [
-          {
-            key_code: 'open_bracket',
-            modifiers: ['right_command'],
-          },
-        ],
-      },
-      // Note: No literal connection. Both f and n are already taken.
-      m: {
-        description: 'Window: Forward',
-        to: [
-          {
-            key_code: 'close_bracket',
-            modifiers: ['right_command'],
-          },
-        ],
-      },
     },
 
     // s = "System"
     s: {
-      u: {
+      o: {
         to: [
           {
             key_code: 'volume_increment',
           },
         ],
       },
-      j: {
+      i: {
         to: [
           {
             key_code: 'volume_decrement',
           },
         ],
       },
-      i: {
+      k: {
         to: [
           {
             key_code: 'display_brightness_increment',
           },
         ],
       },
-      k: {
+      j: {
         to: [
           {
             key_code: 'display_brightness_decrement',
@@ -172,29 +193,6 @@ const rules: KarabinerRules[] = [
           {
             key_code: 'q',
             modifiers: ['right_control', 'right_command'],
-          },
-        ],
-      },
-      p: {
-        to: [
-          {
-            key_code: 'play_or_pause',
-          },
-        ],
-      },
-      semicolon: {
-        to: [
-          {
-            key_code: 'fastforward',
-          },
-        ],
-      },
-      // 'v'oice
-      v: {
-        to: [
-          {
-            key_code: 'spacebar',
-            modifiers: ['left_option'],
           },
         ],
       },
@@ -215,23 +213,23 @@ const rules: KarabinerRules[] = [
       l: {
         to: [{ key_code: 'right_arrow' }],
       },
-      u: {
+      i: {
         to: [{ key_code: 'page_down' }],
       },
-      i: {
+      o: {
         to: [{ key_code: 'page_up' }],
       },
     },
 
     // c = Musi"c" which isn't "m" because we want it to be on the left hand
     c: {
-      p: {
+      k: {
         to: [{ key_code: 'play_or_pause' }],
       },
-      n: {
+      l: {
         to: [{ key_code: 'fastforward' }],
       },
-      b: {
+      j: {
         to: [{ key_code: 'rewind' }],
       },
     },
