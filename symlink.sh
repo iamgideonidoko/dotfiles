@@ -11,6 +11,7 @@ noColor="\033[0m"
 mkdir -p ~/.config
 mkdir -p ~/.config/ghostty
 mkdir -p ~/.config/starship
+mkdir -p ~/.config/karabiner
 # mkdir -p ~/.config/yazi
 # mkdir -p ~/.config/btop
 # mkdir -p ~/.config/fastfetch
@@ -52,19 +53,19 @@ create_symlink() {
 }
 ##############################################################################
 # Creating symlinks for files
-# create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
-# create_symlink ~/dotfiles/bash/.bashrc ~/.bashrc
 create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+# create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
+# create_symlink ~/dotfiles/bash/.bashrc ~/.bashrc
 # create_symlink ~/dotfiles/.prettierrc.yaml ~/.prettierrc.yaml
 ##############################################################################
 # Creating symlinks for directories
 create_symlink ~/dotfiles/nvim/ ~/.config/nvim
-# create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
-# create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
 create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
+create_symlink ~/dotfiles/starship/ ~/.config/starship
+create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
+# create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
 # create_symlink ~/dotfiles/yazi/ ~/.config/yazi
 # create_symlink ~/dotfiles/btop/ ~/.config/btop
 # create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
-create_symlink ~/dotfiles/starship/ ~/.config/starship
 ##############################################################################
