@@ -132,6 +132,7 @@ export interface To {
   };
   mouse_key?: MouseKey;
   pointing_button?: string;
+  repeat?: boolean;
   /**
    * Power Management plugin
    * @example: sleep system
