@@ -79,7 +79,7 @@ const rules: KarabinerRules[] = [
       // d: app('Discord'),
       // s: app('Slack'),
     },
-    // e = Mous"e"
+    // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
       j: {
         to: [{ mouse_key: { y: 1536 } }],
@@ -108,11 +108,23 @@ const rules: KarabinerRules[] = [
       period: {
         to: [{ mouse_key: { horizontal_wheel: 32 } }],
       },
+      /**
+       * Ensure that Scoot has been given the necessary permissions to control the mouse
+       * Also, preferably switch from Emacs to Vim mode ;)
+       */
+      // Scoot's grid-based navigation of cursor
+      semicolon: {
+        to: [{ key_code: 'k', modifiers: ['right_command', 'right_shift'] }],
+      },
+      // Scoot's element-based navigation of cursor
+      n: {
+        to: [{ key_code: 'j', modifiers: ['right_command', 'right_shift'] }],
+      },
     },
     // w = "W"indow via rectangle.app
     w: {
       e: {
-        to: [{ key_code: 'h' }, { key_code: 'i', repeat: false }],
+        to: [{ key_code: 'escape' }, { key_code: 'escape', repeat: false }],
       },
       semicolon: {
         description: 'Window: Hide',
