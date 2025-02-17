@@ -49,7 +49,7 @@
                     }
                   },
                   {
-                    "key_code": "escape"
+                    "shell_command": "open -g hammerspoon://toggleCapsLock"
                   }
                 ],
                 "type": "basic"

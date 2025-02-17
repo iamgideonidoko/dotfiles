@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { KarabinerRules } from './types';
-import { createHyperSubLayers, app, open, rectangle, shell } from './utils';
+import { createHyperSubLayers, app, open, rectangle, hammerspoon, shell } from './utils';
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -38,9 +38,7 @@ const rules: KarabinerRules[] = [
               value: 0,
             },
           },
-          {
-            key_code: 'escape',
-          },
+          ...hammerspoon('toggleCapsLock').to, // Toggle Caps Lock normally
         ],
         type: 'basic',
       },
