@@ -16,6 +16,7 @@ mkdir -p ~/.config/karabiner
 mkdir -p ~/.config/svim
 mkdir -p ~/.hammerspoon
 mkdir -p ~/.config/yazi
+mkdir -p ~/.config/eza
 # mkdir -p ~/.config/btop
 # mkdir -p ~/.config/fastfetch
 ##############################################################################
@@ -70,6 +71,7 @@ create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
 create_symlink ~/dotfiles/svim/ ~/.config/svim
 create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
 create_symlink ~/dotfiles/yazi/ ~/.config/yazi
+create_symlink ~/dotfiles/eza/ ~/.config/eza
 # create_symlink ~/dotfiles/btop/ ~/.config/btop
 # create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
 ##############################################################################
