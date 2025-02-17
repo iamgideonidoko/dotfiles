@@ -119,6 +119,7 @@ if command -v bat &>/dev/null; then
   alias catt='bat'
   alias cata='bat --show-all --paging=never --style=plain'
 fi
+unalias vim
 ##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then

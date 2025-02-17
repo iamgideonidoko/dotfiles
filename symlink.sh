@@ -59,7 +59,7 @@ create_symlink() {
 # Creating symlinks for files
 create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
 create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-# create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
+create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
 # create_symlink ~/dotfiles/bash/.bashrc ~/.bashrc
 # create_symlink ~/dotfiles/.prettierrc.yaml ~/.prettierrc.yaml
 ##############################################################################
