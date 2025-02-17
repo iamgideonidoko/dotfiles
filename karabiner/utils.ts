@@ -200,3 +200,17 @@ export function rectangle(name: string): LayerCommand {
 export function app(name: string): LayerCommand {
   return open(`-a '${name}.app'`);
 }
+
+/**
+ * Shortcut for running Hammerspoon URL events
+ */
+export function hammerspoon(name: string): LayerCommand {
+  return {
+    to: [
+      {
+        shell_command: `open -g hammerspoon://${name}`,
+      },
+    ],
+    description: `Hammerspoon: ${name}`,
+  };
+}
