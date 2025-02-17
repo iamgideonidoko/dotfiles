@@ -10,7 +10,7 @@ globals = {}
 read_globals = { "vim" }
 
 files = {
-  ["lua/loft/init.lua"] = {
+  ["init.lua"] = {
     ignore = {},
   },
 }
