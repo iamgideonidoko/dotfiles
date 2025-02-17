@@ -38,9 +38,9 @@ brew "bash"
 brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 brew "yazi"
 brew "btop"
+brew "fastfetch"
 # brew "jq"
 # brew "sketchybar"
-# brew "fastfetch"
 # brew "awscli"
 ##############################################################################
 cask "ghostty"
