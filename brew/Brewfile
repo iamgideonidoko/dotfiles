@@ -37,9 +37,9 @@ brew "bash"
 # Start: `brew services restart svim` and provide accessibility permissions
 brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 brew "yazi"
+brew "btop"
 # brew "jq"
 # brew "sketchybar"
-# brew "btop"
 # brew "fastfetch"
 # brew "awscli"
 ##############################################################################
