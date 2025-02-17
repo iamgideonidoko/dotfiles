@@ -73,9 +73,9 @@ const rules: KarabinerRules[] = [
       s: app('Spotify'),
       d: app('Dictionary'),
       n: app('Notes'),
-      // w: open('WhatsApp'),
-      // d: app('Discord'),
-      // s: app('Slack'),
+      k: app('Slack'),
+      w: app('Whatsapp'),
+      r: app('Discord'),
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
