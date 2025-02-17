@@ -126,6 +126,10 @@ fi
 if [[ -f "$HOME/dotfiles/zsh/git.sh" ]]; then
   source "$HOME/dotfiles/zsh/git.sh"
 fi
+if command -v fastfetch &>/dev/null; then
+  alias ff='fastfetch'
+  alias ffm='fastfetch --structure "Title:OS:Kernel:Uptime:CPU:CPU_cores:GPU:Memory:Resolution:Hostname:Shell:Packages:Disk:Battery" '
+fi
 ##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
