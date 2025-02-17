@@ -50,11 +50,31 @@ cask "karabiner-elements"
 cask "rectangle"
 cask "scoot" # Cursor actuator
 cask "hammerspoon"
+cask "discord"
+cask "whatsapp"
+cask "slack"
+# cask "blender"
 # cask "expo-orbit"
 # cask "ngrok"
 # cask "orbstack"
 # cask "keycastr"
 # cask "steermouse"
 # cask "obs"
-# cask "discord"
+# cask "mamp"
+# cask "iterm2"
+# cask "logi-options+"
+# cask "dbeaver-community"
+# cask "handbrake"
+# cask "grammarly-desktop"
+# cask "free-download-manager"
+# cask "lulu"
+# cask "openvpn-connect"
+# cask "vlc"
+# cask "zoom"
+# cask "android-file-transfer"
+# cask "android-studio"
+##############################################################################
+# NOT ON HOMEBREW
+# - Quillbot
+# - Xcode
 ##############################################################################
