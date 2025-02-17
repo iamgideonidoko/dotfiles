@@ -122,7 +122,10 @@ fi
 if command -v btop &>/dev/null; then
   alias top='btop'
 fi
-unalias vim
+# Git aliases
+if [[ -f "$HOME/dotfiles/zsh/git.sh" ]]; then
+  source "$HOME/dotfiles/zsh/git.sh"
+fi
 ##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
