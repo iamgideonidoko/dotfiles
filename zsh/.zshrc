@@ -48,6 +48,15 @@ fi
 if [[ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
   source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
+# zoxide setup
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
+  # Alias below is same as 'cd -', takes to the previous directory
+  alias cdd='z -'
+  # Useful commands
+  # z foo<SPACE><TAB>  # show interactive completions
+fi
 ##############################################################################
 # Keybindings
 bindkey -v
