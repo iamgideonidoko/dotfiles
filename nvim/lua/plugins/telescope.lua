@@ -31,6 +31,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
                 actions.delete_buffer(prompt_bufnr)
               end
             end,
+            ["<M-q>"] = actions.close,
+          },
+          n = {
+            ["<M-q>"] = actions.close,
           },
         },
         -- file_ignore_patterns = { "node_modules", ".git", ".next", ".nx" },
