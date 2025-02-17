@@ -93,17 +93,32 @@ precmd() {
 }
 ##############################################################################
 # ALIASES
-alias ls='ls --color'
-alias vim='nvim'
 alias v='nvim'
 alias c='clear'
-alias ll='ls -lh'
-alias lla='ls -alh'
 alias python='python3'
 # Shows the last 30 entries, default is 15
 alias history='history -30'
 alias x='exit'
-alias chrome="open -a 'Google Chrome'"
+if command -v yazi &>/dev/null; then
+  alias y='yazi'
+fi
+if command -v eza &>/dev/null; then
+  alias ls='eza'
+  alias ll='eza -lhg'
+  alias lla='eza -alhg'
+  alias tree='eza --tree'
+else
+  alias ls='ls --color'
+  alias ll='ls -lh'
+  alias lla='ls -alh'
+fi
+if command -v bat &>/dev/null; then
+  # --style=plain - removes line numbers and git modifications
+  # --paging=never - doesnt pipe it through less
+  alias cat='bat --paging=never --style=plain'
+  alias catt='bat'
+  alias cata='bat --show-all --paging=never --style=plain'
+fi
 ##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
