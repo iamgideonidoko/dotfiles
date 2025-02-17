@@ -119,6 +119,9 @@ if command -v bat &>/dev/null; then
   alias catt='bat'
   alias cata='bat --show-all --paging=never --style=plain'
 fi
+if command -v btop &>/dev/null; then
+  alias top='btop'
+fi
 unalias vim
 ##############################################################################
 # Ensure Tmux Plugin Manager is installed
