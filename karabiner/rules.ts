@@ -103,10 +103,10 @@ const rules: KarabinerRules[] = [
         to: [{ mouse_key: { vertical_wheel: 32 } }],
       },
       comma: {
-        to: [{ mouse_key: { horizontal_wheel: -32 } }],
+        to: [{ mouse_key: { horizontal_wheel: 32 } }],
       },
       period: {
-        to: [{ mouse_key: { horizontal_wheel: 32 } }],
+        to: [{ mouse_key: { horizontal_wheel: -32 } }],
       },
       /**
        * Ensure that Scoot has been given the necessary permissions to control the mouse
