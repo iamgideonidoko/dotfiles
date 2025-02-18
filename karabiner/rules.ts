@@ -94,10 +94,10 @@ const rules: KarabinerRules[] = [
       spacebar: {
         to: [{ pointing_button: 'button1' }],
       },
-      i: {
+      o: {
         to: [{ mouse_key: { vertical_wheel: -32 } }],
       },
-      o: {
+      i: {
         to: [{ mouse_key: { vertical_wheel: 32 } }],
       },
       comma: {
@@ -111,7 +111,7 @@ const rules: KarabinerRules[] = [
        * Also, preferably switch from Emacs to Vim mode ;)
        */
       // Scoot's grid-based navigation of cursor
-      semicolon: {
+      f: {
         to: [{ key_code: 'k', modifiers: ['right_command', 'right_shift'] }],
       },
       // Scoot's element-based navigation of cursor
