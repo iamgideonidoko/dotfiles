@@ -62,11 +62,29 @@ const rules: KarabinerRules[] = [
   ...createHyperSubLayers({
     // b = "B"rowse
     b: {
-      t: open('https://x.com'),
+      x: open('https://x.com'),
       g: open('https://github.com'),
+      y: open('https://youtube.com'),
+      m: open('https://music.youtube.com'),
+      i: open('https://mail.google.com'),
+      d: open('https://app.daily.dev'),
     },
     // o = "O"pen applications
     o: {
+      // Alternate app
+      a: {
+        to: [
+          {
+            key_code: 'tab',
+            modifiers: ['right_command'],
+            repeat: false,
+          },
+          {
+            key_code: 'right_command',
+            halt: true,
+          },
+        ],
+      },
       c: app('Google Chrome'),
       g: app('Ghostty'),
       f: app('Finder'),
@@ -168,7 +186,7 @@ const rules: KarabinerRules[] = [
       },
     },
 
-    // s = "System"
+    // s = "S"ystem
     s: {
       o: {
         to: [
@@ -203,6 +221,14 @@ const rules: KarabinerRules[] = [
           {
             key_code: 'q',
             modifiers: ['right_control', 'right_command'],
+          },
+        ],
+      },
+      c: {
+        to: [
+          {
+            key_code: 'c',
+            modifiers: ['right_shift', 'right_command'],
           },
         ],
       },
