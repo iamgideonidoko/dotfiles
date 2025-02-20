@@ -1,4 +1,4 @@
-##############################################################################
+###########capcut###################################################################
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "felixkratz/formulae"
@@ -39,42 +39,47 @@ brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 brew "yazi"
 brew "btop"
 brew "fastfetch"
+brew "xcodes" # To install Xcode, run: xcodes install <version> && xcodes select <version>
+brew "awscli"
+brew "aria2" # Download utility but faster
 # brew "jq"
 # brew "sketchybar"
-# brew "awscli"
 ##############################################################################
-cask "ghostty"
+cask "ghostty" # Terminal emulator
 cask "google-chrome"
 cask "spotify"
-cask "karabiner-elements"
-cask "rectangle"
+cask "karabiner-elements" # Keyboard remapper
+cask "rectangle" # Window manager
 cask "scoot" # Cursor actuator
-cask "hammerspoon"
+cask "hammerspoon" # Automation tool
 cask "discord"
 cask "whatsapp"
 cask "slack"
-# cask "blender"
-# cask "expo-orbit"
-# cask "ngrok"
-# cask "orbstack"
-# cask "keycastr"
-# cask "steermouse"
-# cask "obs"
-# cask "mamp"
-# cask "iterm2"
-# cask "logi-options+"
-# cask "dbeaver-community"
-# cask "handbrake"
-# cask "grammarly-desktop"
-# cask "free-download-manager"
-# cask "lulu"
-# cask "openvpn-connect"
-# cask "vlc"
-# cask "zoom"
-# cask "android-file-transfer"
-# cask "android-studio"
+cask "steermouse" # Mouse utility
+cask "maccy" # Clipboard manager
+cask "android-studio"
+cask "android-commandlinetools"
+cask "blender"
+cask "expo-orbit"
+cask "orbstack" # Fast, ligh & simple docker/linux
+cask "keycastr"
+cask "obs"
+cask "dbeaver-community"
+cask "grammarly-desktop"
+cask "free-download-manager"
+cask "vlc"
+cask "lulu" # Firewall
+cask "zoom"
+cask "android-file-transfer" # Android - macOS file transfer
+cask "handbrake"
+cask "logi-options+"
+# cask "openvpn-connect" # Work VPN
+# cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
+# cask "figma" # Prefer browser version
+# cask "capcut" # Prefer browser version
+# cask "canva" # Prefer browser version
+# cask "iterm2" # Prefer Ghostty
 ##############################################################################
 # NOT ON HOMEBREW
 # - Quillbot
-# - Xcode
 ##############################################################################
