@@ -65,11 +65,11 @@ const rules: KarabinerRules[] = [
       x: open('https://x.com'),
       g: open('https://github.com'),
       y: open('https://youtube.com'),
-      m: open('https://music.youtube.com'),
       i: open('https://mail.google.com'),
       d: open('https://app.daily.dev'),
       f: open('https://figma.com'),
       c: open('https://www.canva.com/?continue_in_browser=true'),
+      t: open('https://www.capcut.com'),
     },
     // o = "O"pen applications
     o: {
@@ -96,6 +96,9 @@ const rules: KarabinerRules[] = [
       k: app('Slack'),
       w: app('Whatsapp'),
       r: app('Discord'),
+      // Chrome apps
+      m: app('YouTube Music'),
+      p: app('Photopea'),
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
