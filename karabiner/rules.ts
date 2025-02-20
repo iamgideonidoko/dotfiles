@@ -68,6 +68,8 @@ const rules: KarabinerRules[] = [
       m: open('https://music.youtube.com'),
       i: open('https://mail.google.com'),
       d: open('https://app.daily.dev'),
+      f: open('https://figma.com'),
+      c: open('https://www.canva.com/?continue_in_browser=true'),
     },
     // o = "O"pen applications
     o: {
@@ -80,7 +82,7 @@ const rules: KarabinerRules[] = [
             repeat: false,
           },
           {
-            key_code: 'right_command',
+            key_code: 'vk_none',
             halt: true,
           },
         ],
