@@ -62,14 +62,13 @@ const rules: KarabinerRules[] = [
   ...createHyperSubLayers({
     // b = "B"rowse
     b: {
-      x: open('https://x.com'),
-      g: open('https://github.com'),
-      y: open('https://youtube.com'),
-      i: open('https://mail.google.com'),
-      d: open('https://app.daily.dev'),
-      f: open('https://figma.com'),
-      c: open('https://www.canva.com/?continue_in_browser=true'),
-      t: open('https://www.capcut.com'),
+      x: open('https://x.com'), // "x".com
+      g: open('https://github.com'), // "g"ithub.com
+      i: open('https://mail.google.com'), // mai"i"l.google.com
+      d: open('https://app.daily.dev'), // "d"aily.dev
+      f: open('https://figma.com'), // "f"igma.com
+      c: open('https://www.canva.com/?continue_in_browser=true'), // "c"anva.com
+      t: open('https://www.capcut.com'), // capcu"t".com
     },
     // o = "O"pen applications
     o: {
@@ -87,18 +86,21 @@ const rules: KarabinerRules[] = [
           },
         ],
       },
-      c: app('Google Chrome'),
-      g: app('Ghostty'),
-      f: app('Finder'),
-      s: app('Spotify'),
-      d: app('Dictionary'),
-      n: app('Notes'),
-      k: app('Slack'),
-      w: app('Whatsapp'),
-      r: app('Discord'),
-      // Chrome apps
-      m: app('YouTube Music'),
-      p: app('Photopea'),
+      c: app('Google Chrome'), // Google "c"hrome
+      g: app('Ghostty'), // "g"hostty
+      f: app('Finder'), // "f"inder
+      s: app('Spotify'), // "s"potify
+      d: app('Dictionary'), // "d"ictionary
+      n: app('Notes'), // "n"otes
+      k: app('Slack'), // Slac"k"
+      w: app('Whatsapp'), // "w"hatsapp
+      r: app('Discord'), // Disco"r"d
+      i: app('iPhone Mirroring'), // "i"phone Mirroring
+      // Chrome apps (chrome://apps)
+      y: app('YouTube'), // "y"ouTube
+      m: app('YouTube Music'), // YouTube "m"usic
+      p: app('Photopea'), // "p"hotopea
+      v: app('Google Drive'), // Google D"r"ive
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
