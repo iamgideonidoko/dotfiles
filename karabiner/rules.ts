@@ -134,14 +134,21 @@ const rules: KarabinerRules[] = [
       /**
        * Ensure that Scoot has been given the necessary permissions to control the mouse
        * Also, preferably switch from Emacs to Vim mode ;)
+       * Also, ensure it starts on login :)
        */
       // Scoot's grid-based navigation of cursor
-      f: {
+      g: {
         to: [{ key_code: 'k', modifiers: ['right_command', 'right_shift'] }],
       },
       // Scoot's element-based navigation of cursor
-      n: {
+      f: {
         to: [{ key_code: 'j', modifiers: ['right_command', 'right_shift'] }],
+      },
+      p: {
+        to: [{ key_code: 'open_bracket', modifiers: ['right_command'] }],
+      },
+      n: {
+        to: [{ key_code: 'close_bracket', modifiers: ['right_command'] }],
       },
     },
     // w = "W"indow via rectangle.app

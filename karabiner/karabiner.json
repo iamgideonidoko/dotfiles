@@ -961,7 +961,7 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "f",
+                  "key_code": "g",
                   "modifiers": {
                     "optional": ["any"]
                   }
@@ -979,6 +979,50 @@
                   {
                     "key_code": "j",
                     "modifiers": ["right_command", "right_shift"]
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": ["right_command"]
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": ["right_command"]
                   }
                 ],
                 "type": "basic",
