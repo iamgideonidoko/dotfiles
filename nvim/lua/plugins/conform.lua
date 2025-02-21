@@ -10,6 +10,7 @@ return { -- Autoformat
       lua = { "stylua" },
       php = { "php_cs_fixer" },
       python = { "black" },
+      -- go = { "goimports" },
     }
     local js_related_language = require("utils").js_related_languages
     local prettier_supported = vim.tbl_values(js_related_language or {})
