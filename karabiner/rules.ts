@@ -96,6 +96,8 @@ const rules: KarabinerRules[] = [
       w: app('Whatsapp'), // "w"hatsapp
       r: app('Discord'), // Disco"r"d
       i: app('iPhone Mirroring'), // "i"phone Mirroring
+      x: app('Xcode-16.2.0'), // "x"code
+      t: app('Android Studio'), // Android S"t"udio
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
       m: app('YouTube Music'), // YouTube "m"usic
