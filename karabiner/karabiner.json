@@ -46,10 +46,12 @@
                     "set_variable": {
                       "name": "hyper",
                       "value": 0
-                    }
+                    },
+                    "repeat": false
                   },
                   {
-                    "shell_command": "open -g hammerspoon://toggleCapsLock"
+                    "shell_command": "open -g hammerspoon://toggleCapsLock",
+                    "repeat": false
                   }
                 ],
                 "parameters": {

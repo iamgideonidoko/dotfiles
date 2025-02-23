@@ -37,8 +37,12 @@ const rules: KarabinerRules[] = [
               name: 'hyper',
               value: 0,
             },
+            repeat: false,
           },
-          ...hammerspoon('toggleCapsLock').to, // Toggle Caps Lock normally
+          {
+            ...hammerspoon('toggleCapsLock').to[0], // Toggle Caps Lock normally
+            repeat: false,
+          },
         ],
         parameters: {
           'basic.to_if_alone_timeout_milliseconds': 200,
