@@ -38,6 +38,12 @@ Create a symlink to the necessary configuration files and directories:
 make symlink
 ```
 
+### Reload Zsh
+
+```sh
+source ~/.zshrc
+```
+
 ### Install Nerd Font
 
 Download and install Comic Code (or any other) nerd font:
@@ -48,8 +54,8 @@ unzip -o -j ~/Downloads/Comic_Code_Nerd_Fonts.zip -d ~/Library/Fonts/
 
 ### Provide Permissions
 
-Open the software the require additional permissions and grant them.
+Open the software the require additional permissions and grant them. Also add the software like Scoot that should be login items.
 
 <br />
 
-Done 😎
+Done! 😎
