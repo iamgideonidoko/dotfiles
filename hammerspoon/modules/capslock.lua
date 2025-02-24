@@ -1,6 +1,6 @@
 function toggleCapsLock()
-	local capsState = hs.hid.capslock.get()
-	hs.hid.capslock.set(not capsState)
+  local capsState = hs.hid.capslock.get()
+  hs.hid.capslock.set(not capsState)
 end
 
 -- Register the function to be called via URL
