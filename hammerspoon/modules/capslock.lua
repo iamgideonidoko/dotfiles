@@ -1,4 +1,4 @@
-function toggleCapsLock()
+local toggleCapsLock = function()
   local capsState = hs.hid.capslock.get()
   hs.hid.capslock.set(not capsState)
 end
