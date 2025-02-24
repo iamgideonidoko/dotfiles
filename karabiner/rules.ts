@@ -40,8 +40,7 @@ const rules: KarabinerRules[] = [
             repeat: false,
           },
           {
-            ...hammerspoon('toggleCapsLock').to[0], // Toggle Caps Lock normally
-            repeat: false,
+            ...hammerspoon('toggleCapsLock', { repeat: false }).to[0], // Toggle Caps Lock normally
           },
         ],
         parameters: {
@@ -110,6 +109,8 @@ const rules: KarabinerRules[] = [
       m: app('YouTube Music'), // YouTube "m"usic
       p: app('Photopea'), // "p"hotopea
       v: app('Google Drive'), // Google D"r"ive
+      comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
+      period: app('Simulator'), // Xcode's iOS Simulator
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
