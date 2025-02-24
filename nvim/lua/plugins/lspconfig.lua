@@ -109,13 +109,7 @@ return {
             },
             -- Disable `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
-            runtime = { version = "LuaJIT" },
-            workspace = {
-              library = {
-                -- Hammerspoon
-                "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
-              },
-            },
+            -- runtime = { version = "LuaJIT" },
           },
         },
       },

@@ -1,0 +1,15 @@
+{
+  "Lua": {
+    "diagnostics": {
+      "globals": ["hs"]
+    },
+    "runtime": {
+      "version": "LuaJIT"
+    },
+    "workspace": {
+      "library": [
+        "/Applications/Hammerspoon.app/Contents/Resources/extensions/"
+      ]
+    }
+  }
+}
