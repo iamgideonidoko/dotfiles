@@ -55,7 +55,7 @@ cask "hammerspoon" # Automation tool
 cask "discord"
 cask "whatsapp"
 cask "slack"
-cask "steermouse" # Mouse utility
+cask "mos" # Mouse utility
 cask "maccy" # Clipboard manager
 cask "android-studio"
 cask "android-commandlinetools"
