@@ -92,7 +92,6 @@ return {
     -- Create new capabilities with nvim cmp, and then broadcast to the servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
     local servers = {
       ts_ls = {},
       tailwindcss = {},
@@ -110,6 +109,13 @@ return {
             },
             -- Disable `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
+            runtime = { version = "LuaJIT" },
+            workspace = {
+              library = {
+                -- Hammerspoon
+                "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
+              },
+            },
           },
         },
       },
