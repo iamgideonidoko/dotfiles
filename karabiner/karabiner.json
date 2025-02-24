@@ -1872,7 +1872,7 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "k",
+                  "key_code": "spacebar",
                   "modifiers": {
                     "optional": ["any"]
                   }
@@ -1893,7 +1893,7 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "l",
+                  "key_code": "k",
                   "modifiers": {
                     "optional": ["any"]
                   }

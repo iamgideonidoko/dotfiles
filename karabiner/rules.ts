@@ -282,10 +282,10 @@ const rules: KarabinerRules[] = [
 
     // c = Musi"c" which isn't "m" because we want it to be on the left hand
     c: {
-      k: {
+      spacebar: {
         to: [{ key_code: 'play_or_pause' }],
       },
-      l: {
+      k: {
         to: [{ key_code: 'fastforward' }],
       },
       j: {
