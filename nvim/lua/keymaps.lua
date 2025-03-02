@@ -5,7 +5,7 @@ local opt = vim.opt
 
 opt.hlsearch = true
 set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-set({ "n", "i", "c" }, "<M-q>", "<Esc>")
+set({ "n", "i", "c", "v" }, "<M-q>", "<Esc>")
 
 -- Diagnostic
 set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
