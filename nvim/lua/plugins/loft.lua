@@ -14,6 +14,9 @@ return {
             desc = "Toggle Smart Order ON and OFF",
           },
         },
+        ui = {
+          ["<M-q>"] = "close",
+        },
       },
     })
   end,
