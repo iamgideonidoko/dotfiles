@@ -643,6 +643,73 @@
               {
                 "to": [
                   {
+                    "shell_command": "open -g hammerspoon://openAndroidEmulator",
+                    "repeat": false
+                  }
+                ],
+                "description": "Hammerspoon: openAndroidEmulator",
+                "type": "basic",
+                "from": {
+                  "key_code": "comma",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "shell_command": "open -a 'Simulator.app'"
+                  }
+                ],
+                "description": "Open -a 'Simulator.app'",
+                "type": "basic",
+                "from": {
+                  "key_code": "period",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "shell_command": "open -a 'ChatGPT.app'"
+                  }
+                ],
+                "description": "Open -a 'ChatGPT.app'",
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
                     "shell_command": "open -a 'YouTube.app'"
                   }
                 ],
@@ -716,51 +783,6 @@
                 "type": "basic",
                 "from": {
                   "key_code": "v",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -g hammerspoon://openAndroidEmulator",
-                    "repeat": false
-                  }
-                ],
-                "description": "Hammerspoon: openAndroidEmulator",
-                "type": "basic",
-                "from": {
-                  "key_code": "comma",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Simulator.app'"
-                  }
-                ],
-                "description": "Open -a 'Simulator.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "period",
                   "modifiers": {
                     "optional": ["any"]
                   }

@@ -104,13 +104,14 @@ const rules: KarabinerRules[] = [
       i: app('iPhone Mirroring'), // "i"phone Mirroring
       x: app('Xcode-16.2.0'), // "x"code
       t: app('Android Studio'), // Android S"t"udio
+      comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
+      period: app('Simulator'), // Xcode's iOS Simulator
+      spacebar: app('ChatGPT'), // Xcode's iOS Simulator
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
       m: app('YouTube Music'), // YouTube "m"usic
       p: app('Photopea'), // "p"hotopea
       v: app('Google Drive'), // Google D"r"ive
-      comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
-      period: app('Simulator'), // Xcode's iOS Simulator
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
