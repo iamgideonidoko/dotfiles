@@ -73,6 +73,7 @@ cask "zoom"
 cask "android-file-transfer" # Android - macOS file transfer
 cask "handbrake"
 cask "logi-options+"
+cask "chatgpt"
 # cask "openvpn-connect" # Work VPN
 # cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
 # cask "figma" # Prefer browser version
