@@ -18,17 +18,15 @@ return { -- Collection of small independent packages
           local location = "%l:%-2v"
           local search = statusline.section_searchcount({ trunc_width = 75 })
           local loft_ui = require("loft.ui")
-          local smart_order_status = "%#StatusLineLoftSmartOrder#" .. loft_ui:smart_order_indicator()
-          local buffer_mark = loft_ui:get_buffer_mark()
           local record_reg = vim.fn.reg_recording()
           local recording = (string.len(record_reg) > 0 and "recording @" or "") .. record_reg
           return statusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
-            { hl = "StatusLineLoftSmartOrder", strings = { smart_order_status } },
+            { hl = "StatusLineLoftSmartOrder", strings = { loft_ui:smart_order_indicator() } },
             "%<",
             { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
             "%<",
-            { hl = "MiniStatuslineFilename", strings = { filename .. buffer_mark } },
+            { hl = "MiniStatuslineFilename", strings = { filename .. loft_ui:get_buffer_mark() } },
             "%=",
             { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
             { hl = mode_hl, strings = { search, location } },
