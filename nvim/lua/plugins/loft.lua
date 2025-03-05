@@ -13,6 +13,7 @@ return {
             end,
             desc = "Toggle Smart Order ON and OFF",
           },
+          ["<leader><leader>"] = actions.open_loft,
         },
         ui = {
           ["<M-q>"] = "close",
