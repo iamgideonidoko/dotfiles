@@ -69,6 +69,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
     set("n", "<leader>fb", function()
       builtin.buffers({ sort_mru = true, ignore_current_buffer = true, show_all_buffers = true })
     end, { desc = "[F]ind existing [b]uffers" })
+    set("n", "<M-/>", function()
+      builtin.buffers({ sort_mru = true, ignore_current_buffer = true, show_all_buffers = true })
+    end, { desc = "[F]ind existing [b]uffers" })
     set("n", "<leader>f/", function()
       builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
         winblend = 10,
