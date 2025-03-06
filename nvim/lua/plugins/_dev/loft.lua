@@ -1,5 +1,5 @@
 return {
-  dir = "~/.config/nvim-dev/loft.nvim",
+  dir = "~/work/loft.nvim",
   dev = true,
   config = function()
     local actions = require("loft.actions")
@@ -14,6 +14,10 @@ return {
             end,
             desc = "Toggle Smart Order ON and OFF",
           },
+          ["<leader><leader>"] = actions.open_loft,
+        },
+        ui = {
+          ["<M-q>"] = "close",
         },
       },
     })
