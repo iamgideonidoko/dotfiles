@@ -167,20 +167,11 @@ const rules: KarabinerRules[] = [
       e: {
         to: [{ key_code: 'escape' }, { key_code: 'escape', repeat: false }],
       },
-      semicolon: {
-        description: 'Window: Hide',
-        to: [
-          {
-            key_code: 'h',
-            modifiers: ['right_command'],
-          },
-        ],
-      },
       k: rectangle('top-half'),
       j: rectangle('bottom-half'),
       h: rectangle('left-half'),
       l: rectangle('right-half'),
-      f: rectangle('maximize'),
+      return_or_enter: rectangle('maximize'),
       r: rectangle('restore'),
       i: {
         description: 'Window: Previous Tab',

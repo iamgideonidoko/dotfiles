@@ -1250,29 +1250,6 @@
                 ]
               },
               {
-                "description": "Window: Hide",
-                "to": [
-                  {
-                    "key_code": "h",
-                    "modifiers": ["right_command"]
-                  }
-                ],
-                "type": "basic",
-                "from": {
-                  "key_code": "semicolon",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 1
-                  }
-                ]
-              },
-              {
                 "to": [
                   {
                     "shell_command": "open -g rectangle://execute-action?name=top-half"
@@ -1369,7 +1346,7 @@
                 "description": "Window: maximize",
                 "type": "basic",
                 "from": {
-                  "key_code": "f",
+                  "key_code": "return_or_enter",
                   "modifiers": {
                     "optional": ["any"]
                   }
