@@ -148,7 +148,7 @@ const rules: KarabinerRules[] = [
        * Also, ensure it starts on login :)
        */
       // Scoot's grid-based navigation of cursor
-      g: {
+      slash: {
         to: [{ key_code: 'k', modifiers: ['right_command', 'right_shift'] }],
       },
       // Scoot's element-based navigation of cursor
