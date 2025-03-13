@@ -60,6 +60,7 @@ function git_main_branch() {
 alias g='git'
 alias ga='git add'
 alias gaa='git add --all'
+alias gdff='git diff'
 alias gapa='git add --patch'
 alias gau='git add --update'
 alias gav='git add --verbose'
