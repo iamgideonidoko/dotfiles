@@ -1,5 +1,6 @@
 local lastToggleTime = 0
-local debounceDelay = 2.5
+-- local debounceDelay = 2.5
+local debounceDelay = 0
 
 local toggleCapsLock = function()
   local now = hs.timer.secondsSinceEpoch()
