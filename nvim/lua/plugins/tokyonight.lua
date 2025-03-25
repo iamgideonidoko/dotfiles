@@ -9,6 +9,10 @@ return { -- Colorscheme
         sidebars = "transparent",
         floats = "transparent",
       },
+      on_highlights = function(hl)
+        hl.LineNrAbove = { fg = "#bfc9db" }
+        hl.LineNrBelow = { fg = "#bfc9db" }
+      end,
     })
     vim.cmd.colorscheme("tokyonight-night")
     vim.cmd.hi("Comment gui=none")
