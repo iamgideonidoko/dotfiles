@@ -2,6 +2,9 @@ import fs from 'fs';
 import { KarabinerRules } from './types';
 import { createHyperSubLayers, app, open, rectangle, hammerspoon, shell } from './utils';
 
+const mouseSpeed = 1536,
+  mouseSpeedFast = mouseSpeed * 4;
+
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
   {
@@ -115,18 +118,58 @@ const rules: KarabinerRules[] = [
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
-      j: {
-        to: [{ mouse_key: { y: 1536 } }],
-      },
-      k: {
-        to: [{ mouse_key: { y: -1536 } }],
-      },
-      h: {
-        to: [{ mouse_key: { x: -1536 } }],
-      },
-      l: {
-        to: [{ mouse_key: { x: 1536 } }],
-      },
+      j: [
+        {
+          to: [{ mouse_key: { y: mouseSpeedFast } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_shift'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { y: mouseSpeed } }],
+        },
+      ],
+      k: [
+        {
+          to: [{ mouse_key: { y: -mouseSpeedFast } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_shift'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { y: -mouseSpeed } }],
+        },
+      ],
+      h: [
+        {
+          to: [{ mouse_key: { x: -mouseSpeedFast } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_shift'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { x: -mouseSpeed } }],
+        },
+      ],
+      l: [
+        {
+          to: [{ mouse_key: { x: mouseSpeedFast } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_shift'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { x: mouseSpeed } }],
+        },
+      ],
       return_or_enter: {
         to: [{ pointing_button: 'button1' }],
       },
