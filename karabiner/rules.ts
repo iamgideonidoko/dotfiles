@@ -130,6 +130,9 @@ const rules: KarabinerRules[] = [
       return_or_enter: {
         to: [{ pointing_button: 'button1' }],
       },
+      spacebar: {
+        to: [{ pointing_button: 'button1' }],
+      },
       i: {
         to: [{ mouse_key: { vertical_wheel: -32 } }],
       },
