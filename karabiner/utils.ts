@@ -11,7 +11,7 @@ export interface LayerCommand {
 
 type HyperKeySublayer = {
   // The ? is necessary, otherwise we'd have to define something for _every_ key code
-  [key_code in KeyCode]?: LayerCommand;
+  [key_code in KeyCode]?: LayerCommand | LayerCommand[];
 } & { from?: Omit<From, 'key_code'> };
 
 /**
@@ -77,28 +77,53 @@ export function createHyperSubLayer(
     // Define the individual commands that are meant to trigger in the sublayer
     ...(Object.keys(commands) as (keyof typeof commands)[])
       .filter((command_key) => command_key !== 'from')
-      .map((command_key): Manipulator => {
+      .map((command_key): Manipulator[] => {
         const command = commands[command_key];
-        return {
-          ...(command ? Object.fromEntries(Object.entries(command).filter(([key]) => key !== 'from')) : undefined),
-          type: 'basic' as const,
-          from: {
-            key_code: command_key,
-            modifiers: {
-              optional: ['any'],
-            },
-            ...command?.from,
-          },
-          // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
-          conditions: [
-            {
-              type: 'variable_if',
-              name: subLayerVariableName,
-              value: 1,
-            },
-          ],
-        };
-      }),
+        return Array.isArray(command)
+          ? command.map((c) => ({
+              ...(c ? Object.fromEntries(Object.entries(c).filter(([key]) => key !== 'from')) : undefined),
+              type: 'basic' as const,
+              from: {
+                key_code: command_key,
+                modifiers: {
+                  optional: ['any'],
+                },
+                ...c?.from,
+              },
+              // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
+              conditions: [
+                {
+                  type: 'variable_if',
+                  name: subLayerVariableName,
+                  value: 1,
+                },
+              ],
+            }))
+          : [
+              {
+                ...(command
+                  ? Object.fromEntries(Object.entries(command).filter(([key]) => key !== 'from'))
+                  : undefined),
+                type: 'basic' as const,
+                from: {
+                  key_code: command_key,
+                  modifiers: {
+                    optional: ['any'],
+                  },
+                  ...command?.from,
+                },
+                // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
+                conditions: [
+                  {
+                    type: 'variable_if',
+                    name: subLayerVariableName,
+                    value: 1,
+                  },
+                ],
+              },
+            ];
+      })
+      .flat(),
   ];
 }
 
@@ -108,7 +133,7 @@ export function createHyperSubLayer(
  * activates at a time
  */
 export function createHyperSubLayers(subLayers: {
-  [key_code in KeyCode]?: HyperKeySublayer | LayerCommand;
+  [key_code in KeyCode]?: (HyperKeySublayer | LayerCommand) | HyperKeySublayer[];
 }): KarabinerRules[] {
   const allSubLayerVariables = (Object.keys(subLayers) as (keyof typeof subLayers)[]).map((sublayer_key) =>
     generateSubLayerVariableName(sublayer_key),
@@ -146,7 +171,12 @@ export function createHyperSubLayers(subLayers: {
         }
       : {
           description: `Hyper Key sublayer "${key}"`,
-          manipulators: createHyperSubLayer(key as KeyCode, value, allSubLayerVariables),
+          manipulators: Array.isArray(value)
+            ? value.reduce(
+                (prev, curr) => [...prev, ...createHyperSubLayer(key as KeyCode, curr, allSubLayerVariables)],
+                [] as Manipulator[],
+              )
+            : createHyperSubLayer(key as KeyCode, value, allSubLayerVariables),
         },
   );
 }
