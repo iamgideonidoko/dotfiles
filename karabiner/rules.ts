@@ -123,7 +123,7 @@ const rules: KarabinerRules[] = [
           to: [{ mouse_key: { y: mouseSpeedFast } }],
           from: {
             modifiers: {
-              mandatory: ['left_shift'],
+              mandatory: ['left_command'],
             },
           },
         },
@@ -136,7 +136,7 @@ const rules: KarabinerRules[] = [
           to: [{ mouse_key: { y: -mouseSpeedFast } }],
           from: {
             modifiers: {
-              mandatory: ['left_shift'],
+              mandatory: ['left_command'],
             },
           },
         },
@@ -149,7 +149,7 @@ const rules: KarabinerRules[] = [
           to: [{ mouse_key: { x: -mouseSpeedFast } }],
           from: {
             modifiers: {
-              mandatory: ['left_shift'],
+              mandatory: ['left_command'],
             },
           },
         },
@@ -162,7 +162,7 @@ const rules: KarabinerRules[] = [
           to: [{ mouse_key: { x: mouseSpeedFast } }],
           from: {
             modifiers: {
-              mandatory: ['left_shift'],
+              mandatory: ['left_command'],
             },
           },
         },
