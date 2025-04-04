@@ -51,3 +51,11 @@ set("n", "<S-M-j>", ":m .+1<CR>==", { noremap = true, silent = true })
 set("n", "<S-M-k>", ":m .-2<CR>==", { noremap = true, silent = true })
 set("v", "<S-M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 set("v", "<S-M-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>_", function()
+  if vim.o.laststatus == 2 then
+    vim.o.laststatus = 1
+  else
+    vim.o.laststatus = 2
+  end
+end, { desc = "Toggle statusline" })
