@@ -73,10 +73,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.buffers({ sort_mru = true, ignore_current_buffer = true, show_all_buffers = true })
     end, { desc = "[F]ind existing [b]uffers" })
     set("n", "<leader>f/", function()
-      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
-        previewer = false,
-      }))
+      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({ previewer = false }))
     end, { desc = "[F]uzzi[/]y search in current buffer" })
     set("n", "<leader>fo", function()
       builtin.live_grep({
