@@ -6,6 +6,7 @@ tap "felixkratz/formulae"
 # LANGUAGES
 brew "node"
 brew "python@3.12"
+brew "rust"
 # brew "go"
 # brew "php"
 # brew "lua"
