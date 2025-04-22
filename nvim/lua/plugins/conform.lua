@@ -10,6 +10,7 @@ return { -- Autoformat
       lua = { "stylua" },
       php = { "php_cs_fixer" },
       python = { "black" },
+      sql = { "pg_format" },
       -- go = { "goimports" },
     }
     local js_related_language = require("utils").js_related_languages
@@ -48,6 +49,13 @@ return { -- Autoformat
         end
       end,
       formatters_by_ft = formatters,
+      formatters = {
+        pg_format = {
+          command = "pg_format",
+          args = { "--spaces", "2", "-" },
+          stdin = true,
+        },
+      },
     })
     -- Close the gap between `mason.nvim` and `conform.nvim` ensuring specified formatters are installed
     require("mason-conform").setup()
