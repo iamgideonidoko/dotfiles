@@ -30,7 +30,11 @@ return {
         footer = function()
           local stats = require("lazy").stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+          local cwd_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+          return {
+            "📁" .. cwd_name,
+            "⚡" .. stats.loaded .. "/" .. stats.count .. " plugins loaded in " .. ms .. "ms",
+          }
         end,
       },
     }
