@@ -113,7 +113,8 @@ const rules: KarabinerRules[] = [
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
       m: app('YouTube Music'), // YouTube "m"usic
-      p: app('Photopea'), // "p"hotopea
+      e: app('Photopea'), // "p"hotopea
+      p: app('Postman'), // "p"ostman
       v: app('Google Drive'), // Google D"r"ive
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
