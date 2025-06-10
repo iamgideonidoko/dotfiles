@@ -26,6 +26,7 @@ require("lazy").setup({
   require("plugins.comment"),
   require("plugins.sleuth"),
   require("plugins.loft"),
+  -- require("plugins.avante"),
   -- DEV
   -- { import = "plugins._dev.loft" },
 }, {
