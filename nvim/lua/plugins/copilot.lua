@@ -7,7 +7,7 @@ return {
       panel = { enabled = false },
       suggestion = {
         enabled = true,
-        auto_trigger = true,
+        auto_trigger = false,
         keymap = {
           accept = "<M-Space>",
           accept_word = false,
