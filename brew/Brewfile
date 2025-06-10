@@ -75,6 +75,7 @@ cask "handbrake"
 cask "logi-options+"
 cask "chatgpt"
 cask "capcut"
+cask "postman"
 # cask "mos" # Mouse utility
 # cask "openvpn-connect" # Work VPN
 # cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
