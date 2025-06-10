@@ -74,11 +74,11 @@ cask "android-file-transfer" # Android - macOS file transfer
 cask "handbrake"
 cask "logi-options+"
 cask "chatgpt"
+cask "capcut"
 # cask "mos" # Mouse utility
 # cask "openvpn-connect" # Work VPN
 # cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
 # cask "figma" # Prefer browser version
-# cask "capcut" # Prefer browser version
 # cask "canva" # Prefer browser version
 # cask "iterm2" # Prefer Ghostty
 ##############################################################################
