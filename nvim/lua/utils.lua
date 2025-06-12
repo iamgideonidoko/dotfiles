@@ -21,7 +21,7 @@ utils.check_keybinding_exists = function(mode, lhs)
 end
 
 utils.command_exists = function(name)
-  return vim.api.nvim_get_commands({})[name] ~= nil
+  return vim.fn.exists(":" .. name) == 2
 end
 
 --- Adds an empty line either above or below the current line
