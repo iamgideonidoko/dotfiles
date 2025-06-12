@@ -41,8 +41,24 @@ return {
         severity = vim.diagnostic.severity.WARN,
       }),
       condition = function(ctx)
-        local root =
-          util.root_pattern(".eslintrc.js", ".eslintrc.json", ".eslintrc.cjs", "package.json", ".git")(ctx.filename)
+        local root_file = {
+          ".eslintrc",
+          ".eslintrc.js",
+          ".eslintrc.cjs",
+          ".eslintrc.yaml",
+          ".eslintrc.yml",
+          ".eslintrc.json",
+          "eslint.config.js",
+          "eslint.config.mjs",
+          "eslint.config.cjs",
+          "eslint.config.ts",
+          "eslint.config.mts",
+          "eslint.config.cts",
+          "package.json",
+          ".git",
+        }
+
+        local root = util.root_pattern(unpack(root_file))(ctx.filename)
         return root ~= nil
       end,
     }
