@@ -135,6 +135,9 @@ fi
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
 ##############################################################################
+# MySQL
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
