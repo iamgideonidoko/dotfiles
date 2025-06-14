@@ -21,7 +21,7 @@ brew "coreutils"
 brew "bat" # Better cat
 brew "fzf"
 brew "git"
-brew "neovim"
+brew "neovim" # v0.11.2
 brew "ripgrep"
 brew "tmux"
 brew "unar"
@@ -43,6 +43,8 @@ brew "fastfetch"
 brew "xcodes" # To install Xcode, run: xcodes install <version> && xcodes select <version>
 brew "awscli"
 brew "aria2" # Download utility but faster
+# brew "rclone" # Rsync for cloud storage
+# brew "mysql-client@8.0"
 # brew "jq"
 # brew "sketchybar"
 ##############################################################################
