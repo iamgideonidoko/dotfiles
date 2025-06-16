@@ -83,3 +83,6 @@ Pods/
 **/.DS_Store
 
 /.config/tmux/plugins
+
+# Environment Variables
+.env
