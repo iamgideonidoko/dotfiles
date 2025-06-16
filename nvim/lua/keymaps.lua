@@ -22,10 +22,10 @@ set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 -- Movement in insert mode
-set("i", "<C-h>", "<Left>", { desc = "Move left" })
-set("i", "<C-l>", "<Right>", { desc = "Move right" })
-set("i", "<C-j>", "<Down>", { desc = "Move down" })
-set("i", "<C-k>", "<Up>", { desc = "Move up" })
+set({ "i", "t" }, "<C-h>", "<Left>", { desc = "Move left" })
+set({ "i", "t" }, "<C-l>", "<Right>", { desc = "Move right" })
+set({ "i", "t" }, "<C-j>", "<Down>", { desc = "Move down" })
+set({ "i", "t" }, "<C-k>", "<Up>", { desc = "Move up" })
 
 -- Control the size of windows
 set("n", "<M-,>", "<C-w>5<", { desc = "Decrease width" })
