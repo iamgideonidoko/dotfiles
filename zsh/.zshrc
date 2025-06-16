@@ -1,6 +1,11 @@
 ##############################################################################
 # DO_NOT_BACK_UP_FILE
 ##############################################################################
+# Load ZSH Env
+if [ -f "$HOME/dotfiles/zsh/.env" ]; then
+  export $(grep -v '^#' "$HOME/dotfiles/zsh/.env" | xargs)
+fi
+##############################################################################
 # Overrides all locale settings to enforce a consistent language, encoding, and formatting.
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
