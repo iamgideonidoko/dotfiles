@@ -20,12 +20,12 @@ require("lazy").setup({
   require("plugins.oil"),
   require("plugins.dashboard"),
   require("plugins.noice"),
-  require("plugins.copilot"),
   require("plugins.wakatime"),
   require("plugins.tmux"),
   require("plugins.comment"),
   require("plugins.sleuth"),
   require("plugins.loft"),
+  require("plugins.copilot"),
   -- require("plugins.avante"),
   -- DEV
   -- { import = "plugins._dev.loft" },
