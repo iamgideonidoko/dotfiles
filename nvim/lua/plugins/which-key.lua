@@ -10,14 +10,15 @@ return { -- Useful plugin to show you pending keybinds.
     })
     -- Document existing key chains
     which_key.add({
-      { "<leader>c", group = "[C]ode" },
-      { "<leader>d", group = "[D]ebug" },
-      { "<leader>r", group = "[R]ename" },
-      { "<leader>f", group = "[F]ind" },
-      { "<leader>w", group = "[W]orkspace" },
-      { "<leader>t", group = "[T]oggle" },
-      { "<leader>o", group = "[O]pen" },
-      { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+      { "<leader>c", group = "[c]ode" },
+      { "<leader>d", group = "[d]ebug" },
+      { "<leader>r", group = "[r]e-" },
+      { "<leader>f", group = "[f]ind" },
+      { "<leader>w", group = "[w]orkspace" },
+      { "<leader>t", group = "[t]oggle" },
+      { "<leader>o", group = "[o]pen" },
+      { "<leader>h", group = "Git [h]unk", mode = { "n", "v" } },
+      { "<leader>l", group = "[l]oft" },
     })
   end,
 }

@@ -67,7 +67,7 @@ return { -- Autoformat
         require("conform").format({ async = true, lsp_format = "fallback" })
       end,
       mode = "",
-      desc = "[F]or[m]at buffer",
+      desc = "[f]or[m]at buffer",
     },
     {
       "<leader>ta",
@@ -81,7 +81,7 @@ return { -- Autoformat
         end
       end,
       mode = "",
-      desc = "[T]oggle [a]utoformat",
+      desc = "[t]oggle [a]utoformat",
     },
   },
 }

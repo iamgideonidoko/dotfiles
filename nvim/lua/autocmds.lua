@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         if not utils.check_keybinding_exists("n", "<leader>fe") then
           vim.keymap.set("n", "<leader>fe", function()
             vim.cmd(eslint_fix_all_command)
-          end, { desc = "[F]ix [e]SLint" })
+          end, { desc = "[f]ix [e]SLint" })
         end
       else
         if utils.check_keybinding_exists("n", "<leader>fe") then

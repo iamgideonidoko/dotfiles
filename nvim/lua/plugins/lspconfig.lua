@@ -30,26 +30,26 @@ return {
           vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
         -- Jump to the definition of the word under your cursor.
-        map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [d]efinition")
+        map("gd", require("telescope.builtin").lsp_definitions, "[g]oto [d]efinition")
         -- Find references for the word under your cursor.
-        map("gr", require("telescope.builtin").lsp_references, "[G]oto [r]eferences")
+        map("gr", require("telescope.builtin").lsp_references, "[g]oto [r]eferences")
         -- Jump to the implementation of the word under your cursor.
-        map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+        map("gI", require("telescope.builtin").lsp_implementations, "[g]oto [I]mplementation")
         -- Jump to the type of the word under your cursor.
-        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [d]efinition")
+        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
         -- Fuzzy find all the symbols (variables, functions, types...) in your current document.
-        map("<leader>os", require("telescope.builtin").lsp_document_symbols, "[O]pen document [s]ymbols")
+        map("<leader>os", require("telescope.builtin").lsp_document_symbols, "[o]pen document [s]ymbols")
         -- Fuzzy find all the symbols in your current workspace.
-        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [s]ymbols")
+        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
         -- Rename the variable under your cursor.
-        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
         -- Execute a code action
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [a]ction")
+        map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
         -- Opens a popup that displays documentation about the word under your cursor
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header.
-        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+        map("gD", vim.lsp.buf.declaration, "[g]oto [D]eclaration")
 
         -- Highlight references of the word under your cursor when your cursor rests there for a little while
         local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -80,7 +80,7 @@ return {
           map("<leader>th", function()
             ---@diagnostic disable-next-line: missing-parameter
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, "[T]oggle Inlay [H]ints")
+          end, "[t]oggle Inlay [h]ints")
         end
       end,
     })
