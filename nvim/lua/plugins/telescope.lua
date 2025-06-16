@@ -84,5 +84,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     set("n", "<leader>fn", function()
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
     end, { desc = "[F]ind [N]eovim files" })
+    set("n", "<leader>f`", builtin.marks, { desc = "[F]ind [`]marks" })
   end,
 }
