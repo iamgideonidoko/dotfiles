@@ -19,6 +19,7 @@ return { -- Useful plugin to show you pending keybinds.
       { "<leader>o", group = "[o]pen" },
       { "<leader>h", group = "Git [h]unk", mode = { "n", "v" } },
       { "<leader>l", group = "[l]oft" },
+      { "<leader>R", group = "Kulala [R]est client" },
     })
   end,
 }
