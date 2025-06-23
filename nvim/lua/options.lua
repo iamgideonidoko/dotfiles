@@ -33,3 +33,5 @@ opt.whichwrap:append("<>[]hl")
 vim.diagnostic.config({
   virtual_text = true,
 })
+vim.o.laststatus = 2
+vim.o.showtabline = 0

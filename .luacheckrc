@@ -5,6 +5,6 @@ codes = true
 -- list of warning: https://luacheck.readthedocs.io/en/stable/warnings.html
 ignore = {}
 
-globals = {}
+globals = {"vim", "hs", "spoon"}
 
-read_globals = { "vim", "hs", "spoon" }
+read_globals = {}

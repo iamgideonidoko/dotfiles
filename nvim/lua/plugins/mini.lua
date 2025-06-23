@@ -40,12 +40,12 @@ return { -- Collection of small independent packages
     --  - va)  - [V]isually select [A]round [)]paren
     --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
     --  - ci'  - [C]hange [I]nside [']quote
-    require("mini.ai").setup({ n_lines = 500, silent = false })
+    require("mini.ai").setup({ n_lines = 500, silent = true })
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
-    require("mini.surround").setup({ silent = false })
+    require("mini.surround").setup({ silent = true })
   end,
 }

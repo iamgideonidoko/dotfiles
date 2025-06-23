@@ -1,0 +1,120 @@
+local utils = require("utils")
+
+local debounced_keymap_first_nine_tabs = utils.debounce(function()
+  local pre_key = "<leader>t"
+  local total_tabs = vim.fn.tabpagenr("$")
+  for i = 1, 9 do
+    local key = pre_key .. i
+    pcall(vim.keymap.del, "n", key)
+  end
+  local count = 1
+  for i = 1, total_tabs do
+    local key = pre_key .. count
+    vim.keymap.set("n", key, function()
+      vim.cmd(i .. "tabnext")
+    end, { desc = "Go to tab " .. i, noremap = true, silent = true })
+    count = count + 1
+  end
+end, 800)
+
+return {
+  "nanozuki/tabby.nvim",
+  dependencies = "nvim-tree/nvim-web-devicons",
+  config = function()
+    local theme = {
+      fill = "TabLineFill",
+      head = { fg = "#7aa2f7", bg = "#1a1b26", style = "italic" },
+      current_tab = { fg = "#1a1b26", bg = "#7aa2f7", style = "italic" },
+      tab = { fg = "#c0caf5", bg = "#1a1b26", style = "italic" },
+      win = { fg = "#1a1b26", bg = "#7aa2f7", style = "italic" },
+      tail = { fg = "#7aa2f7", bg = "#1a1b26", style = "italic" },
+    }
+
+    require("tabby.tabline").set(function(line)
+      return {
+        {
+          { "  ", hl = theme.head },
+          line.sep("", theme.head, theme.fill),
+        },
+        line.tabs().foreach(function(tab)
+          local hl = tab.is_current() and theme.current_tab or theme.tab
+
+          -- Clean tab name (remove [n+])
+          local name = tab.name()
+          local index = string.find(name, "%[%d")
+          local tab_name = index and string.sub(name, 1, index - 1) or name
+
+          -- Show modified status if any buffer in tab is dirty
+          local modified = false
+          local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
+          for _, win_id in ipairs(win_ids) do
+            local ok, b = pcall(vim.api.nvim_win_get_buf, win_id)
+            if ok and vim.api.nvim_buf_get_option(b, "modified") then
+              modified = true
+              break
+            end
+          end
+
+          return {
+            line.sep("", hl, theme.fill),
+            -- (icon or icon ~= "") and (icon .. " ") or "",
+            -- nil,
+            tab_name,
+            modified and " " or "",
+            line.sep("", hl, theme.fill),
+            hl = hl,
+            margin = " ",
+          }
+        end),
+        line.spacer(),
+        hl = theme.fill,
+      }
+    end)
+
+    vim.api.nvim_set_keymap("n", "<leader>tt", ":$tabnew<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>tr", ":Tabby rename_tab ", { noremap = true })
+    vim.keymap.set("n", "<leader>tP", function()
+      local idx = vim.fn.tabpagenr()
+      if idx == 1 then
+        vim.cmd("tabmove $")
+      else
+        vim.cmd("-tabmove")
+      end
+    end, { desc = "Tab move left cyclic" })
+    vim.keymap.set("n", "<leader>tN", function()
+      local idx = vim.fn.tabpagenr()
+      local total = vim.fn.tabpagenr("$")
+      if idx == total then
+        vim.cmd("tabmove 0")
+      else
+        vim.cmd("+tabmove")
+      end
+    end, { desc = "Tab move right" })
+
+    vim.keymap.set("n", "<leader>t_", function()
+      if vim.o.showtabline == 2 then
+        vim.o.showtabline = 0
+      else
+        vim.o.showtabline = 2
+      end
+    end, { desc = "Toggle tabline" })
+
+    local group = vim.api.nvim_create_augroup("MyFirstNineTabsKeymaps", { clear = true })
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = group,
+      callback = debounced_keymap_first_nine_tabs,
+    })
+    vim.api.nvim_create_autocmd("TabNew", {
+      group = group,
+      callback = debounced_keymap_first_nine_tabs,
+    })
+    vim.api.nvim_create_autocmd("TabClosed", {
+      group = group,
+      callback = debounced_keymap_first_nine_tabs,
+    })
+  end,
+}

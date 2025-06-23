@@ -77,10 +77,10 @@ return {
 
         -- Enable inlay hints in your code, if there's language server support
         if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          map("<leader>th", function()
+          map("<leader>Th", function()
             ---@diagnostic disable-next-line: missing-parameter
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, "[t]oggle Inlay [h]ints")
+          end, "[T]oggle Inlay [h]ints")
         end
       end,
     })

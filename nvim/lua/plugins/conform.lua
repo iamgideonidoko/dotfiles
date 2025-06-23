@@ -70,7 +70,7 @@ return { -- Autoformat
       desc = "[f]or[m]at buffer",
     },
     {
-      "<leader>ta",
+      "<leader>Ta",
       function()
         if vim.g.autoformat then
           vim.g.autoformat = false
@@ -81,7 +81,7 @@ return { -- Autoformat
         end
       end,
       mode = "",
-      desc = "[t]oggle [a]utoformat",
+      desc = "[T]oggle [a]utoformat",
     },
   },
 }
