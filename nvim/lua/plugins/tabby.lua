@@ -1,26 +1,34 @@
-local utils = require("utils")
-
-local debounced_keymap_first_nine_tabs = utils.debounce(function()
-  local pre_key = "<leader>t"
-  local total_tabs = vim.fn.tabpagenr("$")
-  for i = 1, 9 do
-    local key = pre_key .. i
-    pcall(vim.keymap.del, "n", key)
-  end
-  local count = 1
-  for i = 1, total_tabs do
-    local key = pre_key .. count
-    vim.keymap.set("n", key, function()
-      vim.cmd(i .. "tabnext")
-    end, { desc = "Go to tab " .. i, noremap = true, silent = true })
-    count = count + 1
-  end
-end, 800)
-
 return {
   "nanozuki/tabby.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
+    local utils = require("utils")
+
+    local marked_nums_solid = { "➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒" }
+
+    local function get_tab_index(tab_id)
+      for i, t in ipairs(vim.api.nvim_list_tabpages()) do
+        if t == tab_id then
+          return i
+        end
+      end
+      return nil
+    end
+
+    local debounced_keymap_first_nine_tabs = utils.debounce(function()
+      local pre_key = "<leader>t"
+      local total_tabs = vim.fn.tabpagenr("$")
+      for i = 1, 9 do
+        local key = pre_key .. i
+        pcall(vim.keymap.del, "n", key)
+      end
+      for i = 1, math.min(total_tabs, 9) do
+        local key = pre_key .. i
+        vim.keymap.set("n", key, function()
+          vim.cmd(i .. "tabnext")
+        end, { desc = "Go to tab " .. i, noremap = true, silent = true })
+      end
+    end, 800)
     local theme = {
       fill = "TabLineFill",
       head = { fg = "#7aa2f7", bg = "#1a1b26", style = "italic" },
@@ -44,21 +52,20 @@ return {
           local index = string.find(name, "%[%d")
           local tab_name = index and string.sub(name, 1, index - 1) or name
 
-          -- Show modified status if any buffer in tab is dirty
+          -- Show modified status if any buffer in tab is modified
           local modified = false
           local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
           for _, win_id in ipairs(win_ids) do
             local ok, b = pcall(vim.api.nvim_win_get_buf, win_id)
-            if ok and vim.api.nvim_buf_get_option(b, "modified") then
+            if ok and vim.api.nvim_get_option_value("modified", { buf = b }) then
               modified = true
               break
             end
           end
-
+          local tab_idx = get_tab_index(tab.id)
           return {
             line.sep("", hl, theme.fill),
-            -- (icon or icon ~= "") and (icon .. " ") or "",
-            -- nil,
+            tab_idx <= 9 and marked_nums_solid[tab_idx] or "",
             tab_name,
             modified and " " or "",
             line.sep("", hl, theme.fill),
