@@ -7,6 +7,4 @@ ignore = {}
 
 globals = {}
 
-read_globals = { "hs" }
-
-files = {}
+read_globals = { "vim", "hs", "spoon" }
