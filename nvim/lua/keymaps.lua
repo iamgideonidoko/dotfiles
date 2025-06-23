@@ -59,3 +59,21 @@ vim.keymap.set("n", "<leader>_", function()
     vim.o.laststatus = 2
   end
 end, { desc = "Toggle statusline" })
+
+vim.keymap.set("n", "<leader>Qo", ":copen<CR>", { desc = "Open quickfix", silent = true })
+vim.keymap.set("n", "<leader>Qc", ":cclose<CR>", { desc = "Close quickfix", silent = true })
+vim.keymap.set("n", "<leader>Qn", ":cnext<CR>", { desc = "Next quickfix", silent = true })
+vim.keymap.set("n", "<leader>Qp", ":cprev<CR>", { desc = "Previous quickfix", silent = true })
+vim.keymap.set("n", "<leader>Qe", ":cfirst<CR>", { desc = "First quickfix item", silent = true })
+vim.keymap.set("n", "<leader>Ql", ":clast<CR>", { desc = "Last quickfix item", silent = true })
+-- Fill quickfix with current word (vimgrep)
+vim.keymap.set(
+  "n",
+  "<leader>Qf",
+  ":%vimgrep /\\<<C-r><C-w>\\>/j % | copen<CR>",
+  { desc = "Quickfix grep word", silent = true }
+)
+-- Fill quickfix with custom pattern (prompt)
+vim.keymap.set("n", "<leader>QF", ":vimgrep // **/*.lua<Left><Left><Left><Left>", { desc = "Quickfix custom grep" })
+-- Clear quickfix list
+vim.keymap.set("n", "<leader>Qx", ":cexpr []<CR>", { desc = "Clear quickfix list", silent = true })

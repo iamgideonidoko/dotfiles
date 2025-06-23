@@ -9,10 +9,10 @@ opt.shiftwidth = 2
 opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
-opt.foldmethod = "expr" -- Set fold based on treesitter expression
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.cmd([[ set nofoldenable ]])
-opt.foldcolumn = "1"
+-- opt.foldmethod = "expr" -- Set fold based on treesitter expression
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.cmd([[ set nofoldenable ]])
+-- opt.foldcolumn = "1"
 opt.undofile = true -- Save undo history
 opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 opt.smartcase = true
