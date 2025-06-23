@@ -71,12 +71,13 @@ return {
       }
     end)
 
-    vim.api.nvim_set_keymap("n", "<leader>tt", ":$tabnew<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<leader>tr", ":Tabby rename_tab ", { noremap = true })
+    vim.keymap.set("n", "<leader>tt", ":$tabnew<CR>", { noremap = true, desc = "New tab" })
+    vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { noremap = true, desc = "Close current tab" })
+    vim.keymap.set("n", "<leader>to", ":tabonly<CR>", { noremap = true, desc = "Close all other tabs" })
+    vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { noremap = true, desc = "Previous tab" })
+    vim.keymap.set("n", "<leader>tn", ":tabn<CR>", { noremap = true, desc = "Next tab" })
+    vim.keymap.set("n", "<leader>tr", ":Tabby rename_tab ", { noremap = true, desc = "Rename tab" })
+    vim.keymap.set("n", "<leader>ft", ":Tabby pick_window<CR>", { noremap = true, desc = "[f]ind [t]ab" })
     vim.keymap.set("n", "<leader>tP", function()
       local idx = vim.fn.tabpagenr()
       if idx == 1 then
@@ -84,7 +85,7 @@ return {
       else
         vim.cmd("-tabmove")
       end
-    end, { desc = "Tab move left cyclic" })
+    end, { desc = "Move tab left" })
     vim.keymap.set("n", "<leader>tN", function()
       local idx = vim.fn.tabpagenr()
       local total = vim.fn.tabpagenr("$")
@@ -93,7 +94,7 @@ return {
       else
         vim.cmd("+tabmove")
       end
-    end, { desc = "Tab move right" })
+    end, { desc = "Move tab right" })
 
     vim.keymap.set("n", "<leader>t_", function()
       if vim.o.showtabline == 2 then
