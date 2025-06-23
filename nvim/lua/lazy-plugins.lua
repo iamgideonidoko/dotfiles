@@ -28,6 +28,7 @@ require("lazy").setup({
   require("plugins.copilot"),
   require("plugins.tabby"),
   require("plugins.ufo"),
+  require("plugins.dadbod"),
   -- require("plugins.avante"),
   -- DEV
   -- { import = "plugins._dev.loft" },

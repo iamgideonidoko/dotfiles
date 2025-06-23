@@ -36,7 +36,7 @@ return {
         -- Jump to the implementation of the word under your cursor.
         map("gI", require("telescope.builtin").lsp_implementations, "[g]oto [I]mplementation")
         -- Jump to the type of the word under your cursor.
-        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+        map("gt", require("telescope.builtin").lsp_type_definitions, "[g]oto [t]ype definition")
         -- Fuzzy find all the symbols (variables, functions, types...) in your current document.
         map("<leader>os", require("telescope.builtin").lsp_document_symbols, "[o]pen document [s]ymbols")
         -- Fuzzy find all the symbols in your current workspace.
