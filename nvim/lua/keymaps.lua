@@ -81,9 +81,9 @@ end, { desc = "Previous quickfix (wrap)" })
 vim.keymap.set("n", "<leader>Q.", "<cmd>cnfile<cr>", { desc = "Next file in quickfix" })
 vim.keymap.set("n", "<leader>Q,", "<cmd>cpfile<cr>", { desc = "Previous file in quickfix" })
 -- Quickfix operations
-vim.keymap.set("n", "<leader>Qr", "<cmd>cdo s//g<left><left>", { desc = "Replace in quickfix items" })
-vim.keymap.set("n", "<leader>Qa", "<cmd>cdo ", { desc = "Execute command on quickfix items" })
-vim.keymap.set("n", "<leader>Qs", "<cmd>cfdo s//g<left><left>", { desc = "Replace in quickfix files" })
+vim.keymap.set("n", "<leader>Qr", ":cdo s//g<left><left>", { desc = "Replace in quickfix items" })
+vim.keymap.set("n", "<leader>Qa", ":cdo ", { desc = "Execute command on quickfix items" })
+vim.keymap.set("n", "<leader>Qs", ":cfdo s//g<left><left>", { desc = "Replace in quickfix files" })
 -- Clear quickfix list
 vim.keymap.set("n", "<leader>QC", function()
   vim.fn.setqflist({})
