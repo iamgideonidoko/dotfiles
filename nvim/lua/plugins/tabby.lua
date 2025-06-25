@@ -110,8 +110,19 @@ return {
         vim.o.showtabline = 2
       end
     end, { desc = "Toggle tabline" })
-
-    local group = vim.api.nvim_create_augroup("MyFirstNineTabsKeymaps", { clear = true })
+    vim.keymap.set("n", "<leader>ta", function()
+      if vim.g.alternate_tabpagenr ~= nil then
+        vim.cmd("tabnext " .. vim.g.alternate_tabpagenr)
+      end
+    end, { desc = "Go to alternate tab" })
+    local group = vim.api.nvim_create_augroup("CustomTabbyAUGroup", { clear = true })
+    vim.api.nvim_create_autocmd("TabLeave", {
+      group = group,
+      callback = function()
+        local idx = vim.fn.tabpagenr()
+        vim.g.alternate_tabpagenr = idx
+      end,
+    })
     vim.api.nvim_create_autocmd("VimEnter", {
       group = group,
       callback = debounced_keymap_first_nine_tabs,
