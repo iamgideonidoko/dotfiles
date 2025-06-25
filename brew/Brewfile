@@ -43,8 +43,9 @@ brew "fastfetch"
 brew "xcodes" # To install Xcode, run: xcodes install <version> && xcodes select <version>
 brew "awscli"
 brew "aria2" # Download utility but faster
+brew "postgresql"
+brew "mysql-client@8.0"
 # brew "rclone" # Rsync for cloud storage
-# brew "mysql-client@8.0"
 # brew "jq"
 # brew "sketchybar"
 ##############################################################################
