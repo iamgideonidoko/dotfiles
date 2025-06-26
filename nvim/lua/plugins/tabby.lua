@@ -116,9 +116,18 @@ return {
       end
     end, { desc = "Go to alternate tab" })
     local group = vim.api.nvim_create_augroup("CustomTabbyAUGroup", { clear = true })
+    vim.api.nvim_create_autocmd("TabEnter", {
+      group = group,
+      callback = function()
+        utils.debounce(function()
+          require("loft.registry"):resume_update()
+        end, 100)()
+      end,
+    })
     vim.api.nvim_create_autocmd("TabLeave", {
       group = group,
       callback = function()
+        require("loft.registry"):pause_update()
         local idx = vim.fn.tabpagenr()
         vim.g.alternate_tabpagenr = idx
       end,
