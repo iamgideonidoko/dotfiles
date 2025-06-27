@@ -112,7 +112,9 @@ return {
     end, { desc = "Toggle tabline" })
     vim.keymap.set("n", "<leader>ta", function()
       if vim.g.alternate_tabpagenr ~= nil then
-        vim.cmd("tabnext " .. vim.g.alternate_tabpagenr)
+        pcall(function()
+          vim.cmd("tabnext " .. vim.g.alternate_tabpagenr)
+        end)
       end
     end, { desc = "Go to alternate tab" })
     local group = vim.api.nvim_create_augroup("CustomTabbyAUGroup", { clear = true })
