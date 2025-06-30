@@ -4,6 +4,7 @@ return { -- Collection of small independent packages
     local statusline = require("mini.statusline")
     vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
     vim.api.nvim_set_hl(0, "StatusLineLoftSmartOrder", { fg = "#ffffff", bg = "#005f87", bold = true })
+    vim.api.nvim_set_hl(0, "StatusLineTabIndicator", { fg = "#ffffff", bg = "#c678dd" })
     statusline.setup({
       use_icons = vim.g.have_nerd_font,
       content = {
@@ -20,8 +21,12 @@ return { -- Collection of small independent packages
           local loft_ui = require("loft.ui")
           local record_reg = vim.fn.reg_recording()
           local recording = (string.len(record_reg) > 0 and "recording @" or "") .. record_reg
+          local tab_idx = require("utils").get_tab_index()
+          local total_tabs = #vim.api.nvim_list_tabpages()
+          local tab_indicator = total_tabs > 1 and "T" .. tab_idx or ""
           return statusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
+            { hl = "StatusLineTabIndicator", strings = { tab_indicator } },
             { hl = "StatusLineLoftSmartOrder", strings = { loft_ui:smart_order_indicator() } },
             "%<",
             { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
