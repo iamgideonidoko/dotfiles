@@ -56,4 +56,16 @@ utils.debounce = function(func, timeout)
   end
 end
 
+--- Get the tab index of the give or current tab
+---@param tab_id string?
+utils.get_tab_index = function(tab_id)
+  local current_tab = tab_id or vim.api.nvim_get_current_tabpage()
+  for i, t in ipairs(vim.api.nvim_list_tabpages()) do
+    if t == current_tab then
+      return i
+    end
+  end
+  return nil
+end
+
 return utils
