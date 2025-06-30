@@ -13,6 +13,9 @@ return {
         local key = pre_key .. i
         pcall(vim.keymap.del, "n", key)
       end
+      if total_tabs == 1 then
+        return
+      end
       for i = 1, math.min(total_tabs, 9) do
         local key = pre_key .. i
         vim.keymap.set("n", key, function()
