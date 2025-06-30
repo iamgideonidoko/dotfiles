@@ -104,11 +104,20 @@ return {
         vim.o.showtabline = 2
       end
     end, { desc = "Toggle tabline" })
+
+    local notify_no_alt_tab = function()
+      vim.notify("No alternate tab", vim.log.levels.ERROR)
+    end
     vim.keymap.set("n", "<leader>ta", function()
       if vim.g.alternate_tabpagenr ~= nil then
-        pcall(function()
+        local ok = pcall(function()
           vim.cmd("tabnext " .. vim.g.alternate_tabpagenr)
         end)
+        if not ok then
+          notify_no_alt_tab()
+        end
+      else
+        notify_no_alt_tab()
       end
     end, { desc = "Go to alternate tab" })
     local group = vim.api.nvim_create_augroup("CustomTabbyAUGroup", { clear = true })
