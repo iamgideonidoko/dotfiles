@@ -6,15 +6,6 @@ return {
 
     local marked_nums_solid = { "➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒" }
 
-    local function get_tab_index(tab_id)
-      for i, t in ipairs(vim.api.nvim_list_tabpages()) do
-        if t == tab_id then
-          return i
-        end
-      end
-      return nil
-    end
-
     local debounced_keymap_first_nine_tabs = utils.debounce(function()
       local pre_key = "<leader>t"
       local total_tabs = vim.fn.tabpagenr("$")
@@ -62,7 +53,7 @@ return {
               break
             end
           end
-          local tab_idx = get_tab_index(tab.id)
+          local tab_idx = require("utils").get_tab_index(tab.id)
           return {
             line.sep("", hl, theme.fill),
             tab_idx <= 9 and marked_nums_solid[tab_idx] or "",
