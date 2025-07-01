@@ -117,6 +117,7 @@ const rules: KarabinerRules[] = [
       p: app('Postman'), // "p"ostman
       v: app('Google Drive'), // Google D"r"ive
       z: app('Zoom.us'), // "z"oom
+      h: app('Notion'), // pronounced no-s"h"on :>
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
