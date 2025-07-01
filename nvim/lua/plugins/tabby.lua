@@ -86,6 +86,7 @@ return {
       else
         vim.cmd("-tabmove")
       end
+      vim.cmd("redrawstatus")
     end, { desc = "Move tab left" })
     vim.keymap.set("n", "<leader>tN", function()
       local idx = vim.fn.tabpagenr()
@@ -95,6 +96,7 @@ return {
       else
         vim.cmd("+tabmove")
       end
+      vim.cmd("redrawstatus")
     end, { desc = "Move tab right" })
 
     vim.keymap.set("n", "<leader>t_", function()
