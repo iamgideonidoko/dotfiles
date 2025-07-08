@@ -72,7 +72,10 @@ return {
       }
     end)
 
-    vim.keymap.set("n", "<leader>tt", ":$tabnew<CR>", { noremap = true, desc = "New tab" })
+    vim.keymap.set("n", "<leader>tt", function()
+      vim.cmd(":$tabnew<CR>")
+      require("loft.actions").close_buffer()
+    end, { noremap = true, desc = "New tab" })
     vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { noremap = true, desc = "Close current tab" })
     vim.keymap.set("n", "<leader>to", ":tabonly<CR>", { noremap = true, desc = "Close all other tabs" })
     vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { noremap = true, desc = "Previous tab" })
