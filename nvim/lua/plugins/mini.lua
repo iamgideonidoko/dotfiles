@@ -2,9 +2,11 @@ return { -- Collection of small independent packages
   "echasnovski/mini.nvim",
   config = function()
     local statusline = require("mini.statusline")
-    vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
+    vim.api.nvim_set_hl(0, "MiniStatusLineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
     vim.api.nvim_set_hl(0, "StatusLineLoftSmartOrder", { fg = "#ffffff", bg = "#005f87", bold = true })
     vim.api.nvim_set_hl(0, "StatusLineTabIndicator", { fg = "#ffffff", bg = "#c678dd" })
+    vim.api.nvim_set_hl(0, "MiniStatusLineFilenameInactive", { fg = "#6272a4", bg = "NONE" }) -- for active window
+
     statusline.setup({
       use_icons = vim.g.have_nerd_font,
       content = {
@@ -31,12 +33,18 @@ return { -- Collection of small independent packages
             "%<",
             { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
             "%<",
-            { hl = "MiniStatuslineFilename", strings = { filename .. loft_ui:get_buffer_mark() } },
+            { hl = "MiniStatusLineFilename", strings = { filename .. loft_ui:get_buffer_mark() } },
             "%=",
             { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
             { hl = mode_hl, strings = { search, location } },
             { hl = "ErrorMsg", strings = { recording } },
           })
+        end,
+        inactive = function()
+          local filepath = vim.fn.expand("%:~")
+          filepath = #filepath > 0 and filepath .. " " or filepath
+          local border = string.rep("━", vim.api.nvim_win_get_width(0) - #filepath)
+          return "%#MiniStatusLineFilenameInactive#" .. filepath .. "%#WinSeparator#" .. border
         end,
       },
     })
