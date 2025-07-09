@@ -2,11 +2,6 @@ return { -- Collection of small independent packages
   "echasnovski/mini.nvim",
   config = function()
     local statusline = require("mini.statusline")
-    vim.api.nvim_set_hl(0, "MiniStatusLineFilename", { fg = "#FFD700", bg = "#262D43", bold = true })
-    vim.api.nvim_set_hl(0, "StatusLineLoftSmartOrder", { fg = "#ffffff", bg = "#005f87", bold = true })
-    vim.api.nvim_set_hl(0, "StatusLineTabIndicator", { fg = "#ffffff", bg = "#c678dd" })
-    vim.api.nvim_set_hl(0, "MiniStatusLineFilenameInactive", { fg = "#6272a4", bg = "NONE" }) -- for active window
-
     statusline.setup({
       use_icons = vim.g.have_nerd_font,
       content = {

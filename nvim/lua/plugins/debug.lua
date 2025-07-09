@@ -86,7 +86,6 @@ return {
 
     -- Langugage onfiguration
     local js_related_language = require("utils").js_related_languages
-    vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
     for _, language in ipairs(js_related_language) do
       dap.configurations[language] = {
         {

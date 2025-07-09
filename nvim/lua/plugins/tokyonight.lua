@@ -15,6 +15,11 @@ return { -- Colorscheme
         hl.LineNrBelow = { fg = "#bfc9db" }
         hl.WinSeparator = { fg = "#555555" }
         hl.StatusLineNC = { bg = "NONE" }
+        hl.MiniStatusLineFilename = { fg = "#FFD700", bg = "#262D43", bold = true }
+        hl.StatusLineLoftSmartOrder = { fg = "#ffffff", bg = "#005f87", bold = true }
+        hl.StatusLineTabIndicator = { fg = "#ffffff", bg = "#c678dd" }
+        hl.MiniStatusLineFilenameInactive = { fg = "#6272a4", bg = "NONE" }
+        hl.DapStoppedLine = { default = true, link = "Visual" }
       end,
     })
     vim.cmd.colorscheme("tokyonight-night")
