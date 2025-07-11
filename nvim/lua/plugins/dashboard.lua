@@ -12,36 +12,25 @@ return {
  \___|\____\) \_______) \"_____/      \__/    (__\_|_)|___|\__/|___|
 
 ]]
-    logo = string.rep("\n\n\n", 1) .. logo .. ""
     local opts = {
       theme = "doom",
       hide = {
         statusline = false,
       },
       config = {
-        header = vim.split(logo, "\n"),
-        -- stylua: ignore
+        header = vim.split("\n\n" .. logo, "\n"),
         center = {
-          { action = function ()
-            vim.cmd('Telescope find_files')
-          end, desc = " Find File", icon = " ", key = "f" },
           { action = "qa", desc = " Quit", icon = " ", key = "q" },
         },
         footer = function()
-          local stats = require("lazy").stats()
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
           local cwd_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
           return {
-            "📁" .. cwd_name,
-            "⚡" .. stats.loaded .. "/" .. stats.count .. " plugins loaded in " .. ms .. "ms",
+            "󰉋 " .. cwd_name,
           }
         end,
+        vertical_center = true,
       },
     }
-    for _, button in ipairs(opts.config.center) do
-      button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-      button.key_format = "  %s"
-    end
     -- close Lazy and re-open when the dashboard is ready
     if vim.o.filetype == "lazy" then
       vim.cmd.close()
