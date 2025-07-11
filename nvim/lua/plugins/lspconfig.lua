@@ -3,8 +3,6 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    -- Useful UI notification and status updates for LSP.
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     {
       "j-hui/fidget.nvim",
       opts = {
@@ -16,9 +14,16 @@ return {
         },
       },
     },
-    -- Configure Lua LSP for Neovim config, runtime and plugins
-    -- (completion, annotations and signatures of Neovim apis)
-    { "folke/neodev.nvim", opts = {} },
+    { -- Configure Lua LSP for Neovim config
+      "folke/lazydev.nvim",
+      ft = "lua",
+      opts = {
+        library = {
+          -- Load luvit types when the `vim.uv` word is found
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
+    },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
