@@ -79,6 +79,7 @@ const rules: KarabinerRules[] = [
       f: open('https://figma.com'), // "f"igma.com
       c: open('https://www.canva.com/?continue_in_browser=true'), // "c"anva.com
       t: open('https://www.capcut.com'), // capcu"t".com
+      n: open('https://notion.so'), // "n"otion.com
     },
     // o = "O"pen applications
     o: {
