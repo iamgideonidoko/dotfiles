@@ -978,6 +978,29 @@
                 "to": [
                   {
                     "mouse_key": {
+                      "y": 614.4000000000001
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "mouse_key": {
                       "y": 1536
                     }
                   }
@@ -1010,6 +1033,29 @@
                   "key_code": "k",
                   "modifiers": {
                     "mandatory": ["left_command"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "mouse_key": {
+                      "y": -614.4000000000001
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
                   }
                 },
                 "conditions": [
@@ -1070,6 +1116,29 @@
                 "to": [
                   {
                     "mouse_key": {
+                      "x": -614.4000000000001
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "mouse_key": {
                       "x": -1536
                     }
                   }
@@ -1102,6 +1171,29 @@
                   "key_code": "l",
                   "modifiers": {
                     "mandatory": ["left_command"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "mouse_key": {
+                      "x": 614.4000000000001
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
                   }
                 },
                 "conditions": [

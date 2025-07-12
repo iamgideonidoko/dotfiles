@@ -3,7 +3,8 @@ import { KarabinerRules } from './types';
 import { createHyperSubLayers, app, open, rectangle, hammerspoon, shell } from './utils';
 
 const mouseSpeed = 1536,
-  mouseSpeedFast = mouseSpeed * 4;
+  mouseSpeedFast = mouseSpeed * 4,
+  mouseSpeedSlow = mouseSpeed * 0.4;
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -132,6 +133,14 @@ const rules: KarabinerRules[] = [
           },
         },
         {
+          to: [{ mouse_key: { y: mouseSpeedSlow } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
+            },
+          },
+        },
+        {
           to: [{ mouse_key: { y: mouseSpeed } }],
         },
       ],
@@ -141,6 +150,14 @@ const rules: KarabinerRules[] = [
           from: {
             modifiers: {
               mandatory: ['left_command'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { y: -mouseSpeedSlow } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
             },
           },
         },
@@ -157,6 +174,15 @@ const rules: KarabinerRules[] = [
             },
           },
         },
+
+        {
+          to: [{ mouse_key: { x: -mouseSpeedSlow } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
+            },
+          },
+        },
         {
           to: [{ mouse_key: { x: -mouseSpeed } }],
         },
@@ -167,6 +193,14 @@ const rules: KarabinerRules[] = [
           from: {
             modifiers: {
               mandatory: ['left_command'],
+            },
+          },
+        },
+        {
+          to: [{ mouse_key: { x: mouseSpeedSlow } }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
             },
           },
         },
