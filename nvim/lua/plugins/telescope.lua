@@ -37,7 +37,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
             ["<M-q>"] = actions.close,
           },
         },
-        -- file_ignore_patterns = { "node_modules", ".git", ".next", ".nx" },
       },
       -- pickers = {}
       extensions = {
@@ -57,7 +56,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
     set("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
     set("n", "<leader>ff", builtin.find_files, { desc = "[f]ind [f]iles" })
     set("n", "<leader>fa", function()
-      builtin.find_files({ follow = true, no_ignore = true, hidden = true })
+      builtin.find_files({
+        follow = true,
+        no_ignore = true,
+        hidden = true,
+        file_ignore_patterns = { "node_modules/", "%.git/", "%.next/", "%.nx/", "dist/", "build/" },
+      })
     end, { desc = "[f]ind [f]iles" })
     set("n", "<leader>fs", builtin.builtin, { desc = "[f]ind [s]elect Telescope" })
     set("n", "<leader>fw", builtin.grep_string, { desc = "[f]ind [w]ord" })
