@@ -126,6 +126,14 @@ const rules: KarabinerRules[] = [
     e: {
       j: [
         {
+          to: [{ key_code: 'down_arrow' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_control'],
+            },
+          },
+        },
+        {
           to: [{ mouse_key: { y: mouseSpeedFast } }],
           from: {
             modifiers: {
@@ -146,6 +154,14 @@ const rules: KarabinerRules[] = [
         },
       ],
       k: [
+        {
+          to: [{ key_code: 'up_arrow' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_control'],
+            },
+          },
+        },
         {
           to: [{ mouse_key: { y: -mouseSpeedFast } }],
           from: {
@@ -168,6 +184,14 @@ const rules: KarabinerRules[] = [
       ],
       h: [
         {
+          to: [{ key_code: 'left_arrow' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_control'],
+            },
+          },
+        },
+        {
           to: [{ mouse_key: { x: -mouseSpeedFast } }],
           from: {
             modifiers: {
@@ -189,6 +213,14 @@ const rules: KarabinerRules[] = [
         },
       ],
       l: [
+        {
+          to: [{ key_code: 'right_arrow' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_control'],
+            },
+          },
+        },
         {
           to: [{ mouse_key: { x: mouseSpeedFast } }],
           from: {
