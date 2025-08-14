@@ -68,4 +68,17 @@ utils.get_tab_index = function(tab_id)
   return nil
 end
 
+--- Get the tab index of the give or current tab
+---@param no_multiline boolean?
+utils.get_visual_selection = function(no_multiline)
+  -- Store current selection in a temporary register without affecting clipboard
+  vim.cmd('normal! "zy')
+  local text = vim.fn.getreg("z")
+  if not text or text == "" then
+    return
+  end
+  text = text:match("^%s*(.-)%s*$") or text
+  return no_multiline and text:gsub("%s+", " ") or text
+end
+
 return utils
