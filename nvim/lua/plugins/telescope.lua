@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return { -- Fuzzy Finder (files, lsp, etc)
   "nvim-telescope/telescope.nvim",
   event = "VimEnter",
@@ -67,6 +69,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
     set("n", "<leader>fw", builtin.grep_string, { desc = "[f]ind [w]ord" })
     set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "[f]ind [c]urrent word" })
     set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind by [g]rep" })
+    set("v", "<leader>fg", function()
+      builtin.live_grep({
+        default_text = utils.get_visual_selection(true),
+      })
+    end, { desc = "[f]ind by [g]rep" })
     set("n", "<leader>fd", builtin.diagnostics, { desc = "[f]ind [d]iagnostics" })
     set("n", "<leader>fr", builtin.resume, { desc = "[f]ind [r]esume" })
     set("n", "<leader>f.", builtin.oldfiles, { desc = '[f]ind recent files ("." for repeat)' })
