@@ -59,10 +59,80 @@ return { -- Fuzzy Finder (files, lsp, etc)
     set("n", "<leader>ff", builtin.find_files, { desc = "[f]ind [f]iles" })
     set("n", "<leader>fa", function()
       builtin.find_files({
-        follow = true,
-        no_ignore = true,
         hidden = true,
-        file_ignore_patterns = { "node_modules/", "%.git/", "%.next/", "%.nx/", "dist/", "build/" },
+        file_ignore_patterns = {
+          -- VCS
+          "%.git/",
+          "%.svn/",
+          "%.hg/",
+          -- JS / TS
+          "node_modules/",
+          "%.yarn/",
+          "%.pnp/",
+          "%.turbo/",
+          "%.parcel%-cache/",
+          "%.nx/",
+          "%.next/",
+          "%.nuxt/",
+          -- PHP
+          "vendor/",
+          -- Python
+          "__pycache__/",
+          "%.pytest_cache/",
+          "%.mypy_cache/",
+          "%.tox/",
+          "%.nox/",
+          "%.venv/",
+          "venv/",
+          "env/",
+          -- Rust
+          "target/",
+          "%.cargo/registry/",
+          "%.cargo/git/",
+          -- Go
+          "bin/",
+          "pkg/",
+          -- Java / Kotlin / Android
+          "build/",
+          "dist/",
+          "out/",
+          "%.gradle/",
+          "%.idea/",
+          "%.vscode/",
+          -- .NET
+          "obj/",
+          "%.vs/",
+          -- Ruby
+          "%.bundle/",
+          "vendor/bundle/",
+          -- Elixir / Erlang
+          "_build/",
+          "deps/",
+          -- Haskell
+          "%.stack%-work/",
+          "dist%-newstyle/",
+          -- C/C++ / CMake
+          "CMakeFiles/",
+          "CMakeCache.txt",
+          -- Other toolchains
+          "coverage/",
+          "%.expo/",
+          "%.expo%-shared/",
+          "%.vercel/",
+          "%.firebase/",
+          "%.terraform/",
+          "%.serverless/",
+          "%.docusaurus/",
+          "%.svelte%-kit/",
+          -- Junk files
+          "%.log$",
+          "%.lock$",
+          "%.tmp$",
+          "%.swp$",
+          "%.swo$",
+          "%.DS_Store$",
+          "Thumbs%.db$",
+        },
       })
     end, { desc = "[f]ind [f]iles" })
     set("n", "<leader>fs", builtin.builtin, { desc = "[f]ind [s]elect Telescope" })
