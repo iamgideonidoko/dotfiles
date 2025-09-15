@@ -326,24 +326,44 @@ const rules: KarabinerRules[] = [
       l: rectangle('right-half'),
       return_or_enter: rectangle('maximize'),
       r: rectangle('restore'),
-      i: {
-        description: 'Window: Previous Tab',
-        to: [
-          {
-            key_code: 'tab',
-            modifiers: ['right_control', 'right_shift'],
+      i: [
+        {
+          to: [{ pointing_button: 'button4' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_command'],
+            },
           },
-        ],
-      },
-      o: {
-        description: 'Window: Next Tab',
-        to: [
-          {
-            key_code: 'tab',
-            modifiers: ['right_control'],
+        },
+        {
+          description: 'Window: Previous Tab',
+          to: [
+            {
+              key_code: 'tab',
+              modifiers: ['right_control', 'right_shift'],
+            },
+          ],
+        },
+      ],
+      o: [
+        {
+          to: [{ pointing_button: 'button5' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_command'],
+            },
           },
-        ],
-      },
+        },
+        {
+          description: 'Window: Next Tab',
+          to: [
+            {
+              key_code: 'tab',
+              modifiers: ['right_control'],
+            },
+          ],
+        },
+      ],
       n: {
         description: 'Window: Next Window',
         to: [
