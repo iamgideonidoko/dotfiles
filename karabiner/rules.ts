@@ -241,12 +241,48 @@ const rules: KarabinerRules[] = [
           to: [{ mouse_key: { x: mouseSpeed } }],
         },
       ],
-      return_or_enter: {
-        to: [{ pointing_button: 'button1' }],
-      },
-      spacebar: {
-        to: [{ pointing_button: 'button1' }],
-      },
+      return_or_enter: [
+        {
+          to: [{ pointing_button: 'button2' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_command'],
+            },
+          },
+        },
+        {
+          to: [{ pointing_button: 'button3' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
+            },
+          },
+        },
+        {
+          to: [{ pointing_button: 'button1' }],
+        },
+      ],
+      spacebar: [
+        {
+          to: [{ pointing_button: 'button2' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_command'],
+            },
+          },
+        },
+        {
+          to: [{ pointing_button: 'button3' }],
+          from: {
+            modifiers: {
+              mandatory: ['left_alt'],
+            },
+          },
+        },
+        {
+          to: [{ pointing_button: 'button1' }],
+        },
+      ],
       i: {
         to: [{ mouse_key: { vertical_wheel: -32 } }],
       },

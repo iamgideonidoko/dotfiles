@@ -1336,6 +1336,48 @@
               {
                 "to": [
                   {
+                    "pointing_button": "button2"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "return_or_enter",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "pointing_button": "button3"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "return_or_enter",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
                     "pointing_button": "button1"
                   }
                 ],
@@ -1344,6 +1386,48 @@
                   "key_code": "return_or_enter",
                   "modifiers": {
                     "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "pointing_button": "button2"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_e",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
+                    "pointing_button": "button3"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": ["left_alt"]
                   }
                 },
                 "conditions": [
