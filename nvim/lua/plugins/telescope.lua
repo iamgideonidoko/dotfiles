@@ -20,8 +20,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
   config = function()
     local actions = require("telescope.actions")
     local action_state = require("telescope.actions.state")
+    local ivy_theme = require("telescope.themes").get_ivy()
     require("telescope").setup({
-      defaults = {
+      defaults = vim.tbl_extend("force", ivy_theme, {
+        layout_config = {
+          height = 0.99,
+          prompt_position = "bottom",
+        },
+        sorting_strategy = "descending",
         mappings = {
           i = {
             ["<c-l>"] = false,
@@ -39,12 +45,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
             ["<M-q>"] = actions.close,
           },
         },
-      },
+      }),
       -- pickers = {}
       extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown(),
-        },
+        ["ui-select"] = {},
       },
     })
 
@@ -154,7 +158,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.buffers({ sort_mru = true, ignore_current_buffer = true, show_all_buffers = true })
     end, { desc = "[f]ind existing [b]uffers" })
     set("n", "<leader>f/", function()
-      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({ previewer = false }))
+      builtin.current_buffer_fuzzy_find({ previewer = false })
     end, { desc = "[f]uzzi[/]y search in current buffer" })
     set("n", "<leader>fo", function()
       builtin.live_grep({
