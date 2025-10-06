@@ -83,6 +83,7 @@ cask "capcut"
 cask "postman"
 # cask "notion" # Prefer browser version
 # cask "mos" # Mouse utility
+# cask "protonvpn" # Personal VPN
 # cask "openvpn-connect" # Work VPN
 # cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
 # cask "figma" # Prefer browser version
