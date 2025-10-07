@@ -47,6 +47,7 @@ brew "awscli"
 brew "aria2" # Download utility but faster
 brew "postgresql"
 brew "mysql-client@8.0"
+# brew "mkcert" # Local certificates
 # brew "rclone" # Rsync for cloud storage
 # brew "jq"
 # brew "sketchybar"
