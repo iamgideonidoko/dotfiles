@@ -43,16 +43,16 @@ vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
 -- Insert an empty line above or below the current line
-set("n", "<C-J>", function()
+set("n", "<M-o>", function()
   utils.add_empty_line(true)
-end, { desc = "Insert an empty line below current", noremap = true, silent = true })
-set("n", "<C-K>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
+end, { desc = "Insert an empty line below current" })
+set("n", "<M-i>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- Move line(s) up or down
-set("n", "<M-o>", ":m .+1<CR>==", { noremap = true, silent = true })
-set("n", "<M-i>", ":m .-2<CR>==", { noremap = true, silent = true })
-set("v", "<M-o>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-set("v", "<M-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+set("n", "<M->>", ":m .+1<CR>==", { noremap = true, silent = true })
+set("n", "<M-<>", ":m .-2<CR>==", { noremap = true, silent = true })
+set("v", "<M->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+set("v", "<M-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 set("n", "<leader>_", function()
   if vim.o.laststatus == 2 then
