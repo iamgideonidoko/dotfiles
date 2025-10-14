@@ -82,6 +82,7 @@ cask "logi-options+"
 cask "chatgpt"
 cask "capcut"
 cask "postman"
+cask "nikitabobko/tap/aerospace"
 # cask "notion" # Prefer browser version
 # cask "mos" # Mouse utility
 # cask "protonvpn" # Personal VPN
