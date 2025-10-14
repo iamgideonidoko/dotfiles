@@ -15,10 +15,10 @@ vim.keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Escape terminal mode"
 vim.keymap.set("t", "<M-q>", "<C-\\><C-n>", { desc = "Escape terminal mode" })
 
 -- Open a terminal at the bottom of the screen with a fixed height
-vim.keymap.set("n", ",st", function()
+vim.keymap.set("n", "<leader>:n", function()
   vim.cmd.new()
   vim.cmd.wincmd("J")
   vim.api.nvim_win_set_height(0, 12)
   vim.wo.winfixheight = true
   vim.cmd.term()
-end)
+end, { desc = "Open terminal at the bottom" })

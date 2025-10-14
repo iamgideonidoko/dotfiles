@@ -5,8 +5,8 @@ return {
     require("loft").setup({
       keymaps = {
         general = {
-          ["<M-l>"] = actions.switch_to_next_marked_buffer,
-          ["<M-h>"] = actions.switch_to_prev_marked_buffer,
+          ["<leader>l)"] = actions.switch_to_next_marked_buffer,
+          ["<leader>l("] = actions.switch_to_prev_marked_buffer,
           ["<leader>ls"] = {
             callback = function()
               actions.toggle_smart_order({ notify = false })

@@ -28,10 +28,12 @@ set({ "i", "t" }, "<C-j>", "<Down>", { desc = "Move down" })
 set({ "i", "t" }, "<C-k>", "<Up>", { desc = "Move up" })
 
 -- Control the size of windows
-set("n", "<M-,>", "<C-w>5<", { desc = "Decrease width" })
-set("n", "<M-.>", "<C-w>5>", { desc = "Increase width" })
-set("n", "<M-i>", "<C-W>-", { desc = "Decrease height" })
-set("n", "<M-o>", "<C-W>+", { desc = "Increase height" })
+set("n", "<M-[>", "<C-w>5<", { desc = "Decrease width" })
+set("n", "<M-]>", "<C-w>5>", { desc = "Increase width" })
+set("n", "<M-{>", "<C-W>-", { desc = "Decrease height" })
+set("n", "<M-}>", "<C-W>+", { desc = "Increase height" })
+
+set("n", "<C-o>", "<Nop>", { noremap = true, silent = true })
 
 -- Shift left and right in visual mode (and remain in visual mode)
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
@@ -41,18 +43,18 @@ vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text" })
 
 -- Insert an empty line above or below the current line
-set("n", "<M-j>", function()
+set("n", "<C-J>", function()
   utils.add_empty_line(true)
 end, { desc = "Insert an empty line below current", noremap = true, silent = true })
-set("n", "<M-k>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
+set("n", "<C-K>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- Move line(s) up or down
-set("n", "<S-M-j>", ":m .+1<CR>==", { noremap = true, silent = true })
-set("n", "<S-M-k>", ":m .-2<CR>==", { noremap = true, silent = true })
-set("v", "<S-M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-set("v", "<S-M-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+set("n", "<M-o>", ":m .+1<CR>==", { noremap = true, silent = true })
+set("n", "<M-i>", ":m .-2<CR>==", { noremap = true, silent = true })
+set("v", "<M-o>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+set("v", "<M-i>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>_", function()
+set("n", "<leader>_", function()
   if vim.o.laststatus == 2 then
     vim.o.laststatus = 1
   else
@@ -62,44 +64,44 @@ end, { desc = "Toggle statusline" })
 
 -- <<<<<<QUICKFIX>>>>>>>
 -- Quickfix window management
-vim.keymap.set("n", "<leader>Co", "<cmd>copen<cr>", { desc = "Open quickfix list" })
-vim.keymap.set("n", "<leader>Cc", "<cmd>cclose<cr>", { desc = "Close quickfix list" })
-vim.keymap.set("n", "<leader>Ct", "<cmd>cwindow<cr>", { desc = "Toggle quickfix list" })
+set("n", "<leader>Co", "<cmd>copen<cr>", { desc = "Open quickfix list" })
+set("n", "<leader>Cc", "<cmd>cclose<cr>", { desc = "Close quickfix list" })
+set("n", "<leader>Ct", "<cmd>cwindow<cr>", { desc = "Toggle quickfix list" })
 -- Navigate quickfix entries
-vim.keymap.set("n", "<leader>Cn", "<cmd>cnext<cr>", { desc = "Next quickfix item" })
-vim.keymap.set("n", "<leader>Cp", "<cmd>cprev<cr>", { desc = "Previous quickfix item" })
-vim.keymap.set("n", "<leader>Cf", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
-vim.keymap.set("n", "<leader>Cl", "<cmd>clast<cr>", { desc = "Last quickfix item" })
+set("n", "<leader>Cn", "<cmd>cnext<cr>", { desc = "Next quickfix item" })
+set("n", "<leader>Cp", "<cmd>cprev<cr>", { desc = "Previous quickfix item" })
+set("n", "<leader>Cf", "<cmd>cfirst<cr>", { desc = "First quickfix item" })
+set("n", "<leader>Cl", "<cmd>clast<cr>", { desc = "Last quickfix item" })
 -- Navigate with error wrapping (safer navigation)
-vim.keymap.set("n", "<leader>C]", function()
+set("n", "<leader>C]", function()
   vim.cmd("try | cnext | catch | cfirst | catch | endtry")
 end, { desc = "Next quickfix (wrap)" })
-vim.keymap.set("n", "<leader>C[", function()
+set("n", "<leader>C[", function()
   vim.cmd("try | cprev | catch | clast | catch | endtry")
 end, { desc = "Previous quickfix (wrap)" })
 -- File-level navigation
-vim.keymap.set("n", "<leader>C.", "<cmd>cnfile<cr>", { desc = "Next file in quickfix" })
-vim.keymap.set("n", "<leader>C,", "<cmd>cpfile<cr>", { desc = "Previous file in quickfix" })
+set("n", "<leader>C.", "<cmd>cnfile<cr>", { desc = "Next file in quickfix" })
+set("n", "<leader>C,", "<cmd>cpfile<cr>", { desc = "Previous file in quickfix" })
 -- Quickfix operations
-vim.keymap.set("n", "<leader>Cr", ":cdo s//g<left><left>", { desc = "Replace in quickfix items" })
-vim.keymap.set("n", "<leader>Ca", ":cdo ", { desc = "Execute command on quickfix items" })
-vim.keymap.set("n", "<leader>Cs", ":cfdo s//g<left><left>", { desc = "Replace in quickfix files" })
+set("n", "<leader>Cr", ":cdo s//g<left><left>", { desc = "Replace in quickfix items" })
+set("n", "<leader>Ca", ":cdo ", { desc = "Execute command on quickfix items" })
+set("n", "<leader>Cs", ":cfdo s//g<left><left>", { desc = "Replace in quickfix files" })
 -- Clear quickfix list
-vim.keymap.set("n", "<leader>CC", function()
+set("n", "<leader>CC", function()
   vim.fn.setqflist({})
   print("Quickfix list cleared")
 end, { desc = "Clear quickfix list" })
 -- Jump to current quickfix item
-vim.keymap.set("n", "<leader>C<cr>", "<cmd>cc<cr>", { desc = "Jump to current quickfix item" })
+set("n", "<leader>C<cr>", "<cmd>cc<cr>", { desc = "Jump to current quickfix item" })
 -- Make operations
-vim.keymap.set("n", "<leader>Cm", "<cmd>make<cr>", { desc = "Run make" })
-vim.keymap.set("n", "<leader>CM", "<cmd>make!<cr>", { desc = "Run make (silent)" })
+set("n", "<leader>Cm", "<cmd>make<cr>", { desc = "Run make" })
+set("n", "<leader>CM", "<cmd>make!<cr>", { desc = "Run make (silent)" })
 -- Location list equivalents (bonus)
-vim.keymap.set("n", "<leader>CL", "<cmd>lopen<cr>", { desc = "Open location list" })
-vim.keymap.set("n", "<leader>Ck", "<cmd>lnext<cr>", { desc = "Next location item" })
-vim.keymap.set("n", "<leader>Cj", "<cmd>lprev<cr>", { desc = "Previous location item" })
+set("n", "<leader>CL", "<cmd>lopen<cr>", { desc = "Open location list" })
+set("n", "<leader>Ck", "<cmd>lnext<cr>", { desc = "Next location item" })
+set("n", "<leader>Cj", "<cmd>lprev<cr>", { desc = "Previous location item" })
 -- Advanced: Send grep/search results to quickfix
-vim.keymap.set("n", "<leader>Cg", function()
+set("n", "<leader>Cg", function()
   local input = vim.fn.input("Grep: ")
   if input ~= "" then
     vim.cmd("grep! " .. vim.fn.shellescape(input))
@@ -107,7 +109,7 @@ vim.keymap.set("n", "<leader>Cg", function()
   end
 end, { desc = "Grep to quickfix" })
 -- Send current buffer diagnostics to quickfix (LSP integration)
-vim.keymap.set("n", "<leader>Cd", function()
+set("n", "<leader>Cd", function()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
 end, { desc = "Diagnostics to quickfix" })
