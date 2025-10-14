@@ -33,7 +33,7 @@ return { -- Collection of small independent packages
       use_icons = vim.g.have_nerd_font,
       content = {
         active = function()
-          local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
+          local mode, mode_hl = statusline.section_mode({ trunc_width = math.huge })
           local git = statusline.section_git({ trunc_width = 75 })
           local diff = statusline.section_diff({ trunc_width = 75 })
           local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
