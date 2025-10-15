@@ -20,6 +20,8 @@ mkdir -p ~/.config/eza
 mkdir -p ~/.config/btop
 mkdir -p ~/.config/fastfetch
 mkdir -p ~/.config/aerospace
+mkdir -p ~/.config/sketchybar
+mkdir -p ~/.config/borders
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -74,4 +76,6 @@ create_symlink ~/dotfiles/eza/ ~/.config/eza
 create_symlink ~/dotfiles/btop/ ~/.config/btop
 create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
 create_symlink ~/dotfiles/aerospace/ ~/.config/aerospace
+create_symlink ~/dotfiles/sketchybar/ ~/.config/sketchybar
+create_symlink ~/dotfiles/borders/ ~/.config/borders
 ##############################################################################
