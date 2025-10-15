@@ -4,9 +4,9 @@
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget sketchybar',
-  'exec-and-forget borders',
-  'exec-and-forget svim'
+  'exec-and-forget brew services restart sketchybar',
+  'exec-and-forget brew services restart borders',
+  'exec-and-forget brew services restart svim'
 ]
 
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -54,6 +54,10 @@ run = 'layout floating'
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'com.apple.Note'
+run = 'layout floating'
+
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -72,7 +76,7 @@ run = 'layout floating'
     inner.vertical =   10
     outer.left =       10
     outer.bottom =     10
-    outer.top =        30
+    outer.top =        28
     outer.right =      10
 
 # 'main' binding mode declaration
