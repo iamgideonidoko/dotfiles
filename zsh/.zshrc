@@ -135,6 +135,9 @@ if command -v fastfetch &>/dev/null; then
   alias ff='fastfetch'
   alias ffm='fastfetch --structure "Title:OS:Kernel:Uptime:CPU:CPU_cores:GPU:Memory:Resolution:Hostname:Shell:Packages:Disk:Battery" '
 fi
+if [[ -f "$HOME/dotfiles/zsh/aerospace.sh" ]]; then
+  source "$HOME/dotfiles/zsh/aerospace.sh"
+fi
 ##############################################################################
 # Add Android SDK tools to PATH
 export ANDROID_HOME="$HOME/Library/Android/sdk"
