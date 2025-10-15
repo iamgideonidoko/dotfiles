@@ -38,6 +38,14 @@ on-focus-changed = ['move-mouse window-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = true
 
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -136,7 +144,8 @@ automatically-unhide-macos-hidden-apps = true
     alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
     alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-    alt-shift-f = 'fullscreen'
+    alt-f = 'fullscreen'
+    alt-shift-f = 'macos-native-fullscreen'
 
     # Alternate between workspaces
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -166,3 +175,10 @@ automatically-unhide-macos-hidden-apps = true
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+
+
+# move-workspace-to-monitor command has no effect for workspaces that have monitor assignment 
+# https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+# [workspace-to-monitor-force-assignment]
+#     0 = 'secondary' # Non-main monitor in case when there are only two monitors
