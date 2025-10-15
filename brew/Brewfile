@@ -48,6 +48,7 @@ brew "aria2" # Download utility but faster
 brew "postgresql"
 brew "mysql-client@8.0"
 brew "felixkratz/formulae/borders" # Adds colored borders to user windows on macOS 14.0+
+brew "felixkratz/formulae/sketchybar" # Adds a highly customizable status bar to macOS
 # brew "mkcert" # Local certificates
 # brew "rclone" # Rsync for cloud storage
 # brew "jq"
