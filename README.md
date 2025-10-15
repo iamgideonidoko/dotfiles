@@ -52,6 +52,29 @@ Download and install Comic Code (or any other) nerd font:
 unzip -o -j ~/Downloads/Comic_Code_Nerd_Fonts.zip -d ~/Library/Fonts/
 ```
 
+### Configurations for a better Aerospace experience
+
+1. Arrange your monitors properly if applicable: [see here](https://nikitabobko.github.io/AeroSpace/guide#proper-monitor-arrangement)
+
+2. Group windows by application (Show window bigger in mission control)
+
+   ```sh
+   defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+
+   ```
+
+3. Move windows by dragging any part of the window
+
+   ```sh
+   defaults write -g NSWindowShouldDragOnGesture -bool true
+   ```
+
+4. Prevent displays from having separate spaces
+
+   ```sh
+    defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
+   ```
+
 ### Provide Permissions
 
 Open the software the require additional permissions and grant them. Also add the software like Scoot that should be login items.
