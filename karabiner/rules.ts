@@ -364,6 +364,15 @@ const rules: KarabinerRules[] = [
           ],
         },
       ],
+      p: {
+        description: 'Window: Previous Window',
+        to: [
+          {
+            key_code: 'grave_accent_and_tilde',
+            modifiers: ['right_command', 'left_shift'],
+          },
+        ],
+      },
       n: {
         description: 'Window: Next Window',
         to: [
