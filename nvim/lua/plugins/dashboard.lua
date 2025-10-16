@@ -2,23 +2,30 @@ return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
   opts = function()
-    local logo = [[
- _____  ___    _______    ______  ___      ___  __     ___      ___
-(\"   \|"  \  /"     "|  /    " \|"  \    /"  ||" \   |"  \    /"  |
-|.\\   \    |(: ______) // ____  \\   \  //  / ||  |   \   \  //   |
-|: \.   \\  | \/    |  /  /    ) :)\\  \/. ./  |:  |   /\\  \/.    |
-|.  \    \. | // ___)_(: (____/ //  \.    //   |.  |  |: \.        |
-|    \    \ |(:      "|\        /    \\   /    /\  |\ |.  \    /:  |
- \___|\____\) \_______) \"_____/      \__/    (__\_|_)|___|\__/|___|
-
-]]
+    local logo = {
+      "    ++        ++    " .. "",
+      "  ++++++      ++++  " .. "",
+      "==+++++++     +=====" .. "",
+      "===-++++++    ======" .. "",
+      "====-++++++   ======" .. "",
+      "------======= ======" .. "",
+      "------ =======-=====" .. "",
+      "------   ===========" .. "",
+      "------    ======----" .. "",
+      "------     =======--" .. "",
+      "  ::::      ======= " .. "",
+      "    ::        =--   " .. "",
+      "",
+    }
     local opts = {
       theme = "doom",
       hide = {
-        statusline = false,
+        statusline = true,
+        tabline = true,
+        winbar = true,
       },
       config = {
-        header = vim.split("\n\n" .. logo, "\n"),
+        header = logo,
         center = {
           { action = "qa", desc = " Quit", icon = " ", key = "q" },
         },
@@ -29,6 +36,7 @@ return {
           }
         end,
         vertical_center = true,
+        center_align = false,
       },
     }
     -- close Lazy and re-open when the dashboard is ready
