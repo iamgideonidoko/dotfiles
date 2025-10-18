@@ -160,8 +160,10 @@ run = 'layout floating'
     alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
     alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-    alt-f = 'fullscreen'
-    alt-shift-f = 'macos-native-fullscreen'
+    alt-f = 'layout floating tiling' # Toggle between floating and tiling layout
+
+    alt-enter = 'fullscreen'
+    alt-shift-enter = 'macos-native-fullscreen'
 
     # Alternate between workspaces
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -182,7 +184,6 @@ run = 'layout floating'
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
-    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
