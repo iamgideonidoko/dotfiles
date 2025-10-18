@@ -423,6 +423,28 @@
               {
                 "to": [
                   {
+                    "shell_command": "open -a 'Safari.app'"
+                  }
+                ],
+                "description": "Open -a 'Safari.app'",
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
                     "shell_command": "open -a 'Ghostty.app'"
                   }
                 ],

@@ -98,6 +98,7 @@ const rules: KarabinerRules[] = [
         ],
       },
       c: app('Google Chrome'), // Google "c"hrome
+      j: app('Safari'), // Safari
       g: app('Ghostty'), // "g"hostty
       f: app('Finder'), // "f"inder
       s: app('Spotify'), // "s"potify
