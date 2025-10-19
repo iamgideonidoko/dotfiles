@@ -160,10 +160,10 @@ run = 'layout floating'
     alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
     alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-    alt-f = 'layout floating tiling' # Toggle between floating and tiling layout
+    alt-enter = 'layout floating tiling' # Toggle between floating and tiling layout
 
-    alt-enter = 'fullscreen'
-    alt-shift-enter = 'macos-native-fullscreen'
+    alt-f = 'fullscreen'
+    alt-shift-f = 'macos-native-fullscreen'
 
     # Alternate between workspaces
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
