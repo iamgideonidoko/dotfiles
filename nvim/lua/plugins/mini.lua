@@ -38,7 +38,7 @@ return { -- Collection of small independent packages
           local diff = statusline.section_diff({ trunc_width = 75 })
           local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
           local lsp = statusline.section_lsp({ trunc_width = 75 })
-          local filename = statusline.section_filename({ trunc_width = 140 })
+          local filename = statusline.section_filename({ trunc_width = 0 })
           local fileinfo = statusline.section_fileinfo({ trunc_width = 120 })
           local location = "%l:%-2v"
           local search = statusline.section_searchcount({ trunc_width = 75 })
