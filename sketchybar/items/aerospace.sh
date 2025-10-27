@@ -21,7 +21,8 @@ for sid in $(aerospace list-workspaces --all); do
     label.padding_right=20 \
     label.padding_left=0 \
     label.y_offset=-1 \
-    script="$PLUGIN_DIR/aerospace.sh $sid"
+    script="$PLUGIN_DIR/aerospace.sh $sid" \
+    click_script="aerospace workspace $sid"
 done
 
 # Load Icons on startup
