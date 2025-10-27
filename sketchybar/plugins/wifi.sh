@@ -19,7 +19,7 @@ click() {
     WIDTH=dynamic
   fi
 
-  sketchybar --animate sin 20 --set $NAME label.width="$WIDTH"
+  sketchybar --animate sin 20 --set $NAME label.width="$WIDTH" label.padding_right=10
 }
 
 case "$SENDER" in
