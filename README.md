@@ -48,22 +48,22 @@ source ~/.zshrc
 
 Download and install Comic Code (or any other) nerd font:
 
-```
+```sh
 unzip -o -j ~/Downloads/Comic_Code_Nerd_Fonts.zip -d ~/Library/Fonts/
 ```
 
 ### Configurations for SketchyVim
 
-1. Start the brew service
-
-   ```sh
-   brew services restart svim
-   ```
-
-2. You can change the macOS selection color using:
+1. You can change the macOS selection color using:
 
    ```sh
    defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902"
+   ```
+
+2. Start the brew service
+
+   ```sh
+   brew services restart svim
    ```
 
 ### Configurations for Sketchybar
@@ -71,12 +71,20 @@ unzip -o -j ~/Downloads/Comic_Code_Nerd_Fonts.zip -d ~/Library/Fonts/
 1. Make plugins executable
 
    ```sh
-   chmod +x ~/dotfiles/sketchybar/plugins/*.sh
+   find ~/dotfiles/sketchybar -type f -name "*.sh" -exec chmod +x {} \;
+   chmod +x ~/dotfiles/sketchybar/**/*.sh
    ```
 
-2. Hide macOS menu
-   ```bash
-   defaults write NSGlobalDomain _HIHideMenuBar -bool true && killall SystemUIServer
+2. Install Sketchybar-app-font
+
+   ```sh
+   curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.23/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+   ```
+
+3. Start the brew service
+
+   ```sh
+   brew services restart sketchybar
    ```
 
 ### Configurations for a better Aerospace experience

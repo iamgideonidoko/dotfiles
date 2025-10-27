@@ -49,10 +49,11 @@ brew "postgresql"
 brew "mysql-client@8.0"
 brew "felixkratz/formulae/borders" # Adds colored borders to user windows on macOS 14.0+
 brew "felixkratz/formulae/sketchybar" # Adds a highly customizable status bar to macOS
+brew "jq"
+brew "gh"
+brew "switchaudio-osx"
 # brew "mkcert" # Local certificates
 # brew "rclone" # Rsync for cloud storage
-# brew "jq"
-# brew "sketchybar"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
@@ -85,6 +86,7 @@ cask "chatgpt"
 cask "capcut"
 cask "postman"
 cask "nikitabobko/tap/aerospace"
+cask "sf-symbols"
 # cask "notion" # Prefer browser version
 # cask "mos" # Mouse utility
 # cask "protonvpn" # Personal VPN
