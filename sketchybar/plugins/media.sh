@@ -8,7 +8,7 @@ update_media() {
     MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
     sketchybar --set $NAME label="$MEDIA" drawing=on
   else
-    sketchybar --set $NAME drawing=off
+    sketchybar --set $NAME drawing=on
   fi
 }
 
