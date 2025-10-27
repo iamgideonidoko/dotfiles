@@ -83,7 +83,7 @@ sketchybar --add item space_separator_2 left \
   label.drawing=off \
   background.drawing=off \
   script="$PLUGIN_DIR/aerospace_windows.sh" \
-  --subscribe space_separator aerospace_update_windows \
-  --subscribe space_separator aerospace_workspace_change \
-  --subscribe space_separator space_windows_change
+  --subscribe space_separator_2 aerospace_update_windows \
+  --subscribe space_separator_2 aerospace_workspace_change \
+  --subscribe space_separator_2 space_windows_change
 
