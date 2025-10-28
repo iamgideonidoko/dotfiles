@@ -59,7 +59,7 @@ cask "ghostty" # Terminal emulator
 cask "google-chrome"
 cask "spotify"
 cask "karabiner-elements" # Keyboard remapper
-cask "rectangle" # Window manager
+# cask "rectangle" # Window manager
 cask "scoot" # Cursor actuator
 cask "hammerspoon" # Automation tool
 cask "discord"

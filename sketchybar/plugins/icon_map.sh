@@ -83,6 +83,9 @@ function icon_map() {
   "Caprine")
     icon_result=":caprine:"
     ;;
+  "ChatGPT")
+    icon_result=":openai:"
+    ;;
   "Citrix Workspace" | "Citrix Viewer")
     icon_result=":citrix:"
     ;;
@@ -97,6 +100,9 @@ function icon_map() {
     ;;
   "Cypress")
     icon_result=":cypress:"
+    ;;
+  "DBeaver")
+    icon_result=":dbeaver:"
     ;;
   "Default")
     icon_result=":default:"
@@ -160,6 +166,9 @@ function icon_map() {
     ;;
   "Firefox Developer Edition" | "Firefox Nightly")
     icon_result=":firefox_developer_edition:"
+    ;;
+  "Free Download Manager")
+    icon_result=":open_video_downloader:"
     ;;
   "Folx")
     icon_result=":folx:"
@@ -239,6 +248,9 @@ function icon_map() {
   "Canary Mail" | "HEY" | "Mail" | "Mailspring" | "MailMate" | "邮件")
     icon_result=":mail:"
     ;;
+  "Maccy")
+    icon_result=":maccy_clip:"
+    ;;
   "MAMP" | "MAMP PRO")
     icon_result=":mamp:"
     ;;
@@ -317,8 +329,14 @@ function icon_map() {
   "OmniFocus")
     icon_result=":omni_focus:"
     ;;
+  "OpenVPN Connect")
+    icon_result=":openvpn_connect:"
+    ;;
   "1Password")
     icon_result=":one_password:"
+    ;;
+  "OrbStack")
+    icon_result=":orbstack:"
     ;;
   "Orion" | "Orion RC")
     icon_result=":orion:"
@@ -349,6 +367,9 @@ function icon_map() {
     ;;
   "PomoDone App")
     icon_result=":pomodone:"
+    ;;
+  "Postman")
+    icon_result=":postman:"
     ;;
   "PyCharm")
     icon_result=":pycharm:"
