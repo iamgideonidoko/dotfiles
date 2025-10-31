@@ -71,18 +71,24 @@ return {
     }
     lint.linters_by_ft = linters
 
-    -- `.luacheck` config is attempted to be loaded from the current to system root (use below to specify exact)
-    -- if lint.linters.luacheck then
-    --   lint.linters.luacheck.args = { "--config", "../../.luacheckrc" }
-    -- end
+    -- filetypes to skip linting for (handled by LSP, e.g., bashls)
+    local skip_ft = {
+      sh = true,
+      bash = true,
+      zsh = true,
+    }
+
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged" }, {
       group = lint_augroup,
       callback = function()
-        lint.try_lint()
+        local ft = vim.bo.filetype
+        if not skip_ft[ft] then
+          lint.try_lint()
+        end
       end,
     })
     -- Bridge between `mason.nvim` and `nvim-lint`
-    require("mason-nvim-lint").setup()
+    require("mason-nvim-lint").setup({})
   end,
 }

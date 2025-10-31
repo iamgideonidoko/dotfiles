@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ##############################################################################
 # ASCII color codes
 boldGreen="\033[1;32m"
 boldYellow="\033[1;33m"
-boldRed="\033[1;31m"
+# boldRed="\033[1;31m"
 boldPurple="\033[1;35m"
-boldBlue="\033[1;34m"
+# boldBlue="\033[1;34m"
 noColor="\033[0m"
 ##############################################################################
 mkdir -p ~/.config
@@ -48,7 +48,8 @@ create_symlink() {
   fi
   # Backup the target if it's not a symlink and backup is needed
   if [ -e "$target_path" ] && [ ! -L "$target_path" ] && [ "$backup_needed" = true ]; then
-    local backup_path="${target_path}_backup_$(date +%Y%m%d%H%M%S)"
+    local backup_path
+    backup_path="${target_path}_backup_$(date +%Y%m%d%H%M%S)"
     echo -e "${boldYellow}Backing up your existing file '$target_path' to '$backup_path'${noColor}"
     mv "$target_path" "$backup_path"
   fi

@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_update_windows
 
 for sid in $(aerospace list-workspaces --all); do
-  sketchybar --add item space.$sid left \
-    --subscribe space.$sid aerospace_workspace_change \
-    --set space.$sid \
+  sketchybar --add item "space.$sid" left \
+    --subscribe "space.$sid" aerospace_workspace_change \
+    --set "space.$sid" \
     drawing=off \
     background.color=0x66262A3F \
     background.corner_radius=10 \
@@ -32,12 +32,12 @@ for mid in $(aerospace list-monitors); do
     icons=" "
     if [ -n "$apps" ]; then
       while read -r app; do
-        icons+=" $($PLUGIN_DIR/icon_map.sh "$app")"
+        icons+=" $("$PLUGIN_DIR/icon_map.sh" "$app")"
       done <<<"$apps"
     else
       icons=""
     fi
-    sketchybar --set space.$sid label="$icons"
+    sketchybar --set "space.$sid" label="$icons"
 
     if [ -n "$icons" ]; then
       sketchybar --set "space.$sid" drawing=on label="$icons"
@@ -67,12 +67,11 @@ sketchybar --add item aerospace_workspaces left \
   background.border_width=2 \
   background.border_color=0x44FF00FF \
   background.height=25 \
-    label.color=0xFFC0CAF5 \
-    label.padding_right=10 \
-    label.padding_left=0 \
+  label.color=0xFFC0CAF5 \
+  label.padding_right=10 \
+  label.padding_left=0 \
   script="$PLUGIN_DIR/aerospace_workspaces.sh" \
   --subscribe aerospace_workspaces aerospace_workspace_change
-
 
 sketchybar --add item space_separator_2 left \
   --set space_separator_2 icon="􀆊" \
@@ -86,4 +85,3 @@ sketchybar --add item space_separator_2 left \
   --subscribe space_separator_2 aerospace_update_windows \
   --subscribe space_separator_2 aerospace_workspace_change \
   --subscribe space_separator_2 space_windows_change
-

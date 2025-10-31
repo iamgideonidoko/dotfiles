@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script is executed when either the mode changes,
 # or the commandline changes

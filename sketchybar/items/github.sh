@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
 
 github_bell=(
   padding_right=6
   update_freq=180
-  icon=$BELL
+  icon="$BELL"
   icon.font="$FONT:Bold:15.0"
-  icon.color=$BLUE
-  label=$LOADING
-  label.highlight_color=$BLUE
+  icon.color="$BLUE"
+  label="$LOADING"
+  label.highlight_color="$BLUE"
   popup.align=right
   script="$PLUGIN_DIR/github.sh"
   click_script="$POPUP_CLICK_SCRIPT"
@@ -24,14 +24,14 @@ github_template=(
   icon.background.y_offset=-12
 )
 
-sketchybar --add event github.update                    \
-           --add item github.bell right                 \
-           --set github.bell "${github_bell[@]}"        \
-           --subscribe github.bell  mouse.entered       \
-                                    mouse.exited        \
-                                    mouse.exited.global \
-                                    system_woke         \
-                                    github.update       \
-                                                        \
-           --add item github.template popup.github.bell \
-           --set github.template "${github_template[@]}"
+sketchybar --add event github.update \
+  --add item github.bell right \
+  --set github.bell "${github_bell[@]}" \
+  --subscribe github.bell mouse.entered \
+  mouse.exited \
+  mouse.exited.global \
+  system_woke \
+  github.update \
+  \
+  --add item github.template popup.github.bell \
+  --set github.template "${github_template[@]}"

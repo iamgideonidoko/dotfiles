@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 update_media() {
   STATE="$(echo "$INFO" | jq -r '.state')"
@@ -6,13 +6,14 @@ update_media() {
   if [ "$STATE" = "playing" ]; then
     APP=$(echo "$INFO" | jq -r '.app')
     MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
-    sketchybar --set $NAME label="$MEDIA" drawing=on
+    sketchybar --set "$NAME" label="$MEDIA" drawing=on
   else
-    sketchybar --set $NAME drawing=on
+    sketchybar --set "$NAME" drawing=on
   fi
 }
 
 case "$SENDER" in
-  "media_change") update_media
+"media_change")
+  update_media
   ;;
 esac

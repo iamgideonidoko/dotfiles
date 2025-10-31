@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 battery=(
   script="$PLUGIN_DIR/battery.sh"
@@ -10,6 +10,6 @@ battery=(
   updates=on
 )
 
-sketchybar --add item battery right      \
-           --set battery "${battery[@]}" \
-           --subscribe battery power_source_change system_woke
+sketchybar --add item battery right \
+  --set battery "${battery[@]}" \
+  --subscribe battery power_source_change system_woke

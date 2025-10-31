@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PLUGIN_DIR="${PLUGIN_DIR:-$HOME/.config/sketchybar/plugins}"
 
@@ -9,7 +9,7 @@ if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
       icons=" "
       if [ -n "$apps" ]; then
         while read -r app; do
-          icons+=" $($PLUGIN_DIR/icon_map.sh "$app")"
+          icons+=" $("$PLUGIN_DIR/icon_map.sh" "$app")"
         done <<<"$apps"
       else
         icons=""

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
 
 source "$CONFIG_DIR/icons.sh"
 source "$CONFIG_DIR/colors.sh"
@@ -8,23 +9,29 @@ if [ "$SENDER" = "svim_update" ]; then
   DRAW_CMD=off
   COLOR=$WHITE
   case "$MODE" in
-    "I") ICON="$MODE_INSERT" DRAWING=off
+  "I")
+    ICON="$MODE_INSERT" DRAWING=off
     ;;
-    "N") ICON="$MODE_NORMAL"
+  "N")
+    ICON="$MODE_NORMAL"
     ;;
-    "V") ICON="$MODE_VISUAL" COLOR=$YELLOW
+  "V")
+    ICON="$MODE_VISUAL" COLOR=$YELLOW
     ;;
-    "C") ICON="$MODE_CMD" DRAW_CMD=on COLOR=$RED
+  "C")
+    ICON="$MODE_CMD" DRAW_CMD=on COLOR=$RED
     ;;
-    "_") ICON="$MODE_PENDING"
+  "_")
+    ICON="$MODE_PENDING"
     ;;
-    *) DRAWING=off
+  *)
+    DRAWING=off
     ;;
   esac
 
-  sketchybar --set $NAME drawing="$DRAWING" \
-                         label.drawing="$DRAW_CMD" \
-                         icon="$ICON" \
-                         icon.color="$COLOR" \
-                         label="$CMDLINE"
+  sketchybar --set "$NAME" drawing="$DRAWING" \
+    label.drawing="$DRAW_CMD" \
+    icon="$ICON" \
+    icon.color="$COLOR" \
+    label="$CMDLINE"
 fi

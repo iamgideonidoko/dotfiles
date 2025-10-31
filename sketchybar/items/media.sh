@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 media=(
   icon.background.drawing=on
   icon.background.image=media.artwork
@@ -9,5 +11,5 @@ media=(
 )
 
 sketchybar --add item media center \
-           --set media "${media[@]}" \
-           --subscribe media media_change
+  --set media "${media[@]}" \
+  --subscribe media media_change

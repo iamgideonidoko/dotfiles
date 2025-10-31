@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
 
 source "$CONFIG_DIR/icons.sh"
 
@@ -10,5 +11,5 @@ wifi=(
 )
 
 sketchybar --add item wifi right \
-           --set wifi "${wifi[@]}" \
-           --subscribe wifi wifi_change mouse.clicked
+  --set wifi "${wifi[@]}" \
+  --subscribe wifi wifi_change mouse.clicked
