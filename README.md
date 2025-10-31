@@ -46,10 +46,10 @@ source ~/.zshrc
 
 ### Install Nerd Font
 
-Download and install Comic Code (or any other) nerd font:
+Download and install JetBrainsMono Nerd Font:
 
 ```sh
-unzip -o -j ~/Downloads/Comic_Code_Nerd_Fonts.zip -d ~/Library/Fonts/
+curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" && unzip JetBrainsMono.zip -d ~/Library/Fonts/
 ```
 
 ### Configurations for SketchyVim
