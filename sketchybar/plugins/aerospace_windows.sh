@@ -16,7 +16,9 @@ update_icon() {
       fi
 
       if [ -n "$icons" ]; then
-        sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons"
+        sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons" label.padding_right=20
+      elif [ "$sid" = "$(aerospace list-workspaces --focused)" ]; then
+        sketchybar --set "aerospace.workspace.$sid" drawing=on label="" label.padding_right=10
       else
         sketchybar --set "aerospace.workspace.$sid" drawing=off label=""
       fi
