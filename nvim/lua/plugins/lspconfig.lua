@@ -123,6 +123,7 @@ return {
         },
       },
       -- gopls = {},
+      bashls = {},
     }
     local ensure_installed = vim.tbl_keys(servers or {})
     ---@diagnostic disable-next-line: missing-fields

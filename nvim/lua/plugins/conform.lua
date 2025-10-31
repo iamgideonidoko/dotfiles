@@ -34,6 +34,13 @@ return { -- Autoformat
       }
     end
 
+    local shell_languages = { "sh", "bash", "zsh" }
+    for _, language in ipairs(shell_languages) do
+      formatters[language] = {
+        "shfmt",
+      }
+    end
+
     require("conform").setup({
       notify_on_error = false,
       format_on_save = function(bufnr)

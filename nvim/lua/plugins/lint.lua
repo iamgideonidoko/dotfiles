@@ -18,6 +18,13 @@ return {
         "eslint_d",
       }
     end
+    local shell_languages = { "sh", "bash", "zsh" }
+
+    for _, language in ipairs(shell_languages) do
+      linters[language] = {
+        "shellcheck",
+      }
+    end
     local lint = require("lint")
     local util = require("lspconfig.util")
     lint.linters.eslint_d = {
