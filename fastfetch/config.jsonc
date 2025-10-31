@@ -21,7 +21,7 @@
     "font",
     "cursor",
     "terminal",
-    t"terminalfont",
+    "terminalfont",
     {
       "type": "cpu",
       "showPeCoreCount": true,
