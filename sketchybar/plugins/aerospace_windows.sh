@@ -16,17 +16,17 @@ if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
       fi
 
       if [ -n "$icons" ]; then
-        sketchybar --set "space.$sid" drawing=on label="$icons"
+        sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons"
       else
-        sketchybar --set "space.$sid" drawing=off label=""
+        sketchybar --set "aerospace.workspace.$sid" drawing=off label=""
       fi
     done
   done
 
   if [ -n "${FOCUSED_WORKSPACE:-}" ]; then
-    sketchybar --set "space.$FOCUSED_WORKSPACE" background.color=0x607DCFFF background.border_width=2
+    sketchybar --set "aerospace.workspace.$FOCUSED_WORKSPACE" background.color=0x607DCFFF background.border_width=2
   fi
   if [ -n "${PREV_WORKSPACE:-}" ]; then
-    sketchybar --set "space.$PREV_WORKSPACE" background.color=0x44FFFFFF background.border_width=0
+    sketchybar --set "aerospace.workspace.$PREV_WORKSPACE" background.color=0x44FFFFFF background.border_width=0
   fi
 fi

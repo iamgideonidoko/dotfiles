@@ -25,5 +25,5 @@ fi
 # Trim trailing "|"
 output=${output%|}
 
-sketchybar --set aerospace_workspaces drawing="$drawing" label="$output"
-sketchybar --set space_separator_1 drawing="$drawing"
+sketchybar --set aerospace.workspaces drawing="$drawing" label="$output"
+sketchybar --set aerospace.separator.1 drawing="$drawing"
