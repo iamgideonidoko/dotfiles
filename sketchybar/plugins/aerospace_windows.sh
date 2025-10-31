@@ -2,7 +2,7 @@
 
 PLUGIN_DIR="${PLUGIN_DIR:-$HOME/.config/sketchybar/plugins}"
 
-if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
+update_icon() {
   for mid in $(aerospace list-monitors); do
     for sid in $(aerospace list-workspaces --monitor "$mid"); do
       apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
@@ -22,11 +22,18 @@ if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
       fi
     done
   done
+}
 
+if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
+  update_icon
   if [ -n "${FOCUSED_WORKSPACE:-}" ]; then
     sketchybar --set "aerospace.workspace.$FOCUSED_WORKSPACE" background.color=0x607DCFFF background.border_width=2
   fi
   if [ -n "${PREV_WORKSPACE:-}" ]; then
     sketchybar --set "aerospace.workspace.$PREV_WORKSPACE" background.color=0x44FFFFFF background.border_width=0
   fi
+fi
+
+if [ "${SENDER:-}" = "hammerspoon_windows_change" ]; then
+  update_icon
 fi
