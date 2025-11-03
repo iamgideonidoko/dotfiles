@@ -4,11 +4,8 @@
 focused_monitor=$(aerospace list-monitors --focused | awk -F'|' '{gsub(/ /,"",$1); print $1}')
 mapfile -t monitors < <(aerospace list-monitors | awk -F'|' '{gsub(/ /,"",$1); print $1}')
 
-output=""
-drawing="off"
-
 if [ "${#monitors[@]}" -gt 1 ]; then
-  drawing="on"
+  output=""
   for m in "${monitors[@]}"; do
     # Get the workspace currently focused on this monitor
     ws="$(aerospace list-workspaces --monitor "$m" --visible 2>/dev/null)"
@@ -20,10 +17,11 @@ if [ "${#monitors[@]}" -gt 1 ]; then
       output+="${ws}|"
     fi
   done
+  # Trim trailing "|"
+  output=${output%|}
+  sketchybar --set aerospace.workspaces drawing="on" label="$output"
+  sketchybar --set aerospace.separator.1 drawing="on" label="$output"
+else
+  sketchybar --set aerospace.workspaces drawing="off"
+  sketchybar --set aerospace.separator.1 drawing="off"
 fi
-
-# Trim trailing "|"
-output=${output%|}
-
-sketchybar --set aerospace.workspaces drawing="$drawing" label="$output"
-sketchybar --set aerospace.separator.1 drawing="$drawing"
