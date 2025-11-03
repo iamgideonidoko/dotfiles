@@ -6,11 +6,10 @@ tap "felixkratz/formulae"
 # LANGUAGES
 brew "node"
 brew "python@3.12"
+brew "go"
 brew "rust"
-# brew "php"
-# brew "go"
-# brew "php"
-# brew "lua"
+brew "php"
+brew "lua"
 ##############################################################################
 # PACKAGE MANAGER
 brew "luarocks"
@@ -37,7 +36,6 @@ brew "watchman" # Watch files and take action when they change
 brew "wget"
 brew "starship"
 brew "bash"
-# Start: `brew services restart svim` and provide accessibility permissions
 brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 brew "yazi"
 brew "btop"
@@ -52,14 +50,13 @@ brew "felixkratz/formulae/sketchybar" # Adds a highly customizable status bar to
 brew "jq"
 brew "gh"
 brew "switchaudio-osx"
-# brew "mkcert" # Local certificates
-# brew "rclone" # Rsync for cloud storage
+brew "mkcert" # Local certificates
+brew "rclone" # Rsync for cloud storage
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
 cask "spotify"
 cask "karabiner-elements" # Keyboard remapper
-# cask "rectangle" # Window manager
 cask "scoot" # Cursor actuator
 cask "hammerspoon" # Automation tool
 cask "discord"
@@ -87,6 +84,7 @@ cask "capcut"
 cask "postman"
 cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
+# cask "rectangle" # Window manager - replaced by aerospace + sketchybar + borders 
 # cask "notion" # Prefer browser version
 # cask "mos" # Mouse utility
 # cask "protonvpn" # Personal VPN
