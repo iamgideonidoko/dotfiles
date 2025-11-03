@@ -2,7 +2,7 @@ return {
   "mfussenegger/nvim-lint",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     "rshkarin/mason-nvim-lint",
   },
   config = function()
@@ -10,23 +10,27 @@ return {
       markdown = { "markdownlint" },
       python = { "flake8" },
       lua = { "luacheck" },
-      -- go = { "golangcilint" },
+      go = { "golangcilint" },
+      rust = { "clippy" }, -- add via `rustup component add clippy`
     }
+
     local js_related_language = require("utils").js_related_languages
     for _, language in ipairs(js_related_language) do
       linters[language] = {
         "eslint_d",
       }
     end
-    local shell_languages = { "sh", "bash", "zsh" }
 
+    local shell_languages = { "sh", "bash", "zsh" }
     for _, language in ipairs(shell_languages) do
       linters[language] = {
         "shellcheck",
       }
     end
+
     local lint = require("lint")
     local util = require("lspconfig.util")
+
     lint.linters.eslint_d = {
       name = "eslint_d",
       cmd = "eslint_d",
@@ -69,6 +73,30 @@ return {
         return root ~= nil
       end,
     }
+
+    lint.linters.clippy = {
+      cmd = "cargo",
+      args = { "clippy", "--message-format=json" },
+      stdin = false,
+      stream = "stdout",
+      parser = function(output)
+        local diagnostics = {}
+        for line in output:gmatch("[^\r\n]+") do
+          local ok, msg = pcall(vim.json.decode, line)
+          if ok and msg.message then
+            table.insert(diagnostics, {
+              lnum = msg.spans[1] and (msg.spans[1].line_start - 1) or 0,
+              col = msg.spans[1] and (msg.spans[1].column_start - 1) or 0,
+              message = msg.message.text,
+              severity = vim.diagnostic.severity.WARN,
+              source = "clippy",
+            })
+          end
+        end
+        return diagnostics
+      end,
+    }
+
     lint.linters_by_ft = linters
 
     -- filetypes to skip linting for (handled by LSP, e.g., bashls)
@@ -89,6 +117,8 @@ return {
       end,
     })
     -- Bridge between `mason.nvim` and `nvim-lint`
-    require("mason-nvim-lint").setup({})
+    require("mason-nvim-lint").setup({
+      ignore_install = { "clippy" },
+    })
   end,
 }

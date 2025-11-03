@@ -1,5 +1,5 @@
 return { -- Package manager for LSP servers, DAP servers, linters & formatters
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   opts = {
     ui = {
       border = "rounded",

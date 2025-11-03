@@ -17,6 +17,7 @@ brew "nvm"
 brew "yarn"
 brew "pnpm"
 brew "composer"
+brew "rustup"
 ##############################################################################
 brew "coreutils"
 brew "bat" # Better cat
@@ -77,7 +78,7 @@ cask "vlc"
 cask "lulu" # Firewall
 cask "zoom"
 cask "android-file-transfer" # Android - macOS file transfer
-cask "handbrake"
+cask "handbrake-app"
 cask "logi-options+"
 cask "chatgpt"
 cask "capcut"

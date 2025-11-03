@@ -1,8 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     {
       "j-hui/fidget.nvim",
       opts = {
@@ -122,8 +122,9 @@ return {
           },
         },
       },
-      -- gopls = {},
+      gopls = {},
       bashls = {},
+      rust_analyzer = {},
     }
     local ensure_installed = vim.tbl_keys(servers or {})
     ---@diagnostic disable-next-line: missing-fields

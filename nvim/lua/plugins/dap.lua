@@ -24,7 +24,7 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
     },
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
     -- START: JS
     {

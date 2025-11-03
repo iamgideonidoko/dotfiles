@@ -2,7 +2,7 @@ return { -- Autoformat
   "stevearc/conform.nvim",
   lazy = false,
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     "zapling/mason-conform.nvim",
   },
   config = function()
@@ -11,7 +11,8 @@ return { -- Autoformat
       php = { "php_cs_fixer" },
       python = { "black" },
       sql = { "pg_format" },
-      -- go = { "goimports" },
+      go = { "goimports" },
+      rust = { "rustfmt" },
     }
     local js_related_language = require("utils").js_related_languages
     local prettier_supported = vim.tbl_values(js_related_language or {})
