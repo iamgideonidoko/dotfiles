@@ -21,6 +21,7 @@ return { -- Colorscheme
         hl.StatusLineTabIndicator = { fg = "#ffffff", bg = "#c678dd" }
         hl.MiniStatusLineFilenameInactive = { fg = "#6272a4", bg = "NONE" }
         hl.DapStoppedLine = { default = true, link = "Visual" }
+        hl.Visual = { bg = "#364A82" }
       end,
     })
     vim.cmd.colorscheme("tokyonight-night")
