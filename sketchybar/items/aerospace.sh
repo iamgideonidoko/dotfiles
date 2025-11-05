@@ -93,8 +93,10 @@ done
 sketchybar --add item aerospace.separator.1 left --set aerospace.separator.1 "${aerospace_separator_1[@]}"
 
 sketchybar --add item aerospace.workspaces left --set aerospace.workspaces "${aerospace_workspaces[@]}" \
+  --subscribe aerospace.workspaces aerospace_update_windows \
   --subscribe aerospace.workspaces aerospace_workspace_change \
-  --subscribe aerospace.separator.2 hammerspoon_windows_change
+  --subscribe aerospace.workspaces hammerspoon_windows_change \
+  --subscribe aerospace.workspaces space_windows_change
 
 sketchybar --add item aerospace.separator.2 left --set aerospace.separator.2 "${aerospace_separator_2[@]}" \
   --subscribe aerospace.separator.2 aerospace_update_windows \
