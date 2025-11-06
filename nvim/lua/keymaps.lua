@@ -55,10 +55,10 @@ set("v", "<M->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 set("v", "<M-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 set("n", "<leader>_", function()
-  if vim.o.laststatus == 2 then
-    vim.o.laststatus = 1
-  else
+  if vim.o.laststatus == 0 then
     vim.o.laststatus = 2
+  else
+    vim.o.laststatus = 0
   end
 end, { desc = "Toggle statusline" })
 
