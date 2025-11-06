@@ -3,6 +3,21 @@ return { -- File explorer
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("oil").setup({
+      float = {
+        border = "rounded",
+      },
+      confirmation = {
+        border = "rounded",
+      },
+      progress = {
+        border = "rounded",
+      },
+      ssh = {
+        border = "rounded",
+      },
+      keymaps_help = {
+        border = "rounded",
+      },
       columns = {
         "icon",
       },
