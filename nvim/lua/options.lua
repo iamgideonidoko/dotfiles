@@ -35,3 +35,15 @@ vim.diagnostic.config({
 })
 vim.o.laststatus = 2
 vim.o.showtabline = 0
+
+vim.filetype.add({
+  extension = {
+    env = "config",
+  },
+  filename = {
+    [".env"] = "config",
+  },
+  pattern = {
+    ["%.env%..*"] = "config",
+  },
+})
