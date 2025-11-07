@@ -48,6 +48,8 @@ return { -- Collection of small independent packages
           local tab_idx = require("utils").get_tab_index()
           local total_tabs = #vim.api.nvim_list_tabpages()
           local tab_indicator = total_tabs > 1 and "T" .. tab_idx or ""
+          local hl = vim.api.nvim_get_hl(0, { name = mode_hl, link = false })
+          vim.api.nvim_set_hl(0, "CursorLineNr", { fg = hl.bg, bg = nil, bold = true })
           return combine_groups({
             { hl = mode_hl, strings = { mode } },
             { hl = "StatusLineTabIndicator", strings = { tab_indicator } },
