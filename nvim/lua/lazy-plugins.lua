@@ -29,6 +29,7 @@ require("lazy").setup({
   require("plugins.tabby"),
   require("plugins.ufo"),
   require("plugins.dadbod"),
+  require("plugins.colorizer"),
   -- require("plugins.avante"),
   -- DEV
   -- { import = "plugins._dev.loft" },
