@@ -53,6 +53,7 @@ brew "gh"
 brew "switchaudio-osx"
 brew "mkcert" # Local certificates
 brew "rclone" # Rsync for cloud storage
+brew "localtunnel"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
@@ -91,7 +92,7 @@ cask "sf-symbols"
 # cask "protonvpn" # Personal VPN
 # cask "tunnelbear" # Personal VPN
 # cask "openvpn-connect" # Work VPN
-# cask "ngrok" # Prefer localtunnel (npm i -g localtunnel)
+# cask "ngrok" # Prefer localtunnel
 # cask "figma" # Prefer browser version
 # cask "canva" # Prefer browser version
 # cask "iterm2" # Prefer Ghostty
