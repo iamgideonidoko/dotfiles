@@ -83,12 +83,10 @@ end
 
 ---@param mode string|string[]
 ---@param lhs string
----@param rhs function
+---@param rhs function|string
 ---@param opts? table
 utils.safe_map = function(mode, lhs, rhs, opts)
-  vim.keymap.set(mode, lhs, function()
-    pcall(rhs)
-  end, opts or { silent = true })
+  pcall(vim.keymap.set, mode, lhs, rhs, opts or { silent = true })
 end
 
 return utils
