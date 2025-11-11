@@ -81,4 +81,14 @@ utils.get_visual_selection = function(no_multiline)
   return no_multiline and text:gsub("%s+", " ") or text
 end
 
+---@param mode string|string[]
+---@param lhs string
+---@param rhs function
+---@param opts? table
+utils.safe_map = function(mode, lhs, rhs, opts)
+  vim.keymap.set(mode, lhs, function()
+    pcall(rhs)
+  end, opts or { silent = true })
+end
+
 return utils
