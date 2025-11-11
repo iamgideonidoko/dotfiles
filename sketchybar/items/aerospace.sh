@@ -33,7 +33,8 @@ aerospace_separator_1=(
 
 aerospace_workspaces=(
   drawing=off
-  label="?"
+  label="◌"
+  icon.drawing=off
   background.color=0x50FF00FF
   background.corner_radius=10
   background.drawing=on
@@ -42,7 +43,7 @@ aerospace_workspaces=(
   background.height=25
   label.color=0xFFC0CAF5
   label.padding_right=10
-  label.padding_left=0
+  label.padding_left=10
   script="$PLUGIN_DIR/aerospace_workspaces.sh"
 )
 

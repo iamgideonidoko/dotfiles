@@ -20,7 +20,7 @@ if [ "${#monitors[@]}" -gt 1 ]; then
   # Trim trailing "|"
   output=${output%|}
   sketchybar --set aerospace.workspaces drawing="on" label="$output"
-  sketchybar --set aerospace.separator.1 drawing="on" label="$output"
+  sketchybar --set aerospace.separator.1 drawing="on"
 else
   sketchybar --set aerospace.workspaces drawing="off"
   sketchybar --set aerospace.separator.1 drawing="off"
