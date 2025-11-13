@@ -86,5 +86,15 @@ return {
         },
       },
     })
+
+    vim.keymap.set("n", "<leader>nl", function()
+      require("noice").cmd("last")
+    end, { desc = "Noice Last Message" })
+    vim.keymap.set("n", "<leader>nh", function()
+      require("noice").cmd("history")
+    end, { desc = "Noice Message History" })
+    vim.keymap.set("n", "<leader>nd", function()
+      require("noice").cmd("dismiss")
+    end, { desc = "Noice Dismiss All" })
   end,
 }
