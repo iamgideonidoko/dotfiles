@@ -25,6 +25,7 @@ brew "fzf"
 brew "git"
 brew "neovim" # v0.11.2
 brew "ripgrep"
+brew "fd"
 brew "tmux"
 brew "unar"
 brew "eza" # Replacement for ls
