@@ -45,8 +45,51 @@ return { -- Fuzzy Finder (files, lsp, etc)
             ["<M-q>"] = actions.close,
           },
         },
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          -- performance & safety
+          "--trim",
+          "--no-binary",
+          "--max-filesize=500K",
+          "--glob=!*.min.*",
+          "--glob=!*.svg",
+          "--glob=!package-lock.json",
+          "--glob=!yarn.lock",
+          "--glob=!pnpm-lock.yaml",
+          "--glob=!bun.lockb",
+          "--glob=!composer.lock",
+          "--glob=!Pipfile.lock",
+          "--glob=!poetry.lock",
+          "--glob=!Cargo.lock",
+          "--glob=!go.sum",
+          "--glob=!mix.lock",
+          "--glob=!Gemfile.lock",
+          "--glob=!Podfile.lock",
+          "--glob=!flake.lock",
+          "--glob=!*.lock",
+          "--hidden",
+        },
+        scroll_strategy = "limit",
+        preview = {
+          filesize_limit = 250000, -- 250 KB
+          timeout = 200, -- 200 ms
+        },
+        debounce = 20, -- 20 ms
       }),
-      -- pickers = {}
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+        live_grep = {
+          only_sort_text = true,
+        },
+      },
       extensions = {
         ["ui-select"] = {},
       },
