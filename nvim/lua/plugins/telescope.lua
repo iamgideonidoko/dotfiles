@@ -73,6 +73,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           "--glob=!Podfile.lock",
           "--glob=!flake.lock",
           "--glob=!*.lock",
+          "--glob=!*.git/",
           "--hidden",
         },
         scroll_strategy = "limit",
@@ -83,9 +84,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
         debounce = 20, -- 20 ms
       }),
       pickers = {
-        find_files = {
-          hidden = true,
-        },
         live_grep = {
           only_sort_text = true,
         },
