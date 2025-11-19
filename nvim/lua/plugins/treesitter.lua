@@ -75,9 +75,9 @@ return {
         ts_select.select_textobject("@class.inner", "textobjects")
       end, { desc = "Select inside class" })
       -- You can also use captures from other query groups like `locals.scm`
-      utils.safe_map({ "x", "o" }, "as", function()
-        ts_select.select_textobject("@local.scope", "locals")
-      end, { desc = "Select around local scope" })
+      -- utils.safe_map({ "x", "o" }, "as", function()
+      --   ts_select.select_textobject("@local.scope", "locals")
+      -- end, { desc = "Select around local scope" })
 
       local ts_move = require("nvim-treesitter-textobjects.move")
       utils.safe_map({ "n", "x", "o" }, "]m", function()
