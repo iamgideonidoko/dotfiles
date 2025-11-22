@@ -22,6 +22,7 @@ mkdir -p ~/.config/fastfetch
 mkdir -p ~/.config/aerospace
 mkdir -p ~/.config/sketchybar
 mkdir -p ~/.config/borders
+mkdir -p ~/.vim/{undodir,plugged,autoload}
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -64,6 +65,7 @@ create_symlink() {
 create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
 create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
+create_symlink ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
 ##############################################################################
 # Creating symlinks for directories
 create_symlink ~/dotfiles/nvim/ ~/.config/nvim
