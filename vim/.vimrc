@@ -57,6 +57,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
 " Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-which-key'
+Plug 'machakann/vim-highlightedyank'
 
 " Language Support
 Plug 'sheerun/vim-polyglot'
@@ -571,6 +572,9 @@ let g:undotree_SetFocusWhenToggle = 1
 let g:AutoPairsShortcutToggle = '<M-p>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 
+" HIGHLIGHTEDYANK CONFIG
+let g:highlightedyank_highlight_duration = 150
+
 " AUTOCOMMANDS
 augroup vimrc_general
   autocmd!
@@ -583,11 +587,6 @@ augroup vimrc_general
   
   " Auto-resize splits on window resize
   autocmd VimResized * tabdo wincmd =
-  
-  " Highlight yanked text
-  if exists('##TextYankPost')
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  endif
 augroup END
 
 " Filetype specific settings
