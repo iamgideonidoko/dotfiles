@@ -98,7 +98,8 @@ precmd() {
 }
 ##############################################################################
 # ALIASES
-alias v='nvim'
+alias v='vim'
+alias nv='nvim'
 alias c='clear'
 alias python='python3'
 # Shows the last 30 entries, default is 15
