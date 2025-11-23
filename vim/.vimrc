@@ -99,7 +99,7 @@ set cursorline
 set signcolumn=yes
 set showmatch
 set matchtime=2
-set scrolloff=8
+set scrolloff=5
 set sidescrolloff=8
 set display+=lastline
 set cmdheight=1
@@ -135,9 +135,9 @@ syntax enable
 set autoindent
 set smartindent
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set shiftround
 set smarttab
 
