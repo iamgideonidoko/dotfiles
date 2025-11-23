@@ -55,7 +55,7 @@ Plug 'jiangmiao/auto-pairs'
 
 " Navigation & UI
 Plug 'itchyny/lightline.vim'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-which-key'
 
 " Language Support
