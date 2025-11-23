@@ -111,6 +111,15 @@ set splitbelow
 set splitright
 set fillchars=vert:│,fold:─
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
+" Normal mode: block, no blink
+let &t_EI = "\e[2 q"  
+" Insert mode: vertical bar, no blink
+let &t_SI = "\e[6 q"  
+set guicursor=n:block,i:ver25
+augroup cursor_init " Redraw cursor on VimEnter
+  autocmd!
+  autocmd VimEnter * execute 'normal! <C-L>'
+augroup END
 
 " Search
 set hlsearch
