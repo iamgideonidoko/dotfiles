@@ -24,10 +24,6 @@ let g:loaded_vimballPlugin = 1
 let g:loaded_2html_plugin = 1
 let g:loaded_logiPat = 1
 let g:loaded_rrhelper = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-let g:loaded_netrwSettings = 1
-let g:loaded_netrwFileHandlers = 1
 
 " PLUGIN MANAGEMENT WITH VIM-PLUG
 " Auto-install vim-plug if not present
@@ -40,45 +36,44 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" ─── LSP & Completion ───
+" LSP & Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" ─── Fuzzy Finding ───
+" Fuzzy Finding
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" ─── Git Integration ───
+" Git Integration
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" ─── Text Manipulation ───
+" Text Manipulation
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 
-" ─── Navigation & UI ───
+" Navigation & UI
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'justinmk/vim-dirvish'
 Plug 'liuchengxu/vim-which-key'
 
-" ─── Language Support ───
+" Language Support
 Plug 'sheerun/vim-polyglot'
 
-" ─── Utilities ───
+" Utilities
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 
-" ─── Colorschemes ───
+" Colorschemes
 Plug 'ghifarit53/tokyonight-vim'
 
 call plug#end()
 
 " CORE VIM SETTINGS
-" ─── General ───
+" General
 set encoding=utf-8
 set fileencoding=utf-8
 set fileformats=unix,dos,mac
@@ -96,7 +91,7 @@ set backspace=indent,eol,start
 set nrformats-=octal
 set formatoptions+=j
 
-" ─── Visual ───
+" Visual
 set number
 set relativenumber
 set cursorline
@@ -106,25 +101,25 @@ set matchtime=2
 set scrolloff=8
 set sidescrolloff=8
 set display+=lastline
-set cmdheight=2
+set cmdheight=1
 set shortmess+=c
 set noshowmode
 set showcmd
 set laststatus=2
-set showtabline=2
+set showtabline=1
 set splitbelow
 set splitright
 set fillchars=vert:│,fold:─
 set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮,nbsp:␣
 
-" ─── Search ───
+" Search
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set wrapscan
 
-" ─── Indentation ───
+" Indentation
 filetype plugin indent on
 syntax enable
 set autoindent
@@ -136,7 +131,7 @@ set shiftwidth=4
 set shiftround
 set smarttab
 
-" ─── Completion ───
+" Completion
 set completeopt=menuone,noinsert,noselect
 set pumheight=15
 set wildmenu
@@ -145,7 +140,7 @@ set wildignore+=*.o,*.obj,*.pyc,*.class
 set wildignore+=*/.git/*,*/.svn/*,*/.DS_Store
 set wildignore+=*/node_modules/*,*/vendor/*
 
-" ─── Folding ───
+" Folding
 set foldmethod=indent
 set foldlevelstart=99
 set nofoldenable
@@ -182,11 +177,7 @@ let g:tokyonight_cursor = 'auto'
 let g:tokyonight_sidebars = ['qf', 'vista_kind', 'terminal', 'packer']
 
 " Apply colorscheme
-silent! colorscheme tokyonight
-
-highlight LightlineTabSel  guibg=#3b4261 guifg=#c0caf5
-highlight LightlineTab     guibg=#1f2335 guifg=#7aa2f7
-highlight LightlineTabFill guibg=#1a1b26 guifg=#3b4261
+colorscheme tokyonight
 
 " Better diff colors
 hi DiffAdd guibg=#283b4d
@@ -220,7 +211,7 @@ hi WhichKeyDesc guifg=#c0caf5
 let mapleader = " "
 let maplocalleader = ","
 
-" ─── Essential Remaps ───
+" Essential Remaps
 nnoremap ; :
 vnoremap ; :
 inoremap jk <Esc>
@@ -241,7 +232,7 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap G Gzz
 
-" ─── Window Management ───
+" Window Management
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -257,7 +248,7 @@ nnoremap <M-Down> :resize -2<CR>
 nnoremap <M-Left> :vertical resize -2<CR>
 nnoremap <M-Right> :vertical resize +2<CR>
 
-" ─── Buffer Management ───
+" Buffer Management
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
@@ -265,7 +256,7 @@ nnoremap <leader>bD :bdelete!<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-" ─── Quick Actions ───
+" Quick Actions
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :qa!<CR>
@@ -277,7 +268,7 @@ nnoremap <leader>r :source $MYVIMRC<CR>:echo "Config reloaded!"<CR>
 nnoremap <leader><CR> :nohlsearch<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR>
 
-" ─── Text Manipulation ───
+" Text Manipulation
 " Move lines up/down
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -326,7 +317,7 @@ let g:coc_global_extensions = [
   \ 'coc-highlight',
   \ ]
 
-" ─── Completion ───
+" Completion
 " Use Tab for trigger completion
 inoremap <silent><expr> <TAB>
   \ coc#pum#visible() ? coc#pum#next(1) :
@@ -346,7 +337,7 @@ endfunction
 " Use <c-space> to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" ─── Navigation ───
+" Navigation
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gT <Plug>(coc-type-definition)
@@ -359,7 +350,7 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
 nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
 
-" ─── Documentation ───
+" Documentation
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
@@ -370,7 +361,7 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" ─── Code Actions ───
+" Code Actions
 nmap <leader>ca <Plug>(coc-codeaction-cursor)
 nmap <leader>cA <Plug>(coc-codeaction-source)
 nmap <leader>cf <Plug>(coc-fix-current)
@@ -384,26 +375,26 @@ nmap <leader>cR <Plug>(coc-refactor)
 nmap <leader>F <Plug>(coc-format)
 xmap <leader>F <Plug>(coc-format-selected)
 
-" ─── Selection Ranges ───
+" Selection Ranges
 nmap <silent> <leader>cs <Plug>(coc-range-select)
 xmap <silent> <leader>cs <Plug>(coc-range-select)
 
-" ─── Lists ───
+" Lists
 nnoremap <silent><nowait> <leader>cd :CocList diagnostics<CR>
 nnoremap <silent><nowait> <leader>ce :CocList extensions<CR>
 nnoremap <silent><nowait> <leader>cc :CocList commands<CR>
 nnoremap <silent><nowait> <leader>co :CocList outline<CR>
 nnoremap <silent><nowait> <leader>cS :CocList -I symbols<CR>
 
-" ─── Snippets ───
+" Snippets
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
-" ─── Highlight Symbol ───
+" Highlight Symbol
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" ─── Status Line Integration ───
+" Status Line Integration
 function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
 endfunction
@@ -422,6 +413,7 @@ endif
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :GFiles<CR>
 nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>/  :Buffers<CR>
 nnoremap <leader>fh :History<CR>
 nnoremap <leader>fr :Rg<CR>
 nnoremap <leader>fl :Lines<CR>
@@ -472,97 +464,39 @@ omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
-" DIRVISH CONFIGURATION
-let g:dirvish_relative_paths = 1
 
-" Sort folders at the top
-let g:dirvish_mode = ':sort ,^.*[\/],'
+" NETRW CONFIGURATION
+let g:netrw_banner = 0
+" Flat list style (wide, one-per-line with minimal info)
+let g:netrw_liststyle = 1
+" Auto-switch to file's directory when opening
+set autochdir
+" Minimal visual tweaks
+let g:netrw_altv = 1
+let g:netrw_sort_sequence = '[\/]$,*'
 
-" Press - to open current directory
-nnoremap <silent> - :call <SID>OpenDirvish()<CR>
-
-" In any buffer, press <leader>- to open parent directory
-nnoremap <leader>- :Dirvish<CR>
-
-" Function to handle opening dirvish from any buffer
-function! s:OpenDirvish()
-  if expand('%') == ''
-    " No file, open current working directory
-    Dirvish
-  else
-    " Open directory of current file
-    execute 'Dirvish' fnameescape(expand('%:p:h'))
-  endif
-endfunction
-
-augroup dirvish_config
-  autocmd!
-  
-  " Map keys in dirvish buffers for oil-like experience
-  autocmd FileType dirvish silent! unmap <buffer> <C-p>
-  autocmd FileType dirvish silent! unmap <buffer> <C-n>
-  
-  " Navigation
-  autocmd FileType dirvish nmap <silent><buffer> - <Plug>(dirvish_up)
-  autocmd FileType dirvish nmap <silent><buffer> q :bdelete<CR>
-  autocmd FileType dirvish nmap <silent><buffer> <leader>q :bdelete<CR>
-  
+function! SetupNetrwMappings()
+  " Alternate directory
+  nmap <buffer> a   <C-^>
   " Refresh
-  autocmd FileType dirvish nmap <silent><buffer> R <Plug>(dirvish_refresh)
-  
-  " Create files/directories
-  autocmd FileType dirvish nmap <buffer> <leader>n :e %
-  autocmd FileType dirvish nmap <buffer> <leader>N :!mkdir -p %
-  
-  " Toggle hidden files (dotfiles)
-  autocmd FileType dirvish nmap <silent><buffer> . :silent keeppatterns g@\v/\.[^\/]+/?$@d _<CR>:setl cole=3<CR>
-  
-  " Open in splits
-  autocmd FileType dirvish nmap <silent><buffer> <leader>s :call dirvish#open('split', 0)<CR>
-  autocmd FileType dirvish nmap <silent><buffer> <leader>v :call dirvish#open('vsplit', 0)<CR>
-  autocmd FileType dirvish nmap <silent><buffer> <leader>t :call dirvish#open('tabedit', 0)<CR>
-  
-  " Yank path
-  autocmd FileType dirvish nmap <buffer> y. :<C-U>let @"=fnamemodify(@%, ':p')<CR>:echo 'Yanked: ' . @"<CR>
-  autocmd FileType dirvish nmap <buffer> yy :<C-U>let @"=getline('.')<CR>:echo 'Yanked: ' . @"<CR>
-  
-  " Quick operations with Shdo
-  " dd to delete selected lines, then run :Shdo to execute
-  autocmd FileType dirvish vnoremap <buffer> x :!rm -rf<CR>
-  
-  " Sort options
-  autocmd FileType dirvish nmap <buffer> <leader>ss :sort<CR>
-  autocmd FileType dirvish nmap <buffer> <leader>sr :sort!<CR>
-augroup END
-
-" Dirvish Shdo: Edit files like a buffer, then execute shell commands
-" Example workflow:
-"   1. Open dirvish with -
-"   2. Delete lines you want to delete (dd)
-"   3. Type :%Shdo rm to delete those files
-"   4. Or use visual selection + :'<,'>Shdo mv {} dest/
-
-" Helper function for renaming files (oil-like rename)
-function! DirvishRename() abort
-  let l:file = getline('.')
-  let l:new_name = input('Rename to: ', l:file)
-  if !empty(l:new_name) && l:new_name !=# l:file
-    call system('mv ' . shellescape(l:file) . ' ' . shellescape(l:new_name))
-    execute 'Dirvish %'
-  endif
+  nmap <buffer> r   <C-L>
+  " Quit
+  nmap <buffer> q   :bd<CR>
+  " Toggle netrw banner in-place
+  nmap <buffer> ?   :let g:netrw_banner = !get(g:, 'netrw_banner', 1)<CR><C-L>
 endfunction
 
-augroup dirvish_rename
+augroup netrw_setup
   autocmd!
-  autocmd FileType dirvish nmap <buffer> r :call DirvishRename()<CR>
+  autocmd FileType netrw call SetupNetrwMappings()
 augroup END
 
-
+nnoremap - :Explore<CR>
 
 " WHICH-KEY CONFIGURATION
-let g:which_key_timeout = 100      " delay in ms
+let g:which_key_timeout = 100 " in ms
 let g:which_key_show_delay = 0
-let g:which_key_use_floating_win = 0  " split instead of floating (Neovim only supports floating)
+let g:which_key_use_floating_win = 0 " split instead of floating (floating not supported in vim)
 
 " Trigger
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
@@ -570,22 +504,11 @@ vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 
 " Key Groups 
 let g:which_key_map = {}
-
-" FILE group
 let g:which_key_map.f = { 'name' : '+file' }
-let g:which_key_map.f.s = 'save file'
-let g:which_key_map.f.o = 'open file'
-
-" GIT group
 let g:which_key_map.g = { 'name' : '+git' }
 let g:which_key_map.g.s = 'git status'
-
-" BUFFERS group
 let g:which_key_map.b = { 'name' : '+buffer' }
-let g:which_key_map.b.n = 'new buffer'
-let g:which_key_map.b.d = 'delete buffer'
 
-" Register
 call which_key#register('<Space>', 'g:which_key_map')
 
 " Optional Styling
@@ -626,7 +549,6 @@ let g:lightline = {
   \   't': 'T',
   \  },
   \ }
-
 
 " Update lightline on CoC status change
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
