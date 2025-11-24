@@ -43,3 +43,11 @@ vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
     vim.cmd("redrawstatus")
   end,
 })
+
+-- Auto-resize splits on window resize
+vim.api.nvim_create_autocmd("VimResized", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end,
+})
