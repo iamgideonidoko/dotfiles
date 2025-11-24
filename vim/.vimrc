@@ -6,9 +6,9 @@ set nocompatible
 set lazyredraw
 set ttyfast
 set synmaxcol=300
-set updatetime=300
-set timeoutlen=500
-set ttimeoutlen=10
+set updatetime=250
+set timeoutlen=300
+set ttimeoutlen=50
 set regexpengine=1
 
 " Disable unused built-in plugins for faster startup
@@ -222,18 +222,7 @@ let mapleader = " "
 let maplocalleader = ","
 
 " Essential Remaps
-nnoremap ; :
-vnoremap ; :
-inoremap jk <Esc>
-inoremap kj <Esc>
-
-" Better movement
-nnoremap j gj
-nnoremap k gk
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
+inoremap <M-q> <Esc>
 
 " Center after jumps
 nnoremap n nzzzv
@@ -241,6 +230,22 @@ nnoremap N Nzzzv
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap G Gzz
+
+" Movement in insert and terminal mode
+inoremap <C-h> <Left>
+tnoremap <C-h> <Left>
+inoremap <C-l> <Right>
+tnoremap <C-l> <Right>
+inoremap <C-j> <Down>
+tnoremap <C-j> <Down>
+inoremap <C-k> <Up>
+tnoremap <C-k> <Up>
+
+" Disable arrow keys in normal mode
+nnoremap <Left>  :echo "Use h to move!!"<CR>
+nnoremap <Right> :echo "Use l to move!!"<CR>
+nnoremap <Up>    :echo "Use k to move!!"<CR>
+nnoremap <Down>  :echo "Use j to move!!"<CR>
 
 " Window Management
 nnoremap <C-h> <C-w>h
@@ -253,26 +258,16 @@ nnoremap <leader>wc <C-w>c
 nnoremap <leader>wo <C-w>o
 
 " Resize windows
-nnoremap <M-Up> :resize +2<CR>
-nnoremap <M-Down> :resize -2<CR>
-nnoremap <M-Left> :vertical resize -2<CR>
-nnoremap <M-Right> :vertical resize +2<CR>
+nnoremap <M-]> :resize +2<CR>
+nnoremap <M-[> :resize -2<CR>
+nnoremap <M-{> :vertical resize -2<CR>
+nnoremap <M-}> :vertical resize +2<CR>
 
 " Buffer Management
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bp :bprevious<CR>
-nnoremap <leader>bd :bdelete<CR>
-nnoremap <leader>bD :bdelete!<CR>
+nnoremap <leader>x :bdelete<CR>
+nnoremap <leader>X :bdelete!<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-
-" Quick Actions
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :qa!<CR>
-nnoremap <leader>x :x<CR>
-nnoremap <leader>e :e<Space>
-nnoremap <leader>r :source $MYVIMRC<CR>:echo "Config reloaded!"<CR>
 
 " Clear search highlight
 nnoremap <leader><CR> :nohlsearch<CR>
@@ -300,9 +295,6 @@ vnoremap p "_dP
 
 " Yank to end of line
 nnoremap Y y$
-
-" Select all
-nnoremap <leader>a ggVG
 
 " Quick fix navigation
 nnoremap ]q :cnext<CR>zz
