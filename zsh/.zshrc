@@ -99,6 +99,7 @@ precmd() {
 ##############################################################################
 # ALIASES
 alias v='vim'
+alias n='nvim'
 alias nv='nvim'
 alias c='clear'
 alias python='python3'
