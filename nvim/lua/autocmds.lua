@@ -46,8 +46,9 @@ vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
 
 -- Auto-resize splits on window resize
 vim.api.nvim_create_autocmd("VimResized", {
-  pattern = "*",
   callback = function()
+    local cur_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. cur_tab)
   end,
 })
