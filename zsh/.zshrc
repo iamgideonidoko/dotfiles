@@ -14,6 +14,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Prepend to system path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Initialize nvm in shell
+# Uninstall hombrew node versions if any
+# brew uninstall node --ignore-dependencies
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion"
