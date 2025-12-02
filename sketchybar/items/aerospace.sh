@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
+sketchybar --add event aerospace_item_init
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event aerospace_update_windows
 sketchybar --add event hammerspoon_windows_change
 
 aerospace_workspace=(
@@ -44,7 +44,6 @@ aerospace_workspaces=(
   label.color=0xFFC0CAF5
   label.padding_right=10
   label.padding_left=10
-  script="$PLUGIN_DIR/aerospace_workspaces.sh"
 )
 
 aerospace_separator_2=(
@@ -55,52 +54,23 @@ aerospace_separator_2=(
   padding_right=15
   label.drawing=off
   background.drawing=off
-  script="$PLUGIN_DIR/aerospace_windows.sh"
+  script="$PLUGIN_DIR/aerospace.sh"
 )
 
 for sid in $(aerospace list-workspaces --all); do
   sketchybar --add item "aerospace.workspace.$sid" left \
     --set "aerospace.workspace.$sid" icon="$sid" \
-    script="$PLUGIN_DIR/aerospace.sh $sid" \
     click_script="aerospace workspace $sid" \
-    "${aerospace_workspace[@]}" \
-    --subscribe "aerospace.workspace.$sid" aerospace_workspace_change
-done
-
-# Load Icons on startup
-for mid in $(aerospace list-monitors); do
-  for sid in $(aerospace list-workspaces --monitor "$mid"); do
-    apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
-    icons=" "
-    if [ -n "$apps" ]; then
-      while read -r app; do
-        icons+=" $("$PLUGIN_DIR/icon_map.sh" "$app")"
-      done <<<"$apps"
-    else
-      icons=""
-    fi
-    sketchybar --set "aerospace.workspace.$sid" label="$icons"
-
-    if [ -n "$icons" ]; then
-      sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons" label.padding_right=20
-    elif [ "$sid" = "$(aerospace list-workspaces --focused)" ]; then
-      sketchybar --set "aerospace.workspace.$sid" drawing=on label="" label.padding_right=10
-    else
-      sketchybar --set "aerospace.workspace.$sid" drawing=off label=""
-    fi
-  done
+    "${aerospace_workspace[@]}"
 done
 
 sketchybar --add item aerospace.separator.1 left --set aerospace.separator.1 "${aerospace_separator_1[@]}"
 
-sketchybar --add item aerospace.workspaces left --set aerospace.workspaces "${aerospace_workspaces[@]}" \
-  --subscribe aerospace.workspaces aerospace_update_windows \
-  --subscribe aerospace.workspaces aerospace_workspace_change \
-  --subscribe aerospace.workspaces hammerspoon_windows_change \
-  --subscribe aerospace.workspaces space_windows_change
+sketchybar --add item aerospace.workspaces left --set aerospace.workspaces "${aerospace_workspaces[@]}"
 
 sketchybar --add item aerospace.separator.2 left --set aerospace.separator.2 "${aerospace_separator_2[@]}" \
-  --subscribe aerospace.separator.2 aerospace_update_windows \
   --subscribe aerospace.separator.2 aerospace_workspace_change \
-  --subscribe aerospace.separator.2 space_windows_change \
-  --subscribe aerospace.separator.2 hammerspoon_windows_change
+  --subscribe aerospace.separator.2 hammerspoon_windows_change \
+  --subscribe aerospace.separator.2 aerospace_item_init
+
+sketchybar --trigger aerospace_item_init
