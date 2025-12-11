@@ -150,6 +150,13 @@ export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:
 # MySQL
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 ##############################################################################
+# Add Go bin to PATH safely
+if command -v go >/dev/null 2>&1; then
+  export PATH="$PATH:$(go env GOPATH)/bin"
+else
+  export PATH="$PATH:$HOME/go/bin"
+fi
+##############################################################################
 # Ensure Tmux Plugin Manager is installed
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
