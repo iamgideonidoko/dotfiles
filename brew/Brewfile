@@ -55,6 +55,8 @@ brew "switchaudio-osx"
 brew "mkcert" # Local certificates
 brew "rclone" # Rsync for cloud storage
 brew "localtunnel"
+brew "lazygit"
+brew "lazydocker"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
