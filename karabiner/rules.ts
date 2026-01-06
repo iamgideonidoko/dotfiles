@@ -122,6 +122,7 @@ const rules: KarabinerRules[] = [
       z: app('Zoom.us'), // "z"oom
       h: app('Notion'), // pronounced no-s"h"on :>
       b: app('DBeaver'), // D"b"eaver
+      l: app('Blender'), // B"l"ender
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
     e: {
