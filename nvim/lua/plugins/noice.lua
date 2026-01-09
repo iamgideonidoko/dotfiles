@@ -93,6 +93,7 @@ return {
     vim.keymap.set("n", "<leader>nh", function()
       require("noice").cmd("history")
     end, { desc = "Noice Message History" })
+    vim.keymap.set("n", "<leader>nm", "<cmd>messages<cr>", { desc = "All Messages" })
     vim.keymap.set("n", "<leader>nd", function()
       require("noice").cmd("dismiss")
     end, { desc = "Noice Dismiss All" })
