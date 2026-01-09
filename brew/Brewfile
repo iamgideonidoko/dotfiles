@@ -57,6 +57,7 @@ brew "rclone" # Rsync for cloud storage
 brew "localtunnel"
 brew "lazygit"
 brew "lazydocker"
+brew "websocat"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
