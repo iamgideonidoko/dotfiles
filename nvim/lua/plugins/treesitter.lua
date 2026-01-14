@@ -3,7 +3,6 @@ return {
   {
     -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -21,6 +20,7 @@ return {
         "typescript",
         "http",
         "json",
+        "jsonc",
         "tsx",
         "glsl",
         "xml",
