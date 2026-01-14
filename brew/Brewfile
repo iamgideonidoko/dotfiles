@@ -58,6 +58,7 @@ brew "localtunnel"
 brew "lazygit"
 brew "lazydocker"
 brew "websocat"
+brew "gemini-cli"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
@@ -89,6 +90,7 @@ cask "capcut"
 cask "postman"
 cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
+# cask "claude-code"
 # cask "scoot" # Cursor actuator
 # cask "rectangle" # Window manager - replaced by aerospace + sketchybar + borders 
 # cask "notion" # Prefer browser version
