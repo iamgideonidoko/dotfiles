@@ -63,7 +63,6 @@ cask "ghostty" # Terminal emulator
 cask "google-chrome"
 cask "spotify"
 cask "karabiner-elements" # Keyboard remapper
-cask "scoot" # Cursor actuator
 cask "hammerspoon" # Automation tool
 cask "discord"
 cask "whatsapp"
@@ -90,6 +89,7 @@ cask "capcut"
 cask "postman"
 cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
+# cask "scoot" # Cursor actuator
 # cask "rectangle" # Window manager - replaced by aerospace + sketchybar + borders 
 # cask "notion" # Prefer browser version
 # cask "mos" # Mouse utility
