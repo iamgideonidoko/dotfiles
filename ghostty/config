@@ -1,6 +1,6 @@
 background-opacity = 0.95
 background-blur = true
-theme = tokyonight_night
+theme = TokyoNight
 font-family = "JetBrainsMono Nerd Font Mono"
 font-style = Medium
 font-style-italic = Medium Italic
