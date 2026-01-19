@@ -35,6 +35,7 @@ vim.diagnostic.config({
 })
 vim.o.laststatus = 2
 vim.o.showtabline = 0
+vim.o.winborder = "rounded"
 
 vim.filetype.add({
   extension = {
