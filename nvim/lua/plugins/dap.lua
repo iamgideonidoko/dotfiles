@@ -4,7 +4,6 @@ local function get_args(config)
   config = vim.deepcopy(config)
   ---@cast args string[]
   config.args = function()
-    ---@diagnostic disable: redundant-parameter
     local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
     return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
   end
@@ -14,195 +13,206 @@ end
 return {
   "mfussenegger/nvim-dap",
   dependencies = {
-    {
-      "rcarriga/nvim-dap-ui",
-      dependencies = {
-        "nvim-neotest/nvim-nio",
-      },
-    },
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      opts = {},
-    },
+    { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
+    { "theHamsta/nvim-dap-virtual-text", opts = {} },
     "mason-org/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
-    -- START: JS
-    {
-      "microsoft/vscode-js-debug",
-      build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-    },
-    {
-      "mxsdev/nvim-dap-vscode-js",
-      dependencies = {
-        "mfussenegger/nvim-dap",
-      },
-    },
-    {
-      "nvim-lua/plenary.nvim",
-    },
-    -- END: JS
+    "rcarriga/cmp-dap",
+    "nvim-telescope/telescope-dap.nvim",
   },
   config = function()
-    -- Add debug adapters here
-    local debug_adapters = {}
     local dap = require("dap")
     local dapui = require("dapui")
 
-    -- For more information, see |:help nvim-dap-ui|
-    ---@diagnostic disable: missing-fields
-    dapui.setup({
-      -- Set icons to characters that are more likely to work in every terminal.
-      icons = vim.g.have_nerd_font and {} or { expanded = "▾", collapsed = "▸", current_frame = "*" },
-      controls = vim.g.have_nerd_font and {} or {
-        icons = {
-          pause = "⏸",
-          play = "▶",
-          step_into = "⏎",
-          step_over = "⏭",
-          step_out = "⏮",
-          step_back = "b",
-          run_last = "▶▶",
-          terminate = "⏹",
-          disconnect = "⏏",
-        },
-      },
-    })
+    dapui.setup()
+    require("telescope").load_extension("dap") -- Initialize Telescope extension
+
+    -- Gutter Sign Definitions
+    local signs = {
+      DapBreakpoint = { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" },
+      DapBreakpointCondition = { text = "◉", texthl = "DapBreakpointCondition", linehl = "", numhl = "" },
+      DapLogPoint = { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" },
+      DapStopped = { text = "▶", texthl = "DapStopped", linehl = "DapStoppedLine", numhl = "DapStoppedLine" },
+      DapBreakpointRejected = { text = "◌", texthl = "DapBreakpointRejected", linehl = "", numhl = "" },
+    }
+    for name, sign in pairs(signs) do
+      vim.fn.sign_define(name, sign)
+    end
+
+    -- Highlight Groups
+    vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#e85903" })
+    vim.api.nvim_set_hl(0, "DapBreakpointCondition", { fg = "#3bc9db" })
+    vim.api.nvim_set_hl(0, "DapStopped", { fg = "#94d82d", bold = true })
+    vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#2f3336" })
+
+    -- UI Auto-open/close
     dap.listeners.after.event_initialized["dapui_config"] = dapui.open
     dap.listeners.before.event_terminated["dapui_config"] = dapui.close
     dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
-    -- SETUP JS
-    require("dap-vscode-js").setup({
-      debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-      -- adapters to register in nvim-dap
-      adapters = {
-        "pwa-node",
-        "pwa-chrome",
-        "pwa-msedge",
-        "node-terminal",
-        "pwa-extensionHost",
-      },
+    -- REPL Completion
+    require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+      sources = { { name = "dap" } },
     })
 
-    -- Langugage onfiguration
-    local js_related_language = require("utils").js_related_languages
-    for _, language in ipairs(js_related_language) do
-      dap.configurations[language] = {
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Launch file",
-          program = "${file}",
-          cwd = vim.fn.getcwd(),
+    -- ADAPTERS
+    dap.adapters["pwa-node"] = {
+      type = "server",
+      host = "localhost",
+      port = "${port}",
+      executable = {
+        command = "node",
+        args = {
+          vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+          "${port}",
         },
-        {
-          type = "pwa-node",
-          request = "attach",
-          name = "Attach",
-          processId = require("dap.utils").pick_process,
-          cwd = vim.fn.getcwd(),
-        },
-        {
-          type = "pwa-chrome",
-          request = "launch",
-          name = "Launch & Debug Chrome",
-          url = function()
-            local co = coroutine.running()
-            return coroutine.create(function()
-              vim.ui.input({
-                prompt = "Enter URL: ",
-                default = "http://localhost:3000",
-              }, function(url)
-                if url == nil or url == "" then
-                  return
-                else
-                  coroutine.resume(co, url)
-                end
-              end)
-            end)
-          end,
-          webRoot = vim.fn.getcwd(),
-          userDataDir = false,
-        },
-        {
-          type = "pwa-chrome",
-          request = "attach",
-          name = "Attach & Debug Chrome",
-          url = function()
-            local co = coroutine.running()
-            return coroutine.create(function()
-              vim.ui.input({
-                prompt = "Enter URL: ",
-                default = "http://localhost:3000",
-              }, function(url)
-                if url == nil or url == "" then
-                  return
-                else
-                  coroutine.resume(co, url)
-                end
-              end)
-            end)
-          end,
-          webRoot = vim.fn.getcwd(),
-          userDataDir = false,
-        },
-        -- Divider for the launch.json derived configs
-        {
-          name = "----- ↓ launch.json configs ↓ -----",
-          type = "",
-          request = "launch",
-        },
-      }
+      },
+    }
+
+    dap.adapters.codelldb = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "codelldb",
+        args = { "--port", "${port}" },
+      },
+    }
+
+    dap.adapters.php = {
+      type = "executable",
+      command = "node",
+      args = { vim.fn.stdpath("data") .. "/mason/packages/php-debug-adapter/extension/out/phpDebug.js" },
+    }
+
+    -- LANGUAGES & PATH MAPPING
+    -- JavaScript / TypeScript
+    local js_config = {
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Next.js: Debug Server-side",
+        runtimeExecutable = "npm",
+        runtimeArgs = { "run", "dev" },
+        sourceMaps = true,
+        nwroot = "${workspaceFolder}",
+        webRoot = "${workspaceFolder}",
+        protocol = "inspector",
+        port = 9229,
+        resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
+      },
+      {
+        type = "pwa-chrome",
+        request = "launch",
+        name = "Next.js: Debug Client-side (Chrome)",
+        url = "http://localhost:3000",
+        webRoot = "${workspaceFolder}",
+        sourceMaps = true,
+        userDataDir = false,
+      },
+      {
+        type = "pwa-chrome",
+        request = "launch",
+        name = "React (Vite): Debug in Chrome",
+        url = "http://localhost:5173", -- Default Vite port
+        webRoot = "${workspaceFolder}",
+        sourceMaps = true,
+        userDataDir = false,
+        skipFiles = { "<node_internals>/**", "node_modules/**" },
+      },
+      {
+        type = "pwa-node",
+        request = "attach",
+        name = "Attach to React Native (Metro 8081)",
+        address = "localhost",
+        port = 8081,
+        cwd = "${workspaceFolder}",
+        sourceMaps = true,
+      },
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Debug Jest Tests",
+        runtimeExecutable = "node",
+        runtimeArgs = { "${workspaceFolder}/node_modules/.bin/jest", "--runInBand" },
+        rootPath = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+        console = "integratedTerminal",
+      },
+    }
+    for _, lang in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
+      dap.configurations[lang] = js_config
     end
 
-    -- Debugging keymaps
+    -- Python
+    dap.configurations.python = {
+      {
+        type = "python",
+        request = "launch",
+        name = "Launch file",
+        program = "${file}",
+        pythonPath = "python",
+        -- Docker mapping example:
+        -- pathMappings = { { localRoot = "${workspaceFolder}", remoteRoot = "/app" } },
+      },
+    }
+
+    -- PHP
+    dap.configurations.php = {
+      {
+        type = "php",
+        request = "launch",
+        name = "Listen for Xdebug",
+        port = 9003,
+        -- Robust path mapping for Docker/Virtual Machines
+        pathMappings = {
+          ["/var/www/html"] = "${workspaceFolder}",
+          ["/app"] = "${workspaceFolder}",
+        },
+      },
+    }
+
+    -- Go
+    dap.configurations.go = {
+      { type = "go", name = "Debug", request = "launch", program = "${file}" },
+      { type = "go", name = "Debug (Args)", request = "launch", program = "${file}", args = get_args },
+    }
+
+    -- Rust
+    dap.configurations.rust = {
+      {
+        name = "Launch Rust Binary",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Binary path: ", vim.fn.getcwd() .. "/target/debug/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        args = get_args,
+      },
+    }
+
+    require("mason-nvim-dap").setup({
+      ensure_installed = { "delve", "js-debug-adapter", "codelldb", "php-debug-adapter", "debugpy" },
+      automatic_installation = true,
+    })
+
+    -- KEYMAPS (Including Telescope DAP)
     local set = vim.keymap.set
     set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
     set("n", "<leader>dB", function()
-      dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-    end, { desc = "Debug: Breakpoint Condition" })
-    set("n", "<leader>dc", dap.continue, { desc = "Debug: Start/Continue" })
-    set("n", "<leader>da", function()
-      dap.continue({ before = get_args })
-    end, { desc = "Debug: Run with Args" })
-    set("n", "<leader>dC", dap.run_to_cursor, { desc = "Debug: Run to Cursor" })
-    set("n", "<leader>dg", dap.goto_, { desc = "Debug: Go to Line (No Execute)" })
-    set("n", "<leader>di", dap.step_into, { desc = "Debug: Step Into" })
-    set("n", "<leader>dj", dap.down, { desc = "Debug: Down" })
-    set("n", "<leader>dk", dap.up, { desc = "Debug: Up" })
-    set("n", "<leader>dl", dap.run_last, { desc = "Debug: Run Last" })
-    set("n", "<leader>do", dap.step_out, { desc = "Debug: Step Out" })
-    set("n", "<leader>dO", dap.step_over, { desc = "Debug: Step Over" })
-    set("n", "<leader>dp", dap.pause, { desc = "Debug: Pause" })
-    set("n", "<leader>dr", dap.repl.toggle, { desc = "Debug: Toggle REPL" })
-    set("n", "<leader>ds", dap.session, { desc = "Debug: Session" })
+      dap.set_breakpoint(vim.fn.input("Condition: "))
+    end, { desc = "Debug: Condition" })
+    set("n", "<leader>dc", dap.continue, { desc = "Debug: Continue" })
     set("n", "<leader>dt", dap.terminate, { desc = "Debug: Terminate" })
+    set("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
+    set("n", "<leader>dr", dap.repl.toggle, { desc = "Debug: REPL" })
     set("n", "<leader>dw", require("dap.ui.widgets").hover, { desc = "Debug: Widgets" })
-    set("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle last result." })
-    set("n", "<leader>dn", dapui.open, { desc = "Debug: Open session result." })
-    set("n", "<leader>dx", dapui.close, { desc = "Debug: Close session result." })
 
-    -- Bridge between `mason.nvim` and `nvim-dap`
-    require("mason-nvim-dap").setup({
-      ensure_installed = debug_adapters,
-      -- Automtically install all adapters set up via dap
-      automatic_installation = false,
-      handlers = {},
-    })
-
-    -- Set up dap config by VsCode launch.json file
-    local vscode = require("dap.ext.vscode")
-    local _filetypes = require("mason-nvim-dap.mappings.filetypes")
-    local filetypes = vim.tbl_deep_extend("force", _filetypes, {
-      ["node"] = { "javascriptreact", "typescriptreact", "typescript", "javascript" },
-      ["pwa-node"] = { "javascriptreact", "typescriptreact", "typescript", "javascript" },
-    })
-    local json = require("plenary.json")
-    ---@diagnostic disable: duplicate-set-field
-    vscode.json_decode = function(str)
-      ---@diagnostic disable: missing-parameter
-      return vim.json.decode(json.json_strip_comments(str))
-    end
-    vscode.load_launchjs(nil, filetypes)
+    -- Telescope DAP fuzzy search
+    local ts_dap = require("telescope").extensions.dap
+    set("n", "<leader>dsb", ts_dap.list_breakpoints, { desc = "Debug: Search Breakpoints" })
+    set("n", "<leader>dsc", ts_dap.configurations, { desc = "Debug: Search Configs" })
+    set("n", "<leader>dsv", ts_dap.variables, { desc = "Debug: Search Variables" })
+    set("n", "<leader>dsf", ts_dap.frames, { desc = "Debug: Search Frames" })
   end,
 }
