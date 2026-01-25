@@ -124,7 +124,22 @@ return {
       },
       gopls = {},
       bashls = {},
-      rust_analyzer = {},
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy", -- add via `rustup component add clippy`
+              -- extraArgs = { "--", "-A", "clippy::needless_return" }, -- ignore specific lints
+            },
+            procMacro = {
+              enable = true, -- Better support for crates like 'serde' or 'tokio'
+            },
+            cargo = {
+              allFeatures = true, -- Ensures clippy checks all your code paths
+            },
+          },
+        },
+      },
     }
     local ensure_installed = vim.tbl_keys(servers or {})
     ---@diagnostic disable-next-line: missing-fields

@@ -11,7 +11,7 @@ return {
       python = { "flake8" },
       lua = { "luacheck" },
       go = { "golangcilint" },
-      rust = { "clippy" }, -- add via `rustup component add clippy`
+      -- rust = { "clippy" }, -- used via rust_analyzer in lspconfig
     }
 
     local js_related_language = require("utils").js_related_languages
@@ -71,42 +71,6 @@ return {
 
         local root = util.root_pattern(unpack(root_file))(ctx.filename)
         return root ~= nil
-      end,
-    }
-
-    lint.linters.clippy = {
-      cmd = "cargo",
-      args = { "clippy", "--message-format=json", "--quiet" },
-      stdin = false,
-      stream = "stdout",
-      parser = function(output)
-        local diagnostics = {}
-        for line in output:gmatch("[^\r\n]+") do
-          local ok, msg = pcall(vim.json.decode, line)
-          if ok and msg.message and msg.message.spans then
-            -- Only process compiler messages (clippy lints and errors)
-            local code = msg.message.code and msg.message.code.code
-            if code then
-              -- Process all spans (primary and secondary)
-              for _, span in ipairs(msg.message.spans) do
-                if span.is_primary and span.line_start then
-                  table.insert(diagnostics, {
-                    lnum = span.line_start - 1,
-                    col = span.column_start - 1,
-                    end_lnum = span.line_end - 1,
-                    end_col = span.column_end - 1,
-                    message = msg.message.message,
-                    severity = msg.message.level == "error" and vim.diagnostic.severity.ERROR
-                      or vim.diagnostic.severity.WARN,
-                    source = "clippy",
-                    code = code,
-                  })
-                end
-              end
-            end
-          end
-        end
-        return diagnostics
       end,
     }
 
