@@ -7,7 +7,7 @@ return {
   },
   config = function()
     local linters = {
-      markdown = { "markdownlint" },
+      -- markdown = { "markdownlint" },
       python = { "flake8" },
       lua = { "luacheck" },
       go = { "golangcilint" },
