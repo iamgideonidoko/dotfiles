@@ -23,6 +23,7 @@ mkdir -p ~/.config/aerospace
 mkdir -p ~/.config/sketchybar
 mkdir -p ~/.config/borders
 mkdir -p ~/.vim/{undodir,plugged,autoload}
+mkdir -p ~/.config/lazygit
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -81,4 +82,5 @@ create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
 create_symlink ~/dotfiles/aerospace/ ~/.config/aerospace
 create_symlink ~/dotfiles/sketchybar/ ~/.config/sketchybar
 create_symlink ~/dotfiles/borders/ ~/.config/borders
+create_symlink ~/dotfiles/lazygit/ ~/.config/lazygit
 ##############################################################################
