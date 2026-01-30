@@ -6,6 +6,7 @@ if [ -f "$HOME/dotfiles/zsh/.env" ]; then
   export $(grep -v '^#' "$HOME/dotfiles/zsh/.env" | xargs)
 fi
 ##############################################################################
+export XDG_CONFIG_HOME="$HOME/.config"
 # Overrides all locale settings to enforce a consistent language, encoding, and formatting.
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
