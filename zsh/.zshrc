@@ -104,6 +104,8 @@ precmd() {
 alias v='vim'
 alias n='nvim'
 alias nv='nvim'
+alias lg='lazygit'
+alias lzd='lazydocker'
 alias c='clear'
 alias python='python3'
 # Shows the last 30 entries, default is 15
