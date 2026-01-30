@@ -2,6 +2,10 @@
 gui:
   tabWidth: 2
   useHunkModeInStagingView: false
+  showNumstatInFilesView: false
+  nerdFontsVersion: "3"
+  showFileIcons: true
+
   theme:
     activeBorderColor:
       - "#ff9e64"
@@ -29,11 +33,11 @@ gui:
       - "#db4b4b"
     defaultFgColor:
       - "#c0caf5"
-  showNumstatInFilesView: false
-  nerdFontsVersion: "3"
-  showFileIcons: true
+
+os:
+  editPreset: "nvim"
+
 confirmOnQuit: true
 quitOnTopLevelReturn: false
-
 # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md
 customCommands: []
