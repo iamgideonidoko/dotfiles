@@ -18,6 +18,9 @@ return {
         icon = " ",
       },
     },
+    selection = {
+      hint_display = "none",
+    },
   },
   dependencies = {
     "zbirenbaum/copilot.lua",
