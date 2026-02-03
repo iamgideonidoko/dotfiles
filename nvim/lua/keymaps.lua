@@ -33,6 +33,7 @@ set("n", "<M-]>", "<C-w>5>", { desc = "Increase width" })
 set("n", "<M-{>", "<C-W>-", { desc = "Decrease height" })
 set("n", "<M-}>", "<C-W>+", { desc = "Increase height" })
 
+set("n", "<C-i>", "<Nop>", { noremap = true, silent = true })
 set("n", "<C-o>", "<Nop>", { noremap = true, silent = true })
 
 -- Shift left and right in visual mode (and remain in visual mode)
