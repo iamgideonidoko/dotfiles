@@ -73,13 +73,16 @@ set("n", "<leader>Cn", "<cmd>cnext<cr>", { desc = "❰cnext❱ Next quickfix ite
 set("n", "<leader>Cp", "<cmd>cprev<cr>", { desc = "❰cprev❱ Previous quickfix item" })
 set("n", "<leader>Cf", "<cmd>cfirst<cr>", { desc = "❰cfirst❱ First quickfix item" })
 set("n", "<leader>Cl", "<cmd>clast<cr>", { desc = "❰clast❱ Last quickfix item" })
+
 -- Navigate with error wrapping (safer navigation)
 set("n", "<leader>C]", function()
   vim.cmd("try | cnext | catch | cfirst | catch | endtry")
 end, { desc = "❰clast❱ Next quickfix (wrap)" })
+
 set("n", "<leader>C[", function()
   vim.cmd("try | cprev | catch | clast | catch | endtry")
 end, { desc = "❰clast❱ Previous quickfix (wrap)" })
+
 -- File-level navigation
 set("n", "<leader>C.", "<cmd>cnfile<cr>", { desc = "❰cnfile❱ Next file in quickfix" })
 set("n", "<leader>C,", "<cmd>cpfile<cr>", { desc = "❰cpfile❱ Previous file in quickfix" })
@@ -87,11 +90,13 @@ set("n", "<leader>C,", "<cmd>cpfile<cr>", { desc = "❰cpfile❱ Previous file i
 set("n", "<leader>Cr", ":cdo s//g<left><left>", { desc = "❰cdo s//g❱ Replace in quickfix items" })
 set("n", "<leader>Ca", ":cdo ", { desc = "❰cdo ❱ Execute command on quickfix items" })
 set("n", "<leader>Cs", ":cfdo s//g<left><left>", { desc = "❰cfdo s//g❱ Replace in quickfix files" })
+
 -- Clear quickfix list
 set("n", "<leader>CC", function()
   vim.fn.setqflist({})
   print("Quickfix list cleared")
 end, { desc = "Clear quickfix list" })
+
 -- Jump to current quickfix item
 set("n", "<leader>C<cr>", "<cmd>cc<cr>", { desc = "Jump to current quickfix item" })
 -- Make operations
@@ -101,6 +106,7 @@ set("n", "<leader>CM", "<cmd>make!<cr>", { desc = "Run make (silent)" })
 set("n", "<leader>CL", "<cmd>lopen<cr>", { desc = "❰lopen❱ Open location list" })
 set("n", "<leader>Ck", "<cmd>lnext<cr>", { desc = "❰lnext❱ Next location item" })
 set("n", "<leader>Cj", "<cmd>lprev<cr>", { desc = "❰lprev❱ Previous location item" })
+
 -- Advanced: Send grep/search results to quickfix
 set("n", "<leader>Cg", function()
   local input = vim.fn.input("Grep: ")
@@ -109,22 +115,66 @@ set("n", "<leader>Cg", function()
     vim.cmd("copen")
   end
 end, { desc = "Grep to quickfix" })
+
 -- Send current buffer diagnostics to quickfix (LSP integration)
 set("n", "<leader>Ce", function()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
 end, { desc = "Diagnostics to quickfix" })
-set("n", "<leader>Cd", function()
-  local qf = vim.fn.getqflist()
-  local cur = vim.fn.line(".") - 1
-  table.remove(qf, cur + 1)
-  vim.fn.setqflist(qf, "r")
-end, { desc = "Delete quickfix item" })
-set("n", "<leader>CD", function()
-  local cur = vim.fn.bufnr("%")
-  local qf = vim.fn.getqflist()
-  local filtered = vim.tbl_filter(function(item)
-    return item.bufnr ~= cur
-  end, qf)
-  vim.fn.setqflist(filtered, "r")
-end, { desc = "Delete quickfix file entries" })
+
+--- @param visual_mode boolean
+local function delete_qf_items(visual_mode)
+  local qf_list = vim.fn.getqflist()
+  if #qf_list == 0 then
+    return
+  end
+  local start_idx = vim.fn.line(".")
+  local end_idx = start_idx
+  if visual_mode then
+    vim.cmd("normal! \27")
+    start_idx = vim.fn.line("'<")
+    end_idx = vim.fn.line("'>")
+  end
+  for i = end_idx, start_idx, -1 do
+    table.remove(qf_list, i)
+  end
+  vim.fn.setqflist(qf_list, "r")
+  if #qf_list > 0 then
+    local new_cursor_line = math.min(start_idx, #qf_list)
+    vim.api.nvim_win_set_cursor(0, { new_cursor_line, 0 })
+  end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    set("n", "<leader>Cd", function()
+      delete_qf_items(false)
+    end, { desc = "Delete quickfix item", buffer = true, silent = true })
+
+    set("x", "<leader>Cd", function()
+      delete_qf_items(true)
+    end, { desc = "Delete selected quickfix items", buffer = true, silent = true })
+
+    set("n", "<leader>CD", function()
+      local qf_list = vim.fn.getqflist()
+      if #qf_list == 0 then
+        return
+      end
+      local cur_line = vim.fn.line(".")
+      local item_under_cursor = qf_list[cur_line]
+      if not item_under_cursor then
+        return
+      end
+      local target_bufnr = item_under_cursor.bufnr
+      local new_qf_list = vim.tbl_filter(function(item)
+        return item.bufnr ~= target_bufnr
+      end, qf_list)
+      vim.fn.setqflist(new_qf_list, "r")
+      if #new_qf_list > 0 then
+        local new_cursor_line = math.min(cur_line, #new_qf_list)
+        vim.api.nvim_win_set_cursor(0, { new_cursor_line, 0 })
+      end
+    end, { desc = "Delete quickfix entries for this buffer", buffer = true, silent = true })
+  end,
+})
