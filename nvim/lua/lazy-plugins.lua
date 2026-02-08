@@ -1,40 +1,65 @@
 require("lazy").setup({
-  require("plugins.mason"),
-  require("plugins.git"),
-  require("plugins.which-key"),
-  require("plugins.telescope"),
-  require("plugins.lspconfig"),
-  require("plugins.conform"),
-  require("plugins.cmp"),
-  require("plugins.tokyonight"),
-  require("plugins.mini"),
-  require("plugins.treesitter"),
-  require("plugins.dap"),
-  require("plugins.indent_line"),
-  require("plugins.lint"),
-  require("plugins.autopairs"),
-  require("plugins.autotag"),
-  require("plugins.rest"),
-  require("plugins.markdown"),
-  require("plugins.server"),
-  require("plugins.oil"),
-  require("plugins.dashboard"),
-  require("plugins.noice"),
-  require("plugins.wakatime"),
-  require("plugins.tmux"),
-  require("plugins.comment"),
-  require("plugins.sleuth"),
-  require("plugins.loft"),
-  require("plugins.copilot"),
-  require("plugins.tabby"),
-  require("plugins.ufo"),
-  require("plugins.dadbod"),
-  require("plugins.colorizer"),
-  require("plugins.avante"),
+  -- Core utilities (load early)
+  require("plugins.sleuth"), -- Auto-detect indentation
+  require("plugins.mini"), -- Statusline & surround
+
+  -- UI & Visuals
+  require("plugins.tokyonight"), -- Colorscheme
+  require("plugins.indent_line"), -- Indentation guides
+  require("plugins.noice"), -- Better UI
+  require("plugins.dashboard"), -- Start screen
+
+  -- Navigation & Search
+  require("plugins.telescope"), -- Fuzzy finder
+  require("plugins.oil"), -- File explorer
+  require("plugins.which-key"), -- Keybinding hints
+
+  -- LSP & Completion
+  require("plugins.mason"), -- LSP installer
+  require("plugins.lspconfig"), -- LSP configs
+  require("plugins.cmp"), -- Completion
+  require("plugins.conform"), -- Formatting
+  require("plugins.lint"), -- Linting
+
+  -- Treesitter
+  require("plugins.treesitter"), -- Syntax highlighting
+
+  -- Code Intelligence
+  require("plugins.copilot"), -- AI completion
+  require("plugins.avante"), -- AI assistant
+  require("plugins.ufo"), -- Folding
+
+  -- Language Support
+  require("plugins.autopairs"), -- Auto close brackets
+  require("plugins.autotag"), -- Auto close tags
+  require("plugins.comment"), -- Smart comments
+  require("plugins.dadbod"), -- Database
+
+  -- Git
+  require("plugins.git"), -- Git integration
+
+  -- Utilities
+  require("plugins.tmux"), -- Tmux integration
+  require("plugins.colorizer"), -- Color preview
+  require("plugins.markdown"), -- Markdown preview
+  require("plugins.rest"), -- REST client
+  require("plugins.server"), -- Live server
+  require("plugins.loft"), -- Custom plugin
+  require("plugins.tabby"), -- Tab bar
+  require("plugins.wakatime"), -- Time tracking
+  require("plugins.dap"), -- Debugger
+
   -- DEV
   -- { import = "plugins._dev.loft" },
 }, {
+  defaults = {
+    lazy = true, -- Lazy-load by default
+    version = false, -- Don't use version constraints (faster)
+  },
   ui = {
+    size = { width = 0.8, height = 0.8 },
+    wrap = true,
+    border = "rounded",
     icons = vim.g.have_nerd_font and {} or {
       cmd = "⌘",
       config = "🛠",
@@ -50,13 +75,28 @@ require("lazy").setup({
       task = "📌",
       lazy = "💤 ",
     },
-    border = "rounded",
+    backdrop = 60,
+  },
+  install = {
+    missing = true,
+    colorscheme = { "tokyonight" },
+  },
+  checker = {
+    enabled = false, -- Disable automatic plugin updates check
+    notify = false,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false, -- Don't notify on config changes
   },
   performance = {
     cache = {
       enabled = true,
     },
+    reset_packpath = true,
     rtp = {
+      reset = true,
+      paths = {},
       disabled_plugins = {
         "gzip",
         "matchit",
@@ -66,7 +106,19 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
+        "2html_plugin",
+        "getscript",
+        "getscriptPlugin",
+        "logipat",
+        "rrhelper",
+        "spellfile_plugin",
+        "vimball",
+        "vimballPlugin",
       },
     },
+  },
+  profiling = {
+    loader = false,
+    require = false,
   },
 })

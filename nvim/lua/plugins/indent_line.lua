@@ -1,5 +1,6 @@
 return { -- Add indentation guides
   "lukas-reineke/indent-blankline.nvim",
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
     local highlight = {
       "RainbowRed",
@@ -20,6 +21,23 @@ return { -- Add indentation guides
       vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
       vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
     end)
-    require("ibl").setup({ indent = { highlight = highlight }, exclude = { filetypes = { "dashboard" } } })
+    require("ibl").setup({
+      indent = { highlight = highlight },
+      exclude = {
+        filetypes = {
+          "dashboard",
+          "help",
+          "alpha",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      },
+      scope = { enabled = false }, -- Disable scope (performance)
+    })
   end,
 }

@@ -3,6 +3,7 @@ return {
   {
     -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -31,9 +32,8 @@ return {
       highlight = {
         enable = true,
         use_languagetree = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         additional_vim_regex_highlighting = { "ruby" },
-        disable = function(lang, buf)
+        disable = function(_, buf)
           local max_filesize = 500 * 1024 -- 500 KB
           local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then
@@ -42,11 +42,15 @@ return {
         end,
       },
       indent = { enable = true, disable = { "ruby" } },
-      incremental_selection = { enable = false }, -- Disable if unused
+      incremental_selection = { enable = false },
+      matchup = { enable = false },
     },
     config = function(_, opts)
-      -- Prefer git instead of curl in order to improve connectivity in some environments
+      -- Prefer git, compile parsers to C for speed
       require("nvim-treesitter.install").prefer_git = true
+      require("nvim-treesitter.install").compilers = { "gcc", "clang" }
+
+      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup(opts)
     end,
   },

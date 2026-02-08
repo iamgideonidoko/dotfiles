@@ -6,8 +6,17 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       preview_config = { border = "rounded" },
+      -- Performance optimizations
+      update_debounce = 200, -- ms delay before update
+      max_file_length = 10000, -- Disable for files > 10k lines
+      word_diff = false, -- Disable word diff (expensive)
+      watch_gitdir = {
+        interval = 1000,
+        follow_files = true,
+      },
       signs = {
         add = { text = "+" },
         change = { text = "~" },

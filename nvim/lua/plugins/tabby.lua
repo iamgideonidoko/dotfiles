@@ -1,5 +1,6 @@
 return {
   "nanozuki/tabby.nvim",
+  lazy = false,
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     local utils = require("utils")

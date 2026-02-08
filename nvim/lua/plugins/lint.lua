@@ -84,14 +84,25 @@ return {
     }
 
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged" }, {
-      group = lint_augroup,
-      callback = function()
+    
+    -- Debounced linting for better performance
+    local timer = nil
+    local function debounce_lint()
+      if timer then
+        vim.loop.timer_stop(timer)
+      end
+      timer = vim.loop.new_timer()
+      timer:start(300, 0, vim.schedule_wrap(function()
         local ft = vim.bo.filetype
         if not skip_ft[ft] then
           lint.try_lint()
         end
-      end,
+      end))
+    end
+    
+    vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+      group = lint_augroup,
+      callback = debounce_lint,
     })
     -- Bridge between `mason.nvim` and `nvim-lint`
     require("mason-nvim-lint").setup({

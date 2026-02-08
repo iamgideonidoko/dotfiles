@@ -1,6 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
+  event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     {
       "L3MON4D3/LuaSnip",
@@ -28,13 +28,22 @@ return {
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
-    luasnip.config.setup({})
+
+    luasnip.config.setup({
+      history = false,
+      updateevents = "TextChanged,TextChangedI",
+      region_check_events = "InsertEnter",
+      delete_check_events = "TextChanged,InsertLeave",
+    })
+
     cmp.setup({
       performance = {
-        debounce = 60,
-        throttle = 30,
-        fetching_timeout = 500,
-        max_view_entries = 30,
+        debounce = 150, -- Delay before completion triggers
+        throttle = 60, -- Minimum time between updates
+        fetching_timeout = 500, -- Timeout for source fetch
+        confirm_resolve_timeout = 80,
+        async_budget = 1,
+        max_view_entries = 20, -- Limit completion items shown
       },
       snippet = {
         expand = function(args)
@@ -71,13 +80,40 @@ return {
         end, { "i", "s" }),
       }),
       sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "path" },
-        { name = "buffer" },
         {
           name = "lazydev",
-          group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+          group_index = 0, -- skip loading LuaLS completions
+        },
+        {
+          name = "nvim_lsp",
+          priority = 1000,
+          max_item_count = 20,
+        },
+        {
+          name = "luasnip",
+          priority = 750,
+          max_item_count = 10,
+        },
+        {
+          name = "path",
+          priority = 500,
+          max_item_count = 10,
+        },
+        {
+          name = "buffer",
+          priority = 250,
+          max_item_count = 5,
+          keyword_length = 3, -- Only complete after 3 chars
+          option = {
+            get_bufnrs = function()
+              -- Only complete from visible buffers
+              local bufs = {}
+              for _, win in ipairs(vim.api.nvim_list_wins()) do
+                bufs[vim.api.nvim_win_get_buf(win)] = true
+              end
+              return vim.tbl_keys(bufs)
+            end,
+          },
         },
       },
       window = {

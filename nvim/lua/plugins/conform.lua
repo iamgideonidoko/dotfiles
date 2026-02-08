@@ -44,13 +44,23 @@ return { -- Autoformat
 
     require("conform").setup({
       notify_on_error = false,
+      notify_no_formatters = false,
       format_on_save = function(bufnr)
         -- Disable format on save for the below languages
         local disable_filetypes = { c = true, cpp = true }
+        
+        -- Skip large files
+        local max_filesize = 500 * 1024 -- 500 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+        if ok and stats and stats.size > max_filesize then
+          return
+        end
+        
         if vim.g.autoformat then
           return {
-            timeout_ms = 500,
+            timeout_ms = 1000,
             lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+            quiet = true,
           }
         else
           return

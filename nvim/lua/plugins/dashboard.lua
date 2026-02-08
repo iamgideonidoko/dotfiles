@@ -1,6 +1,7 @@
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
+  priority = 100,
   opts = function()
     local logo = {
       "    ++        ++    " .. "",

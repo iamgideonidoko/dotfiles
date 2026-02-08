@@ -1,5 +1,6 @@
 return { -- Collection of small independent packages
   "echasnovski/mini.nvim",
+  lazy = false,
   config = function()
     local combine_groups = function(groups)
       local parts = vim.tbl_map(function(s)

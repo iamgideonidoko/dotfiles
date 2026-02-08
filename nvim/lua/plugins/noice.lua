@@ -1,6 +1,7 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
+  priority = 50,
   dependencies = {
     "MunifTanjim/nui.nvim",
     -- OPTIONAL:
@@ -22,9 +23,10 @@ return {
   },
   config = function()
     require("noice").setup({
+      throttle = 1000 / 30, -- limit updates to 30fps
       lsp = {
         progress = {
-          enabled = false,
+          enabled = false, -- Disable LSP progress (use fidget instead)
         },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {

@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   dependencies = {
     "mason-org/mason.nvim",
     "mason-org/mason-lspconfig.nvim",
@@ -14,16 +15,18 @@ return {
         },
       },
     },
-    { -- Configure Lua LSP for Neovim config
+    {
       "folke/lazydev.nvim",
       ft = "lua",
       opts = {
         library = {
-          -- Load luvit types when the `vim.uv` word is found
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          { path = "luvit-meta/library", words = { "vim%.uv" } },
+          -- Add this to ensure your own config is treated as a library
+          { path = vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua") },
         },
       },
     },
+    { "Bilal2453/luvit-meta", lazy = true },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -97,9 +100,21 @@ return {
     -- Create new capabilities with nvim cmp, and then broadcast to the servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+    -- UFO folding support
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true,
+    }
+
+    -- semantic tokens (use treesitter instead)
+    capabilities.textDocument.semanticTokens = vim.NIL
+
+    -- Limit workspace symbols
+    capabilities.workspace.configuration = true
+    capabilities.workspace.didChangeWatchedFiles = {
+      dynamicRegistration = true,
+      relativePatternSupport = true,
     }
     local servers = {
       ts_ls = {},
@@ -111,14 +126,38 @@ return {
       glsl_analyzer = {},
       pyright = {},
       lua_ls = {
+        -- This logic ensures the LSP locks onto your nvim folder, not the parent dotfiles
+        root_dir = function(fname)
+          local util = require("lspconfig.util")
+          local root = util.root_pattern("init.lua", ".git")(fname)
+          -- Resolve the symlink to the real physical path
+          return vim.uv.fs_realpath(root) or root
+        end,
         settings = {
           Lua = {
-            completion = {
-              callSnippet = "Replace",
+            runtime = {
+              version = "LuaJIT",
+              path = {
+                "?.lua",
+                "?/init.lua",
+                -- These additions help find files in the lua/ folder correctly
+                "lua/?.lua",
+                "lua/?/init.lua",
+              },
             },
-            -- Disable `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-            -- runtime = { version = "LuaJIT" },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                -- Resolve the symlink for your local config so LSP can index it
+                vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua"),
+              },
+            },
+            diagnostics = {
+              globals = { "vim" }, -- Fixes 'Undefined global vim'
+            },
+            completion = { callSnippet = "Replace" },
+            telemetry = { enable = false },
           },
         },
       },
@@ -149,6 +188,13 @@ return {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
+          -- Debounce/throttle for all servers
+          server.flags = vim.tbl_deep_extend("force", {
+            debounce_text_changes = 150,
+            allow_incremental_sync = true,
+          }, server.flags or {})
+
           require("lspconfig")[server_name].setup(server)
         end,
       },

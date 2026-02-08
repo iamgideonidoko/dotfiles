@@ -1,15 +1,29 @@
 return {
   "norcalli/nvim-colorizer.lua",
+  event = { "BufReadPost", "BufNewFile" },
+  ft = { "css", "scss", "html", "javascript", "typescript", "jsx", "tsx", "lua", "vim" },
+  cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerDetachFromBuffer" },
   config = function()
     require("colorizer").setup({
-      "*", -- Highlight all files
+      "css",
+      "scss",
+      "html",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "lua",
+      "vim",
     }, {
-      RGB = true, -- #RGB hex codes
-      RRGGBB = true, -- #RRGGBB hex codes
-      names = false, -- "Name" codes like Blue
-      RRGGBBAA = true, -- #RRGGBBAA hex codes
-      rgb_fn = true, -- CSS rgb() and rgba() functions
-      hsl_fn = true, -- CSS hsl() and hsla() functions
+      RGB = true,
+      RRGGBB = true,
+      names = false, -- Disable name colors for performance
+      RRGGBBAA = true,
+      rgb_fn = true,
+      hsl_fn = true,
+      css = true,
+      css_fn = true,
+      mode = "background", -- Faster than 'foreground'
     })
   end,
 }

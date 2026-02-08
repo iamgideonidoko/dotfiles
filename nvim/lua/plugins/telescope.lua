@@ -80,8 +80,22 @@ return { -- Fuzzy Finder (files, lsp, etc)
         preview = {
           filesize_limit = 250000, -- 250 KB
           timeout = 200, -- 200 ms
+          treesitter = true,
+          hide_on_startup = false,
         },
-        debounce = 20, -- 20 ms
+        cache_picker = {
+          num_pickers = 10,
+        },
+        file_ignore_patterns = {
+          "^.git/",
+          "node_modules/",
+          "%.lock$",
+          "%-lock%.json$",
+          "^lazy%-lock%.json$",
+          "^package%-lock%.json$",
+          "^yarn%.lock$",
+        },
+        debounce = 50, -- 50 ms
       }),
       pickers = {
         live_grep = {
