@@ -1,5 +1,0 @@
-{
-  "workspace": {
-    "library": ["./nvim", "./hammerspoon"]
-  }
-}
