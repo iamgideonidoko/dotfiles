@@ -93,3 +93,24 @@ vim.api.nvim_create_autocmd("VimResized", {
     vim.cmd("tabnext " .. cur_tab)
   end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "OilActionsPost",
+  desc = "Clean Loft registry after oil.nvim deletions",
+  callback = function(args)
+    local actions = args.data and args.data.actions or {}
+    local needs_clean = false
+    for _, action in ipairs(actions) do
+      if action.type == "delete" or action.type == "trash" then
+        needs_clean = true
+        break
+      end
+    end
+    if needs_clean then
+      local ok, registry = pcall(require, "loft.registry")
+      if ok then
+        registry:clean()
+      end
+    end
+  end,
+})
