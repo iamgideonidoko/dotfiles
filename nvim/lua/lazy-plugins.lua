@@ -44,7 +44,7 @@ require("lazy").setup({
   require("plugins.markdown"), -- Markdown preview
   require("plugins.rest"), -- REST client
   require("plugins.server"), -- Live server
-  require("plugins.loft"), -- Custom plugin
+  require("plugins.loft"), -- Buffer management
   require("plugins.tabby"), -- Tab bar
   require("plugins.wakatime"), -- Time tracking
   require("plugins.dap"), -- Debugger
