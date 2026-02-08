@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Keybinding for ESLint fix all
+-- Keybinding for ESLint fix all (optimized with smaller delay)
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = vim.api.nvim_create_augroup("custom-buffer-eslint-fix", { clear = true }),
   callback = function()
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
           vim.api.nvim_del_keymap("n", "<leader>fe")
         end
       end
-    end, 500)
+    end, 100)
   end,
 })
 

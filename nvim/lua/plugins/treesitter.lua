@@ -33,8 +33,16 @@ return {
         use_languagetree = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         additional_vim_regex_highlighting = { "ruby" },
+        disable = function(lang, buf)
+          local max_filesize = 500 * 1024 -- 500 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
       },
       indent = { enable = true, disable = { "ruby" } },
+      incremental_selection = { enable = false }, -- Disable if unused
     },
     config = function(_, opts)
       -- Prefer git instead of curl in order to improve connectivity in some environments

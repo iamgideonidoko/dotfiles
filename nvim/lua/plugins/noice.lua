@@ -12,6 +12,10 @@ return {
         ---@diagnostic disable: missing-fields
         notify.setup({
           stages = "no_animation",
+          timeout = 2000,
+          max_width = 80,
+          max_height = 20,
+          render = "compact",
         })
       end,
     },

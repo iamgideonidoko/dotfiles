@@ -52,4 +52,21 @@ require("lazy").setup({
     },
     border = "rounded",
   },
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })

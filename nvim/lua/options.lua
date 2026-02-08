@@ -37,6 +37,14 @@ vim.o.laststatus = 2
 vim.o.showtabline = 0
 vim.o.winborder = "rounded"
 
+opt.lazyredraw = false
+opt.synmaxcol = 240 -- Only highlight first 240 columns for performance
+opt.redrawtime = 1500 -- Allow more time for loading syntax on large files
+vim.g.loaded_perl_provider = 0 -- Disable perl provider
+vim.g.loaded_ruby_provider = 0 -- Disable ruby provider
+vim.g.loaded_node_provider = 0 -- Disable node provider (use only if not needed)
+vim.g.loaded_python3_provider = 0 -- Disable python3 provider (use only if not needed)
+
 vim.filetype.add({
   extension = {
     env = "config",

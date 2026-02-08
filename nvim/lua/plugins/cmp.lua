@@ -30,6 +30,12 @@ return {
     local luasnip = require("luasnip")
     luasnip.config.setup({})
     cmp.setup({
+      performance = {
+        debounce = 60,
+        throttle = 30,
+        fetching_timeout = 500,
+        max_view_entries = 30,
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
