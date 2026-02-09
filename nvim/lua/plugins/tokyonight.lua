@@ -24,7 +24,6 @@ return { -- Colorscheme
         hl.DapStoppedLine = { default = true, link = "Visual" }
         hl.AvantePromptInput = { fg = c.fg, bg = c.bg_popup }
         hl.AvantePromptInputBorder = { fg = line_color, bg = c.bg_popup }
-        hl.FloatTitle = { fg = c.fg_dark, bg = c.bg_popup }
       end,
     })
     vim.cmd.colorscheme("tokyonight-night")
