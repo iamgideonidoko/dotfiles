@@ -1,4 +1,8 @@
 -- PERFORMANCE PROFILING & MONITORING UTILITIES
+-- Use these commands to diagnose performance issues:
+-- :lua require('performance').profile_startup()
+-- :lua require('performance').profile_plugins()
+-- :lua require('performance').check_slow_plugins()
 local M = {}
 
 -- Profile startup time
