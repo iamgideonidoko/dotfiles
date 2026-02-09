@@ -16,10 +16,34 @@ return {
       provider_opts = {
         title = "Avante Input",
         icon = " ",
+        win = {
+          style = "input",
+          border = "rounded",
+        },
       },
+    },
+    mappings = {
+      -- submit = {
+      --   normal = "<S-CR>",
+      --   insert = "<S-CR>",
+      -- },
     },
     selection = {
       hint_display = "none",
+    },
+    ui = {
+      border = "rounded",
+    },
+    windows = {
+      sidebar_header = {
+        rounded = true,
+      },
+      edit = {
+        border = "rounded",
+      },
+      ask = {
+        border = "rounded",
+      },
     },
   },
   dependencies = {

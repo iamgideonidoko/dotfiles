@@ -1,3 +1,4 @@
+local line_color = "#bfc9db"
 return { -- Colorscheme
   "folke/tokyonight.nvim",
   priority = 1000, -- Load before other start plugins
@@ -10,9 +11,9 @@ return { -- Colorscheme
         sidebars = "transparent",
         floats = "transparent",
       },
-      on_highlights = function(hl)
-        hl.LineNrAbove = { fg = "#bfc9db" }
-        hl.LineNrBelow = { fg = "#bfc9db" }
+      on_highlights = function(hl, c)
+        hl.LineNrAbove = { fg = line_color }
+        hl.LineNrBelow = { fg = line_color }
         hl.WinSeparator = { fg = "#555555" }
         hl.StatusLine = { bg = "NONE" }
         hl.StatusLineNC = { bg = "NONE" }
@@ -21,7 +22,9 @@ return { -- Colorscheme
         hl.StatusLineTabIndicator = { fg = "#ffffff", bg = "#c678dd" }
         hl.MiniStatusLineFilenameInactive = { fg = "#6272a4", bg = "NONE" }
         hl.DapStoppedLine = { default = true, link = "Visual" }
-        hl.Visual = { bg = "#364A82" }
+        hl.AvantePromptInput = { fg = c.fg, bg = c.bg_popup }
+        hl.AvantePromptInputBorder = { fg = line_color, bg = c.bg_popup }
+        hl.FloatTitle = { fg = c.fg_dark, bg = c.bg_popup }
       end,
     })
     vim.cmd.colorscheme("tokyonight-night")
