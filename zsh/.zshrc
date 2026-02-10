@@ -44,6 +44,14 @@ npx() { unfunction npx; load_nvm; npx "$@" }
 pnpm() { unfunction pnpm; load_nvm; pnpm "$@" }
 yarn() { unfunction yarn; load_nvm; yarn "$@" }
 
+autoload -U add-zsh-hook
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+    nvm use
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+
 export FUNCNEST=100
 # Enable Starship prompt
 if command -v starship &> /dev/null; then
