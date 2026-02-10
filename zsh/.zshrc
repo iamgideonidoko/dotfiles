@@ -14,12 +14,36 @@ export LC_CTYPE=en_US.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1
 # Prepend to system path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-# Initialize nvm in shell
-# Uninstall hombrew node versions if any
-# brew uninstall node --ignore-dependencies
+
+# Define NVM Home
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion"
+# The Lazy Load Function
+function load_nvm() {
+  if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+    source "/opt/homebrew/opt/nvm/nvm.sh"
+    if [ "$(nvm current)" = "none" ]; then # it means no version is active
+      # Check if a 'default' alias actually exists
+      if ! nvm ls default >/dev/null 2>&1; then
+        echo "No default Node version found. Installing LTS..."
+        nvm install --lts
+        nvm alias default 'lts/*'
+      fi
+      nvm use default >/dev/null
+    fi
+    # Load completion
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion" ] && source "/opt/homebrew/opt/nvm/etc/bash_completion"
+    PATH="$NVM_DIR/versions/node/$(nvm current)/bin:$PATH"
+  fi
+}
+
+# The Triggers
+node() { unfunction node; load_nvm; node "$@" }
+npm() { unfunction npm; load_nvm; npm "$@" }
+nvm() { unfunction nvm; load_nvm; nvm "$@" }
+npx() { unfunction npx; load_nvm; npx "$@" }
+pnpm() { unfunction pnpm; load_nvm; pnpm "$@" }
+yarn() { unfunction yarn; load_nvm; yarn "$@" }
+
 export FUNCNEST=100
 # Enable Starship prompt
 if command -v starship &> /dev/null; then
