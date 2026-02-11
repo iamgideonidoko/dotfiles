@@ -88,7 +88,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
         file_ignore_patterns = {
           "^.git/",
-          "node_modules/",
+          -- "node_modules/", -- disabled to allow lsp searching in node_modules
           "%.lock$",
           "%-lock%.json$",
           "^lazy%-lock%.json$",
