@@ -76,6 +76,9 @@ opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldcolumn = "0"
 
+---@diagnostic disable-next-line: undefined-field
+opt.sessionoptions:append("terminal")
+
 -- Syntax & Highlighting
 vim.g.syntax_on = 1
 

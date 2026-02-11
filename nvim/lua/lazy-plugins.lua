@@ -48,6 +48,7 @@ require("lazy").setup({
   require("plugins.tabby"), -- Tab bar
   require("plugins.wakatime"), -- Time tracking
   require("plugins.dap"), -- Debugger
+  require("plugins.persistence"), -- Session persistence
 
   -- DEV
   -- { import = "plugins._dev.loft" },
