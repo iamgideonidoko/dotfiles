@@ -6,31 +6,37 @@ return {
     {
       "<leader>Ps",
       function()
+        require("persistence").save()
+      end,
+      desc = "Save Session",
+    },
+    {
+      "<leader>Pl",
+      function()
         require("persistence").load()
       end,
       desc = "Restore Session",
     },
     {
-      "<leader>Pl",
+      "<leader>PL",
       function()
         require("persistence").load({ last = true })
       end,
       desc = "Restore Last Session",
     },
     {
-      "<leader>PS",
+      "<leader>Po",
       function()
         require("persistence").select()
       end,
       desc = "Select Session",
     },
-
     {
       "<leader>Px",
       function()
         require("persistence").stop()
       end,
-      desc = "Stop Saving (Pause)",
+      desc = "Stop Saving",
     },
     {
       "<leader>Pr",
