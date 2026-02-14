@@ -97,7 +97,7 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
 
    ```
 
-3. Move windows by dragging any part of the window
+3. Move windows by dragging any part of the window (hold down ctrl + cmd)
 
    ```bash
    defaults write -g NSWindowShouldDragOnGesture -bool true
@@ -109,10 +109,23 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
    defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
    ```
 
-5. Prevent displays from having separate spaces && restart
+5. Prevent displays from having separate spaces && restart (Skip or change to false if you use multiple monitors and want to have separate spaces for each)
 
    ```bash
     defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
+   ```
+
+6. Diable animation to reduce visual friction (Skip if you like the animations)
+
+   ```bash
+   defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+   defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+   defaults write com.apple.dock expose-animation-duration -float 0
+   defaults write com.apple.dock autohide-delay -float 0
+   defaults write com.apple.dock launchanim -bool false
+   defaults write com.apple.dock appswitcher-animation-off -bool true
+   sudo defaults write com.apple.universalaccess reduceMotion -bool true
+   killall Dock
    ```
 
 ### Provide Permissions
