@@ -115,7 +115,7 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
     defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
    ```
 
-6. Diable animation to reduce visual friction (Skip if you like the animations)
+6. Disable animation to reduce visual friction (Skip if you like the animations)
 
    ```bash
    defaults write NSGlobalDomain NSWindowResizeTime -float 0.001

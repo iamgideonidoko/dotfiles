@@ -185,6 +185,13 @@ run = 'layout floating'
 
     alt-shift-s = 'exec-and-forget screencapture -i -c'
 
+    # Cycle forward: global, occupied, sorted, cyclic
+    alt-shift-right = 'exec-and-forget list=$(aerospace list-workspaces --monitor all --empty no | sort -n); cur=$(aerospace list-workspaces --focused | xargs); next=$(echo "$list" | grep -A1 "^$cur$" | tail -n1); [ "$next" = "$cur" ] && next=$(echo "$list" | head -n1); aerospace workspace "$next"'
+
+    # Cycle backward: global, occupied, sorted, cyclic
+    alt-shift-left = 'exec-and-forget list=$(aerospace list-workspaces --monitor all --empty no | sort -n); cur=$(aerospace list-workspaces --focused | xargs); prev=$(echo "$list" | grep -B1 "^$cur$" | head -n1); [ "$prev" = "$cur" ] && prev=$(echo "$list" | tail -n1); aerospace workspace "$prev"'
+
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
