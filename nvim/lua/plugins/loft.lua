@@ -14,6 +14,10 @@ return {
             desc = "Toggle Smart Order ON and OFF",
           },
           ["<leader><leader>"] = actions.open_loft,
+          ["<leader>?"] = function()
+            actions.open_loft()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("/", true, false, true), "nt", false)
+          end,
         },
         ui = {
           ["<M-q>"] = "close",
