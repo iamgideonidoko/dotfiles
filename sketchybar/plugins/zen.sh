@@ -6,7 +6,7 @@ zen_on() {
     --set '/cpu.*/' drawing=off \
     --set calendar icon.drawing=off \
     --set separator drawing=off \
-    --set front_app drawing=off \
+    --set front_app drawing=on \
     --set volume_icon drawing=off \
     --set spotify.anchor drawing=off \
     --set spotify.play updates=off \
