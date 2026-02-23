@@ -130,3 +130,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Disable auto comment continuation on new lines",
+  group = vim.api.nvim_create_augroup("NoAutoComment", { clear = true }),
+  pattern = "*",
+  callback = function()
+    -- vim.schedule ensures this runs after the default ftplugins
+    vim.schedule(function()
+      vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+    end)
+  end,
+})
