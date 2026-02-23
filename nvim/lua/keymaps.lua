@@ -14,6 +14,7 @@ set("n", "<leader>e", function()
   vim.diagnostic.open_float({ border = "rounded" })
 end, { desc = "Show diagnostic [e]rror messages" })
 set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [q]uickfix list" })
+set("n", "<leader>Q", vim.diagnostic.setqflist, { desc = "Open workspace diagnostics" })
 
 -- Disable arrow keys in normal mode
 set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
