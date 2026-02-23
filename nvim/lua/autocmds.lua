@@ -133,12 +133,28 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.api.nvim_create_autocmd("FileType", {
   desc = "Disable auto comment continuation on new lines",
-  group = vim.api.nvim_create_augroup("NoAutoComment", { clear = true }),
+  group = vim.api.nvim_create_augroup("no-auto-comment", { clear = true }),
   pattern = "*",
   callback = function()
     -- vim.schedule ensures this runs after the default ftplugins
     vim.schedule(function()
       vim.opt_local.formatoptions:remove({ "c", "r", "o" })
     end)
+  end,
+})
+
+local group = vim.api.nvim_create_augroup("active-cursorline", { clear = true })
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+  group = group,
+  desc = "Enable cursorline in active window",
+  callback = function()
+    vim.opt_local.cursorline = true
+  end,
+})
+vim.api.nvim_create_autocmd("WinLeave", {
+  group = group,
+  desc = "Disable cursorline when leaving window",
+  callback = function()
+    vim.opt_local.cursorline = false
   end,
 })
