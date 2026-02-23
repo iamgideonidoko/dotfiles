@@ -89,4 +89,27 @@ utils.safe_map = function(mode, lhs, rhs, opts)
   pcall(vim.keymap.set, mode, lhs, rhs, opts or { silent = true })
 end
 
+--- @param visual_mode boolean
+utils.delete_qf_items = function(visual_mode)
+  local qf_list = vim.fn.getqflist()
+  if #qf_list == 0 then
+    return
+  end
+  local start_idx = vim.fn.line(".")
+  local end_idx = start_idx
+  if visual_mode then
+    vim.cmd("normal! \27")
+    start_idx = vim.fn.line("'<")
+    end_idx = vim.fn.line("'>")
+  end
+  for i = end_idx, start_idx, -1 do
+    table.remove(qf_list, i)
+  end
+  vim.fn.setqflist(qf_list, "r")
+  if #qf_list > 0 then
+    local new_cursor_line = math.min(start_idx, #qf_list)
+    vim.api.nvim_win_set_cursor(0, { new_cursor_line, 0 })
+  end
+end
+
 return utils
