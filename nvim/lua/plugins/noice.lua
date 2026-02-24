@@ -47,10 +47,6 @@ return {
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
       routes = {
-        -- {
-        -- 	filter = { event = "msg_showmode" },
-        -- 	view = "notify",
-        -- },
         {
           filter = {
             event = "msg_show",
@@ -65,30 +61,56 @@ return {
         },
       },
       views = {
-        popupmenu = {
-          relative = "editor",
-          position = {
-            row = 8,
-            col = "50%",
-          },
-          size = {
-            width = 60,
-            height = 10,
-          },
-          border = {
-            style = "rounded",
-            padding = { 0, 1 },
-          },
-          win_options = {
-            winhighlight = { NormalFloat = "NormalFloat", FloatBorder = "NoiceCmdlinePopupBorder" },
-          },
-          scrollbar = false,
-        },
         confirm = {
           position = "50%",
         },
         notify = {
           render = "wrapped-compact",
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = "100%",
+            col = "50%",
+          },
+          size = {
+            width = "100%",
+            height = 10,
+          },
+          border = {
+            style = { "", "─", "", "", "", "", "", "" },
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winblend = 0,
+            winhighlight = {
+              Normal = "Normal",
+              FloatBorder = "NoiceCmdlinePopupBorder",
+            },
+          },
+          scrollbar = false,
+        },
+        cmdline_popup = {
+          position = {
+            row = "100%",
+            col = "50%",
+          },
+          size = {
+            width = "100%",
+            height = "auto",
+          },
+          border = {
+            style = "none",
+          },
+          win_options = {
+            winblend = 0,
+          },
+        },
+        cmdline_input = {
+          border = {
+            style = { "", "", "", "", "", "", "", "" },
+            padding = { 0, 0 },
+          },
         },
       },
     })

@@ -143,18 +143,36 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-local group = vim.api.nvim_create_augroup("active-cursorline", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-  group = group,
+  group = vim.api.nvim_create_augroup("active-cursorline", { clear = true }),
   desc = "Enable cursorline in active window",
   callback = function()
     vim.opt_local.cursorline = true
   end,
 })
 vim.api.nvim_create_autocmd("WinLeave", {
-  group = group,
+  group = "active-cursorline",
   desc = "Disable cursorline when leaving window",
   callback = function()
     vim.opt_local.cursorline = false
+  end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  group = vim.api.nvim_create_augroup("NoiceHideStatusline", { clear = true }),
+  callback = function()
+    local cmd = vim.fn.getcmdline()
+    if cmd:match("^%%s/") or cmd:match("^s/") then
+      vim.o.laststatus = 3
+    else
+      vim.o.laststatus = 2
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  group = "NoiceHideStatusline",
+  callback = function()
+    vim.o.laststatus = 2
   end,
 })
