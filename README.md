@@ -1,6 +1,6 @@
 # dotfiles
 
-![Preview](./preview.png)
+![Preview](./preview.jpg)
 
 ## Setup
 
