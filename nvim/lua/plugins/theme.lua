@@ -24,6 +24,8 @@ return { -- Colorscheme
         WinSeparator = { fg = colors.separator, bold = false },
         StatusLine = { bg = "NONE" },
         StatusLineNC = { bg = "NONE" },
+        StatusLineTerm = { bg = "NONE" },
+        StatusLineTermNC = { bg = "NONE" },
         MiniStatusLineFilename = { fg = colors.filename, bold = true },
         StatusLineLoftSmartOrder = { fg = "text", bg = colors.loft_order_bg, bold = true },
         StatusLineTabIndicator = { fg = "base", bg = colors.tab_indicator_bg },
