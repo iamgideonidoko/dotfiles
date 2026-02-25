@@ -51,6 +51,5 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
-    "folke/snacks.nvim",
   },
 }
