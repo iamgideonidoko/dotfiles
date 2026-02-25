@@ -8,8 +8,12 @@ set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 set({ "n", "i", "c", "v" }, "<M-q>", "<Esc>")
 
 -- Diagnostic
-set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
-set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1 })
+end, { desc = "Go to previous diagnostic" })
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1 })
+end, { desc = "Go to next diagnostic" })
 set("n", "<leader>e", function()
   vim.diagnostic.open_float({ border = "rounded" })
 end, { desc = "Show diagnostic [e]rror messages" })
@@ -78,15 +82,31 @@ end, { desc = "❰cnfile❱ Next file (wrap)" })
 set("n", "<leader>CP", function()
   vim.cmd("try | cpfile | catch | clast | catch | endtry")
 end, { desc = "❰cpfile❱ Previous file (wrap)" })
+set("n", "<leader>Cr", ":cfdo s//g<left><left>", { desc = "❰cfdo s//g❱ Replace in quickfix files" })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function()
-    set("n", "<leader>Cd", function()
+    local opts = { buffer = true, silent = true }
+    -- Delete quickfix item
+    set("n", "d", function()
       utils.delete_qf_items(false)
-    end, { desc = "Delete quickfix item", buffer = true, silent = true })
-    set("x", "<leader>Cd", function()
+    end, opts)
+    -- Delete selected quickfix items
+    set("x", "d", function()
       utils.delete_qf_items(true)
-    end, { desc = "Delete selected quickfix items", buffer = true, silent = true })
-    set("n", "<leader>Cr", ":cfdo s//g<left><left>", { desc = "❰cfdo s//g❱ Replace in quickfix files" })
+    end, opts)
+    -- Preview
+    set("n", "p", "<cmd>.cc | wincmd p<cr>", opts)
+    set("n", "r", ":cdo s///gc<Left><Left><Left><Left>", {
+      buffer = true,
+      desc = "Global replace on qf items",
+    })
+    set("n", "D", function()
+      utils.delete_qf_buffer_items(false)
+    end, { desc = "Delete all entries for current buffer", buffer = true })
+    set("x", "D", function()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", false)
+      utils.delete_qf_buffer_items(true)
+    end, { desc = "Delete all entries for selected buffers", buffer = true })
   end,
 })

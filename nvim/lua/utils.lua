@@ -30,9 +30,11 @@ end
 utils.add_empty_line = function(to_below)
   local current_line = vim.api.nvim_win_get_cursor(0)[1] -- Get the current line number
   if to_below then
-    vim.api.nvim_buf_set_lines(0, current_line, current_line, false, { "" }) -- Insert an empty line below the current line
+    -- Insert an empty line below the current line
+    vim.api.nvim_buf_set_lines(0, current_line, current_line, false, { "" })
   else
-    vim.api.nvim_buf_set_lines(0, current_line - 1, current_line - 1, false, { "" }) -- Insert an empty line above the current line
+    -- Insert an empty line above the current line
+    vim.api.nvim_buf_set_lines(0, current_line - 1, current_line - 1, false, { "" })
   end
 end
 
@@ -108,6 +110,54 @@ utils.delete_qf_items = function(visual_mode)
   vim.fn.setqflist(qf_list, "r")
   if #qf_list > 0 then
     local new_cursor_line = math.min(start_idx, #qf_list)
+    vim.api.nvim_win_set_cursor(0, { new_cursor_line, 0 })
+  end
+end
+
+-- utils.lua
+utils.delete_qf_buffer_items = function(is_visual)
+  local qf_list = vim.fn.getqflist()
+  if #qf_list == 0 then
+    return
+  end
+
+  local start_idx, end_idx
+  if is_visual then
+    -- Get the visual range marks
+    start_idx = vim.fn.line("'<")
+    end_idx = vim.fn.line("'>")
+  else
+    start_idx = vim.fn.line(".")
+    end_idx = start_idx
+  end
+
+  -- Collection of unique buffer numbers to remove
+  local target_bufnrs = {}
+  for i = start_idx, end_idx do
+    local item = qf_list[i]
+    if item and item.bufnr > 0 then
+      target_bufnrs[item.bufnr] = true
+    end
+  end
+
+  -- Only filter if we actually found buffers to target
+  if next(target_bufnrs) == nil then
+    return
+  end
+
+  -- Enforce: Keep items only if their bufnr is NOT in our target set
+  local new_qf_list = vim.tbl_filter(function(item)
+    return not target_bufnrs[item.bufnr]
+  end, qf_list)
+
+  -- Update the list
+  vim.fn.setqflist(new_qf_list, "r")
+
+  -- Clean up: close window if empty, otherwise fix cursor position
+  if #new_qf_list == 0 then
+    vim.cmd("cclose")
+  else
+    local new_cursor_line = math.min(start_idx, #new_qf_list)
     vim.api.nvim_win_set_cursor(0, { new_cursor_line, 0 })
   end
 end

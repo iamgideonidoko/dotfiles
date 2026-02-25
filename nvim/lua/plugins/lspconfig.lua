@@ -108,6 +108,7 @@ return {
     }
 
     -- semantic tokens (use treesitter instead)
+    ---@diagnostic disable-next-line: assign-type-mismatch
     capabilities.textDocument.semanticTokens = vim.NIL
 
     -- Limit workspace symbols
