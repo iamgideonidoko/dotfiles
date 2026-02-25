@@ -8,31 +8,31 @@ gui:
 
   theme:
     activeBorderColor:
-      - "#ff9e64"
+      - "#f6c177"
       - bold
     inactiveBorderColor:
-      - "#27a1b9"
+      - "#6e6a86"
     searchingActiveBorderColor:
-      - "#7dcfff"
+      - "#9ccfd8"
       - bold
     optionsTextColor:
-      - "#7aa2f7"
+      - "#c4a7e7"
     selectedLineBgColor:
-      - "#292e42"
+      - "#26233a"
     inactiveViewSelectedLineBgColor:
-      - "#1f2335"
+      - "#1f1d2e"
     cherryPickedCommitFgColor:
-      - "#7dcfff"
+      - "#9ccfd8"
     cherryPickedCommitBgColor:
-      - "#414868"
+      - "#403d52"
     markedBaseCommitFgColor:
-      - "#7aa2f7"
+      - "#31748f"
     markedBaseCommitBgColor:
-      - "#e0af68"
+      - "#f6c177"
     unstagedChangesColor:
-      - "#db4b4b"
+      - "#eb6f92"
     defaultFgColor:
-      - "#c0caf5"
+      - "#e0def4"
 
 os:
   editPreset: "nvim"

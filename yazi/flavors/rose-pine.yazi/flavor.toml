@@ -1,0 +1,184 @@
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# : Manager {{{
+
+[manager]
+cwd = { fg = "#31748f" }  # Pine
+
+# Hovered
+hovered         = { reversed = true }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "#eb6f92", bold = true, italic = true, underline = true }  # Love
+find_position = { fg = "#c4a7e7", bg = "reset", bold = true, italic = true }      # Iris
+
+# Marker
+marker_copied   = { fg = "#9ccfd8", bg = "#9ccfd8" }  # Foam
+marker_cut      = { fg = "#f6c177", bg = "#eb6f92" }  # Gold/Love
+marker_marked   = { fg = "#31748f", bg = "#9ccfd8" }  # Pine/Foam
+marker_selected = { fg = "#f6c177", bg = "#f6c177" }  # Gold
+
+# Tab
+tab_active   = { bg = "#26233a", fg = "#9ccfd8" }  # Overlay bg, Foam text
+tab_inactive = {}
+tab_width    = 1
+
+# Count
+count_copied   = { fg = "#26233a", bg = "#9ccfd8" }  # Overlay on Foam
+count_cut      = { fg = "#26233a", bg = "#f6c177" }  # Overlay on Gold
+count_selected = { fg = "#26233a", bg = "#31748f" }  # Overlay on Pine
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#403d52" }  # Highlight Med
+
+# : }}}
+
+
+# : Mode {{{
+
+[mode]
+
+normal_main = { fg = "#191724", bg = "#31748f", bold = true }  # Base on Pine
+normal_alt  = { fg = "#31748f", bg = "#403d52" }               # Pine on Highlight Med
+
+# Select mode
+select_main = { fg = "#191724", bg = "#9ccfd8", bold = true }  # Base on Foam
+select_alt  = { fg = "#9ccfd8", bg = "#403d52" }               # Foam on Highlight Med
+
+# Unset mode
+unset_main = { fg = "#191724", bg = "#c4a7e7", bold = true }   # Base on Iris
+unset_alt  = { fg = "#c4a7e7", bg = "#403d52" }                # Iris on Highlight Med
+
+# : }}}
+
+
+# : Status bar {{{
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#403d52", bg = "#403d52" }
+
+# Progress
+progress_label  = { fg = "#e0def4", bold = true }              # Text
+progress_normal = { fg = "#31748f", bg = "#403d52" }           # Pine on Highlight Med
+progress_error  = { fg = "#eb6f92", bg = "#403d52" }           # Love on Highlight Med
+
+# Permissions
+perm_sep   = { fg = "#6e6a86" }   # Muted
+perm_type  = { fg = "#9ccfd8" }   # Foam
+perm_read  = { fg = "#f6c177" }   # Gold
+perm_write = { fg = "#eb6f92" }   # Love
+perm_exec  = { fg = "#c4a7e7" }   # Iris
+
+
+# : }}}
+
+# : Pick {{{
+
+[pick]
+border   = { fg = "#31748f" }             # Pine
+active   = { fg = "#c4a7e7", bold = true } # Iris
+inactive = {}
+
+# : }}}
+
+
+# : Input {{{
+
+[input]
+border   = { fg = "#31748f" }  # Pine
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+# : }}}
+
+
+# : Completion {{{
+
+[completion]
+border = { fg = "#31748f" }  # Pine
+
+# : }}}
+
+
+# : Tasks {{{
+
+[tasks]
+border  = { fg = "#31748f" }                    # Pine
+title   = {}
+hovered = { fg = "#c4a7e7", underline = true }  # Iris
+
+# : }}}
+
+
+# : Which {{{
+
+[which]
+mask            = { bg = "#26233a" }   # Overlay
+cand            = { fg = "#9ccfd8" }   # Foam
+rest            = { fg = "#908caa" }   # Subtle
+desc            = { fg = "#c4a7e7" }   # Iris
+separator       = "  "
+separator_style = { fg = "#6e6a86" }   # Muted
+
+# : }}}
+
+
+# : Help {{{
+
+[help]
+on      = { fg = "#9ccfd8" }   # Foam
+run     = { fg = "#c4a7e7" }   # Iris
+hovered = { reversed = true, bold = true }
+footer  = { fg = "#e0def4", bg = "#403d52" }
+
+# : }}}
+
+
+# : Notify {{{
+
+[notify]
+title_info  = { fg = "#9ccfd8" }  # Foam
+title_warn  = { fg = "#f6c177" }  # Gold
+title_error = { fg = "#eb6f92" }  # Love
+
+# : }}}
+
+
+# : File-specific styles {{{
+
+[filetype]
+
+rules = [
+	# Images
+	{ mime = "image/*", fg = "#f6c177" },  # Gold
+
+	# Media
+	{ mime = "video/*", fg = "#eb6f92" },  # Love
+	{ mime = "audio/*", fg = "#eb6f92" },  # Love
+
+	# Archives
+	{ mime = "application/zip",             fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-tar",           fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-bzip*",         fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-bzip2",         fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-7z-compressed", fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-rar",           fg = "#c4a7e7" },  # Iris
+	{ mime = "application/x-xz",            fg = "#c4a7e7" },  # Iris
+
+	# Documents
+	{ mime = "application/doc",   fg = "#9ccfd8" },  # Foam
+	{ mime = "application/pdf",   fg = "#9ccfd8" },  # Foam
+	{ mime = "application/rtf",   fg = "#9ccfd8" },  # Foam
+	{ mime = "application/vnd.*", fg = "#9ccfd8" },  # Foam
+
+	# Fallback
+	{ name = "*",  fg = "#e0def4" },  # Text
+	{ name = "*/", fg = "#31748f" }   # Pine (directories)
+]
+
+# : }}}

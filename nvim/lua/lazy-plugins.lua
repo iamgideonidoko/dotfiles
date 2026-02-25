@@ -4,7 +4,7 @@ require("lazy").setup({
   require("plugins.mini"), -- Statusline & surround
 
   -- UI & Visuals
-  require("plugins.tokyonight"), -- Colorscheme
+  require("plugins.theme"), -- Colorscheme
   require("plugins.indent_line"), -- Indentation guides
   require("plugins.noice"), -- Better UI
   require("plugins.dashboard"), -- Start screen
@@ -80,7 +80,7 @@ require("lazy").setup({
   },
   install = {
     missing = true,
-    colorscheme = { "tokyonight" },
+    colorscheme = { "rose-pine" },
   },
   checker = {
     enabled = false, -- Disable automatic plugin updates check

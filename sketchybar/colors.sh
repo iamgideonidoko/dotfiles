@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-### Tokyo Night
-export BLACK=0xff1a1b26
-export WHITE=0xffc0caf5
-export RED=0xfff7768e
-export GREEN=0xff9ece6a
-export BLUE=0xff7aa2f7
-export YELLOW=0xffe0af68
-export ORANGE=0xffff9e64
-export MAGENTA=0xffbb9af7
-export GREY=0xff565f89
+### Rose Pine (Main)
+export BLACK=0xff191724
+export WHITE=0xffe0def4
+export RED=0xffeb6f92
+export GREEN=0xff9ccfd8
+export BLUE=0xff31748f
+export YELLOW=0xfff6c177
+export ORANGE=0xffebbcba
+export MAGENTA=0xffc4a7e7
+export GREY=0xff6e6a86
 export TRANSPARENT=0x00000000
-export BG0=0xff1a1b26
-export BG1=0x6032424a
-export BG2=0x60494d64
+export BG0=0xff191724
+export BG1=0x601f1d2e
+export BG2=0x6026233a
 
 export BAR_COLOR=$BG0
 export BAR_BORDER_COLOR=$BG2

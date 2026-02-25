@@ -1,6 +1,6 @@
-background-opacity = 0.95
+background-opacity = 0.96
 background-blur = true
-theme = TokyoNight
+theme = "Rose Pine"
 font-family = "JetBrainsMono Nerd Font Mono"
 font-style = Medium
 font-style-italic = Medium Italic
