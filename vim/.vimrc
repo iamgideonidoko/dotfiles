@@ -69,7 +69,7 @@ Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 
 " Colorschemes
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'rose-pine/vim', { 'as': 'rosepine' }
 
 call plug#end()
 
@@ -159,45 +159,27 @@ set nofoldenable
 set termguicolors
 set background=dark
 
-" TokyoNight style options
-" Available: 'night' (default), 'storm'
-let g:tokyonight_style = 'night'  " darker variant
-" let g:tokyonight_style = 'storm'  " lighter variant
+" Rose Pine variant: 'main' (default), 'moon', 'dawn'
+let g:rosepine_variant = 'main'
 
-" Enable italic keywords (works best with fonts like Fira Code)
-let g:tokyonight_enable_italic = 1
-
-" Disable italic comments (if you prefer)
-" let g:tokyonight_disable_italic_comment = 1
-
-" Make menu background transparent
-let g:tokyonight_menu_selection_background = 'blue'
-
-" Control word highlighting under cursor
-" Options: 'grey background', 'bold', 'underline', 'italic'
-let g:tokyonight_current_word = 'grey background'
+" Enable italics
+let g:rosepine_enable_italics = 1
 
 " Transparent background (for terminal transparency)
-let g:tokyonight_transparent_background = 1
-
-" Cursor line customization
-let g:tokyonight_cursor = 'auto'
-
-" Darker sidebar and floating windows
-let g:tokyonight_sidebars = ['qf', 'vista_kind', 'terminal', 'packer']
+let g:rosepine_disable_background = 1
 
 " Apply colorscheme
-colorscheme tokyonight
+colorscheme rosepine
 
-" Better diff colors
-hi DiffAdd guibg=#283b4d
-hi DiffChange guibg=#272d43
-hi DiffDelete guifg=#f7768e guibg=#3f2d3d
-hi DiffText guibg=#394b70
+" Better diff colors (rose-pine main palette)
+hi DiffAdd guibg=#1e2d22
+hi DiffChange guibg=#26233a
+hi DiffDelete guifg=#eb6f92 guibg=#2d1b24
+hi DiffText guibg=#383050
 
 " Transparent background for floating windows
-hi NormalFloat guibg=#1a1b26
-hi FloatBorder guifg=#565f89
+hi NormalFloat guibg=#1f1d2e
+hi FloatBorder guifg=#6e6a86
 
 " Better search highlighting
 hi Search guibg=#3d59a1 guifg=#c0caf5
@@ -520,7 +502,7 @@ highlight WhichKeyDesc    gui=NONE
 
 " LIGHTLINE CONFIGURATION
 let g:lightline = {
-  \ 'colorscheme': 'tokyonight',
+  \ 'colorscheme': 'rosepine',
   \ 'active': {
   \   'left': [['mode', 'paste'],
   \            ['gitbranch', 'readonly', 'filename', 'modified']],
