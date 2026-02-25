@@ -17,7 +17,7 @@ return { -- Collection of small independent packages
         if str:len() == 0 then
           return ""
         end
-        local hl = vim.api.nvim_get_hl(0, { name = s.hl })
+        local hl = vim.api.nvim_get_hl(0, { name = s.hl, link = false })
         vim.api.nvim_set_hl(0, s.hl .. "Edge", {
           fg = hl.bg,
           bg = "none",
