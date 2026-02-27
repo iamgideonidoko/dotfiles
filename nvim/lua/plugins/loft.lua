@@ -23,6 +23,9 @@ return {
           ["<M-q>"] = "close",
         },
       },
+      persistence = {
+        enabled = true,
+      },
     })
   end,
 }
