@@ -1,6 +1,7 @@
 return {
   dir = "~/work/loft.nvim",
   dev = true,
+  event = "VeryLazy",
   config = function()
     local actions = require("loft.actions")
     require("loft").setup({
@@ -22,6 +23,7 @@ return {
         },
         ui = {
           ["<M-q>"] = "close",
+          ["x"] = "toggle_mark_entry",
         },
       },
       persistence = {

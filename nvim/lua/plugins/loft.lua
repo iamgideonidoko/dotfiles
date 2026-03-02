@@ -1,5 +1,6 @@
 return {
   "iamgideonidoko/loft.nvim",
+  event = "VeryLazy",
   config = function()
     local actions = require("loft.actions")
     require("loft").setup({
@@ -21,10 +22,27 @@ return {
         },
         ui = {
           ["<M-q>"] = "close",
+          ["x"] = "toggle_mark_entry",
         },
       },
       persistence = {
         enabled = true,
+      },
+      window = {
+        width = function()
+          return vim.o.columns
+        end,
+        col = 0,
+        row = function(h)
+          return vim.o.lines - h - 2
+        end,
+        title = "",
+        footer = "",
+        border = { "─", "─", "─", "", "", "", "", "" },
+      },
+      help_window = {
+        border = "rounded",
+        disable = true,
       },
     })
   end,
