@@ -26,11 +26,11 @@ return {
     end, 800)
     local theme = {
       fill = "TabLineFill",
-      head = { fg = "#7aa2f7", bg = "#1a1b26", style = "italic" },
-      current_tab = { fg = "#1a1b26", bg = "#7aa2f7", style = "italic" },
-      tab = { fg = "#c0caf5", bg = "#1a1b26", style = "italic" },
-      win = { fg = "#1a1b26", bg = "#7aa2f7", style = "italic" },
-      tail = { fg = "#7aa2f7", bg = "#1a1b26", style = "italic" },
+      head = { fg = "#c4a7e7", bg = "#191724", style = "italic" },
+      current_tab = { fg = "#191724", bg = "#c4a7e7", style = "italic" },
+      tab = { fg = "#e0def4", bg = "#191724", style = "italic" },
+      win = { fg = "#191724", bg = "#c4a7e7", style = "italic" },
+      tail = { fg = "#c4a7e7", bg = "#191724", style = "italic" },
     }
 
     require("tabby.tabline").set(function(line)
