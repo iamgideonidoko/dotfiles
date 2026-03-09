@@ -127,10 +127,6 @@ return {
     })
 
     vim.lsp.config("lua_ls", {
-      root_dir = function(fname)
-        local root = vim.fs.root(fname, { "init.lua", ".git" })
-        return root and vim.uv.fs_realpath(root) or root
-      end,
       settings = {
         Lua = {
           runtime = {
