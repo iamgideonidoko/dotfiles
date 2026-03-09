@@ -117,87 +117,68 @@ return {
       dynamicRegistration = true,
       relativePatternSupport = true,
     }
-    local servers = {
-      ts_ls = {},
-      tailwindcss = {},
-      eslint = {},
-      cssls = {},
-      html = {},
-      intelephense = {}, -- PHP
-      glsl_analyzer = {},
-      pyright = {},
-      lua_ls = {
-        -- This logic ensures the LSP locks onto your nvim folder, not the parent dotfiles
-        root_dir = function(fname)
-          local util = require("lspconfig.util")
-          local root = util.root_pattern("init.lua", ".git")(fname)
-          -- Resolve the symlink to the real physical path
-          return vim.uv.fs_realpath(root) or root
-        end,
-        settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-              path = {
-                "?.lua",
-                "?/init.lua",
-                -- These additions help find files in the lua/ folder correctly
-                "lua/?.lua",
-                "lua/?/init.lua",
-              },
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                -- Resolve the symlink for your local config so LSP can index it
-                vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua"),
-              },
-            },
-            diagnostics = {
-              globals = { "vim" }, -- Fixes 'Undefined global vim'
-            },
-            completion = { callSnippet = "Replace" },
-            telemetry = { enable = false },
-          },
-        },
+    -- Global defaults applied to every LSP server (capabilities + flags)
+    vim.lsp.config("*", {
+      capabilities = capabilities,
+      flags = {
+        debounce_text_changes = 150,
+        allow_incremental_sync = true,
       },
-      gopls = {},
-      bashls = {},
-      rust_analyzer = {
-        settings = {
-          ["rust-analyzer"] = {
-            checkOnSave = {
-              command = "clippy", -- add via `rustup component add clippy`
-              -- extraArgs = { "--", "-A", "clippy::needless_return" }, -- ignore specific lints
-            },
-            procMacro = {
-              enable = true, -- Better support for crates like 'serde' or 'tokio'
-            },
-            cargo = {
-              allFeatures = true, -- Ensures clippy checks all your code paths
+    })
+
+    vim.lsp.config("lua_ls", {
+      root_dir = function(fname)
+        local root = vim.fs.root(fname, { "init.lua", ".git" })
+        return root and vim.uv.fs_realpath(root) or root
+      end,
+      settings = {
+        Lua = {
+          runtime = {
+            version = "LuaJIT",
+            path = { "?.lua", "?/init.lua", "lua/?.lua", "lua/?/init.lua" },
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+              vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua"),
             },
           },
+          diagnostics = { globals = { "vim" } },
+          completion = { callSnippet = "Replace" },
+          telemetry = { enable = false },
         },
       },
-    }
-    local ensure_installed = vim.tbl_keys(servers or {})
-    ---@diagnostic disable-next-line: missing-fields
+    })
+
+    vim.lsp.config("rust_analyzer", {
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy", -- add via `rustup component add clippy`
+            -- extraArgs = { "--", "-A", "clippy::needless_return" },
+          },
+          procMacro = { enable = true }, -- better support for serde/tokio
+          cargo = { allFeatures = true },
+        },
+      },
+    })
+
+    -- ensure servers are installed; automatic_enable handles vim.lsp.enable()
     require("mason-lspconfig").setup({
-      ensure_installed = ensure_installed,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-
-          -- Debounce/throttle for all servers
-          server.flags = vim.tbl_deep_extend("force", {
-            debounce_text_changes = 150,
-            allow_incremental_sync = true,
-          }, server.flags or {})
-
-          require("lspconfig")[server_name].setup(server)
-        end,
+      ensure_installed = {
+        "ts_ls",
+        "tailwindcss",
+        "eslint",
+        "cssls",
+        "html",
+        "intelephense",
+        "glsl_analyzer",
+        "pyright",
+        "lua_ls",
+        "gopls",
+        "bashls",
+        "rust_analyzer",
       },
     })
   end,
