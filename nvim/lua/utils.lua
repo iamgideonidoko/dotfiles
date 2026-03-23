@@ -162,4 +162,9 @@ utils.delete_qf_buffer_items = function(is_visual)
   end
 end
 
+utils.is_normal_window = function(winid)
+  local config = vim.api.nvim_win_get_config(winid)
+  return config.relative == ""
+end
+
 return utils

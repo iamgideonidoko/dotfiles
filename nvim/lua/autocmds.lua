@@ -1,3 +1,52 @@
+local utils = require("utils")
+
+local function should_preserve_view(bufnr, winid)
+  if not vim.api.nvim_buf_is_valid(bufnr) or not vim.api.nvim_win_is_valid(winid) then
+    return false
+  end
+  if not utils.is_normal_window(winid) then
+    return false
+  end
+
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
+  return buftype == ""
+end
+
+local function save_window_view(args)
+  local winid = vim.api.nvim_get_current_win()
+  local bufnr = args.buf or vim.api.nvim_get_current_buf()
+  if not should_preserve_view(bufnr, winid) then
+    return
+  end
+
+  local views = vim.w.saved_buffer_views or {}
+  views[tostring(bufnr)] = vim.fn.winsaveview()
+  vim.w.saved_buffer_views = views
+end
+
+local function restore_window_view(args)
+  local winid = vim.api.nvim_get_current_win()
+  local bufnr = args.buf
+  if not should_preserve_view(bufnr, winid) then
+    return
+  end
+
+  local views = vim.w.saved_buffer_views
+  local saved_view = type(views) == "table" and views[tostring(bufnr)] or nil
+  if type(saved_view) ~= "table" then
+    return
+  end
+
+  local cursor = vim.api.nvim_win_get_cursor(winid)
+  local is_default_entry = cursor[1] == 1 and cursor[2] == 0
+  local is_same_cursor_line = cursor[1] == saved_view.lnum
+  if not is_default_entry and not is_same_cursor_line then
+    return
+  end
+
+  pcall(vim.fn.winrestview, saved_view)
+end
+
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
@@ -129,6 +178,18 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+  group = vim.api.nvim_create_augroup("preserve-buffer-views", { clear = true }),
+  desc = "Save the current window view before leaving a normal buffer",
+  callback = save_window_view,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  group = "preserve-buffer-views",
+  desc = "Restore the saved window view when revisiting a normal buffer",
+  callback = restore_window_view,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
