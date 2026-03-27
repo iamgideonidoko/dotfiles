@@ -128,6 +128,10 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
    killall Dock
    ```
 
+7. macOS Keyboard Speed (System Settings → Keyboard):
+   - **Key Repeat rate**: Fast
+   - **Delay Until Repeat**: Short
+
 ### Provide Permissions
 
 Open the software the require additional permissions and grant them. Also add the software like Scoot that should be login items.

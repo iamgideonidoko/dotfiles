@@ -26,6 +26,7 @@ opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 5
 opt.sidescrolloff = 8
+opt.smoothscroll = true
 opt.splitright = true
 opt.splitbelow = true
 opt.list = false
