@@ -132,6 +132,14 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
    - **Key Repeat rate**: Fast
    - **Delay Until Repeat**: Short
 
+   ```bash
+   defaults write -g KeyRepeat -int 1
+   defaults write -g InitialKeyRepeat -int 10
+   defaults write -g ApplePressAndHoldEnabled -bool false
+   killall cfprefsd
+   killall SystemUIServer
+   ```
+
 ### Provide Permissions
 
 Open the software the require additional permissions and grant them. Also add the software like Scoot that should be login items.
