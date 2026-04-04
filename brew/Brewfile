@@ -59,6 +59,7 @@ brew "lazygit"
 brew "lazydocker"
 brew "websocat"
 brew "gemini-cli"
+brew "mole"
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
