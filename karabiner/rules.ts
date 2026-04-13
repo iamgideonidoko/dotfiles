@@ -248,7 +248,7 @@ const rules: KarabinerRules[] = [
           to: [{ pointing_button: 'button2' }],
           from: {
             modifiers: {
-              mandatory: ['right_command'],
+              mandatory: ['left_alt'],
             },
           },
         },
@@ -256,7 +256,7 @@ const rules: KarabinerRules[] = [
           to: [{ pointing_button: 'button3' }],
           from: {
             modifiers: {
-              mandatory: ['right_alt'],
+              mandatory: ['right_command'],
             },
           },
         },
@@ -269,7 +269,7 @@ const rules: KarabinerRules[] = [
           to: [{ pointing_button: 'button2' }],
           from: {
             modifiers: {
-              mandatory: ['right_command'],
+              mandatory: ['left_alt'],
             },
           },
         },
@@ -277,7 +277,7 @@ const rules: KarabinerRules[] = [
           to: [{ pointing_button: 'button3' }],
           from: {
             modifiers: {
-              mandatory: ['right_alt'],
+              mandatory: ['right_command'],
             },
           },
         },

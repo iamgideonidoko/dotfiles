@@ -1387,7 +1387,7 @@
                 "from": {
                   "key_code": "return_or_enter",
                   "modifiers": {
-                    "mandatory": ["right_command"]
+                    "mandatory": ["left_alt"]
                   }
                 },
                 "conditions": [
@@ -1408,7 +1408,7 @@
                 "from": {
                   "key_code": "return_or_enter",
                   "modifiers": {
-                    "mandatory": ["right_alt"]
+                    "mandatory": ["right_command"]
                   }
                 },
                 "conditions": [
@@ -1450,7 +1450,7 @@
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
-                    "mandatory": ["right_command"]
+                    "mandatory": ["left_alt"]
                   }
                 },
                 "conditions": [
@@ -1471,7 +1471,7 @@
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
-                    "mandatory": ["right_alt"]
+                    "mandatory": ["right_command"]
                   }
                 },
                 "conditions": [
