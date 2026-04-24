@@ -179,6 +179,7 @@ if [[ -f "$HOME/dotfiles/zsh/aerospace.sh" ]]; then
 fi
 ##############################################################################
 # Add Android SDK tools to PATH
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
 ##############################################################################
