@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { KarabinerRules } from './types';
-import { createHyperSubLayers, app, open, rectangle, hammerspoon, shell } from './utils';
+import { createHyperSubLayers, app, open, hammerspoon, shell } from './utils';
 
 const mouseSpeed = 1536,
   mouseSpeedFast = mouseSpeed * 4,
@@ -317,17 +317,11 @@ const rules: KarabinerRules[] = [
         to: [{ key_code: 'close_bracket', modifiers: ['right_command'] }],
       },
     },
-    // w = "W"indow via rectangle.app
+    // w = "W"indow
     w: {
       e: {
         to: [{ key_code: 'escape' }, { key_code: 'escape', repeat: false }],
       },
-      k: rectangle('top-half'),
-      j: rectangle('bottom-half'),
-      h: rectangle('left-half'),
-      l: rectangle('right-half'),
-      return_or_enter: rectangle('maximize'),
-      r: rectangle('restore'),
       i: [
         {
           to: [{ pointing_button: 'button4' }],
