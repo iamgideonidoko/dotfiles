@@ -124,7 +124,7 @@ const rules: KarabinerRules[] = [
       b: app('DBeaver'), // D"b"eaver
       l: app('Blender'), // B"l"ender
     },
-    // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements and Scoot)
+    // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements)
     e: {
       j: [
         {
@@ -296,25 +296,6 @@ const rules: KarabinerRules[] = [
       },
       period: {
         to: [{ mouse_key: { horizontal_wheel: -32 } }],
-      },
-      /**
-       * Ensure that Scoot has been given the necessary permissions to control the mouse
-       * Also, preferably switch from Emacs to Vim mode ;)
-       * Also, ensure it starts on login :)
-       */
-      // Scoot's grid-based navigation of cursor
-      slash: {
-        to: [{ key_code: 'k', modifiers: ['right_command', 'right_shift'] }],
-      },
-      // Scoot's element-based navigation of cursor
-      f: {
-        to: [{ key_code: 'j', modifiers: ['right_command', 'right_shift'] }],
-      },
-      p: {
-        to: [{ key_code: 'open_bracket', modifiers: ['right_command'] }],
-      },
-      n: {
-        to: [{ key_code: 'close_bracket', modifiers: ['right_command'] }],
       },
     },
     // w = "W"indow
