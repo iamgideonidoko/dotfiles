@@ -269,7 +269,7 @@ const rules: KarabinerRules[] = [
           to: [{ pointing_button: 'button2' }],
           from: {
             modifiers: {
-              mandatory: ['left_alt'],
+              mandatory: ['left_control'],
             },
           },
         },

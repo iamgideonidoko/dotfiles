@@ -1450,7 +1450,7 @@
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
-                    "mandatory": ["left_alt"]
+                    "mandatory": ["left_control"]
                   }
                 },
                 "conditions": [
