@@ -60,7 +60,6 @@ brew "lazydocker"
 brew "websocat"
 brew "mole"
 brew "anomalyco/tap/opencode"
-brew "ollama"
 # brew "gemini-cli"
 ##############################################################################
 cask "ghostty" # Terminal emulator
@@ -94,6 +93,7 @@ cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
 cask "copilot-cli"
 cask "zulu@17"
+cask "ollama"
 # cask "grammarly-desktop"
 # cask "claude-code"
 # cask "scoot" # Cursor actuator
