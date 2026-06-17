@@ -186,6 +186,9 @@ export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:
 # MySQL
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 ##############################################################################
+export OLLAMA_CONTEXT_LENGTH=16384
+# export OLLAMA_CONTEXT_LENGTH=32768
+##############################################################################
 # Add Go bin to PATH safely
 if command -v go >/dev/null 2>&1; then
   export PATH="$PATH:$(go env GOPATH)/bin"

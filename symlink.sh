@@ -68,6 +68,7 @@ create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
 create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
+create_symlink ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
 ##############################################################################
 # Creating symlinks for directories
 create_symlink ~/dotfiles/nvim/ ~/.config/nvim
