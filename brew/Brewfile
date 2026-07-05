@@ -92,7 +92,7 @@ cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
 cask "copilot-cli"
 cask "zulu@17"
-cask "ollama"
+cask "ollama-app"
 # cask "grammarly-desktop"
 # cask "claude-code"
 # cask "scoot" # Cursor actuator
