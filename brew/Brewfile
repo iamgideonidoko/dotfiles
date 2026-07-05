@@ -14,8 +14,7 @@ brew "lua"
 # PACKAGE MANAGER
 brew "luarocks"
 brew "nvm"
-brew "yarn"
-brew "pnpm"
+brew "corepack"
 brew "composer"
 brew "rustup"
 ##############################################################################
