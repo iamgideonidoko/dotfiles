@@ -104,6 +104,16 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 ##############################################################################
+caff() {
+  if pgrep -x caffeinate >/dev/null; then
+    killall caffeinate
+    echo "OFF"
+  else
+    caffeinate -di &
+    echo "ON"
+  fi
+}
+##############################################################################
 # History settings
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
