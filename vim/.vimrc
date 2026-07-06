@@ -466,7 +466,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-html',
   \ 'coc-css',
-  \ 'coc-intelephense',
+  \ 'coc-phpls',
   \ 'coc-pyright',
   \ 'coc-go',
   \ 'coc-snippets',
