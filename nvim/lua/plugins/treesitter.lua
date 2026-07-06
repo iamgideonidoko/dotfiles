@@ -1,4 +1,5 @@
 local utils = require("utils")
+
 local languages = {
   "bash",
   "c",
@@ -21,54 +22,62 @@ local languages = {
   "regex",
 }
 
-local function is_large_file(buf)
-  local max_filesize = 500 * 1024 -- 500 KB
-  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-  return ok and stats and stats.size > max_filesize
+-- Big file prevention early
+vim.api.nvim_create_autocmd("BufReadPre", {
+  group = vim.api.nvim_create_augroup("BigFileCheck", { clear = true }),
+  pattern = "*",
+  callback = function(event)
+    local max_filesize = 500 * 1024 -- 500 KB
+    local ok, stats = pcall(vim.uv.fs_stat, event.match)
+    if ok and stats and stats.size > max_filesize then
+      vim.b[event.buf].bigfile = true
+      vim.cmd("syntax off")
+    end
+  end,
+})
+
+local function cleanup_legacy_install(plugin_dir)
+  for _, path in ipairs({
+    vim.fs.joinpath(plugin_dir, "parser"),
+    vim.fs.joinpath(plugin_dir, "parser-info"),
+    vim.fs.joinpath(plugin_dir, "queries"),
+  }) do
+    if vim.uv.fs_stat(path) then
+      vim.fn.delete(path, "rf")
+    end
+  end
 end
 
 return {
   {
-    -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
+    event = { "BufReadPost", "BufNewFile" }, -- Native lazy load
     branch = "main",
-    build = function()
-      local nvim_treesitter = require("nvim-treesitter")
-
-      nvim_treesitter.install(languages):wait(300000)
-      nvim_treesitter.update(languages):wait(300000)
-    end,
+    build = ":TSUpdate", -- Async execution, no block
     opts = {
       ensure_installed = languages,
-      indent = { disable = { "ruby" } },
+      highlight = {
+        enable = true, -- Use native Nvim engine safely
+        disable = function(_, buf)
+          return vim.b[buf].bigfile
+        end,
+      },
+      indent = {
+        enable = true,
+        disable = { "ruby" },
+      },
     },
-    config = function(_, opts)
+    config = function(plugin, opts)
       local nvim_treesitter = require("nvim-treesitter")
       local install = require("nvim-treesitter.install")
 
-      -- Prefer git, compile parsers to C for speed.
+      cleanup_legacy_install(plugin.dir)
+
       install.prefer_git = true
       install.compilers = { "gcc", "clang" }
       vim.treesitter.language.register("json", "jsonc")
 
-      nvim_treesitter.setup({})
-
-      local group = vim.api.nvim_create_augroup("nvim-treesitter-start", { clear = true })
-      vim.api.nvim_create_autocmd("FileType", {
-        group = group,
-        pattern = "*",
-        callback = function(event)
-          if is_large_file(event.buf) then
-            return
-          end
-
-          local ok = pcall(vim.treesitter.start, event.buf)
-          if ok and vim.bo[event.buf].filetype ~= "ruby" then
-            vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
-        end,
-      })
+      nvim_treesitter.setup(opts) -- Pass full opts table here
     end,
   },
   {
@@ -81,9 +90,9 @@ return {
         select = {
           lookahead = true,
           select_modes = {
-            ["@parameter.outer"] = "v", -- charwise
-            ["@function.outer"] = "V", -- linewise
-            ["@class.outer"] = "<c-v>", -- blockwise
+            ["@parameter.outer"] = "v",
+            ["@function.outer"] = "V",
+            ["@class.outer"] = "<c-v>",
           },
         },
         move = {
@@ -104,10 +113,6 @@ return {
       utils.safe_map({ "x", "o" }, "ic", function()
         ts_select.select_textobject("@class.inner", "textobjects")
       end, { desc = "Select inside class" })
-      -- You can also use captures from other query groups like `locals.scm`
-      -- utils.safe_map({ "x", "o" }, "as", function()
-      --   ts_select.select_textobject("@local.scope", "locals")
-      -- end, { desc = "Select around local scope" })
 
       local ts_move = require("nvim-treesitter-textobjects.move")
       utils.safe_map({ "n", "x", "o" }, "]m", function()
@@ -128,27 +133,6 @@ return {
       utils.safe_map({ "n", "x", "o" }, "[[", function()
         ts_move.goto_previous_start("@class.outer", "textobjects")
       end, { desc = "Previous class start" })
-      utils.safe_map({ "n", "x", "o" }, "][", function()
-        ts_move.goto_next_end("@class.outer", "textobjects")
-      end, { desc = "Next class end" })
-      utils.safe_map({ "n", "x", "o" }, "[]", function()
-        ts_move.goto_previous_end("@class.outer", "textobjects")
-      end, { desc = "Previous class end" })
-      utils.safe_map({ "n", "x", "o" }, "]d", function()
-        ts_move.goto_next("@conditional.outer", "textobjects")
-      end, { desc = "Next conditional" })
-      utils.safe_map({ "n", "x", "o" }, "[d", function()
-        ts_move.goto_previous("@conditional.outer", "textobjects")
-      end, { desc = "Previous conditional" })
-      utils.safe_map({ "n", "x", "o" }, "]o", function()
-        ts_move.goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
-      end, { desc = "Next loop start" })
-      utils.safe_map({ "n", "x", "o" }, "]s", function()
-        ts_move.goto_next_start("@local.scope", "locals")
-      end, { desc = "Next local scope start" })
-      utils.safe_map({ "n", "x", "o" }, "]z", function()
-        ts_move.goto_next_start("@fold", "folds")
-      end, { desc = "Next fold start" })
 
       local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
       utils.safe_map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next, { desc = "Repeat last move next" })
@@ -158,7 +142,6 @@ return {
         ts_repeat_move.repeat_last_move_previous,
         { desc = "Repeat last move previous" }
       )
-      -- Make builtin f, F, t, T also repeatable with ; and ,
       utils.safe_map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true, desc = "Builtin f move" })
       utils.safe_map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true, desc = "Builtin F move" })
       utils.safe_map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true, desc = "Builtin t move" })
