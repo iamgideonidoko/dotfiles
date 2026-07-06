@@ -22,7 +22,7 @@ brew "coreutils"
 brew "bat" # Better cat
 brew "fzf"
 brew "git"
-brew "neovim" # v0.11.2
+brew "neovim" # v~0.12
 brew "ripgrep"
 brew "fd"
 brew "tmux"
