@@ -22,6 +22,35 @@
 "   nvim-colorizer    -> vim-css-color
 
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OPT-IN FEATURE FLAGS
+"
+" Edit these (or override them in ~/.vimrc.local which is sourced below) to
+" toggle heavyweight features on this machine without touching dotfiles.
+"
+"   g:vimrc_use_coc       = 1  -> load coc.nvim LSP/completion (default: off)
+"   g:vimrc_use_copilot   = 1  -> load copilot.vim          (default: off)
+"   g:vimrc_use_ai        = 1  -> alias for both of the above
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimrc_use_coc     = get(g:, 'vimrc_use_coc', 0)
+let g:vimrc_use_copilot = get(g:, 'vimrc_use_copilot', 0)
+if get(g:, 'vimrc_use_ai', 0)
+  let g:vimrc_use_coc     = 1
+  let g:vimrc_use_copilot = 1
+endif
+
+" Machine-local overrides (not version controlled): belongs in ~/.vimrc.local
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+  " Re-resolve flags in case the local file toggled them.
+  let g:vimrc_use_coc     = get(g:, 'vimrc_use_coc', 0)
+  let g:vimrc_use_copilot = get(g:, 'vimrc_use_copilot', 0)
+  if get(g:, 'vimrc_use_ai', 0)
+    let g:vimrc_use_coc     = 1
+    let g:vimrc_use_copilot = 1
+  endif
+endif
+
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PERFORMANCE OPTIMIZATIONS
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -72,7 +101,10 @@ call jetpack#begin()
 Jetpack 'tani/vim-jetpack', {'opt': 1}
 
 " LSP & Completion (mirrors nvim-lspconfig + nvim-cmp + LuaSnip + cmp-*)
-Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
+" OPT-IN: enable by setting g:vimrc_use_coc = 1 in ~/.vimrc.local
+if g:vimrc_use_coc
+  Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 " Fuzzy Finder (mirrors telescope.nvim + plenary + telescope-fzf-native + ui-select)
 Jetpack 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -117,7 +149,10 @@ Jetpack 'mhinz/vim-startify'
 Jetpack 'christoomey/vim-tmux-navigator'
 
 " AI (mirrors copilot.lua + copilot-cmp)
-Jetpack 'github/copilot.vim'
+" OPT-IN: enable by setting g:vimrc_use_copilot = 1 in ~/.vimrc.local
+if g:vimrc_use_copilot
+  Jetpack 'github/copilot.vim'
+endif
 
 " Time tracking
 Jetpack 'wakatime/vim-wakatime'
@@ -456,8 +491,9 @@ function! s:QfWrap(try_cmd, catch_cmd) abort
 endfunction
 
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COC.NVIM CONFIGURATION
+" COC.NVIM CONFIGURATION  (opt-in: set g:vimrc_use_coc = 1 in ~/.vimrc.local)
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if g:vimrc_use_coc
 " Required extensions (coc will offer to install missing ones on next startup)
 let g:coc_global_extensions = [
   \ 'coc-json',
@@ -553,9 +589,10 @@ nnoremap <silent><nowait> <leader>ce :CocList extensions<CR>
 nnoremap <silent><nowait> <leader>cS :CocList -I symbols<CR>
 
 " Highlight symbol under cursor (matches nvim CursorHold document_highlight)
+" `silent!` makes this a no-op when coc isn't loaded (e.g. plain `v`).
 augroup coc_highlight_group
   autocmd!
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd CursorHold * if exists('*CocActionAsync') | silent call CocActionAsync('highlight') | endif
 augroup END
 
 " Toggle format on save (mirrors conform's vim.g.autoformat = false + <leader>Ta)
@@ -575,12 +612,13 @@ nnoremap <silent> <leader>fe :CocCommand eslint.executeAutofix<CR>
 function! CocCurrentFunction() abort
   return get(b:, 'coc_current_function', '')
 endfunction
+endif " g:vimrc_use_coc
 
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF CONFIGURATION
+" Preview is OPT-IN via Ctrl-/ (preview is the slowest fzf feature).
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+let g:fzf_preview_window = ['hidden:right:50%:wrap', 'ctrl-/']
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -597,7 +635,27 @@ let g:fzf_colors = {
   \ 'header':  ['fg', 'Comment'],
   \ }
 
+let g:fzf_layout = { 'down': '~100%' }
+let $FZF_DEFAULT_OPTS .= join([
+      \ '--layout=default',
+      \ '--info=inline',
+      \ '--border=top',
+      \ '--prompt="❯ "',
+      \ '--pointer=">"',
+      \ '--marker="+"',
+      \ '--height=100%',
+      \ '--no-separator',
+      \ '--cycle',
+      \ '--bind=alt-q:abort',
+      \ ], ' ')
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 " Use ripgrep if available (matches nvim telescope vimgrep_arguments)
+" Force fzf to use ripgrep for `:Files` (skips py/jvm artifacts, lockfiles)
+" and vimgrep for `:Rg` and `:Grep`. Args mirror the nvim telescope config.
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --no-ignore-vcs --glob "!.git/*"'
         \ . ' --glob "!node_modules/*" --glob "!.venv/*" --glob "!vendor/*"'
@@ -657,6 +715,20 @@ let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_removed_first_line = '‾'
 let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_preview_win_floating = 1
+" Performance: don't update signs on every keystroke -- only on save/enter.
+let g:gitgutter_updatetime = get(g:, 'gitgutter_updatetime', 0) " 0 = use &updatetime (200ms)
+let g:gitgutter_max_signs = 500      " skip huge files
+let g:gitgutter_map_keys = 0         " we provide our own mappings below
+let g:gitgutter_git_args = ''        " no per-call overhead
+let g:gitgutter_diff_base = ''      " diff against index, not a remote
+" Real debouncing: only re-scan on real writes and on BufEnter; the default
+" behaviour also re-scans when the file is changed outside vim (good enough
+" without paying per-CursorHold cost).
+" (we still have updatetime=200 -> CursorHold fires gitgutter; keep it but cap)
+if has('gui_running') || !exists('$TMUX')
+  let g:gitgutter_realtime = 0       " don't update signs while typing in(:!) cases
+endif
+let g:gitgutter_terminal_reports_focus = 0 " avoid spurious focus events
 
 " GitGutter mappings (mirrors nvim gitsigns <leader>h* + ]c/[c)
 nmap ]c <Plug>(GitGutterNextHunk)
@@ -832,8 +904,9 @@ augroup startify_sessions
 augroup END
 
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COPILOT.VIM CONFIGURATION (mirrors copilot.lua)
+" COPILOT.VIM CONFIGURATION (mirrors copilot.lua)  (opt-in: g:vimrc_use_copilot)
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if g:vimrc_use_copilot
 let g:copilot_filetypes = {
   \ 'yaml': v:true,
   \ 'markdown': v:true,
@@ -849,6 +922,7 @@ imap <silent><nowait> <M-Space> <Plug>(copilot-accept)
 imap <silent><nowait> <M-'> <Plug>(copilot-next)
 imap <silent><nowait> <M-"> <Plug>(copilot-previous)
 let g:copilot_boundary_keys = []
+endif " g:vimrc_use_copilot
 
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MARKDOWN PREVIEW
@@ -902,8 +976,8 @@ augroup vimrc_general
   " Auto-resize splits on window resize (with tab restore)
   autocmd VimResized * let s:cur_tab = tabpagenr() | tabdo wincmd = | exec 'tabnext ' . s:cur_tab
 
-  " Format on save when g:autoformat is on (mirrors conform.nvim format_on_save)
-  autocmd BufWritePre * if g:autoformat | call CocActionAsync('format') | endif
+  " Format on save when g:autoformat is on and coc is loaded (mirrors conform.nvim)
+  autocmd BufWritePre * if g:autoformat && g:vimrc_use_coc && exists('*CocActionAsync') | call CocActionAsync('format') | endif
 
   " Check for changes on focus/terminal close (mirrors checktime autocmd)
   autocmd FocusGained,BufEnter * if &buftype !=# 'nofile' | checktime | endif
@@ -911,9 +985,15 @@ augroup vimrc_general
   " Disable auto comment continuation on new lines (mirrors no-auto-comment)
   autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-  " Cursorline only in active window (mirrors active-cursorline)
-  autocmd BufEnter,WinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
+  " Cursorline only in the active window (mirrors nvim active-cursorline).
+  " NOTE: BufEnter is enough; tying it to WinEnter causes a redraw on every
+  " <C-w> navigation in plain Vim (visible lag with fzf/which-key open).
+  autocmd BufEnter,WinEnter * if &buftype ==# '' && !&previewwindow | setlocal cursorline | endif
+  autocmd WinLeave * if &buftype ==# '' && !&previewwindow | setlocal nocursorline | endif
+
+  " Restore line numbers after fzf closes -- fzf's terminal buffer can suppress
+  " &number/&relativenumber in the originating window. Re-assert on every BufEnter.
+  autocmd BufEnter * if &buftype ==# '' && !&previewwindow | setlocal number relativenumber | endif
 
   " Close certain filetypes with `q` (mirrors close_with_q)
   autocmd FileType help,man,qf,netrw nnoremap <buffer> q :close<CR>
