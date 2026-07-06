@@ -122,4 +122,7 @@ require("lazy").setup({
     loader = false,
     require = false,
   },
+  git = {
+    timeout = 300, -- default is 120s
+  },
 })
