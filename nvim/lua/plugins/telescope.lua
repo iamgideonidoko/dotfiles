@@ -76,7 +76,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           "--glob=!*.git/",
           "--hidden",
         },
-        scroll_strategy = "limit",
+        scroll_strategy = "cycle",
         preview = {
           filesize_limit = 250000, -- 250 KB
           timeout = 200, -- 200 ms
