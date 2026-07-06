@@ -89,9 +89,9 @@ return {
     local timer = nil
     local function debounce_lint()
       if timer then
-        vim.loop.timer_stop(timer)
+        vim.uv.timer_stop(timer)
       end
-      timer = vim.loop.new_timer()
+      timer = vim.uv.new_timer()
       timer:start(300, 0, vim.schedule_wrap(function()
         local ft = vim.bo.filetype
         if not skip_ft[ft] then

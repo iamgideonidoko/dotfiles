@@ -53,15 +53,15 @@ end
 
 -- Show memory usage
 function M.show_memory()
-  local mem = vim.loop.resident_set_memory() / 1024 / 1024
+  local mem = vim.uv.resident_set_memory() / 1024 / 1024
   print(string.format("Memory usage: %.2f MB", mem))
 end
 
 -- Profile function execution
 function M.profile_function(fn, name)
-  local start = vim.loop.hrtime()
+  local start = vim.uv.hrtime()
   fn()
-  local elapsed = (vim.loop.hrtime() - start) / 1e6
+  local elapsed = (vim.uv.hrtime() - start) / 1e6
   print(string.format("%s took %.2fms", name or "Function", elapsed))
 end
 

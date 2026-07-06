@@ -52,7 +52,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank({ timeout = 150 })
+    vim.hl.on_yank({ timeout = 150 })
   end,
 })
 
@@ -102,7 +102,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = vim.api.nvim_create_augroup("large_file_performance", { clear = true }),
   callback = function(args)
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
     if ok and stats and stats.size > 1024 * 1024 then -- 1MB
       vim.b[args.buf].large_file = true
       vim.opt_local.spell = false

@@ -46,9 +46,9 @@ utils.debounce = function(func, timeout)
   return function(...)
     local args = { ... }
     if timer then
-      vim.loop.timer_stop(timer)
+      vim.uv.timer_stop(timer)
     else
-      timer = vim.loop.new_timer()
+      timer = vim.uv.new_timer()
     end
     timer:start(timeout, 0, function()
       vim.schedule(function()
