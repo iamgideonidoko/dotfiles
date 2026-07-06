@@ -26,7 +26,6 @@ require("lazy").setup({
 
   -- Code Intelligence
   require("plugins.copilot"), -- AI completion
-  require("plugins.avante"), -- AI assistant
   require("plugins.ufo"), -- Folding
 
   -- Language Support
