@@ -1,61 +1,79 @@
 local utils = require("utils")
+local languages = {
+  "bash",
+  "c",
+  "diff",
+  "html",
+  "lua",
+  "luadoc",
+  "markdown",
+  "markdown_inline",
+  "vim",
+  "vimdoc",
+  "javascript",
+  "typescript",
+  "http",
+  "json",
+  "tsx",
+  "glsl",
+  "xml",
+  "graphql",
+  "regex",
+}
+
+local function is_large_file(buf)
+  local max_filesize = 500 * 1024 -- 500 KB
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+  return ok and stats and stats.size > max_filesize
+end
+
 return {
   {
     -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
-    build = ":TSUpdate",
+    lazy = false,
+    branch = "main",
+    build = function()
+      local nvim_treesitter = require("nvim-treesitter")
+
+      nvim_treesitter.install(languages):wait(300000)
+      nvim_treesitter.update(languages):wait(300000)
+    end,
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "diff",
-        "html",
-        "lua",
-        "luadoc",
-        "markdown",
-        "markdown_inline",
-        "vim",
-        "vimdoc",
-        "javascript",
-        "typescript",
-        "http",
-        "json",
-        "jsonc",
-        "tsx",
-        "glsl",
-        "xml",
-        "graphql",
-        "regex",
-      },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        use_languagetree = true,
-        additional_vim_regex_highlighting = { "ruby" },
-        disable = function(_, buf)
-          local max_filesize = 500 * 1024 -- 500 KB
-          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
-      },
-      indent = { enable = true, disable = { "ruby" } },
-      incremental_selection = { enable = false },
-      matchup = { enable = false },
+      ensure_installed = languages,
+      indent = { disable = { "ruby" } },
     },
     config = function(_, opts)
-      -- Prefer git, compile parsers to C for speed
-      require("nvim-treesitter.install").prefer_git = true
-      require("nvim-treesitter.install").compilers = { "gcc", "clang" }
+      local nvim_treesitter = require("nvim-treesitter")
+      local install = require("nvim-treesitter.install")
 
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup(opts)
+      -- Prefer git, compile parsers to C for speed.
+      install.prefer_git = true
+      install.compilers = { "gcc", "clang" }
+      vim.treesitter.language.register("json", "jsonc")
+
+      nvim_treesitter.setup({})
+
+      local group = vim.api.nvim_create_augroup("nvim-treesitter-start", { clear = true })
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        pattern = "*",
+        callback = function(event)
+          if is_large_file(event.buf) then
+            return
+          end
+
+          local ok = pcall(vim.treesitter.start, event.buf)
+          if ok and vim.bo[event.buf].filetype ~= "ruby" then
+            vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
     end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "VeryLazy",
     branch = "main",
     config = function()
