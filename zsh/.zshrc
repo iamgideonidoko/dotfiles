@@ -144,6 +144,7 @@ precmd() {
 ##############################################################################
 # ALIASES
 alias v='vim'
+alias vv='vim --cmd "let g:vimrc_use_ai = 1"'   # include coc + copilot
 alias n='nvim'
 alias nv='nvim'
 alias lg='lazygit'
