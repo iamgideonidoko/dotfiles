@@ -22,7 +22,7 @@ mkdir -p ~/.config/fastfetch
 mkdir -p ~/.config/aerospace
 mkdir -p ~/.config/sketchybar
 mkdir -p ~/.config/borders
-mkdir -p ~/.vim/{undodir,plugged,autoload}
+mkdir -p ~/.vim/{undodir,pack,autoload,sessions}
 mkdir -p ~/.config/lazygit
 mkdir -p ~/.config/lazydocker
 ##############################################################################

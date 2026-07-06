@@ -40,7 +40,7 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "➤",
-  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnType": true,
   "coc.preferences.jumpCommand": "edit",
   "coc.preferences.useQuickfixForLocations": true,
@@ -130,5 +130,8 @@
     "v": "open:vsplit",
     "s": "open:split"
   },
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
