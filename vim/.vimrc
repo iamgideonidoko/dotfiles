@@ -881,18 +881,36 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_fortune_use_unicode = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
+let g:startify_change_to_dir = 0
+let g:startify_center = 1
+let g:startify_custom_header = startify#center([
+      \ '        ________ ++     ________        ',
+      \ '       /VVVVVVVV\++++  /VVVVVVVV\       ',
+      \ '       \VVVVVVVV/++++++\VVVVVVVV/       ',
+      \ '        |VVVVVV|++++++++/VVVVV/''        ',
+      \ '        |VVVVVV|++++++/VVVVV/''         ',
+      \ '       +|VVVVVV|++++/VVVVV/''+          ',
+      \ '     +++|VVVVVV|++/VVVVV/''+++++        ',
+      \ '   +++++|VVVVVV|/VVVVV/''+++++++++      ',
+      \ '     +++|VVVVVVVVVVV/''+++++++++        ',
+      \ '       +|VVVVVVVVV/''+++++++++          ',
+      \ '        |VVVVVVV/''+++++++++            ',
+      \ '        |VVVVV/''+++++++++              ',
+      \ '        |VVV/''+++++++++                ',
+      \ '        ''V/''   ++++++                 ',
+      \ '                   ++                   ',
+      \ ])
+let g:startify_padding_left = (&columns - 25) / 2
+let s:pad = repeat(' ', g:startify_padding_left)
 let g:startify_lists = [
-  \ { 'type': 'sessions',  'header': ['   Sessions'] },
-  \ { 'type': 'files',     'header': ['   MRU'] },
-  \ { 'type': 'dir',       'header': ['   MRU ' . getcwd()] },
-  \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
-  \ ]
-let g:startify_bookmarks = [
-  \ { 'c': '~/dotfiles/vim/.vimrc' },
-  \ { 'n': '~/dotfiles/nvim/init.lua' },
-  \ '~/.config/zsh/.zshrc',
-  \ ]
-let g:startify_custom_header = []
+      \ { 'type': 'commands', 'header': startify#center(['Commands']) },
+      \ ]
+let g:startify_commands = [
+      \ { 'q': [s:pad . '[q] Quit', 'qa'] },
+      \ ]
+let g:startify_custom_footer = startify#center([
+      \ '󰉋 ' . fnamemodify(getcwd(), ':t')
+      \ ])
 
 " Auto-save session when leaving vim with :Obsess running; restore last session on launch
 augroup startify_sessions
