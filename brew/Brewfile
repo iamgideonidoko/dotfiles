@@ -4,16 +4,17 @@ tap "homebrew/services"
 tap "felixkratz/formulae"
 ##############################################################################
 # LANGUAGES
-brew "node"
 brew "python"
 brew "go"
 brew "rust"
 brew "php"
 brew "lua"
 ##############################################################################
+# VERSION MANAGER
+brew "nvm"
+##############################################################################
 # PACKAGE MANAGER
 brew "luarocks"
-brew "nvm"
 brew "corepack"
 brew "composer"
 brew "rustup"
