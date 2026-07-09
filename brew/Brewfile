@@ -12,12 +12,12 @@ brew "lua"
 ##############################################################################
 # VERSION MANAGER
 brew "nvm"
+brew "rustup"
+brew "corepack"
 ##############################################################################
 # PACKAGE MANAGER
 brew "luarocks"
-brew "corepack"
 brew "composer"
-brew "rustup"
 ##############################################################################
 brew "coreutils"
 brew "bat" # Better cat
