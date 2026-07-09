@@ -60,6 +60,7 @@ brew "lazydocker"
 brew "websocat"
 brew "mole"
 brew "anomalyco/tap/opencode"
+brew "hunk"
 # brew "gemini-cli"
 ##############################################################################
 cask "ghostty" # Terminal emulator
