@@ -1,10 +1,17 @@
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = vim.api.nvim_create_augroup("custom-term-open", {}),
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.scrolloff = 0
-  end,
+local terminal_group = vim.api.nvim_create_augroup("custom-term", { clear = true })
+
+local function setup_terminal()
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+  vim.opt_local.scrolloff = 0
+  vim.wo.signcolumn = "no" -- optional
+  vim.wo.cursorline = false -- optional
+end
+
+vim.api.nvim_create_autocmd({ "TermOpen", "BufWinEnter" }, {
+  group = terminal_group,
+  pattern = "term://*",
+  callback = setup_terminal,
 })
 
 -- Exit terminal mode
