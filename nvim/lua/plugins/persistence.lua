@@ -7,6 +7,13 @@ return {
   },
   keys = {
     {
+      "<leader>Ps",
+      function()
+        require("persistence").save()
+      end,
+      desc = "Save Session",
+    },
+    {
       "<leader>Pl",
       function()
         require("persistence").load()
@@ -32,7 +39,14 @@ return {
       function()
         require("persistence").stop()
       end,
-      desc = "Stop Saving Current Session",
+      desc = "Stop Saving",
+    },
+    {
+      "<leader>Pr",
+      function()
+        require("persistence").start()
+      end,
+      desc = "Resume Saving",
     },
   },
 }
