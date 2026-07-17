@@ -68,6 +68,8 @@ set("n", "<leader>-", function()
   vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
 end, { desc = "Toggle command line" })
 
+set("n", "<leader>m", ":messages<CR>", { silent = true })
+
 -- <<<<<<QUICKFIX>>>>>>>
 set("n", "<leader>Co", "<cmd>copen<cr>", { desc = "❰copen❱ Open quickfix list" })
 set("n", "<leader>Cn", function()
