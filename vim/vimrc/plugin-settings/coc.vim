@@ -25,7 +25,7 @@ let g:coc_global_extensions = [
 " Manual trigger completion (mirrors vim-cmp <C-a> toggle)
 inoremap <silent><expr> <C-space> coc#refresh()
 
-" Use Tab / S-Tab to navigate completion (matches nvim-cmp <Tab>/<S-Tab>)
+" Use Tab / S-Tab to navigate completion (matches blink.cmp <Tab>/<S-Tab>)
 function! s:CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1] =~# '\s'

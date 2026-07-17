@@ -3,7 +3,7 @@ scriptencoding utf-8
 call jetpack#begin()
 Jetpack 'tani/vim-jetpack', {'opt': 1}
 
-" LSP & Completion (mirrors nvim-lspconfig + nvim-cmp + LuaSnip + cmp-*)
+" LSP & Completion (mirrors nvim-lspconfig + blink.cmp + friendly-snippets)
 if g:vimrc_use_coc
   Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
 endif
@@ -17,9 +17,8 @@ Jetpack 'tpope/vim-fugitive'
 Jetpack 'airblade/vim-gitgutter'
 Jetpack 'rhysd/conflict-marker.vim'
 
-" Text Manipulation (mirrors mini.surround + Comment.nvim + nvim-autopairs + nvim-ts-autotag)
+" Text Manipulation (mirrors mini.surround + nvim-autopairs + nvim-ts-autotag)
 Jetpack 'tpope/vim-surround'
-Jetpack 'tpope/vim-commentary'
 Jetpack 'tpope/vim-repeat'
 Jetpack 'jiangmiao/auto-pairs'
 Jetpack 'alvan/vim-closetag', {'for': ['html', 'xml', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'jsx', 'tsx']}

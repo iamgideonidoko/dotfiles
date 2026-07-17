@@ -6,11 +6,10 @@ scriptencoding utf-8
 " Optional deps  : node/npm (coc.nvim, copilot.vim), ripgrep, fzf, lazygit
 "
 " Neovim-only plugins without perfect Vim ports (intentionally skipped):
-"   noice.nvim        -> plain vim cmdline/messaging (good enough in modern vim 9)
 "   oil.nvim          -> netrw (kept enabled; maps `-` to :Explore just like oil)
 "   telescope.nvim    -> fzf.vim (same fuzzy UX, different commands)
 "   nvim-lspconfig    -> coc.nvim (closest LSP/completion story in vim)
-"   nvim-cmp          -> coc.nvim
+"   blink.cmp         -> coc.nvim
 "   nvim-treesitter   -> vim-polyglot (regex-based syntax packs)
 "   nvim-ufo          -> vim built-in folding (foldmethod=indent / marker)
 "   dashboard-nvim    -> vim-startify
