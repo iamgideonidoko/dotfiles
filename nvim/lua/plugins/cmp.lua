@@ -2,7 +2,7 @@ return {
   "saghen/blink.cmp",
   lazy = false,
   dependencies = { "rafamadriz/friendly-snippets" },
-  version = "v0.*",
+  version = "v1.*",
 
   opts = {
     keymap = {
@@ -34,13 +34,16 @@ return {
         window = { border = "rounded" },
       },
     },
-    signature = { window = { border = "rounded" } },
+
+    signature = {
+      enabled = true,
+      window = { border = "rounded" },
+    },
 
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       providers = {
         buffer = {
-          -- Only complete from visible buffers
           opts = {
             get_bufnrs = function()
               local bufs = {}
@@ -56,4 +59,5 @@ return {
 
     snippets = { preset = "default" },
   },
+  opts_extend = { "sources.default" },
 }
