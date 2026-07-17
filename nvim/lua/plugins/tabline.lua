@@ -4,7 +4,6 @@ return {
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     local utils = require("utils")
-
     local marked_nums_solid = { "➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒" }
 
     local debounced_keymap_first_nine_tabs = utils.debounce(function()
@@ -24,6 +23,14 @@ return {
         end, { desc = "Go to tab " .. i, noremap = true, silent = true })
       end
     end, 800)
+
+    local safe_loft_resume = utils.debounce(function()
+      local ok, loft = pcall(require, "loft.registry")
+      if ok then
+        loft:resume_update()
+      end
+    end, 100)
+
     local theme = {
       fill = "TabLineFill",
       head = { fg = "#c4a7e7", bg = "#191724", style = "italic" },
@@ -42,12 +49,10 @@ return {
         line.tabs().foreach(function(tab)
           local hl = tab.is_current() and theme.current_tab or theme.tab
 
-          -- Clean tab name (remove [n+])
           local name = tab.name()
           local index = string.find(name, "%[%d")
           local tab_name = index and string.sub(name, 1, index - 1) or name
 
-          -- Show modified status if any buffer in tab is modified
           local modified = false
           local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
           for _, win_id in ipairs(win_ids) do
@@ -57,7 +62,8 @@ return {
               break
             end
           end
-          local tab_idx = require("utils").get_tab_index(tab.id)
+
+          local tab_idx = tab.number()
           return {
             line.sep("", hl, theme.fill),
             tab_idx <= 9 and marked_nums_solid[tab_idx] or "",
@@ -73,16 +79,22 @@ return {
       }
     end)
 
+    -- KEYMAPS
     vim.keymap.set("n", "<leader>tt", function()
       vim.cmd(":$tabnew")
-      require("loft.actions").close_buffer({})
+      local has_loft, loft_act = pcall(require, "loft.actions")
+      if has_loft then
+        loft_act.close_buffer({})
+      end
     end, { noremap = true, desc = "New tab" })
+
     vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { noremap = true, desc = "Close current tab" })
     vim.keymap.set("n", "<leader>to", ":tabonly<CR>", { noremap = true, desc = "Close all other tabs" })
     vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { noremap = true, desc = "Previous tab" })
     vim.keymap.set("n", "<leader>tn", ":tabn<CR>", { noremap = true, desc = "Next tab" })
     vim.keymap.set("n", "<leader>tr", ":Tabby rename_tab ", { noremap = true, desc = "Rename tab" })
     vim.keymap.set("n", "<leader>ft", ":Tabby pick_window<CR>", { noremap = true, desc = "[f]ind [t]ab" })
+
     vim.keymap.set("n", "<leader>tP", function()
       local idx = vim.fn.tabpagenr()
       if idx == 1 then
@@ -92,6 +104,7 @@ return {
       end
       vim.cmd("redrawstatus")
     end, { desc = "Move tab left" })
+
     vim.keymap.set("n", "<leader>tN", function()
       local idx = vim.fn.tabpagenr()
       local total = vim.fn.tabpagenr("$")
@@ -104,16 +117,13 @@ return {
     end, { desc = "Move tab right" })
 
     vim.keymap.set("n", "<leader>t_", function()
-      if vim.o.showtabline == 2 then
-        vim.o.showtabline = 0
-      else
-        vim.o.showtabline = 2
-      end
+      vim.o.showtabline = vim.o.showtabline == 2 and 0 or 2
     end, { desc = "Toggle tabline" })
 
     local notify_no_alt_tab = function()
       vim.notify("No alternate tab", vim.log.levels.ERROR)
     end
+
     vim.keymap.set("n", "<leader>ta", function()
       if vim.g.alternate_tabpagenr ~= nil then
         local ok = pcall(function()
@@ -126,32 +136,24 @@ return {
         notify_no_alt_tab()
       end
     end, { desc = "Go to alternate tab" })
+
+    -- AUTOCMDS
     local group = vim.api.nvim_create_augroup("CustomTabbyAUGroup", { clear = true })
     vim.api.nvim_create_autocmd("TabEnter", {
       group = group,
-      callback = function()
-        utils.debounce(function()
-          require("loft.registry"):resume_update()
-        end, 100)()
-      end,
+      callback = safe_loft_resume,
     })
     vim.api.nvim_create_autocmd("TabLeave", {
       group = group,
       callback = function()
-        require("loft.registry"):pause_update()
-        local idx = vim.fn.tabpagenr()
-        vim.g.alternate_tabpagenr = idx
+        local has_loft, loft = pcall(require, "loft.registry")
+        if has_loft then
+          loft:pause_update()
+        end
+        vim.g.alternate_tabpagenr = vim.fn.tabpagenr()
       end,
     })
-    vim.api.nvim_create_autocmd("VimEnter", {
-      group = group,
-      callback = debounced_keymap_first_nine_tabs,
-    })
-    vim.api.nvim_create_autocmd("TabNew", {
-      group = group,
-      callback = debounced_keymap_first_nine_tabs,
-    })
-    vim.api.nvim_create_autocmd("TabClosed", {
+    vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabClosed" }, {
       group = group,
       callback = debounced_keymap_first_nine_tabs,
     })

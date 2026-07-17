@@ -1,4 +1,4 @@
-return { -- Useful plugin to show you pending keybinds.
+return {
   "folke/which-key.nvim",
   event = "VimEnter",
   config = function()
@@ -8,7 +8,6 @@ return { -- Useful plugin to show you pending keybinds.
         border = "rounded",
       },
     })
-    -- Document existing key chains
     which_key.add({
       { "<leader>c", group = "[c]ode" },
       { "<leader>d", group = "[d]ebug" },

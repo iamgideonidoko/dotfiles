@@ -1,4 +1,4 @@
-return { -- Add indentation guides
+return {
   "lukas-reineke/indent-blankline.nvim",
   event = { "BufReadPost", "BufNewFile" },
   config = function()
@@ -37,7 +37,7 @@ return { -- Add indentation guides
           "lazyterm",
         },
       },
-      scope = { enabled = false }, -- Disable scope (performance)
+      scope = { enabled = true },
     })
   end,
 }

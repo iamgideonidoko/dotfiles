@@ -1,15 +1,11 @@
 return {
   "folke/persistence.nvim",
   event = "BufReadPre",
-  opts = {},
+  opts = {
+    need = 1,
+    branch = true,
+  },
   keys = {
-    {
-      "<leader>Ps",
-      function()
-        require("persistence").save()
-      end,
-      desc = "Save Session",
-    },
     {
       "<leader>Pl",
       function()
@@ -36,14 +32,7 @@ return {
       function()
         require("persistence").stop()
       end,
-      desc = "Stop Saving",
-    },
-    {
-      "<leader>Pr",
-      function()
-        require("persistence").start()
-      end,
-      desc = "Resume Saving",
+      desc = "Stop Saving Current Session",
     },
   },
 }

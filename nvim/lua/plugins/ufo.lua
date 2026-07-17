@@ -3,8 +3,8 @@ return {
   dependencies = { "kevinhwang91/promise-async" },
   event = "BufReadPost",
   config = function()
-    vim.o.foldcolumn = "1" -- show fold column
-    vim.o.foldlevel = 99 -- set high so folds open by default
+    vim.o.foldcolumn = "1"
+    vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
 
@@ -25,9 +25,7 @@ return {
         return { "lsp", "indent" }
       end,
       open_fold_hl_timeout = 400,
-      close_fold_kinds_for_ft = {
-        -- default = { "imports", "comment" },
-      },
+      close_fold_kinds_for_ft = {},
       fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = ("  ⟱ %d "):format(endLnum - lnum)

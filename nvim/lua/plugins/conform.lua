@@ -1,6 +1,7 @@
-return { -- Autoformat
+return {
   "stevearc/conform.nvim",
-  lazy = false,
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   dependencies = {
     "mason-org/mason.nvim",
     "zapling/mason-conform.nvim",
@@ -14,9 +15,10 @@ return { -- Autoformat
       go = { "goimports" },
       rust = { "rustfmt" },
     }
-    local js_related_language = require("utils").js_related_languages
-    local prettier_supported = vim.tbl_values(js_related_language or {})
-    vim.list_extend(prettier_supported, {
+    local utils = require("utils")
+    local js_related = utils.js_related_languages or {}
+    local prettier_fts = vim.tbl_values(js_related)
+    vim.list_extend(prettier_fts, {
       "css",
       "scss",
       "less",
@@ -29,15 +31,14 @@ return { -- Autoformat
       "graphql",
       "handlebars",
     })
-    for _, language in ipairs(prettier_supported) do
-      formatters[language] = {
+    for _, ft in ipairs(prettier_fts) do
+      formatters[ft] = {
         "prettierd",
       }
     end
 
-    local shell_languages = { "sh", "bash", "zsh" }
-    for _, language in ipairs(shell_languages) do
-      formatters[language] = {
+    for _, ft in ipairs({ "sh", "bash", "zsh" }) do
+      formatters[ft] = {
         "shfmt",
       }
     end
@@ -46,25 +47,22 @@ return { -- Autoformat
       notify_on_error = false,
       notify_no_formatters = false,
       format_on_save = function(bufnr)
-        -- Disable format on save for the below languages
-        local disable_filetypes = { c = true, cpp = true }
-        
-        -- Skip large files
+        if not vim.g.autoformat then
+          return
+        end
+
         local max_filesize = 500 * 1024 -- 500 KB
         local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
         if ok and stats and stats.size > max_filesize then
           return
         end
-        
-        if vim.g.autoformat then
-          return {
-            timeout_ms = 1000,
-            lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-            quiet = true,
-          }
-        else
-          return
-        end
+
+        local disable_filetypes = { c = true, cpp = true }
+        return {
+          timeout_ms = 1000,
+          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+          quiet = true,
+        }
       end,
       formatters_by_ft = formatters,
       formatters = {
@@ -75,8 +73,6 @@ return { -- Autoformat
         },
       },
     })
-    -- Close the gap between `mason.nvim` and `conform.nvim` ensuring specified formatters are installed
-    require("mason-conform").setup()
   end,
   keys = {
     {
@@ -84,21 +80,14 @@ return { -- Autoformat
       function()
         require("conform").format({ async = true, lsp_format = "fallback" })
       end,
-      mode = "",
       desc = "[f]or[m]at buffer",
     },
     {
       "<leader>Ta",
       function()
-        if vim.g.autoformat then
-          vim.g.autoformat = false
-          print("Autoformat disabled!")
-        else
-          vim.g.autoformat = true
-          print("Autoformat enabled!")
-        end
+        vim.g.autoformat = not vim.g.autoformat
+        print("Autoformat " .. (vim.g.autoformat and "enabled" or "disabled"))
       end,
-      mode = "",
       desc = "[T]oggle [a]utoformat",
     },
   },

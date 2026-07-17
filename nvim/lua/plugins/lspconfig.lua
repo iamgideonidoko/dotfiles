@@ -1,27 +1,16 @@
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    "mason-org/mason.nvim",
-    "mason-org/mason-lspconfig.nvim",
-    {
-      "j-hui/fidget.nvim",
-      opts = {
-        notification = {
-          window = {
-            winblend = 0,
-            border = "rounded",
-          },
-        },
-      },
-    },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "saghen/blink.cmp",
     {
       "folke/lazydev.nvim",
       ft = "lua",
       opts = {
         library = {
           { path = "luvit-meta/library", words = { "vim%.uv" } },
-          -- Add this to ensure your own config is treated as a library
           { path = vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua") },
         },
       },
@@ -31,35 +20,23 @@ return {
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("default-lsp-attach", { clear = true }),
-      --  This function gets run when an LSP attaches to a particular buffer
       callback = function(event)
-        -- LSP specific keymap util
         local map = function(keys, func, desc)
           vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
-        -- Jump to the definition of the word under your cursor.
-        map("gd", require("telescope.builtin").lsp_definitions, "[g]oto [d]efinition")
-        -- Find references for the word under your cursor.
-        map("gr", require("telescope.builtin").lsp_references, "[g]oto [r]eferences")
-        -- Jump to the implementation of the word under your cursor.
-        map("gI", require("telescope.builtin").lsp_implementations, "[g]oto [I]mplementation")
-        -- Jump to the type of the word under your cursor.
-        map("gt", require("telescope.builtin").lsp_type_definitions, "[g]oto [t]ype definition")
-        -- Fuzzy find all the symbols (variables, functions, types...) in your current document.
-        map("<leader>os", require("telescope.builtin").lsp_document_symbols, "[o]pen document [s]ymbols")
-        -- Fuzzy find all the symbols in your current workspace.
-        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
-        -- Rename the variable under your cursor.
+
+        local telescope = require("telescope.builtin")
+        map("gd", telescope.lsp_definitions, "[g]oto [d]efinition")
+        map("gr", telescope.lsp_references, "[g]oto [r]eferences")
+        map("gI", telescope.lsp_implementations, "[g]oto [I]mplementation")
+        map("gt", telescope.lsp_type_definitions, "[g]oto [t]ype definition")
+        map("<leader>os", telescope.lsp_document_symbols, "[o]pen document [s]ymbols")
+        map("<leader>ws", telescope.lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
         map("<leader>rn", vim.lsp.buf.rename, "[r]e[n]ame")
-        -- Execute a code action
         map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
-        -- Opens a popup that displays documentation about the word under your cursor
         map("K", vim.lsp.buf.hover, "Hover Documentation")
-        -- WARN: This is not Goto Definition, this is Goto Declaration.
-        --  For example, in C this would take you to the header.
         map("gD", vim.lsp.buf.declaration, "[g]oto [D]eclaration")
 
-        -- Highlight references of the word under your cursor when your cursor rests there for a little while
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
           local highlight_augroup = vim.api.nvim_create_augroup("default-lsp-highlight", { clear = false })
@@ -68,7 +45,6 @@ return {
             group = highlight_augroup,
             callback = vim.lsp.buf.document_highlight,
           })
-          -- Clear reference highlighting
           vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
             buffer = event.buf,
             group = highlight_augroup,
@@ -83,23 +59,15 @@ return {
           })
         end
 
-        -- Enable inlay hints in your code, if there's language server support
         if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
           map("<leader>Th", function()
-            ---@diagnostic disable-next-line: missing-parameter
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, "[T]oggle Inlay [h]ints")
         end
       end,
     })
 
-    -- NOTE: LSP servers and clients are able to communicate to each other what features they support
-    -- By default, Neovim doesn't support everything that is in the LSP specification
-    -- `nvim-cmp`, `luasnip` and so on give more capabilities to Neovim
-
-    -- Create new capabilities with nvim cmp, and then broadcast to the servers
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     -- UFO folding support
     capabilities.textDocument.foldingRange = {
@@ -107,60 +75,12 @@ return {
       lineFoldingOnly = true,
     }
 
-    -- semantic tokens (use treesitter instead)
-    ---@diagnostic disable-next-line: assign-type-mismatch
-    capabilities.textDocument.semanticTokens = vim.NIL
+    local lspconfig = require("lspconfig")
 
-    -- Limit workspace symbols
-    capabilities.workspace.configuration = true
-    capabilities.workspace.didChangeWatchedFiles = {
-      dynamicRegistration = true,
-      relativePatternSupport = true,
-    }
-    -- Global defaults applied to every LSP server (capabilities + flags)
-    vim.lsp.config("*", {
+    lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, {
       capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-        allow_incremental_sync = true,
-      },
     })
 
-    vim.lsp.config("lua_ls", {
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-            path = { "?.lua", "?/init.lua", "lua/?.lua", "lua/?/init.lua" },
-          },
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua"),
-            },
-          },
-          diagnostics = { globals = { "vim" } },
-          completion = { callSnippet = "Replace" },
-          telemetry = { enable = false },
-        },
-      },
-    })
-
-    vim.lsp.config("rust_analyzer", {
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = {
-            command = "clippy", -- add via `rustup component add clippy`
-            -- extraArgs = { "--", "-A", "clippy::needless_return" },
-          },
-          procMacro = { enable = true }, -- better support for serde/tokio
-          cargo = { allFeatures = true },
-        },
-      },
-    })
-
-    -- ensure servers are installed; automatic_enable handles vim.lsp.enable()
     require("mason-lspconfig").setup({
       ensure_installed = {
         "ts_ls",
@@ -175,6 +95,41 @@ return {
         "gopls",
         "bashls",
         "rust_analyzer",
+      },
+      handlers = {
+        function(server_name)
+          lspconfig[server_name].setup({})
+        end,
+        ["lua_ls"] = function()
+          lspconfig.lua_ls.setup({
+            settings = {
+              Lua = {
+                runtime = { version = "LuaJIT" },
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
+                    vim.uv.fs_realpath(vim.fn.stdpath("config") .. "/lua"),
+                  },
+                },
+                diagnostics = { globals = { "vim" } },
+                completion = { callSnippet = "Replace" },
+                telemetry = { enable = false },
+              },
+            },
+          })
+        end,
+        ["rust_analyzer"] = function()
+          lspconfig.rust_analyzer.setup({
+            settings = {
+              ["rust-analyzer"] = {
+                checkOnSave = { command = "clippy" },
+                procMacro = { enable = true },
+                cargo = { allFeatures = true },
+              },
+            },
+          })
+        end,
       },
     })
   end,

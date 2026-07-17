@@ -1,4 +1,4 @@
-return { -- Package manager for LSP servers, DAP servers, linters & formatters
+return {
   "mason-org/mason.nvim",
   opts = {
     ui = {

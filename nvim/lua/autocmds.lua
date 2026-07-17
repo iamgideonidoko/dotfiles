@@ -73,8 +73,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = vim.api.nvim_create_augroup("checktime", { clear = true }),
   callback = function()
-    if vim.o.buftype ~= "nofile" then
-      vim.cmd("checktime")
+    if vim.o.buftype ~= "nofile" and vim.bo.buflisted then
+      pcall(vim.cmd, "checktime")
     end
   end,
 })
@@ -99,7 +99,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Disable features for large files (>1MB)
-vim.api.nvim_create_autocmd("BufReadPre", {
+vim.api.nvim_create_autocmd("BufReadPost", {
   group = vim.api.nvim_create_augroup("large_file_performance", { clear = true }),
   callback = function(args)
     local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
@@ -180,13 +180,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "BufLeave" }, {
   group = vim.api.nvim_create_augroup("preserve-buffer-views", { clear = true }),
   desc = "Save the current window view before leaving a normal buffer",
   callback = save_window_view,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   group = "preserve-buffer-views",
   desc = "Restore the saved window view when revisiting a normal buffer",
   callback = restore_window_view,
@@ -216,24 +216,5 @@ vim.api.nvim_create_autocmd("WinLeave", {
   desc = "Disable cursorline when leaving window",
   callback = function()
     vim.opt_local.cursorline = false
-  end,
-})
-
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-  group = vim.api.nvim_create_augroup("NoiceHideStatusline", { clear = true }),
-  callback = function()
-    local cmd = vim.fn.getcmdline()
-    if cmd:match("^%%s/") or cmd:match("^s/") then
-      vim.o.laststatus = 3
-    else
-      vim.o.laststatus = 2
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  group = "NoiceHideStatusline",
-  callback = function()
-    vim.o.laststatus = 2
   end,
 })

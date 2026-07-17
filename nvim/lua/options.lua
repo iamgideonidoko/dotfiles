@@ -50,7 +50,7 @@ opt.confirm = true -- Confirm before closing unsaved buffers
 
 -- PERFORMANCE OPTIMIZATIONS
 -- Rendering & Redraw
-opt.lazyredraw = false -- Allow for noice.nvim
+opt.lazyredraw = false
 opt.ttyfast = true -- Faster terminal connection
 opt.redrawtime = 2000 -- More time for loading syntax
 opt.synmaxcol = 300 -- Only highlight first 300 columns
@@ -113,6 +113,10 @@ local disabled_built_ins = {
   "bugreport",
   "ftplugin",
 }
+
+opt.cmdheight = 0
+opt.display:append("msgsep")
+opt.shortmess:append("cI")
 
 for _, plugin in pairs(disabled_built_ins) do
   vim.g["loaded_" .. plugin] = 1

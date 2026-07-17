@@ -22,7 +22,6 @@ local languages = {
   "regex",
 }
 
--- Big file prevention early
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = vim.api.nvim_create_augroup("BigFileCheck", { clear = true }),
   pattern = "*",
@@ -51,13 +50,13 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" }, -- Native lazy load
+    event = { "BufReadPost", "BufNewFile" },
     branch = "main",
-    build = ":TSUpdate", -- Async execution, no block
+    build = ":TSUpdate",
     opts = {
       ensure_installed = languages,
       highlight = {
-        enable = true, -- Use native Nvim engine safely
+        enable = true,
         disable = function(_, buf)
           return vim.b[buf].bigfile
         end,
@@ -77,7 +76,7 @@ return {
       install.compilers = { "gcc", "clang" }
       vim.treesitter.language.register("json", "jsonc")
 
-      nvim_treesitter.setup(opts) -- Pass full opts table here
+      nvim_treesitter.setup(opts)
     end,
   },
   {
