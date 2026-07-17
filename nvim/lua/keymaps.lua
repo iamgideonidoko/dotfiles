@@ -61,12 +61,12 @@ set("v", "<M->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 set("v", "<M-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 set("n", "<leader>_", function()
-  if vim.o.laststatus == 0 then
-    vim.o.laststatus = 2
-  else
-    vim.o.laststatus = 0
-  end
+  vim.o.laststatus = vim.o.laststatus == 0 and 2 or 0
 end, { desc = "Toggle statusline" })
+
+set("n", "<leader>-", function()
+  vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+end, { desc = "Toggle command line" })
 
 -- <<<<<<QUICKFIX>>>>>>>
 set("n", "<leader>Co", "<cmd>copen<cr>", { desc = "❰copen❱ Open quickfix list" })
