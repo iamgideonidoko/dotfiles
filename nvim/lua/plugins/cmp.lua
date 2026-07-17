@@ -20,7 +20,7 @@ return {
     completion = {
       list = {
         max_items = 20,
-        selection = { preselect = false, auto_insert = false },
+        selection = { preselect = true, auto_insert = false },
       },
       menu = {
         border = "rounded",
