@@ -80,9 +80,6 @@ opt.foldcolumn = "0"
 ---@diagnostic disable-next-line: undefined-field
 opt.sessionoptions:append("terminal")
 
--- Syntax & Highlighting
-vim.g.syntax_on = 1
-
 -- DISABLE UNUSED PROVIDERS
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
