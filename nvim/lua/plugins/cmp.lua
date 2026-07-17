@@ -34,6 +34,7 @@ return {
         window = { border = "rounded" },
       },
     },
+    signature = { window = { border = "rounded" } },
 
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
