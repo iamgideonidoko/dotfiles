@@ -4,8 +4,23 @@ return {
   lazy = false,
   config = function()
     local statusline = require("mini.statusline")
-    local loft_ui = require("loft.ui")
     local utils = require("utils")
+
+    local loft = {
+      smart_order_indicator = function()
+        return ""
+      end,
+      get_buffer_mark = function()
+        return ""
+      end,
+    }
+
+    do
+      local ok, ui = pcall(require, "loft.ui")
+      if ok then
+        loft = ui
+      end
+    end
 
     local cached_edges = {}
 
@@ -72,18 +87,23 @@ return {
           local total_tabs = #vim.api.nvim_list_tabpages()
           local tab_indicator = total_tabs > 1 and "T" .. tab_idx or ""
 
-          -- Update cursor line number color only if changed
+          -- Update CursorLineNr color to match current mode
           local _, mode_bg = get_edge_hl(mode_hl)
-          vim.api.nvim_set_hl(0, "CursorLineNr", { fg = mode_bg, bg = nil, bold = true })
-
+          if mode_bg then
+            vim.api.nvim_set_hl(0, "CursorLineNr", {
+              fg = mode_bg,
+              bg = nil,
+              bold = true,
+            })
+          end
           return combine_groups({
             { hl = mode_hl, strings = { mode } },
             { hl = "StatusLineTabIndicator", strings = { tab_indicator } },
-            { hl = "StatusLineLoftSmartOrder", strings = { loft_ui:smart_order_indicator() } },
+            { hl = "StatusLineLoftSmartOrder", strings = { loft:smart_order_indicator() } },
             "%<",
             { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
             "%<",
-            { hl = "MiniStatusLineFilename", strings = { filename .. loft_ui:get_buffer_mark() } },
+            { hl = "MiniStatusLineFilename", strings = { filename .. loft:get_buffer_mark() } },
             "%=",
             { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
             { hl = mode_hl, strings = { search, location } },
