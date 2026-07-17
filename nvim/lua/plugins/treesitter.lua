@@ -35,48 +35,37 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   end,
 })
 
-local function cleanup_legacy_install(plugin_dir)
-  for _, path in ipairs({
-    vim.fs.joinpath(plugin_dir, "parser"),
-    vim.fs.joinpath(plugin_dir, "parser-info"),
-    vim.fs.joinpath(plugin_dir, "queries"),
-  }) do
-    if vim.uv.fs_stat(path) then
-      vim.fn.delete(path, "rf")
-    end
-  end
-end
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
     branch = "main",
+    lazy = false,
     build = ":TSUpdate",
-    opts = {
-      ensure_installed = languages,
-      highlight = {
-        enable = true,
-        disable = function(_, buf)
-          return vim.b[buf].bigfile
-        end,
-      },
-      indent = {
-        enable = true,
-        disable = { "ruby" },
-      },
-    },
-    config = function(plugin, opts)
+    config = function()
       local nvim_treesitter = require("nvim-treesitter")
-      local install = require("nvim-treesitter.install")
 
-      cleanup_legacy_install(plugin.dir)
-
-      install.prefer_git = true
-      install.compilers = { "gcc", "clang" }
       vim.treesitter.language.register("json", "jsonc")
+      nvim_treesitter.setup()
 
-      nvim_treesitter.setup(opts)
+      local function start_treesitter(bufnr)
+        if vim.b[bufnr].bigfile then
+          return
+        end
+
+        local ok = pcall(vim.treesitter.start, bufnr)
+        if ok and vim.bo[bufnr].filetype ~= "ruby" then
+          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
+        callback = function(args)
+          start_treesitter(args.buf)
+        end,
+      })
+
+      nvim_treesitter.install(languages)
     end,
   },
   {
