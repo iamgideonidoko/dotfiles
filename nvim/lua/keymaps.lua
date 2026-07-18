@@ -32,11 +32,16 @@ set({ "i", "t" }, "<C-l>", "<Right>", { desc = "Move right" })
 set({ "i", "t" }, "<C-j>", "<Down>", { desc = "Move down" })
 set({ "i", "t" }, "<C-k>", "<Up>", { desc = "Move up" })
 
+set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
+set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+
 -- Control the size of windows
-set("n", "<M-[>", "<C-w>5<", { desc = "Decrease width" })
-set("n", "<M-]>", "<C-w>5>", { desc = "Increase width" })
-set("n", "<M-{>", "<C-W>-", { desc = "Decrease height" })
-set("n", "<M-}>", "<C-W>+", { desc = "Increase height" })
+set("n", "<M-[>", ":vertical resize -5<CR>", { desc = "Decrease window width" })
+set("n", "<M-]>", ":vertical resize +5<CR>", { desc = "Increase window width" })
+set("n", "<M-{>", ":resize -5<CR>", { desc = "Decrease window height" })
+set("n", "<M-}>", ":resize +5<CR>", { desc = "Increase window height" })
 
 set("n", "<C-i>", "<Nop>", { noremap = true, silent = true })
 set("n", "<C-o>", "<Nop>", { noremap = true, silent = true })
