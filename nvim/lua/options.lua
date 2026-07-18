@@ -6,6 +6,7 @@ opt.relativenumber = true
 opt.mouse = "a"
 opt.showmode = false
 opt.clipboard = "unnamedplus"
+vim.opt.isfname:append("@-@")
 
 -- Indentation
 opt.expandtab = true
@@ -14,6 +15,7 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.smartindent = true
 opt.breakindent = true
+opt.autoindent = true
 
 -- Search
 opt.ignorecase = true
@@ -22,6 +24,7 @@ opt.hlsearch = true
 opt.incsearch = true
 
 -- UI
+opt.colorcolumn = "0"
 opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 5
@@ -32,20 +35,31 @@ opt.splitbelow = true
 opt.list = false
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split"
-opt.shortmess:append("sIcC")
+-- opt.shortmess:append("sIcC")
 opt.whichwrap:append("<>[]hl")
 opt.fillchars = { eob = " " }
 vim.o.laststatus = 2
 vim.o.showtabline = 0
 vim.o.winborder = "rounded"
+opt.completeopt = "menuone,noinsert"
+opt.cmdheight = 0
+opt.display:append("msgsep")
+opt.shortmess:append("cI")
+opt.showmatch = true
+opt.conceallevel = 2
+opt.concealcursor = ""
 
 -- FILE HANDLING
+local undodir = vim.fn.expand("~/.vim/undodir")
+vim.fn.mkdir(undodir, "p")
 opt.undofile = true
 opt.undolevels = 10000
+opt.undodir = undodir
 opt.swapfile = false -- Disable swap files (use version control)
 opt.backup = false
 opt.writebackup = false
 opt.autoread = true -- Auto-reload files changed outside vim
+opt.autowrite = false -- Do not auto-save
 opt.confirm = true -- Confirm before closing unsaved buffers
 
 -- PERFORMANCE OPTIMIZATIONS
@@ -70,6 +84,12 @@ opt.winblend = 0 -- Disable window transparency (faster)
 opt.hidden = true -- Keep buffers loaded in background
 opt.history = 1000 -- Command history
 opt.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds"
+opt.errorbells = false
+opt.backspace = "indent,eol,start" -- better backspace behaviour
+opt.autochdir = false
+opt.iskeyword:append("-")
+opt.path:append("**")
+opt.selection = "inclusive"
 
 -- Folding (UFO-optimized)
 opt.foldlevel = 99
@@ -110,10 +130,6 @@ local disabled_built_ins = {
   "bugreport",
   "ftplugin",
 }
-
-opt.cmdheight = 0
-opt.display:append("msgsep")
-opt.shortmess:append("cI")
 
 for _, plugin in pairs(disabled_built_ins) do
   vim.g["loaded_" .. plugin] = 1
