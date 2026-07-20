@@ -1,0 +1,25 @@
+theme = "custom"
+mode = "stack"
+vcs = "git"
+watch = true
+exclude_untracked = false
+line_numbers = true
+wrap_lines = true
+menu_bar = false
+agent_notes = true
+prompt_save_view_preferences = false
+transparent_background = true
+
+[custom_theme]
+base = "github-dark-default"
+label = "Rosé Pine"
+accent = "#31748f"
+panel = "#1f1d2e"
+noteBorder = "#c4a7e7"
+
+[custom_theme.syntax]
+keyword = "#c4a7e7"
+string = "#f6c177"
+comment = "#6e6a86"
+operator = "#9ccfd8"
+variable = "#e0def4"
