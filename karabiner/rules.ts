@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { KarabinerRules } from './types';
-import { createHyperSubLayers, app, open, hammerspoon, shell } from './utils';
+import { createHyperSubLayers, app, hammerspoon, browse } from './utils';
 
 const mouseSpeed = 1536,
   mouseSpeedFast = mouseSpeed * 4,
@@ -72,14 +72,7 @@ const rules: KarabinerRules[] = [
   ...createHyperSubLayers({
     // b = "B"rowse
     b: {
-      x: open('https://x.com'), // "x".com
-      g: open('https://github.com'), // "g"ithub.com
-      i: open('https://mail.google.com'), // mai"i"l.google.com
-      d: open('https://app.daily.dev'), // "d"aily.dev
-      f: open('https://figma.com'), // "f"igma.com
-      c: open('https://www.canva.com/?continue_in_browser=true'), // "c"anva.com
-      t: open('https://www.capcut.com'), // capcu"t".com
-      n: open('https://notion.so'), // "n"otion.com
+      x: browse('https://x.com'), // "x".com
     },
     // o = "O"pen applications
     o: {
@@ -112,10 +105,10 @@ const rules: KarabinerRules[] = [
       t: app('Android Studio'), // Android S"t"udio
       comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
       period: app('Simulator'), // Xcode's iOS Simulator
-      spacebar: app('ChatGPT'), // Xcode's iOS Simulator
+      spacebar: app('Maccy'), // Maccy Clipboard Manager
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
-      m: app('YouTube Music'), // YouTube "m"usic
+
       e: app('Photopea'), // "p"hotopea
       p: app('Postman'), // "p"ostman
       v: app('Google Drive'), // Google D"r"ive

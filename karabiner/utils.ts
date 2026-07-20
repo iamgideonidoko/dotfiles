@@ -218,24 +218,17 @@ export function shell(strings: TemplateStringsArray, ...values: any[]): LayerCom
 }
 
 /**
- * Shortcut for managing window sizing with Rectangle
+ * Shortcut for "Open an app" command (of which there are a bunch)
  */
-export function rectangle(name: string): LayerCommand {
-  return {
-    to: [
-      {
-        shell_command: `open -g rectangle://execute-action?name=${name}`,
-      },
-    ],
-    description: `Window: ${name}`,
-  };
+export function app(name: string): LayerCommand {
+  return open(`-a '${name}.app'`);
 }
 
 /**
  * Shortcut for "Open an app" command (of which there are a bunch)
  */
-export function app(name: string): LayerCommand {
-  return open(`-a '${name}.app'`);
+export function browse(...links: string[]): LayerCommand {
+  return open(`-a 'Google Chrome' '${links}' `);
 }
 
 /**

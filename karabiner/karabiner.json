@@ -130,167 +130,13 @@
               {
                 "to": [
                   {
-                    "shell_command": "open https://x.com"
+                    "shell_command": "open -a 'Google Chrome' 'https://x.com' "
                   }
                 ],
-                "description": "Open https://x.com",
+                "description": "Open -a 'Google Chrome' 'https://x.com' ",
                 "type": "basic",
                 "from": {
                   "key_code": "x",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://github.com"
-                  }
-                ],
-                "description": "Open https://github.com",
-                "type": "basic",
-                "from": {
-                  "key_code": "g",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://mail.google.com"
-                  }
-                ],
-                "description": "Open https://mail.google.com",
-                "type": "basic",
-                "from": {
-                  "key_code": "i",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://app.daily.dev"
-                  }
-                ],
-                "description": "Open https://app.daily.dev",
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://figma.com"
-                  }
-                ],
-                "description": "Open https://figma.com",
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://www.canva.com/?continue_in_browser=true"
-                  }
-                ],
-                "description": "Open https://www.canva.com/?continue_in_browser=true",
-                "type": "basic",
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://www.capcut.com"
-                  }
-                ],
-                "description": "Open https://www.capcut.com",
-                "type": "basic",
-                "from": {
-                  "key_code": "t",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open https://notion.so"
-                  }
-                ],
-                "description": "Open https://notion.so",
-                "type": "basic",
-                "from": {
-                  "key_code": "n",
                   "modifiers": {
                     "optional": ["any"]
                   }
@@ -732,10 +578,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'ChatGPT.app'"
+                    "shell_command": "open -a 'Maccy.app'"
                   }
                 ],
-                "description": "Open -a 'ChatGPT.app'",
+                "description": "Open -a 'Maccy.app'",
                 "type": "basic",
                 "from": {
                   "key_code": "spacebar",
@@ -761,28 +607,6 @@
                 "type": "basic",
                 "from": {
                   "key_code": "y",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'YouTube Music.app'"
-                  }
-                ],
-                "description": "Open -a 'YouTube Music.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "m",
                   "modifiers": {
                     "optional": ["any"]
                   }

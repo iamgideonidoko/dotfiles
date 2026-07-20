@@ -16,3 +16,7 @@ symlink:
 path ?= ~/Downloads/vimium-options.json
 vimium-options:
 	@test -f $(path) && mv -f $(path) ./vimium/ || echo "File not found: $(path)"
+
+
+kb:
+	yarn --cwd karabiner build
