@@ -25,6 +25,7 @@ mkdir -p ~/.config/borders
 mkdir -p ~/.vim/{undodir,pack,autoload,sessions}
 mkdir -p ~/.config/lazygit
 mkdir -p ~/.config/lazydocker
+mkdir -p ~/.config/hunk
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -86,4 +87,5 @@ create_symlink ~/dotfiles/sketchybar/ ~/.config/sketchybar
 create_symlink ~/dotfiles/borders/ ~/.config/borders
 create_symlink ~/dotfiles/lazygit/ ~/.config/lazygit
 create_symlink ~/dotfiles/lazydocker/ ~/.config/lazydocker
+create_symlink ~/dotfiles/hunk/ ~/.config/hunk
 ##############################################################################
