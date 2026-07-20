@@ -46,7 +46,7 @@ opt.cmdheight = 0
 opt.display:append("msgsep")
 opt.shortmess:append("cI")
 opt.showmatch = true
-opt.conceallevel = 2
+opt.conceallevel = 0
 opt.concealcursor = ""
 
 -- FILE HANDLING
