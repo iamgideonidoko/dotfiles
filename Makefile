@@ -1,7 +1,12 @@
-brew-install:
+deps:
+	brew trust felixkratz/formulae
+	brew trust nikitabobko/tap
+	brew trust anomalyco/tap
+
+brew-install: deps
 	brew bundle --file=~/dotfiles/brew/Brewfile
 
-brew-clean:
+brew-clean: deps
 	brew bundle cleanup --force --file=~/dotfiles/brew/Brewfile
 
 symlink:
