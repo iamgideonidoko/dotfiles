@@ -622,6 +622,28 @@
               {
                 "to": [
                   {
+                    "shell_command": "open -a 'YouTube Music.app'"
+                  }
+                ],
+                "description": "Open -a 'YouTube Music.app'",
+                "type": "basic",
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_o",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "to": [
+                  {
                     "shell_command": "open -a 'Photopea.app'"
                   }
                 ],

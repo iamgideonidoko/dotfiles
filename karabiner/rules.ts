@@ -108,7 +108,7 @@ const rules: KarabinerRules[] = [
       spacebar: app('Maccy'), // Maccy Clipboard Manager
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
-
+      m: app('YouTube Music'), // YouTube "m"usic
       e: app('Photopea'), // "p"hotopea
       p: app('Postman'), // "p"ostman
       v: app('Google Drive'), // Google D"r"ive
