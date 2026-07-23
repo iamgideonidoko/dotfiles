@@ -21,6 +21,9 @@ return {
             loft_actions.open_loft()
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("/", true, false, true), "nt", false)
           end,
+          ["<leader>lm"] = function()
+            loft_actions.toggle_mark_current_buffer({ notify = false })
+          end,
         },
         ui = {
           ["<M-q>"] = "close",
