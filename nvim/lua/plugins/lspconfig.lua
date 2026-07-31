@@ -123,7 +123,7 @@ return {
           lspconfig.rust_analyzer.setup({
             settings = {
               ["rust-analyzer"] = {
-                checkOnSave = { command = "clippy" },
+                check = { command = "clippy" },
                 procMacro = { enable = true },
                 cargo = { allFeatures = true },
               },
