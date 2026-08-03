@@ -1,22 +1,26 @@
+---@type "github" | "supermaven"
+local preferred_copilot = "supermaven"
+
 return {
-  -- {
-  --   "supermaven-inc/supermaven-nvim",
-  --   event = "InsertEnter",
-  --   opts = {
-  --     keymaps = {
-  --       accept_suggestion = "<M-Space>",
-  --       clear_suggestion = "<C-]>",
-  --       accept_word = "<M-w>",
-  --     },
-  --     ignore_filetypes = { cpp = true }, -- Custom ignore list
-  --     color = {
-  --       suggestion_color = "#808080",
-  --     },
-  --   },
-  -- },
+  {
+    "supermaven-inc/supermaven-nvim",
+    enabled = preferred_copilot == "supermaven",
+    event = "InsertEnter",
+    opts = {
+      keymaps = {
+        accept_suggestion = "<M-Space>",
+        clear_suggestion = "<C-]>",
+        accept_word = "<M-w>",
+      },
+      ignore_filetypes = { cpp = true },
+      color = {
+        suggestion_color = "#808080",
+      },
+    },
+  },
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
+    enabled = preferred_copilot == "github",
     event = "InsertEnter",
     opts = {
       panel = { enabled = false },
