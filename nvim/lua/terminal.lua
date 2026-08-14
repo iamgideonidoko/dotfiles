@@ -24,6 +24,10 @@ vim.keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Escape terminal mode"
 -- Alternatively close with Alt + "q"uit to quit terminal mode
 vim.keymap.set("t", "<M-q>", "<C-\\><C-n>", { desc = "Escape terminal mode" })
 
+vim.keymap.set("t", "<S-CR>", function()
+  vim.api.nvim_chan_send(vim.b.terminal_job_id, "\x1b[13;2u")
+end, { desc = "Send Shift+Enter" })
+
 -- Open a terminal at the bottom of the screen with a fixed height
 vim.keymap.set("n", "<leader>:n", function()
   vim.cmd.new()
