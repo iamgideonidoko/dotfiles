@@ -1,0 +1,15 @@
+theme = "rose-pine"
+diff_view = "unified"
+comment_vim = true
+wrap = true
+scroll_offset = 3
+transparent_background = true
+
+comment_types = [
+  { id = "blocker", definition = "must fix before merge", color = "red" },
+  { id = "issue", definition = "problem to fix", color = "#eb6f92" },
+  { id = "suggestion", definition = "recommended improvement", color = "#c4a7e7" },
+  { id = "question", definition = "needs clarification", color = "#f6c177" },
+  { id = "nit", label = "nitpick", definition = "small optional tweak", color = "#908caa" },
+  { id = "praise", definition = "good work worth keeping", color = "#9ccfd8" },
+]
