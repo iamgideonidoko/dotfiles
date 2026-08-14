@@ -61,6 +61,7 @@ brew "websocat"
 brew "mole"
 brew "anomalyco/tap/opencode"
 brew "hunk"
+brew "presenterm"
 # brew "gemini-cli"
 ##############################################################################
 cask "ghostty" # Terminal emulator
