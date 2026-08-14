@@ -60,10 +60,10 @@ end, { desc = "Insert an empty line below current" })
 set("n", "<M-i>", utils.add_empty_line, { desc = "Insert an empty line above current", noremap = true, silent = true })
 
 -- Move line(s) up or down
-set("n", "<M->>", ":m .+1<CR>==", { noremap = true, silent = true })
-set("n", "<M-<>", ":m .-2<CR>==", { noremap = true, silent = true })
-set("v", "<M->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-set("v", "<M-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+set("n", "<M-S->>", ":m .+1<CR>==", { noremap = true, silent = true })
+set("n", "<M-S-<>", ":m .-2<CR>==", { noremap = true, silent = true })
+set("v", "<M-S->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+set("v", "<M-S-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 set("n", "<leader>_", function()
   vim.o.laststatus = vim.o.laststatus == 0 and 2 or 0
