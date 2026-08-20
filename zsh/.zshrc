@@ -27,7 +27,7 @@ export LC_CTYPE=en_US.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Prepend to system path
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 
 NVM_COMMANDS=(nvm node npm npx yarn pnpm corepack nvim)
