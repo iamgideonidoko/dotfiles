@@ -1,0 +1,42 @@
+diff --git a/src/main.m b/src/main.m
+index 9194a5e..7272d59 100644
+--- a/src/main.m
++++ b/src/main.m
+@@ -3,9 +3,21 @@
+ #include "event_tap.h"
+ #include "ax.h"
+ #include "workspace.h"
++#include <signal.h>
++#include <sys/wait.h>
+ 
+ void* g_workspace;
+ 
++static void reap_children(int signal_number) {
++  (void)signal_number;
++  int saved_errno = errno;
++
++  while (waitpid(-1, NULL, WNOHANG) > 0) {
++  }
++
++  errno = saved_errno;
++}
++
+ static void acquire_lockfile(void) {
+   char *user = getenv("USER");
+   if (!user) printf("Error: User variable not set.\n"), exit(1);
+@@ -36,6 +48,15 @@ static void acquire_lockfile(void) {
+ int main (int argc, char *argv[]) {
+   NSApplicationLoad();
+ 
++  struct sigaction child_exit = {0};
++  child_exit.sa_handler = reap_children;
++  child_exit.sa_flags = SA_NOCLDSTOP | SA_RESTART;
++  sigemptyset(&child_exit.sa_mask);
++  if (sigaction(SIGCHLD, &child_exit, NULL) == -1) {
++    perror("sigaction(SIGCHLD)");
++    return 1;
++  }
++
+   acquire_lockfile();
+   ax_begin(&g_ax);
+   event_tap_begin(&g_event_tap);

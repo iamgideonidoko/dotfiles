@@ -60,10 +60,17 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
    defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902" && killall SystemUIServer
    ```
 
-2. Start the brew service
+2. Build and start patched service. Do not use `brew services restart svim`;
+   Homebrew's v1.0.11 binary leaks exited `svim.sh` children on macOS.
 
    ```sh
-   brew services restart svim
+   ~/dotfiles/svim/activate.sh
+   ```
+
+3. Verify after normal typing for one minute:
+
+   ```sh
+   ~/dotfiles/svim/verify.sh
    ```
 
 ### Configurations for Sketchybar

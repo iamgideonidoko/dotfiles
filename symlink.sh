@@ -9,6 +9,7 @@ boldPurple="\033[1;35m"
 noColor="\033[0m"
 ##############################################################################
 mkdir -p ~/.config
+mkdir -p ~/Library/LaunchAgents
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/ghostty
 mkdir -p ~/.config/starship
@@ -78,6 +79,7 @@ create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
 create_symlink ~/dotfiles/starship/ ~/.config/starship
 create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
 create_symlink ~/dotfiles/svim/ ~/.config/svim
+create_symlink ~/dotfiles/svim/com.dotfiles.svim.plist ~/Library/LaunchAgents/com.dotfiles.svim.plist
 create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
 create_symlink ~/dotfiles/yazi/ ~/.config/yazi
 create_symlink ~/dotfiles/eza/ ~/.config/eza

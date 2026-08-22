@@ -5,8 +5,7 @@
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
   'exec-and-forget brew services restart sketchybar',
-  'exec-and-forget brew services restart borders',
-  'exec-and-forget brew services restart svim'
+  'exec-and-forget brew services restart borders'
 ]
 
 exec-on-workspace-change = [

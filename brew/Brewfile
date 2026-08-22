@@ -38,7 +38,6 @@ brew "watchman" # Watch files and take action when they change
 brew "wget"
 brew "starship"
 brew "bash"
-brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields
 brew "yazi"
 brew "btop"
 brew "fastfetch"
@@ -62,8 +61,10 @@ brew "mole"
 brew "anomalyco/tap/opencode"
 brew "presenterm"
 brew "tuicr"
+# brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields (Removed in favour of source build v1.0.11 + patches to fix zombie-child reaping)
 # brew "hunk"
 # brew "gemini-cli"
+# terminal-browser # curl -fsSL https://terminal-browser.sh/install | bash
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"

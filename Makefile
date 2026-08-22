@@ -20,3 +20,15 @@ vimium-options:
 
 kb:
 	yarn --cwd karabiner build
+
+.PHONY: svim svim-start svim-verify
+
+svim:
+	./svim/install.sh
+	@printf 'Grant Accessibility to ~/.local/opt/svim/bin/svim, then run: make svim-start\n'
+
+svim-start:
+	./svim/activate.sh --skip-build
+
+svim-verify:
+	./svim/verify.sh 300
