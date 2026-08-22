@@ -28,40 +28,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Prepend to system path
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-
-NVM_COMMANDS=(nvm node npm npx yarn pnpm corepack nvim)
-
-lazy_load_nvm() {
-  unset -f "${NVM_COMMANDS[@]}"
-  [[ -s /opt/homebrew/opt/nvm/nvm.sh ]] || return
-  source /opt/homebrew/opt/nvm/nvm.sh
-  [[ -s /opt/homebrew/opt/nvm/etc/bash_completion ]] &&
-    source /opt/homebrew/opt/nvm/etc/bash_completion
-
-  if [[ -z "$NVM_BIN" ]]; then
-    [[ -f "$NVM_DIR/alias/default" ]] || {
-      echo "No default Node version found. Installing latest LTS..."
-      nvm install --lts
-      nvm alias default "lts/*"
-    }
-    nvm use default --silent >/dev/null 2>&1
-  fi
-}
-
-for cmd in "${NVM_COMMANDS[@]}"; do
-  eval "${cmd}() { lazy_load_nvm; ${cmd} \"\$@\"; }"
-done
-autoload -U add-zsh-hook
-
-load-nvmrc() {
-  [[ -f .nvmrc ]] || return
-  (($+functions[nvm])) || load_nvm
-  nvm use --silent
-}
-
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
 
 export FUNCNEST=100
 
@@ -254,9 +220,7 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 fi
 
 ##############################################################################
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# Mise must activate last so managed runtimes win PATH resolution.
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
+fi

@@ -4,16 +4,13 @@ tap "homebrew/services"
 tap "felixkratz/formulae"
 ##############################################################################
 # LANGUAGES
-brew "python"
-brew "go"
-brew "rust"
+# Required by Homebrew's awscli, llvm, and watchman. Mise owns interactive Python.
+brew "python@3.14"
 brew "php"
 brew "lua"
 ##############################################################################
 # VERSION MANAGER
-brew "nvm"
-brew "rustup"
-brew "corepack"
+brew "mise"
 ##############################################################################
 # PACKAGE MANAGER
 brew "luarocks"

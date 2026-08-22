@@ -26,6 +26,14 @@ Create a symlink to the necessary configuration files and directories:
 make symlink
 ```
 
+### Install Runtime Versions
+
+Install pinned Node, Python, Go, and Rust versions through Mise.
+
+```sh
+make mise
+```
+
 ### Open Zsh
 
 ```sh

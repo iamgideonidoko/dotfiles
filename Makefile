@@ -1,7 +1,7 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar kb svim svim-activate svim-start svim-verify
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar mise mise-verify kb svim svim-activate svim-start svim-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -34,6 +34,18 @@ sketchybar:
 	find $(ROOT)sketchybar -type f -name '*.sh' -exec chmod +x {} +
 	curl -fL -o "$$HOME/Library/Fonts/sketchybar-app-font.ttf" https://github.com/kvndrsslr/sketchybar-app-font/releases/latest/download/sketchybar-app-font.ttf
 	brew services restart sketchybar
+
+mise:
+	@test -f "$$HOME/.config/mise/config.toml" || { printf 'Run make symlink before make mise\n' >&2; exit 1; }
+	brew install mise
+	mise install
+	$(MAKE) mise-verify
+
+mise-verify:
+	mise exec node -- node --version
+	mise exec python -- python --version
+	mise exec go -- go version
+	mise exec rust -- rustc --version
 
 path ?= ~/Downloads/vimium-options.json
 vimium-options:

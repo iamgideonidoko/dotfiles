@@ -1,0 +1,7 @@
+# Global runtime defaults. Project mise.toml files override these pins.
+[tools]
+node = { version = "24.18.0", postinstall = "corepack enable" }
+python = "3.14.6"
+go = "1.26.5"
+rust = "1.97.1"
+"npm:skills" = "1.5.22"
