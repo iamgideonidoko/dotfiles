@@ -94,4 +94,5 @@ create_symlink ~/dotfiles/lazydocker/ ~/.config/lazydocker
 create_symlink ~/dotfiles/hunk/ ~/.config/hunk
 create_symlink ~/dotfiles/tuicr/ ~/.config/tuicr
 create_symlink ~/dotfiles/mise/config.toml ~/.config/mise/config.toml
+create_symlink ~/dotfiles/vicinae/settings.json ~/.config/vicinae/settings.json
 ##############################################################################
