@@ -34,6 +34,12 @@ Install pinned Node, Python, Go, and Rust versions through Mise.
 make mise
 ```
 
+### Install GitHub Extensions
+
+```sh
+make gh-extensions
+```
+
 ### Open Zsh
 
 ```sh
