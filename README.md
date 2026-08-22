@@ -52,22 +52,28 @@ Download and install JetBrainsMono Nerd Font:
 curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" && unzip JetBrainsMono.zip -d ~/Library/Fonts/
 ```
 
+### Configure macOS
+
+Apply the macOS preferences used by this setup. This enables shared Spaces across
+displays, so change `spans-displays` to `false` in [`macos.sh`](./macos.sh) if
+you use multiple monitors with separate Spaces.
+
+```sh
+./macos.sh
+```
+
+For monitor placement, follow the [AeroSpace monitor arrangement guide](https://nikitabobko.github.io/AeroSpace/guide#proper-monitor-arrangement).
+
 ### Configurations for SketchyVim
 
-1. You can change the macOS selection color using:
-
-   ```sh
-   defaults write NSGlobalDomain AppleHighlightColor -string "0.615686 0.823529 0.454902" && killall SystemUIServer
-   ```
-
-2. Build and start patched service. Do not use `brew services restart svim`;
+1. Build and start patched service. Do not use `brew services restart svim`;
    Homebrew's v1.0.11 binary leaks exited `svim.sh` children on macOS.
 
    ```sh
    ~/dotfiles/svim/activate.sh
    ```
 
-3. Verify after normal typing for one minute:
+2. Verify after normal typing for one minute:
 
    ```sh
    ~/dotfiles/svim/verify.sh
@@ -91,60 +97,6 @@ curl -L -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/l
 
    ```sh
    brew services restart sketchybar
-   ```
-
-### Configurations for a better Aerospace experience
-
-1. Arrange your monitors properly if applicable: [see here](https://nikitabobko.github.io/AeroSpace/guide#proper-monitor-arrangement)
-
-2. Group windows by application (Show window bigger in mission control)
-
-   ```bash
-   defaults write com.apple.dock expose-group-apps -bool true && killall Dock
-
-   ```
-
-3. Move windows by dragging any part of the window (hold down ctrl + cmd)
-
-   ```bash
-   defaults write -g NSWindowShouldDragOnGesture -bool true
-   ```
-
-4. Disable windows opening animations
-
-   ```bash
-   defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
-   ```
-
-5. Prevent displays from having separate spaces && restart (Skip or change to false if you use multiple monitors and want to have separate spaces for each)
-
-   ```bash
-    defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
-   ```
-
-6. Disable animation to reduce visual friction (Skip if you like the animations)
-
-   ```bash
-   defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-   defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-   defaults write com.apple.dock expose-animation-duration -float 0
-   defaults write com.apple.dock autohide-delay -float 0
-   defaults write com.apple.dock launchanim -bool false
-   defaults write com.apple.dock appswitcher-animation-off -bool true
-   sudo defaults write com.apple.universalaccess reduceMotion -bool true
-   killall Dock
-   ```
-
-7. macOS Keyboard Speed (System Settings → Keyboard):
-   - **Key Repeat rate**: Fast
-   - **Delay Until Repeat**: Short
-
-   ```bash
-   defaults write -g KeyRepeat -int 1
-   defaults write -g InitialKeyRepeat -int 10
-   defaults write -g ApplePressAndHoldEnabled -bool false
-   killall cfprefsd
-   killall SystemUIServer
    ```
 
 ### Provide Permissions
