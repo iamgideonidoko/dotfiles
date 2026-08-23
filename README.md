@@ -87,6 +87,14 @@ For monitor placement, follow the [AeroSpace monitor arrangement guide](https://
 make sketchybar
 ```
 
+### Configure Spotify Theme
+
+Open Spotify, sign in, and leave it open for one minute. Then run:
+
+```sh
+make spicetify
+```
+
 ### Provide Permissions
 
 Open the software the require additional permissions and grant them. Also add the software like Scoot that should be login items.

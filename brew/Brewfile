@@ -60,6 +60,7 @@ brew "anomalyco/tap/opencode"
 brew "presenterm"
 brew "tuicr"
 brew "rainfrog"
+brew "spicetify-cli"
 # brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields (Removed in favour of source build v1.0.11 + patches to fix zombie-child reaping)
 # brew "hunk"
 # brew "gemini-cli"

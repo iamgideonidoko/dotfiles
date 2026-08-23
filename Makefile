@@ -2,7 +2,7 @@ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify kb svim svim-activate svim-start svim-verify
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -50,6 +50,10 @@ mise-verify:
 	mise exec python -- python --version
 	mise exec go -- go version
 	mise exec rust -- rustc --version
+
+spicetify:
+	spicetify config current_theme RosePine color_scheme Main inject_css 1 replace_colors 1
+	spicetify backup apply
 
 path ?= ~/Downloads/vimium-options.json
 vimium-options:

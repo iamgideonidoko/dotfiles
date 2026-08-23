@@ -32,6 +32,7 @@ mkdir -p ~/.config/mise
 mkdir -p ~/dotfiles/vicinae
 mkdir -p ~/.local/share/posting/themes
 mkdir -p ~/.config/rainfrog
+mkdir -p ~/.config/spicetify/Themes
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -101,4 +102,5 @@ create_symlink ~/dotfiles/mise ~/.config/mise
 create_symlink ~/dotfiles/vicinae ~/.config/vicinae
 create_symlink ~/dotfiles/posting ~/.config/posting
 create_symlink ~/dotfiles/rainfrog ~/.config/rainfrog
+create_symlink ~/dotfiles/spicetify/Themes/RosePine ~/.config/spicetify/Themes/RosePine
 ##############################################################################
