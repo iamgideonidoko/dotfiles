@@ -15,6 +15,7 @@ brew "mise"
 # PACKAGE MANAGER
 brew "luarocks"
 brew "composer"
+brew "uv"
 ##############################################################################
 brew "coreutils"
 brew "bat" # Better cat
@@ -58,9 +59,11 @@ brew "mole"
 brew "anomalyco/tap/opencode"
 brew "presenterm"
 brew "tuicr"
+brew "rainfrog"
 # brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields (Removed in favour of source build v1.0.11 + patches to fix zombie-child reaping)
 # brew "hunk"
 # brew "gemini-cli"
+# posting # uv tool install posting
 # terminal-browser # curl -fsSL https://terminal-browser.sh/install | bash
 ##############################################################################
 cask "ghostty" # Terminal emulator

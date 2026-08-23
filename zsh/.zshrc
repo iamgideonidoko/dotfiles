@@ -22,6 +22,7 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
+export RAINFROG_CONFIG="$XDG_CONFIG_HOME/rainfrog"
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1

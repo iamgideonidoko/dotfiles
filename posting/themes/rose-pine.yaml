@@ -1,0 +1,11 @@
+name: rose-pine
+primary: '#9ccfd8'
+secondary: '#c4a7e7'
+accent: '#ebbcba'
+background: '#191724'
+surface: '#1f1d2e'
+error: '#eb6f92'
+success: '#9ccfd8'
+warning: '#f6c177'
+author: Gideon Idoko
+description: Rose Pine Main

@@ -29,6 +29,9 @@ mkdir -p ~/.config/lazydocker
 mkdir -p ~/.config/hunk
 mkdir -p ~/.config/tuicr
 mkdir -p ~/.config/mise
+mkdir -p ~/dotfiles/vicinae
+mkdir -p ~/.local/share/posting/themes
+mkdir -p ~/.config/rainfrog
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -73,6 +76,8 @@ create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
 create_symlink ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
+create_symlink ~/dotfiles/svim/com.dotfiles.svim.plist ~/Library/LaunchAgents/com.dotfiles.svim.plist
+create_symlink ~/dotfiles/posting/themes/rose-pine.yaml ~/.local/share/posting/themes/rose-pine.yaml
 ##############################################################################
 # Creating symlinks for directories
 create_symlink ~/dotfiles/nvim/ ~/.config/nvim
@@ -80,7 +85,6 @@ create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
 create_symlink ~/dotfiles/starship/ ~/.config/starship
 create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
 create_symlink ~/dotfiles/svim/ ~/.config/svim
-create_symlink ~/dotfiles/svim/com.dotfiles.svim.plist ~/Library/LaunchAgents/com.dotfiles.svim.plist
 create_symlink ~/dotfiles/hammerspoon/ ~/.hammerspoon
 create_symlink ~/dotfiles/yazi/ ~/.config/yazi
 create_symlink ~/dotfiles/eza/ ~/.config/eza
@@ -93,6 +97,8 @@ create_symlink ~/dotfiles/lazygit/ ~/.config/lazygit
 create_symlink ~/dotfiles/lazydocker/ ~/.config/lazydocker
 create_symlink ~/dotfiles/hunk/ ~/.config/hunk
 create_symlink ~/dotfiles/tuicr/ ~/.config/tuicr
-create_symlink ~/dotfiles/mise/config.toml ~/.config/mise/config.toml
-create_symlink ~/dotfiles/vicinae/settings.json ~/.config/vicinae/settings.json
+create_symlink ~/dotfiles/mise ~/.config/mise
+create_symlink ~/dotfiles/vicinae ~/.config/vicinae
+create_symlink ~/dotfiles/posting ~/.config/posting
+create_symlink ~/dotfiles/rainfrog ~/.config/rainfrog
 ##############################################################################

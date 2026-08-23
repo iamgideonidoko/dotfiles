@@ -1,0 +1,7 @@
+theme: rose-pine
+spacing: compact
+layout: horizontal
+use_host_environment: false
+animation: none
+response:
+  prettify_json: true
