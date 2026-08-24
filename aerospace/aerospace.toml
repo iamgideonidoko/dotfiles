@@ -31,11 +31,7 @@ if.app-id = 'com.apple.finder'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Note'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Dictionary'
+if.app-id = 'org.freedownloadmanager.fdm6'
 run = 'layout floating'
 
 [[on-window-detected]]
