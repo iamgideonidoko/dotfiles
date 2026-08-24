@@ -67,7 +67,8 @@ stylus:
 	fi; \
 	latest="$$(ls -t "$$@" | head -n 1)"; \
 	mkdir -p "$(ROOT)stylus"; \
-	mv -f "$$latest" "$(ROOT)stylus/stylus.json"; \
+	mv -f "$$latest" "$(ROOT)stylus/stylus.json" || exit 1; \
+	for backup in "$$@"; do [ "$$backup" = "$$latest" ] || rm -f "$$backup"; done; \
 	echo "Updated $(ROOT)stylus/stylus.json"
 
 kb:
