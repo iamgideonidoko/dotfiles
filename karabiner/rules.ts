@@ -105,17 +105,15 @@ const rules: KarabinerRules[] = [
       t: app('Android Studio'), // Android S"t"udio
       comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
       period: app('Simulator'), // Xcode's iOS Simulator
-      spacebar: app('Maccy'), // Maccy Clipboard Manager
-      // Chrome apps (chrome://apps)
-      y: app('YouTube'), // "y"ouTube
-      m: app('YouTube Music'), // YouTube "m"usic
-      e: app('Photopea'), // "p"hotopea
       p: app('Postman'), // "p"ostman
-      v: app('Google Drive'), // Google D"r"ive
       z: app('Zoom.us'), // "z"oom
       h: app('Notion'), // pronounced no-s"h"on :>
       b: app('DBeaver'), // D"b"eaver
       l: app('Blender'), // B"l"ender
+      // Chrome apps (chrome://apps)
+      y: app('YouTube'), // "y"ouTube
+      m: app('YouTube Music'), // YouTube "m"usic
+      e: app('Photopea'), // "p"hotopea
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements)
     e: {
