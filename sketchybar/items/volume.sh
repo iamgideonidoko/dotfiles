@@ -24,11 +24,6 @@ volume_icon=(
   label.align=left
 )
 
-status_bracket=(
-  background.color="$BACKGROUND_1"
-  background.border_color="$BACKGROUND_2"
-)
-
 sketchybar --add slider volume right \
   --set volume "${volume_slider[@]}" \
   --subscribe volume volume_change \
@@ -37,8 +32,5 @@ sketchybar --add slider volume right \
   --add item volume_icon right \
   --set volume_icon "${volume_icon[@]}"
 
-# sketchybar --add bracket status brew github.bell wifi volume_icon \
-#            --set status "${status_bracket[@]}"
-
 sketchybar --add bracket status battery wifi volume_icon \
-  --set status "${status_bracket[@]}"
+  --set status background.color="$BACKGROUND_1" background.border_color="$BACKGROUND_2"
