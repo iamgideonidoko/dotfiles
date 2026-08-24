@@ -25,6 +25,7 @@ brew "neovim" # v~0.12
 brew "ripgrep"
 brew "fd"
 brew "tmux"
+brew "aoe" # Persistent AI-agent session manager on private tmux socket
 brew "unar"
 brew "eza" # Replacement for ls
 brew "zoxide"

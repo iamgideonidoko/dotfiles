@@ -33,6 +33,7 @@ mkdir -p ~/dotfiles/vicinae
 mkdir -p ~/.local/share/posting/themes
 mkdir -p ~/.config/rainfrog
 mkdir -p ~/.config/spicetify/Themes
+mkdir -p ~/.config/agent-of-empires
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
@@ -77,6 +78,7 @@ create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
 create_symlink ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
 create_symlink ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
+create_symlink ~/dotfiles/agent-of-empires/config.toml ~/.config/agent-of-empires/config.toml
 create_symlink ~/dotfiles/svim/com.dotfiles.svim.plist ~/Library/LaunchAgents/com.dotfiles.svim.plist
 create_symlink ~/dotfiles/posting/themes/rose-pine.yaml ~/.local/share/posting/themes/rose-pine.yaml
 ##############################################################################
