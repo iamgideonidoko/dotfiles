@@ -2,7 +2,7 @@ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -55,10 +55,20 @@ spicetify:
 	spicetify config current_theme RosePine color_scheme Main inject_css 1 replace_colors 1
 	spicetify backup apply
 
-path ?= ~/Downloads/vimium-options.json
+VIMIUM_OPTION_PATH ?= ~/Downloads/vimium-options.json
 vimium-options:
-	@test -f $(path) && mv -f $(path) ./vimium/ || echo "File not found: $(path)"
+	@test -f $(path) && mv -f $(VIMIUM_OPTION_PATH) ./vimium/ || echo "File not found: $(path)"
 
+stylus:
+	@set -- "$(HOME)"/Downloads/stylus*.json; \
+	if [ ! -f "$$1" ]; then \
+		echo "No Stylus backup found"; \
+		exit 1; \
+	fi; \
+	latest="$$(ls -t "$$@" | head -n 1)"; \
+	mkdir -p "$(ROOT)stylus"; \
+	mv -f "$$latest" "$(ROOT)stylus/stylus.json"; \
+	echo "Updated $(ROOT)stylus/stylus.json"
 
 kb:
 	yarn --cwd karabiner build
