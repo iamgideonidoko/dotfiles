@@ -8,8 +8,10 @@ ITEM_DIR="./items" # Directory where the items are configured
 # shellcheck disable=SC2034
 PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
 
-FONT="JetBrainsMono Nerd Font Mono" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
-PADDINGS=3                          # All paddings use this value (icon, label, background)
+FONT_FAMILY="JetBrainsMono Nerd Font Mono"
+FONT_SIZE=12
+FONT_SIZE_LARGE=14
+PADDINGS=3
 
 # Unload the macOS on screen indicator overlay for volume change
 launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist >/dev/null 2>&1 &
@@ -40,11 +42,15 @@ sketchybar --bar "${bar[@]}"
 # Setting up default values
 defaults=(
   updates=when_shown
-  icon.font="$FONT:Regular:12.0"
+  icon.font.family="$FONT_FAMILY"
+  icon.font.style=Regular
+  icon.font.size="$FONT_SIZE"
   icon.color="$ICON_COLOR"
   icon.padding_left="$PADDINGS"
   icon.padding_right="$PADDINGS"
-  label.font="$FONT:Semibold:12.0"
+  label.font.family="$FONT_FAMILY"
+  label.font.style=Semibold
+  label.font.size="$FONT_SIZE"
   label.color="$LABEL_COLOR"
   label.padding_left="$PADDINGS"
   label.padding_right="$PADDINGS"

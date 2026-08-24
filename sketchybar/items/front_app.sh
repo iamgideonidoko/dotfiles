@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 front_app=(
-  label.font="$FONT:Black:12.0"
+  label.font.style=Black
   icon.background.drawing=on
   icon.background.image.scale=0.7
   script="$PLUGIN_DIR/front_app.sh"
