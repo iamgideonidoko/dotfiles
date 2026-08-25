@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+NOTES_OUTER_SOCKET=${1:-${NOTES_OUTER_SOCKET:-}}
+NOTES_OUTER_CLIENT=${2:-${NOTES_OUTER_CLIENT:-}}
 NOTES_DIR="$HOME/notes"
 mkdir -p "$NOTES_DIR"
 
@@ -15,5 +17,6 @@ tmux -L notes unbind-key C-b
 tmux -L notes set-option -g prefix C-Space
 tmux -L notes bind-key C-Space send-prefix
 tmux -L notes bind-key p run-shell -b 'bash ~/dotfiles/tmux/notes-popup-close.sh'
+tmux -L notes bind-key P run-shell -b 'bash ~/dotfiles/tmux/notes-popup-close.sh'
 
 exec tmux -L notes attach-session -t notes-popup
