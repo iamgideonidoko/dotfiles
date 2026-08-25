@@ -182,3 +182,7 @@ alias gwt='git worktree'
 alias gwta='git worktree add'
 alias gwtl='git worktree list'
 alias gwtrm='git worktree remove'
+alias gwtp='git worktree prune'
+alias gwtlk='git worktree lock'
+alias gwtu='git worktree unlock'
+
