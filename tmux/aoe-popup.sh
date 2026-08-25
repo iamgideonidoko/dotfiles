@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
-if ! tmux -S "$AOE_OUTER_SOCKET" has-session -t aoe-dashboard 2>/dev/null; then
-  tmux -S "$AOE_OUTER_SOCKET" new-session -d -s aoe-dashboard -c "$PWD" aoe
+AOE_OUTER_SOCKET=$1
+AOE_OUTER_CLIENT=$2
+AOE_CURRENT_PATH=$3
+
+if ! tmux -L aoe-dashboard has-session -t aoe-dashboard 2>/dev/null; then
+  tmux -L aoe-dashboard new-session -d -s aoe-dashboard -c "$AOE_CURRENT_PATH" aoe
+  tmux -L aoe-dashboard set-option -t aoe-dashboard status off
+  tmux -L aoe-dashboard set-option -t aoe-dashboard detach-on-destroy on
 fi
 
-tmux -S "$AOE_OUTER_SOCKET" set-option -t aoe-dashboard status off
-tmux -S "$AOE_OUTER_SOCKET" set-option -t aoe-dashboard detach-on-destroy on
-# Guard popup-producing plugin bindings by session. AoE dashboard uses outer tmux.
-tmux -S "$AOE_OUTER_SOCKET" bind-key C-Space if-shell -F '#{==:#{session_name},aoe-dashboard}' '' "run-shell -b '#{TMUX_PLUGIN_MANAGER_PATH}/tmux-fzf/scripts/window.sh switch'"
-tmux -L aoe set-environment -g AOE_OUTER_SOCKET "$AOE_OUTER_SOCKET"
-tmux -L aoe set-environment -g AOE_OUTER_CLIENT "$AOE_OUTER_CLIENT"
-tmux -L aoe set-option -g prefix C-b
-tmux -L aoe bind-key C-b send-prefix
-tmux -L aoe set-hook -g client-attached 'if-shell -F "#{m:aoe_*,#{session_name}}" "switch-client -T aoe-agent"'
-tmux -L aoe bind-key -T aoe-agent C-b switch-client -T prefix
-tmux -L aoe bind-key -T aoe-agent C-q detach-client
-tmux -L aoe bind-key -T aoe-agent C-Space switch-client -T aoe-agent-prefix
-tmux -L aoe bind-key -T aoe-agent-prefix a run-shell -b 'bash ~/dotfiles/tmux/aoe-popup-close.sh'
-tmux -L aoe bind-key -T aoe-agent-prefix Escape switch-client -T aoe-agent
-exec tmux -S "$AOE_OUTER_SOCKET" attach-session -t aoe-dashboard
+tmux -L aoe-dashboard set-environment -g AOE_OUTER_SOCKET "$AOE_OUTER_SOCKET"
+tmux -L aoe-dashboard set-environment -g AOE_OUTER_CLIENT "$AOE_OUTER_CLIENT"
+tmux -L aoe-dashboard unbind-key C-b
+tmux -L aoe-dashboard set-option -g prefix C-Space
+tmux -L aoe-dashboard bind-key C-Space send-prefix
+tmux -L aoe-dashboard bind-key a run-shell -b 'bash ~/dotfiles/tmux/aoe-popup-close.sh'
+exec tmux -L aoe-dashboard attach-session -t aoe-dashboard
