@@ -16,7 +16,6 @@ tmux -L notes set-environment -g NOTES_OUTER_CLIENT "$NOTES_OUTER_CLIENT"
 tmux -L notes unbind-key C-b
 tmux -L notes set-option -g prefix C-Space
 tmux -L notes bind-key C-Space send-prefix
-tmux -L notes bind-key p run-shell -b 'bash ~/dotfiles/tmux/notes-popup-close.sh'
-tmux -L notes bind-key P run-shell -b 'bash ~/dotfiles/tmux/notes-popup-close.sh'
+tmux -L notes bind-key k run-shell -b 'bash ~/dotfiles/tmux/notes-popup-close.sh'
 
 exec tmux -L notes attach-session -t notes-popup
