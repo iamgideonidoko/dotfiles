@@ -6,6 +6,10 @@ fi
 
 tmux -S "$AOE_OUTER_SOCKET" set-option -t aoe-dashboard status off
 tmux -S "$AOE_OUTER_SOCKET" set-option -t aoe-dashboard detach-on-destroy on
+# Guard popup-producing plugin bindings by session. AoE dashboard uses outer tmux.
+tmux -S "$AOE_OUTER_SOCKET" bind-key C-Space if-shell -F '#{==:#{session_name},aoe-dashboard}' '' "run-shell -b '#{TMUX_PLUGIN_MANAGER_PATH}/tmux-fzf/scripts/window.sh switch'"
+tmux -S "$AOE_OUTER_SOCKET" bind-key p if-shell -F '#{==:#{session_name},aoe-dashboard}' '' "run-shell '#{TMUX_PLUGIN_MANAGER_PATH}/tmux-floax/scripts/floax.sh'"
+tmux -S "$AOE_OUTER_SOCKET" bind-key P if-shell -F '#{==:#{session_name},aoe-dashboard}' '' "run-shell '#{TMUX_PLUGIN_MANAGER_PATH}/tmux-floax/scripts/menu.sh'"
 tmux -L aoe set-environment -g AOE_OUTER_SOCKET "$AOE_OUTER_SOCKET"
 tmux -L aoe set-environment -g AOE_OUTER_CLIENT "$AOE_OUTER_CLIENT"
 tmux -L aoe set-option -g prefix C-b
