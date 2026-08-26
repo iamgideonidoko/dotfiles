@@ -84,6 +84,7 @@ function! s:ToggleStatusline() abort
   endif
 endfunction
 nnoremap <silent> <leader>_ :call <SID>ToggleStatusline()<CR>
+nnoremap <silent> <leader>m :messages<CR>
 
 " Tab Management (native Vim equivalent of nvim tabline controls)
 function! s:ToggleTabline() abort
