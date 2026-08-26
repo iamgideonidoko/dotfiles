@@ -95,7 +95,13 @@ yolo_mode_default = false
 auto_propagate = false
 
 [sound]
-enabled = false
+enabled = true
+on_approval = "gem.wav"
+on_error = "error.wav"
+on_idle = "idle.wav"
+on_running = "start.wav"
+on_start = "start.wav"
+on_waiting = "waiting.wav"
 
 [status_hooks]
 enabled = false
