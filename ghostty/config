@@ -14,6 +14,5 @@ window-step-resize = false
 macos-titlebar-style = hidden
 macos-option-as-alt = left
 mouse-hide-while-typing = true
-keybind = shift+enter=text:\x1b[13;2u
 keybind = alt+shift+period=csi:62;4u
 keybind = alt+shift+comma=csi:60;4u
