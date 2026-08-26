@@ -17,12 +17,12 @@ update_icon() {
 
       CURRENT_WORKSPACE=$(aerospace list-workspaces --focused)
       if [ -n "$icons" ]; then
-        sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons" label.padding_right=20 background.color=0x44FFFFFF
+        sketchybar --set "aerospace.workspace.$sid" drawing=on label="$icons" label.padding_right=13 background.color=0x44FFFFFF
         if [ "$sid" = "$CURRENT_WORKSPACE" ]; then
           sketchybar --set "aerospace.workspace.$sid" background.color=0x607DCFFF
         fi
       elif [ "$sid" = "$CURRENT_WORKSPACE" ]; then
-        sketchybar --set "aerospace.workspace.$sid" drawing=on label="" label.padding_right=10 background.color=0x607DCFFF
+        sketchybar --set "aerospace.workspace.$sid" drawing=on background.color=0x607DCFFF
       else
         sketchybar --set "aerospace.workspace.$sid" drawing=off label=""
       fi
