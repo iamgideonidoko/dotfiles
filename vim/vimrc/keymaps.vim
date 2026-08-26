@@ -85,12 +85,35 @@ function! s:ToggleStatusline() abort
 endfunction
 nnoremap <silent> <leader>_ :call <SID>ToggleStatusline()<CR>
 
-" Tab Management (nvim <leader>t group)
-nnoremap <silent> <leader>tn :tabnew<CR>
+" Tab Management (native Vim equivalent of nvim tabline controls)
+function! s:ToggleTabline() abort
+  if &showtabline == 2
+    set showtabline=0
+  else
+    set showtabline=2
+  endif
+endfunction
+
+nnoremap <silent> <leader>tt :tabnew<CR>
 nnoremap <silent> <leader>tc :tabclose<CR>
 nnoremap <silent> <leader>to :tabonly<CR>
+nnoremap <silent> <leader>tp :tabprevious<CR>
+nnoremap <silent> <leader>tn :tabnext<CR>
 nnoremap <silent> <leader>tf :tabfirst<CR>
 nnoremap <silent> <leader>tl :tablast<CR>
+nnoremap <silent> <leader>tP :-tabmove<CR>
+nnoremap <silent> <leader>tN :+tabmove<CR>
+nnoremap <silent> <leader>t_ :call <SID>ToggleTabline()<CR>
+nnoremap <silent> <leader>ta :tabprevious<CR>
+nnoremap <silent> <leader>t1 :tabnext 1<CR>
+nnoremap <silent> <leader>t2 :tabnext 2<CR>
+nnoremap <silent> <leader>t3 :tabnext 3<CR>
+nnoremap <silent> <leader>t4 :tabnext 4<CR>
+nnoremap <silent> <leader>t5 :tabnext 5<CR>
+nnoremap <silent> <leader>t6 :tabnext 6<CR>
+nnoremap <silent> <leader>t7 :tabnext 7<CR>
+nnoremap <silent> <leader>t8 :tabnext 8<CR>
+nnoremap <silent> <leader>t9 :tabnext 9<CR>
 
 " Move lines up/down (matches nvim <M->>/<M-<>) plus <A-j>/<A-k> aliases
 nnoremap <silent> <A-j> :m .+1<CR>==

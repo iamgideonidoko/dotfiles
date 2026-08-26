@@ -36,7 +36,7 @@ set shortmess+=sIcC
 set noshowmode
 set showcmd
 set laststatus=2
-set showtabline=1
+set showtabline=0
 set splitbelow
 set splitright
 set breakindent

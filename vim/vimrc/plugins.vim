@@ -3,10 +3,8 @@ scriptencoding utf-8
 call jetpack#begin()
 Jetpack 'tani/vim-jetpack', {'opt': 1}
 
-" LSP & Completion (mirrors nvim-lspconfig + blink.cmp + friendly-snippets)
-if g:vimrc_use_coc
-  Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
-endif
+" LSP & Completion. Always declare so vim/vv share Jetpack state; load only in vv.
+Jetpack 'neoclide/coc.nvim', {'branch': 'release', 'opt': 1}
 
 " Fuzzy Finder (mirrors telescope.nvim + plenary + telescope-fzf-native + ui-select)
 Jetpack 'junegunn/fzf', {'do': { -> fzf#install() } }
@@ -48,11 +46,6 @@ Jetpack 'mhinz/vim-startify'
 
 " Tmux integration (mirrors vim-tmux-navigator)
 Jetpack 'christoomey/vim-tmux-navigator'
-
-" AI (mirrors copilot.lua + copilot-cmp)
-if g:vimrc_use_copilot
-  Jetpack 'github/copilot.vim'
-endif
 
 " Time tracking
 Jetpack 'wakatime/vim-wakatime'

@@ -13,8 +13,8 @@ augroup vimrc_general
   " Auto-resize splits on window resize (with tab restore)
   autocmd VimResized * let s:cur_tab = tabpagenr() | tabdo wincmd = | exec 'tabnext ' . s:cur_tab
 
-  " Format on save when g:autoformat is on and coc is loaded (mirrors conform.nvim)
-  autocmd BufWritePre * if get(g:, 'autoformat', 0) && g:vimrc_use_coc && exists('*CocActionAsync') | call CocActionAsync('format') | endif
+  " Format on save when enabled in vv (mirrors conform.nvim).
+  autocmd BufWritePre * if get(g:, 'autoformat', 0) && g:vimrc_use_ai && exists('*CocActionAsync') | call CocActionAsync('format') | endif
 
   " Check for changes on focus/terminal close (mirrors checktime autocmd)
   autocmd FocusGained,BufEnter * if &buftype !=# 'nofile' | checktime | endif

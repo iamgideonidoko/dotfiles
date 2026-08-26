@@ -58,7 +58,7 @@ nnoremap <silent> <leader>fk :Maps<CR>
 nnoremap <silent> <leader>fg :Rg<CR>
 xnoremap <silent> <leader>fg "sy:Rg <C-R>s<CR>
 nnoremap <silent> <leader>fc :BLines<CR>
-if g:vimrc_use_coc
+if g:vimrc_use_ai
   nnoremap <silent> <leader>fd :CocList diagnostics<CR>
 endif
 nnoremap <silent> <leader>fo :Lines<CR>
@@ -66,7 +66,7 @@ nnoremap <silent> <leader>fr :History<CR>
 nnoremap <silent> <leader>f. :History<CR>
 nnoremap <silent> <leader>fn :Files ~/.vim<CR>
 nnoremap <silent> <leader>fl :Lines<CR>
-if g:vimrc_use_coc
+if g:vimrc_use_ai
   nnoremap <silent> <leader>fs :Snippets<CR>
 endif
 nnoremap <silent> <leader>ft :Filetypes<CR>

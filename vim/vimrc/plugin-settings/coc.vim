@@ -1,8 +1,10 @@
 scriptencoding utf-8
 
-if !g:vimrc_use_coc
+if !g:vimrc_use_ai
   finish
 endif
+
+call jetpack#load('coc.nvim')
 
 " Required extensions (coc will offer to install missing ones on next startup)
 let g:coc_global_extensions = [

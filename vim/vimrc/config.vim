@@ -3,7 +3,7 @@ scriptencoding utf-8
 " Mirrors ~/dotfiles/nvim as faithfully as possible in plain Vim 9.
 " Plugin manager : vim-jetpack (lazy + auto-install)
 " Target         : Vim 9.1+ with +channel +job +termguicolors (e.g. Homebrew vim)
-" Optional deps  : node/npm (coc.nvim, copilot.vim), ripgrep, fzf, lazygit
+" Optional deps  : node/npm (coc.nvim), ripgrep, fzf, lazygit
 "
 " Neovim-only plugins without perfect Vim ports (intentionally skipped):
 "   oil.nvim          -> netrw (kept enabled; maps `-` to :Explore just like oil)
@@ -24,25 +24,13 @@ scriptencoding utf-8
 " Edit these (or override them in ~/.vimrc.local which is sourced below) to
 " toggle heavyweight features on this machine without touching dotfiles.
 "
-"   g:vimrc_use_coc       = 1  -> load coc.nvim LSP/completion (default: off)
-"   g:vimrc_use_copilot   = 1  -> load copilot.vim          (default: off)
-"   g:vimrc_use_ai        = 1  -> alias for both of the above
-let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 0)
-let g:vimrc_use_copilot = get(g:, 'vimrc_use_copilot', 0)
-if get(g:, 'vimrc_use_ai', 0)
-  let g:vimrc_use_coc = 1
-  let g:vimrc_use_copilot = 1
-endif
+"   g:vimrc_use_ai = 1  -> load coc.nvim LSP/completion (default: off)
+let g:vimrc_use_ai = get(g:, 'vimrc_use_ai', 0)
 
 " Machine-local overrides (not version controlled): belongs in ~/.vimrc.local.
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
-  let g:vimrc_use_coc = get(g:, 'vimrc_use_coc', 0)
-  let g:vimrc_use_copilot = get(g:, 'vimrc_use_copilot', 0)
-  if get(g:, 'vimrc_use_ai', 0)
-    let g:vimrc_use_coc = 1
-    let g:vimrc_use_copilot = 1
-  endif
+  let g:vimrc_use_ai = get(g:, 'vimrc_use_ai', 0)
 endif
 
 let g:autoformat = get(g:, 'autoformat', 0)
