@@ -34,9 +34,9 @@
       "system_info": false
    },
    "launcher_window": {
-      "opacity": 0.3,
+      "opacity": 0,
       "compact_mode": {
-         "enabled": false
+         "enabled": true
       },
       "material": "liquid_glass"
    },
