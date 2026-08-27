@@ -96,7 +96,7 @@ cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
 cask "zulu@17"
 cask "codex"
-cask "vicinae" # Keyboard launcher; replaces Spotlight
+# cask "vicinae" # Keyboard launcher; prefer Spotlight
 # cask "maccy" # Clipboard manager
 # cask "copilot-cli"
 # cask "ollama-app"
