@@ -102,6 +102,7 @@ on_idle = "idle.wav"
 on_running = "start.wav"
 on_start = "start.wav"
 on_waiting = "waiting.wav"
+volume = 1.5
 
 [status_hooks]
 enabled = false
