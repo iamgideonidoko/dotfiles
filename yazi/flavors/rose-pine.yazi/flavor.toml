@@ -2,7 +2,7 @@
 
 # : Manager {{{
 
-[manager]
+[mgr]
 cwd = { fg = "#31748f" }  # Pine
 
 # Hovered
@@ -19,11 +19,6 @@ marker_cut      = { fg = "#f6c177", bg = "#eb6f92" }  # Gold/Love
 marker_marked   = { fg = "#31748f", bg = "#9ccfd8" }  # Pine/Foam
 marker_selected = { fg = "#f6c177", bg = "#f6c177" }  # Gold
 
-# Tab
-tab_active   = { bg = "#26233a", fg = "#9ccfd8" }  # Overlay bg, Foam text
-tab_inactive = {}
-tab_width    = 1
-
 # Count
 count_copied   = { fg = "#26233a", bg = "#9ccfd8" }  # Overlay on Foam
 count_cut      = { fg = "#26233a", bg = "#f6c177" }  # Overlay on Gold
@@ -32,6 +27,14 @@ count_selected = { fg = "#26233a", bg = "#31748f" }  # Overlay on Pine
 # Border
 border_symbol = "│"
 border_style  = { fg = "#403d52" }  # Highlight Med
+
+# : }}}
+
+# : Tabs {{{
+
+[tabs]
+active   = { bg = "#26233a", fg = "#9ccfd8" }  # Overlay bg, Foam text
+inactive = {}
 
 # : }}}
 
@@ -177,8 +180,8 @@ rules = [
 	{ mime = "application/vnd.*", fg = "#9ccfd8" },  # Foam
 
 	# Fallback
-	{ name = "*",  fg = "#e0def4" },  # Text
-	{ name = "*/", fg = "#31748f" }   # Pine (directories)
+	{ url = "*",  fg = "#e0def4" },  # Text
+	{ url = "*/", fg = "#31748f" }   # Pine (directories)
 ]
 
 # : }}}
