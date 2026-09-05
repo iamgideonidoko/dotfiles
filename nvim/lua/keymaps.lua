@@ -62,8 +62,33 @@ set("n", "<M-i>", utils.add_empty_line, { desc = "Insert an empty line above cur
 -- Move line(s) up or down
 set("n", "<M-S->>", ":m .+1<CR>==", { noremap = true, silent = true })
 set("n", "<M-S-<>", ":m .-2<CR>==", { noremap = true, silent = true })
-set("v", "<M-S->>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-set("v", "<M-S-<>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+local function move_visual_lines(offset)
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  if (offset > 0 and end_line == vim.fn.line("$")) or (offset < 0 and start_line == 1) then
+    return
+  end
+
+  local destination = offset > 0 and end_line + 1 or start_line - 2
+  vim.cmd(("silent %d,%dmove %d"):format(start_line, end_line, destination))
+  vim.cmd("normal! ==")
+  vim.api.nvim_win_set_cursor(0, { start_line + offset, 0 })
+  local count = end_line - start_line
+  vim.cmd(("normal! %dj"):format(count))
+  vim.cmd(("normal! V%dk"):format(count))
+end
+
+set("v", "<M-S->>", function()
+  move_visual_lines(1)
+end, { noremap = true, silent = true })
+
+set("v", "<M-S-<>", function()
+  move_visual_lines(-1)
+end, { noremap = true, silent = true })
 
 set("n", "<leader>_", function()
   vim.o.laststatus = vim.o.laststatus == 0 and 2 or 0
