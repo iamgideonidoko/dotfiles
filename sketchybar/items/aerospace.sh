@@ -2,7 +2,7 @@
 
 sketchybar --add event aerospace_item_init
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event hammerspoon_windows_change
+sketchybar --add event aerospace_focus_change
 
 aerospace_workspace=(
   drawing=off
@@ -74,7 +74,7 @@ sketchybar --add item aerospace.workspaces left --set aerospace.workspaces "${ae
 
 sketchybar --add item aerospace.separator.2 left --set aerospace.separator.2 "${aerospace_separator_2[@]}" \
   --subscribe aerospace.separator.2 aerospace_workspace_change \
-  --subscribe aerospace.separator.2 hammerspoon_windows_change \
+  --subscribe aerospace.separator.2 aerospace_focus_change \
   --subscribe aerospace.separator.2 aerospace_item_init
 
 sketchybar --trigger aerospace_item_init

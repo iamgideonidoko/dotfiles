@@ -230,19 +230,3 @@ export function app(name: string): LayerCommand {
 export function browse(...links: string[]): LayerCommand {
   return open(`-a 'Google Chrome' '${links}' `);
 }
-
-/**
- * Shortcut for running Hammerspoon URL events
- */
-export function hammerspoon(name: string, config?: Partial<{ repeat: boolean }>): LayerCommand {
-  const { repeat = true } = config || {};
-  return {
-    to: [
-      {
-        shell_command: `open -g hammerspoon://${name}`,
-        repeat,
-      },
-    ],
-    description: `Hammerspoon: ${name}`,
-  };
-}

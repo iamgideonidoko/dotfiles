@@ -59,7 +59,7 @@ update_monitor() {
 }
 
 if
-  [ "${SENDER:-}" = "hammerspoon_windows_change" ] ||
+  [ "${SENDER:-}" = "aerospace_focus_change" ] ||
     [ "${SENDER:-}" = "aerospace_item_init" ] ||
     [ "${SENDER:-}" = "aerospace_workspace_change" ]
 then

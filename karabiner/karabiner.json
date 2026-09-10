@@ -534,11 +534,11 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -g hammerspoon://openAndroidEmulator",
+                    "shell_command": "$HOME/.config/karabiner/open-android-emulator.sh",
                     "repeat": false
                   }
                 ],
-                "description": "Hammerspoon: openAndroidEmulator",
+                "description": "Open Android Emulator",
                 "type": "basic",
                 "from": {
                   "key_code": "comma",

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { KarabinerRules } from './types';
-import { createHyperSubLayers, app, hammerspoon, browse } from './utils';
+import { createHyperSubLayers, app, browse } from './utils';
 
 const mouseSpeed = 1536,
   mouseSpeedFast = mouseSpeed * 4,
@@ -105,7 +105,10 @@ const rules: KarabinerRules[] = [
       i: app('iPhone Mirroring'), // "i"phone Mirroring
       x: app('Xcode-16.2.0'), // "x"code
       t: app('Android Studio'), // Android S"t"udio
-      comma: hammerspoon('openAndroidEmulator', { repeat: false }), // Android Studio's Android Emulator
+      comma: {
+        to: [{ shell_command: '$HOME/.config/karabiner/open-android-emulator.sh', repeat: false }],
+        description: 'Open Android Emulator',
+      },
       period: app('Simulator'), // Xcode's iOS Simulator
       p: app('Postman'), // "p"ostman
       z: app('Zoom.us'), // "z"oom

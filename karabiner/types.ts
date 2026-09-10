@@ -134,6 +134,7 @@ export interface To {
   mouse_key?: MouseKey;
   pointing_button?: string;
   repeat?: boolean;
+  hold_down_milliseconds?: number;
   halt?: boolean;
   /**
    * Power Management plugin
