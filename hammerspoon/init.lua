@@ -1,4 +1,3 @@
-require("modules.capslock")
 require("modules.emulator")
 require("modules.sketchybar")
 

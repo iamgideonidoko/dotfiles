@@ -44,7 +44,9 @@ const rules: KarabinerRules[] = [
             repeat: false,
           },
           {
-            ...hammerspoon('toggleCapsLock', { repeat: false }).to[0], // Toggle Caps Lock normally
+            key_code: 'caps_lock',
+            hold_down_milliseconds: 200,
+            repeat: false,
           },
         ],
         parameters: {

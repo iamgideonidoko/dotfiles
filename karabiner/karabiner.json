@@ -50,7 +50,8 @@
                     "repeat": false
                   },
                   {
-                    "shell_command": "open -g hammerspoon://toggleCapsLock",
+                    "key_code": "caps_lock",
+                    "hold_down_milliseconds": 200,
                     "repeat": false
                   }
                 ],
