@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ##############################################################################
 # ASCII color codes
 boldGreen="\033[1;32m"
@@ -10,41 +13,28 @@ noColor="\033[0m"
 ##############################################################################
 mkdir -p ~/.config
 mkdir -p ~/Library/LaunchAgents
-mkdir -p ~/.config/nvim
-mkdir -p ~/.config/ghostty
-mkdir -p ~/.config/starship
-mkdir -p ~/.config/karabiner
-mkdir -p ~/.config/svim
-mkdir -p ~/.config/yazi
-mkdir -p ~/.config/eza
-mkdir -p ~/.config/btop
-mkdir -p ~/.config/fastfetch
-mkdir -p ~/.config/aerospace
-mkdir -p ~/.config/sketchybar
-mkdir -p ~/.config/borders
 mkdir -p ~/.vim/{undodir,pack,autoload,sessions}
-mkdir -p ~/.config/lazygit
-mkdir -p ~/.config/lazydocker
-mkdir -p ~/.config/tuicr
-mkdir -p ~/.config/mise
-mkdir -p ~/.local/share/posting/themes
-mkdir -p ~/.config/rainfrog
-mkdir -p ~/.config/spicetify/Themes
-mkdir -p ~/.config/agent-of-empires
 ##############################################################################
 # Helper function for creating symlinks
 create_symlink() {
   local source_path=$1
   local target_path=$2
-  local backup_needed=true
-  # Check if the target is a file and contains the unique identifier
-  if [ -f "$target_path" ] && grep -q "DO_NOT_BACK_UP_FIlE" "$target_path"; then
-    backup_needed=false
+  local target_parent
+  target_parent="$(dirname "$target_path")"
+
+  if [ -L "$target_parent" ]; then
+    local linked_parent
+    linked_parent="$(readlink "$target_parent")"
+    linked_parent="${linked_parent%/}"
+    if [[ "$source_path" == "$linked_parent/"* ]]; then
+      /bin/unlink "$target_parent"
+    else
+      echo "Cannot replace parent symlink: $target_parent" >&2
+      return 1
+    fi
   fi
-  # Check if the target is a directory and contains the `DO_NOT_BACK_UP_DIR` file with the unique identifier
-  if [ -d "$target_path" ] && [ -f "$target_path/DO_NOT_BACK_UP_DIR" ]; then
-    backup_needed=false
-  fi
+
+  mkdir -p "$target_parent"
   # Check if symlink already exists and points to the correct source
   if [ -L "$target_path" ]; then
     if [ "$(readlink "$target_path")" = "$source_path" ]; then
@@ -56,7 +46,7 @@ create_symlink() {
     fi
   fi
   # Backup the target if it's not a symlink and backup is needed
-  if [ -e "$target_path" ] && [ ! -L "$target_path" ] && [ "$backup_needed" = true ]; then
+  if [ -e "$target_path" ] && [ ! -L "$target_path" ]; then
     local backup_path
     backup_path="${target_path}_backup_$(date +%Y%m%d%H%M%S)"
     echo -e "${boldYellow}Backing up your existing file '$target_path' to '$backup_path'${noColor}"
@@ -70,33 +60,36 @@ create_symlink() {
 }
 ##############################################################################
 # Creating symlinks for files
-create_symlink ~/dotfiles/zsh/.zshrc ~/.zshrc
-create_symlink ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-create_symlink ~/dotfiles/vim/.vimrc ~/.vimrc
-create_symlink ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
-create_symlink ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
-create_symlink ~/dotfiles/agent-of-empires/config.toml ~/.config/agent-of-empires/config.toml
-create_symlink ~/dotfiles/svim/com.dotfiles.svim.plist ~/Library/LaunchAgents/com.dotfiles.svim.plist
-create_symlink ~/dotfiles/posting/themes/rose-pine.yaml ~/.local/share/posting/themes/rose-pine.yaml
+create_symlink "$repo_dir/zsh/.zshrc" ~/.zshrc
+create_symlink "$repo_dir/tmux/.tmux.conf" ~/.tmux.conf
+create_symlink "$repo_dir/vim/.vimrc" ~/.vimrc
+create_symlink "$repo_dir/vim/coc-settings.json" ~/.vim/coc-settings.json
+create_symlink "$repo_dir/opencode/opencode.jsonc" ~/.config/opencode/opencode.jsonc
+create_symlink "$repo_dir/agent-of-empires/config.toml" ~/.config/agent-of-empires/config.toml
+create_symlink "$repo_dir/svim/com.dotfiles.svim.plist" ~/Library/LaunchAgents/com.dotfiles.svim.plist
+create_symlink "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/rose-pine.yaml
+create_symlink "$repo_dir/ghostty/config" ~/.config/ghostty/config
+create_symlink "$repo_dir/starship/starship.toml" ~/.config/starship.toml
+create_symlink "$repo_dir/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
+create_symlink "$repo_dir/karabiner/open-android-emulator.sh" ~/.config/karabiner/open-android-emulator.sh
+create_symlink "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
+create_symlink "$repo_dir/yazi/keymap.toml" ~/.config/yazi/keymap.toml
+create_symlink "$repo_dir/yazi/theme.toml" ~/.config/yazi/theme.toml
+create_symlink "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
+create_symlink "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
+create_symlink "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
+create_symlink "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
+create_symlink "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
+create_symlink "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
+create_symlink "$repo_dir/mise/config.toml" ~/.config/mise/config.toml
+create_symlink "$repo_dir/rainfrog/rainfrog_config.toml" ~/.config/rainfrog/rainfrog_config.toml
 ##############################################################################
 # Creating symlinks for directories
-create_symlink ~/dotfiles/nvim/ ~/.config/nvim
-create_symlink ~/dotfiles/ghostty/ ~/.config/ghostty
-create_symlink ~/dotfiles/starship/ ~/.config/starship
-create_symlink ~/dotfiles/karabiner/ ~/.config/karabiner
-create_symlink ~/dotfiles/svim/ ~/.config/svim
-create_symlink ~/dotfiles/yazi/ ~/.config/yazi
-create_symlink ~/dotfiles/eza/ ~/.config/eza
-create_symlink ~/dotfiles/btop/ ~/.config/btop
-create_symlink ~/dotfiles/fastfetch/ ~/.config/fastfetch
-create_symlink ~/dotfiles/aerospace/ ~/.config/aerospace
-create_symlink ~/dotfiles/sketchybar/ ~/.config/sketchybar
-create_symlink ~/dotfiles/borders/ ~/.config/borders
-create_symlink ~/dotfiles/lazygit/ ~/.config/lazygit
-create_symlink ~/dotfiles/lazydocker/ ~/.config/lazydocker
-create_symlink ~/dotfiles/tuicr/ ~/.config/tuicr
-create_symlink ~/dotfiles/mise ~/.config/mise
-create_symlink ~/dotfiles/posting ~/.config/posting
-create_symlink ~/dotfiles/rainfrog ~/.config/rainfrog
-create_symlink ~/dotfiles/spicetify/Themes/RosePine ~/.config/spicetify/Themes/RosePine
+create_symlink "$repo_dir/nvim/" ~/.config/nvim
+create_symlink "$repo_dir/svim/" ~/.config/svim
+create_symlink "$repo_dir/btop/" ~/.config/btop
+create_symlink "$repo_dir/sketchybar/" ~/.config/sketchybar
+create_symlink "$repo_dir/tuicr/" ~/.config/tuicr
+create_symlink "$repo_dir/posting" ~/.config/posting
+create_symlink "$repo_dir/spicetify/Themes/RosePine" ~/.config/spicetify/Themes/RosePine
 ##############################################################################

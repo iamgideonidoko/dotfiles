@@ -34,7 +34,7 @@ export FUNCNEST=100
 
 # Enable Starship prompt
 if command -v starship &>/dev/null; then
-  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+  export STARSHIP_CONFIG="$HOME/.config/starship.toml"
   if [[ "${widgets['zle-keymap-select']#user:}" == "starship_zle-keymap-select" ||
     "${widgets['zle-keymap-select']#user:}" == "starship_zle-keymap-select-wrapped" ]]; then
     zle -N zle-keymap-select ""
