@@ -62,9 +62,6 @@ brew "presenterm"
 brew "tuicr"
 brew "rainfrog"
 brew "spicetify-cli"
-# brew "felixkratz/formulae/svim" # Adds vim moves and modes to macOS text fields (Removed in favour of source build v1.0.11 + patches to fix zombie-child reaping)
-# brew "hunk"
-# brew "gemini-cli"
 # posting # uv tool install posting
 ##############################################################################
 cask "ghostty" # Terminal emulator
@@ -96,23 +93,4 @@ cask "zulu@17"
 cask "codex"
 cask "terminal-browser"
 cask "handy" # Speech to text
-# cask "vicinae" # Keyboard launcher; prefer Spotlight
-# cask "maccy" # Clipboard manager
-# cask "copilot-cli"
-# cask "ollama-app"
-# cask "lulu" # Firewall
-# cask "chatgpt"
-# cask "grammarly-desktop"
-# cask "claude-code"
-# cask "scoot" # Cursor actuator
-# cask "rectangle" # Window manager - replaced by aerospace + sketchybar + borders 
-# cask "notion" # Prefer browser version
-# cask "mos" # Mouse utility
-# cask "protonvpn" # Personal VPN
-# cask "tunnelbear" # Personal VPN
-# cask "openvpn-connect" # Work VPN
-# cask "ngrok" # Prefer localtunnel
-# cask "figma" # Prefer browser version
-# cask "canva" # Prefer browser version
-# cask "iterm2" # Prefer Ghostty
 ##############################################################################

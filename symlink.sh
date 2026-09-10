@@ -25,10 +25,8 @@ mkdir -p ~/.config/borders
 mkdir -p ~/.vim/{undodir,pack,autoload,sessions}
 mkdir -p ~/.config/lazygit
 mkdir -p ~/.config/lazydocker
-mkdir -p ~/.config/hunk
 mkdir -p ~/.config/tuicr
 mkdir -p ~/.config/mise
-mkdir -p ~/dotfiles/vicinae
 mkdir -p ~/.local/share/posting/themes
 mkdir -p ~/.config/rainfrog
 mkdir -p ~/.config/spicetify/Themes
@@ -96,10 +94,8 @@ create_symlink ~/dotfiles/sketchybar/ ~/.config/sketchybar
 create_symlink ~/dotfiles/borders/ ~/.config/borders
 create_symlink ~/dotfiles/lazygit/ ~/.config/lazygit
 create_symlink ~/dotfiles/lazydocker/ ~/.config/lazydocker
-create_symlink ~/dotfiles/hunk/ ~/.config/hunk
 create_symlink ~/dotfiles/tuicr/ ~/.config/tuicr
 create_symlink ~/dotfiles/mise ~/.config/mise
-create_symlink ~/dotfiles/vicinae ~/.config/vicinae
 create_symlink ~/dotfiles/posting ~/.config/posting
 create_symlink ~/dotfiles/rainfrog ~/.config/rainfrog
 create_symlink ~/dotfiles/spicetify/Themes/RosePine ~/.config/spicetify/Themes/RosePine
