@@ -13,5 +13,5 @@ now=$(date +%s)
 restore=$("${tmux_cmd[@]}" show-options -gqv @resurrect-restore-script-path)
 [ -x "$restore" ] || exit 0
 
+TMUX="$socket,0,0" "$restore" || exit 0
 "${tmux_cmd[@]}" set-option -g @dotfiles-resurrect-restored 1
-TMUX="$socket,0,0" "$restore"

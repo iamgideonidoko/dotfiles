@@ -3,6 +3,8 @@
 socket=$1
 tmux_cmd=(tmux -S "$socket")
 
+[ "$("${tmux_cmd[@]}" show-options -gqv @dotfiles-resurrect-restored)" = 1 ] || exit 0
+
 interval=$("${tmux_cmd[@]}" show-options -gqv @dotfiles-resurrect-save-interval)
 case $interval in
   ''|*[!0-9]*) interval=5 ;;
