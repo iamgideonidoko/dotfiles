@@ -2,7 +2,7 @@ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus aoe
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -75,7 +75,7 @@ stylus:
 	for backup in "$$@"; do [ "$$backup" = "$$latest" ] || rm -f "$$backup"; done; \
 	echo "Updated $(ROOT)stylus/stylus.json"
 
-kb:
+karabiner:
 	yarn --cwd karabiner build
 
 svim:
