@@ -66,7 +66,6 @@ brew "spicetify-cli"
 # brew "hunk"
 # brew "gemini-cli"
 # posting # uv tool install posting
-# terminal-browser # curl -fsSL https://terminal-browser.sh/install | bash
 ##############################################################################
 cask "ghostty" # Terminal emulator
 cask "google-chrome"
@@ -96,6 +95,8 @@ cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
 cask "zulu@17"
 cask "codex"
+cask "terminal-browser"
+cask "handy" # Speech to text
 # cask "vicinae" # Keyboard launcher; prefer Spotlight
 # cask "maccy" # Clipboard manager
 # cask "copilot-cli"
