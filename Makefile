@@ -14,7 +14,7 @@ deps: homebrew
 	brew trust anomalyco/tap
 
 brew-install: deps
-	brew bundle --file=$(ROOT)brew/Brewfile
+	brew bundle --verbose --file=$(ROOT)brew/Brewfile
 
 brew-clean: deps
 	brew bundle cleanup --force --file=$(ROOT)brew/Brewfile
