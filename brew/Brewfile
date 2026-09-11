@@ -62,6 +62,7 @@ brew "presenterm"
 brew "tuicr"
 brew "rainfrog"
 brew "spicetify-cli"
+brew "ffmpeg"
 # posting # uv tool install posting
 ##############################################################################
 cask "ghostty" # Terminal emulator
@@ -83,7 +84,6 @@ cask "free-download-manager"
 cask "vlc"
 cask "zoom"
 cask "android-file-transfer" # Android - macOS file transfer
-cask "handbrake-app"
 cask "logi-options+"
 cask "capcut"
 cask "postman"
