@@ -83,6 +83,7 @@ create_symlink "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
 create_symlink "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
 create_symlink "$repo_dir/mise/config.toml" ~/.config/mise/config.toml
 create_symlink "$repo_dir/rainfrog/rainfrog_config.toml" ~/.config/rainfrog/rainfrog_config.toml
+create_symlink "$repo_dir/kact/kact.toml" ~/.config/kact/kact.toml
 ##############################################################################
 # Creating symlinks for directories
 create_symlink "$repo_dir/nvim/" ~/.config/nvim

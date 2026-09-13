@@ -1,0 +1,53 @@
+[motion]
+curve_type = "sigmoid"
+max_speed = 2000.0
+acceleration = 0.8
+friction = 0.95
+target_fps = 144
+
+[glide]
+duration_ms = 140
+easing = "ease-out"
+
+[keybindings]
+enabled = true
+navigation_enabled = true
+preset = "vi"
+
+[keybindings.global]
+
+[keybindings.local]
+"tab" = "refine"
+
+[modes]
+normal_multiplier = 1.0
+precise_multiplier = 0.3
+fast_multiplier = 2.5
+
+[system]
+hot_reload = true
+log_level = "info"
+
+[navigation]
+rows = 12
+columns = 20
+alphabet = "asdfghjklqwertyuiopzxcvbnm"
+auto_click = false
+
+[navigation.grid]
+
+[navigation.elements]
+auto_click = true
+enhanced_user_interface = false
+visual_fallback = false
+
+[appearance]
+foreground = "#191724"
+background = "#9ccfd8"
+highlight = "#f6c177"
+opacity = 0.9
+
+[appearance.elements]
+background = "#c4a7e7"
+grid_lines = false
+label_position = "top-left"
