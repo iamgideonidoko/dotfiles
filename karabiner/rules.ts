@@ -122,6 +122,14 @@ const rules: KarabinerRules[] = [
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements)
     e: {
+      f: {
+        description: 'Kact: Activate elements',
+        to: [{ shell_command: '~/.local/bin/kact activate elements', repeat: false }],
+      },
+      slash: {
+        description: 'Kact: Activate grid',
+        to: [{ shell_command: '~/.local/bin/kact activate grid', repeat: false }],
+      },
       j: [
         {
           to: [{ key_code: 'down_arrow' }],
