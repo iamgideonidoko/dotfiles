@@ -63,6 +63,8 @@ brew "tuicr"
 brew "rainfrog"
 brew "spicetify-cli"
 brew "ffmpeg"
+brew "rtk" # rtk init -g --codex
+# headroom # uv tool install --python 3.13 "headroom-ai[all]"
 # posting # uv tool install posting
 ##############################################################################
 cask "ghostty" # Terminal emulator
