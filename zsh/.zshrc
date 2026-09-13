@@ -148,6 +148,7 @@ alias c='clear'
 alias python='python3'
 alias history='history -30'
 alias x='exit'
+alias cx='headroom wrap codex --no-proxy'
 
 if command -v yazi &>/dev/null; then
   alias y='yazi'
@@ -225,3 +226,12 @@ fi
 if command -v mise &>/dev/null; then
   eval "$(mise activate zsh)"
 fi
+
+# >>> headroom persistent env >>>
+export HEADROOM_PORT="8787"
+export HEADROOM_HOST="127.0.0.1"
+export HEADROOM_MODE="cache"
+export HEADROOM_BACKEND="anthropic"
+export HEADROOM_TELEMETRY="off"
+export OPENAI_BASE_URL="http://127.0.0.1:8787/v1"
+# <<< headroom persistent env <<<

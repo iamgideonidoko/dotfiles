@@ -2,7 +2,7 @@ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -22,6 +22,30 @@ brew-clean: deps
 symlink:
 	chmod +x ~/dotfiles/symlink.sh
 	~/dotfiles/symlink.sh
+
+agent-config:
+	./symlink.sh codex
+
+agent-optimize: agent-config
+	@command -v rtk >/dev/null || { echo 'rtk not found; install it first' >&2; exit 1; }
+	@command -v headroom >/dev/null || { echo 'headroom not found; install it first' >&2; exit 1; }
+	headroom install apply --scope user --providers manual --target codex
+	rtk init --global --codex
+	$(MAKE) agent-verify
+
+agent-verify:
+	@command -v rtk >/dev/null || { echo 'rtk not found' >&2; exit 1; }
+	@command -v headroom >/dev/null || { echo 'headroom not found' >&2; exit 1; }
+	@headroom_python="$$(head -n1 "$$(command -v headroom)" | sed 's/^#!//')"; "$$headroom_python" -c 'import fastapi' || { echo "Headroom proxy dependencies missing; run: uv tool install --python 3.13 --upgrade 'headroom-ai[proxy,mcp,code]'" >&2; exit 1; }
+	@headroom install status | rg -q '^Status: +running$$' || { echo 'Headroom proxy is not running' >&2; exit 1; }
+	@test -f "$$HOME/.codex/AGENTS.md"
+	@test -r "$$HOME/.codex/RTK.md"
+	@rg -q "^@$$HOME/\.codex/RTK\.md$$" "$$HOME/.codex/AGENTS.md"
+	@rg -q "^@$$HOME/\.agents/skills/caveman/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
+	@rg -q "^@$$HOME/\.agents/skills/ponytail/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
+	rtk --version
+	headroom --version
+	@echo 'agent-verify: OK'
 
 shell:
 	exec /bin/zsh -l
