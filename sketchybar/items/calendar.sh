@@ -5,10 +5,10 @@ calendar=(
   icon.font.style=Black
   icon.padding_right=4
   label.align=right
-  padding_left=15
   update_freq=30
+  icon.font.size="$FONT_SIZE"
+  label.font.size="$FONT_SIZE"
   script="$PLUGIN_DIR/calendar.sh"
-  click_script="$PLUGIN_DIR/zen.sh"
 )
 
 sketchybar --add item calendar right \

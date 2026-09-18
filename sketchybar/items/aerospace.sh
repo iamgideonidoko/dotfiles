@@ -11,25 +11,27 @@ aerospace_workspace=(
   background.drawing=on
   background.border_color=0xAA7AA2F7
   background.border_width=0
-  background.height=18
+  background.height=16
   icon.padding_left=5
   label.font.family="sketchybar-app-font"
   label.font.style=Regular
-  label.font.size="$FONT_SIZE_LARGE"
+  label.font.size="$FONT_SIZE"
   label.color=0xFFC0CAF5
   label.padding_right=0
   label.padding_left=0
-  label.y_offset=-1
+  label.y_offset=-2
+  background.y_offset=-1
+  icon.y_offset=-1
 )
 
 aerospace_separator_1=(
   icon="✦"
   drawing=off
   icon.font.style=Heavy
-  icon.font.size="$FONT_SIZE_LARGE"
+  icon.font.size="$FONT_SIZE_SMALL"
   icon.padding_left=4
-  padding_left=5
-  padding_right=8
+  padding_left=2
+  padding_right=2
   label.drawing=off
   background.drawing=off
 )
@@ -45,17 +47,17 @@ aerospace_workspaces=(
   background.border_color=0x44FF00FF
   background.height=18
   label.color=0xFFC0CAF5
-  label.padding_right=10
-  label.padding_left=10
+  label.padding_right=6
+  label.padding_left=6
 )
 
 aerospace_separator_2=(
   icon="􀆊"
   icon.font.style=Heavy
-  icon.font.size="$FONT_SIZE_LARGE"
-  icon.padding_left=4
-  padding_left=5
-  padding_right=8
+  icon.font.size="$FONT_SIZE_SMALL"
+  icon.padding_left=0
+  padding_left=2
+  padding_right=2
   label.drawing=off
   background.drawing=off
   script="$PLUGIN_DIR/aerospace.sh"

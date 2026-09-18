@@ -2,9 +2,10 @@
 
 battery=(
   script="$PLUGIN_DIR/battery.sh"
-  icon.font.size=19
-  padding_right=5
-  padding_left=0
+  icon.font.size="$FONT_SIZE_LARGE"
+  label.font.size="$FONT_SIZE"
+  padding_right=2
+  padding_left=2
   label.drawing=on
   update_freq=120
   updates=on

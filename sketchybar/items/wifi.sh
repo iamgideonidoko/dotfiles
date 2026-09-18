@@ -4,7 +4,7 @@
 source "$CONFIG_DIR/icons.sh"
 
 wifi=(
-  padding_right=7
+  padding_right=2
   label.width=0
   icon="$WIFI_DISCONNECTED"
   script="$PLUGIN_DIR/wifi.sh"
