@@ -19,7 +19,6 @@ o.bind("ALT + F", "Fullscreen", hl.dsp.window.fullscreen({ mode = "fullscreen" }
 o.bind("ALT + A", "Previous workspace", hl.dsp.focus({ workspace = "previous" }))
 o.bind("ALT + SHIFT + S", "Screenshot", "omarchy-capture-screenshot")
 
-o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + CTRL + L", "Lock system", "omarchy-system-lock")
