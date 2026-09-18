@@ -40,6 +40,17 @@ make omarchy-install
 omarchy theme set rose-pine
 ```
 
+For a full Linux setup, including Ghostty, Zsh, owned config, defaults, and
+manifest cleanup:
+
+```sh
+make omarchy-setup
+```
+
+Add wanted launcher entries to `omarchy/webapps.install.tsv` and
+`omarchy/tuis.install.tsv`. Add only explicitly unwanted launcher names to
+their matching `*.remove.txt` files.
+
 `make omarchy-clean` removes only packages named in
 [`omarchy/packages.drop`](./omarchy/packages.drop), removes stale non-Codex
 agent usage records, then opens Omarchy's orphan-package review.

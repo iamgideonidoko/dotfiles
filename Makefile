@@ -3,7 +3,7 @@ export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 SKILL_AGENTS ?=
 
-.PHONY: homebrew deps brew-install brew-clean symlink omarchy-symlink omarchy-install omarchy-clean omarchy-audit shell font-jetbrains macos sketchybar gh-extensions mise mise-verify skills-export skills-install spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
+.PHONY: homebrew deps brew-install brew-clean symlink omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit shell font-jetbrains macos sketchybar gh-extensions mise mise-verify skills-export skills-install spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -23,6 +23,10 @@ brew-clean: deps
 symlink:
 	chmod +x ~/dotfiles/symlink.sh
 	~/dotfiles/symlink.sh
+
+omarchy-setup:
+	chmod +x ./omarchy-setup.sh
+	./omarchy-setup.sh setup
 
 omarchy-symlink:
 	chmod +x ./symlink-omarchy.sh

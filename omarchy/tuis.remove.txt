@@ -1,0 +1,1 @@
+# One Omarchy TUI launcher name per line.
