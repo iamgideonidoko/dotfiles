@@ -17,6 +17,9 @@ case "${1:-}" in
   clean)
     mapfile -t drop_packages < <(packages packages.drop)
     ((${#drop_packages[@]})) && omarchy pkg drop "${drop_packages[@]}"
+    for package in "${drop_packages[@]}"; do
+      rm -f "$HOME/.local/share/applications/$package.desktop"
+    done
     omarchy agent usage update codex --force || true
     rm -f "$HOME/.local/state/omarchy/agents/usage/claude.json" "$HOME/.local/state/omarchy/agents/usage/fireworks.json"
     omarchy update orphan pkgs
