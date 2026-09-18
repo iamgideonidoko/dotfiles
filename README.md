@@ -10,6 +10,10 @@ Follow the below steps to set up in a few seconds.
 
 Clone this repository into `~/dotfiles`, then run these commands from that directory.
 
+```sh
+git clone git@github.com:iamgideonidoko/dotfiles.git ~/dotfiles
+```
+
 ### Install Software
 
 Install Homebrew if needed, then all software listed in the `Brewfile`:
