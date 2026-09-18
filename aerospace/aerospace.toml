@@ -22,6 +22,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center', 'exec-and-forget
 on-focus-changed = ['move-mouse window-lazy-center', 'exec-and-forget sketchybar --trigger aerospace_focus_change']
 automatically-unhide-macos-hidden-apps = true
 
+focus-follows-mouse.enabled = true
+
 [[on-window-detected]]
 if.app-id = 'com.apple.Preview'
 run = 'layout floating'
