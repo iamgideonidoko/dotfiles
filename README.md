@@ -34,6 +34,15 @@ Install pinned Node, Python, Go, and Rust versions through Mise.
 make mise
 ```
 
+### Install Agent Skills
+
+```sh
+make skills-install
+```
+
+Skills install for Codex by default. Edit [`skills/manifest.json`](./skills/manifest.json)
+to change agents; run `make skills-export` after changing installed skills.
+
 ### Install GitHub Extensions
 
 ```sh

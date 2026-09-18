@@ -1,8 +1,9 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
+SKILL_AGENTS ?=
 
-.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
+.PHONY: homebrew deps brew-install brew-clean symlink shell font-jetbrains macos sketchybar gh-extensions mise mise-verify skills-export skills-install spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -75,6 +76,12 @@ mise-verify:
 	mise exec python -- python --version
 	mise exec go -- go version
 	mise exec rust -- rustc --version
+
+skills-export:
+	bash skills/export.sh
+
+skills-install:
+	SKILL_AGENTS="$(SKILL_AGENTS)" bash skills/install.sh
 
 
 aoe:

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "agents": [
+    "codex"
+  ],
+  "skills": [
+    {
+      "name": "ponytail",
+      "source": "dietrichgebert/ponytail"
+    },
+    {
+      "name": "refactor",
+      "source": "github/awesome-copilot",
+      "installSource": "https://raw.githubusercontent.com/github/awesome-copilot/main/skills/refactor/SKILL.md"
+    },
+    {
+      "name": "caveman",
+      "source": "juliusbrussee/caveman"
+    },
+    {
+      "name": "impeccable",
+      "source": "pbakaus/impeccable"
+    },
+    {
+      "name": "find-skills",
+      "source": "vercel-labs/skills"
+    }
+  ]
+}
