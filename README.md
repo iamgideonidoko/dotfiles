@@ -30,6 +30,20 @@ Create a symlink to the necessary configuration files and directories:
 make symlink
 ```
 
+### Configure Omarchy
+
+On Omarchy, deploy Linux-owned config and install declared packages:
+
+```sh
+make omarchy-symlink
+make omarchy-install
+omarchy theme set rose-pine
+```
+
+`make omarchy-clean` removes only packages named in
+[`omarchy/packages.drop`](./omarchy/packages.drop), removes stale non-Codex
+agent usage records, then opens Omarchy's orphan-package review.
+
 ### Install Runtime Versions
 
 Install pinned Node, Python, Go, and Rust versions through Mise.
