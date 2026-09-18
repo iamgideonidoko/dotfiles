@@ -38,7 +38,9 @@ case "${1:-setup}" in
     bash "$repo_dir/symlink-omarchy.sh"
     omarchy theme set rose-pine
     omarchy default terminal ghostty
-    chsh -s /usr/bin/zsh "$USER"
+    if [[ "$(getent passwd "$USER" | cut -d: -f7)" != /usr/bin/zsh ]]; then
+      chsh -s /usr/bin/zsh "$USER"
+    fi
     install_webapps
     install_tuis
     remove_launchers

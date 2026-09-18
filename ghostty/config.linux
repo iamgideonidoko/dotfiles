@@ -1,5 +1,6 @@
 # Omarchy regenerates this file when its theme changes.
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+command = /usr/bin/zsh
 
 font-family = "JetBrainsMono Nerd Font Mono"
 font-style = Medium
