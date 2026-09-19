@@ -20,15 +20,10 @@ link() {
 
 configure_menu_plugin() {
   local plugin="$HOME/.config/omarchy/plugins/${USER}.menu"
-  local patch_file="$repo_dir/omarchy/menu-hidden-search.patch"
 
   if [[ ! -d $plugin ]]; then
     omarchy plugin clone omarchy.menu
   fi
-  if ! rg -q 'A hidden submenu hides its whole branch' "$plugin/MenuModel.js"; then
-    patch --batch -d "$plugin" -p1 <"$patch_file"
-  fi
-  rg -q 'A hidden submenu hides its whole branch' "$plugin/MenuModel.js"
 }
 
 link "$repo_dir/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
