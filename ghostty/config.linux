@@ -15,3 +15,5 @@ window-padding-y = 0,0
 window-padding-balance = true
 window-step-resize = false
 mouse-hide-while-typing = true
+confirm-close-surface = always
+gtk-custom-css = ~/.config/gtk-4.0/gtk.css

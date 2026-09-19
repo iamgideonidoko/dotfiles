@@ -1,0 +1,37 @@
+/* Rosé Pine Main: GTK 3 dialogs and confirmation prompts. */
+@define-color theme_base_color #191724;
+@define-color theme_bg_color #1f1d2e;
+@define-color theme_fg_color #e0def4;
+@define-color theme_text_color #e0def4;
+@define-color theme_selected_bg_color #c4a7e7;
+@define-color theme_selected_fg_color #191724;
+@define-color borders #524f67;
+@define-color accent_color #c4a7e7;
+@define-color destructive_color #eb6f92;
+
+window, dialog, .background, .dialog, .message-dialog {
+  background-color: #1f1d2e;
+  color: #e0def4;
+}
+
+dialog .dialog-vbox, .message-dialog .dialog-vbox {
+  background-color: #1f1d2e;
+  border: 1px solid #524f67;
+}
+
+button {
+  background: #26233a;
+  border: 1px solid #524f67;
+  color: #e0def4;
+}
+
+button:hover { background: #403d52; }
+button:focus { border-color: #c4a7e7; box-shadow: 0 0 0 1px #c4a7e7; }
+button.suggested-action { background: #c4a7e7; color: #191724; }
+button.destructive-action { background: #eb6f92; color: #191724; }
+
+entry, textview, treeview, menu, .menu, popover.background {
+  background-color: #26233a;
+  color: #e0def4;
+  border-color: #524f67;
+}

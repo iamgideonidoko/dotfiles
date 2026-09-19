@@ -1,0 +1,55 @@
+/* Rosé Pine Main: GTK 4 and libadwaita dialogs, including Ghostty close. */
+:root {
+  --window-bg-color: #191724;
+  --window-fg-color: #e0def4;
+  --view-bg-color: #191724;
+  --view-fg-color: #e0def4;
+  --headerbar-bg-color: #1f1d2e;
+  --headerbar-fg-color: #e0def4;
+  --dialog-bg-color: #1f1d2e;
+  --dialog-fg-color: #e0def4;
+  --popover-bg-color: #26233a;
+  --popover-fg-color: #e0def4;
+  --accent-bg-color: #c4a7e7;
+  --accent-fg-color: #191724;
+  --accent-color: #c4a7e7;
+  --destructive-bg-color: #eb6f92;
+  --destructive-fg-color: #191724;
+  --destructive-color: #eb6f92;
+  --card-bg-color: #1f1d2e;
+  --card-fg-color: #e0def4;
+  --borders: #524f67;
+}
+
+window, .background, dialog, .dialog, messagedialog, alertdialog {
+  background-color: #1f1d2e;
+  color: #e0def4;
+}
+
+dialog, .dialog, messagedialog, alertdialog {
+  border: 1px solid #524f67;
+  box-shadow: 0 12px 32px rgb(25 23 36 / 70%);
+}
+
+popover, popover.background, menu {
+  background-color: #26233a;
+  color: #e0def4;
+  border: 1px solid #524f67;
+}
+
+button {
+  background-color: #26233a;
+  color: #e0def4;
+  border: 1px solid #524f67;
+}
+
+button:hover { background-color: #403d52; }
+button:focus-visible { outline: 2px solid #c4a7e7; outline-offset: 2px; }
+button.suggested-action { background-color: #c4a7e7; color: #191724; }
+button.destructive-action { background-color: #eb6f92; color: #191724; }
+
+entry, textview, listview, treeview {
+  background-color: #191724;
+  color: #e0def4;
+  border-color: #524f67;
+}
