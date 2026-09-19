@@ -1,3 +1,19 @@
 {
-  // Personal Omarchy menu extensions go here.
+  // Hide root entries and selected Install entries.
+  "learn": {"when":"false"},
+  "style": {"when":"false"},
+  "install.style": {"when":"false"},
+  "install.service": {"when":"false"},
+  "install.development": {"when":"false"},
+  "install.editor": {"when":"false"},
+  "install.terminal": {"when":"false"},
+  "install.browser": {"when":"false"},
+  "install.ai": {"when":"false"},
+  "install.gaming": {"when":"false"},
+  "install.windows": {"when":"false"},
+  "install.preinstalls": {"when":"false"},
+  "remove.development": {"when":"false"},
+  "remove.theme": {"when":"false"},
+  "remove.browser": {"when":"false"},
+  "remove.preinstalls": {"when":"false"}
 }
