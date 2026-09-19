@@ -18,6 +18,19 @@ link() {
   printf 'Linked %s\n' "$target"
 }
 
+configure_menu_plugin() {
+  local plugin="$HOME/.config/omarchy/plugins/${USER}.menu"
+  local patch_file="$repo_dir/omarchy/menu-hidden-search.patch"
+
+  if [[ ! -d $plugin ]]; then
+    omarchy plugin clone omarchy.menu
+  fi
+  if ! rg -q 'A hidden submenu hides its whole branch' "$plugin/MenuModel.js"; then
+    patch --batch -d "$plugin" -p1 <"$patch_file"
+  fi
+  rg -q 'A hidden submenu hides its whole branch' "$plugin/MenuModel.js"
+}
+
 link "$repo_dir/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
 link "$repo_dir/hypr/bindings.lua" "$HOME/.config/hypr/bindings.lua"
 link "$repo_dir/hypr/looknfeel.lua" "$HOME/.config/hypr/looknfeel.lua"
@@ -52,3 +65,4 @@ link "$repo_dir/tmux/main.conf" "$HOME/.config/tmux/tmux.conf"
 link "$repo_dir/nvim" "$HOME/.config/nvim"
 link "$repo_dir/opencode/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"
 link "$repo_dir/zsh/.zshrc" "$HOME/.zshrc"
+configure_menu_plugin

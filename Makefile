@@ -48,7 +48,8 @@ hyprland-reload:
 	hyprctl reload
 	hyprctl configerrors
 
-omarchy-reload: hyprland-reload
+omarchy-reload: omarchy-symlink hyprland-reload
+	omarchy-shell shell rescanPlugins
 	omarchy restart shell
 
 agent-config:

@@ -1,0 +1,16 @@
+--- a/MenuModel.js
++++ b/MenuModel.js
+@@ -254,4 +254,13 @@
+ function isVisible(items, itemOrder, whenResults, entry, depth) {
+   if (!entry) return false
+   if (entry.when && whenResults && whenResults[entry.id] === false) return false
++
++  // A hidden submenu hides its whole branch, including search results.
++  var ancestor = entry
++  var ancestorGuard = 0
++  while (ancestor.parent && ancestor.parent !== "root" && ancestorGuard++ < 32) {
++    ancestor = item(items, ancestor.parent)
++    if (!ancestor || (ancestor.when && whenResults && whenResults[ancestor.id] === false)) return false
++  }
++
+   if (entry.kind !== "menu" && entry.kind !== "link") return true

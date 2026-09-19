@@ -11,7 +11,7 @@
     "layout": {
       "left": [
         {
-          "id": "omarchy.menu"
+          "id": "iamgideonidoko.menu"
         },
         {
           "id": "omarchy.workspaces"
@@ -74,5 +74,11 @@
       ]
     }
   },
-  "plugins": []
+  "plugins": [],
+  "disabledPlugins": [
+    "omarchy.menu"
+  ],
+  "cloneSourceRestores": [
+    "iamgideonidoko.menu"
+  ]
 }
