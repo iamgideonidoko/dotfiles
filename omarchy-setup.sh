@@ -32,11 +32,20 @@ remove_launchers() {
   done <"$repo_dir/omarchy/tuis.remove.txt"
 }
 
+set_dark_theme() {
+  local theme=rose-pine
+  local colors="$repo_dir/omarchy/themes/$theme/colors.toml"
+
+  grep -qx 'mode = "dark"' "$colors"
+  omarchy theme set "$theme"
+  grep -qx 'mode = "dark"' "$HOME/.local/state/omarchy/current/theme/colors.toml"
+}
+
 case "${1:-setup}" in
   setup)
     bash "$repo_dir/omarchy-packages.sh" install
     bash "$repo_dir/symlink-omarchy.sh"
-    omarchy theme set rose-pine
+    set_dark_theme
     omarchy default terminal ghostty
     if [[ "$(getent passwd "$USER" | cut -d: -f7)" != /usr/bin/zsh ]]; then
       chsh -s /usr/bin/zsh "$USER"
