@@ -47,9 +47,9 @@ manifest cleanup:
 make omarchy-setup
 ```
 
-Add wanted launcher entries to `omarchy/webapps.install.tsv` and
-`omarchy/tuis.install.tsv`. Add only explicitly unwanted launcher names to
-their matching `*.remove.txt` files.
+Add wanted launcher entries to `omarchy/webapps.jsonc` and
+`omarchy/tuis.jsonc`. Add only explicitly unwanted launcher names to their
+matching `*.drop` files.
 
 `make omarchy-clean` removes only packages named in
 [`omarchy/packages.drop`](./omarchy/packages.drop), removes stale non-Codex

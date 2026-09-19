@@ -3,33 +3,36 @@ set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-records() {
-  sed '/^[[:space:]]*$/d; /^[[:space:]]*#/d' "$repo_dir/omarchy/$1"
-}
-
 install_webapps() {
-  while IFS=$'\t' read -r name url icon custom_exec mime_types; do
-    [[ -z $name || $name == \#* ]] && continue
+  while IFS= read -r app; do
+    name=$(jq -r '.name' <<<"$app")
+    url=$(jq -r '.url' <<<"$app")
+    icon=$(jq -r '.icon' <<<"$app")
+    custom_exec=$(jq -r '.custom_exec // empty' <<<"$app")
+    mime_types=$(jq -r '.mime_types // empty' <<<"$app")
     omarchy webapp install "$name" "$url" "$icon" "${custom_exec:-}" "${mime_types:-}"
-  done <"$repo_dir/omarchy/webapps.install.tsv"
+  done < <(sed '/^[[:space:]]*\/\//d' "$repo_dir/omarchy/webapps.jsonc" | jq -c '.[]')
 }
 
 install_tuis() {
-  while IFS=$'\t' read -r name command style icon; do
-    [[ -z $name || $name == \#* ]] && continue
+  while IFS= read -r app; do
+    name=$(jq -r '.name' <<<"$app")
+    command=$(jq -r '.command' <<<"$app")
+    style=$(jq -r '.style' <<<"$app")
+    icon=$(jq -r '.icon' <<<"$app")
     omarchy tui install "$name" "$command" "$style" "$icon"
-  done <"$repo_dir/omarchy/tuis.install.tsv"
+  done < <(sed '/^[[:space:]]*\/\//d' "$repo_dir/omarchy/tuis.jsonc" | jq -c '.[]')
 }
 
 remove_launchers() {
   while IFS= read -r name; do
     [[ -z $name || $name == \#* ]] && continue
     omarchy webapp remove "$name" || true
-  done <"$repo_dir/omarchy/webapps.remove.txt"
+  done <"$repo_dir/omarchy/webapps.drop"
   while IFS= read -r name; do
     [[ -z $name || $name == \#* ]] && continue
     omarchy tui remove "$name" || true
-  done <"$repo_dir/omarchy/tuis.remove.txt"
+  done <"$repo_dir/omarchy/tuis.drop"
 }
 
 set_dark_theme() {
