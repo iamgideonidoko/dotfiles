@@ -15,3 +15,8 @@ o.bind("SUPER + A", "Previous workspace", hl.dsp.focus({ workspace = "previous" 
 
 hl.unbind("SUPER + SHIFT + S")
 o.bind("SUPER + SHIFT + S", "Screenshot", "omarchy-capture-screenshot")
+
+-- SUPER + SHIFT + SLASH was Passwords.
+hl.unbind("SUPER + SHIFT + SLASH")
+o.bind("SUPER + SHIFT + SLASH", "Keybindings", "omarchy-menu-keybindings")
+o.bind("SUPER + SHIFT + SEMICOLON", "Terminal", { omarchy = "terminal" })
