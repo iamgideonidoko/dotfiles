@@ -10,24 +10,67 @@
     "centerAnchor": "omarchy.clock",
     "layout": {
       "left": [
-        { "id": "omarchy.menu" },
-        { "id": "omarchy.workspaces" }
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "omarchy.workspaces"
+        }
       ],
       "center": [
-        { "id": "omarchy.indicators" },
-        { "id": "omarchy.clock", "format": "dddd HH:mm", "formatAlt": "d MMMM 'W'ww yyyy", "verticalFormat": "HH\n—\nmm" },
-        { "id": "omarchy.keyboard-layout" },
-        { "id": "omarchy.weather" },
-        { "id": "omarchy.system-update" }
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "id": "omarchy.clock",
+          "format": "dddd HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
       ],
       "right": [
-        { "id": "omarchy.tray" },
-        { "id": "omarchy.agents", "providers": { "codex": { "enabled": true }, "claude": { "enabled": false }, "fireworks": { "enabled": false } } },
-        { "id": "omarchy.bluetooth" },
-        { "id": "omarchy.network" },
-        { "id": "omarchy.audio" },
-        { "id": "omarchy.monitor" },
-        { "id": "omarchy.power", "showPercentage": false }
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.agents",
+          "providers": {
+            "codex": {
+              "enabled": true
+            },
+            "claude": {
+              "enabled": false
+            },
+            "fireworks": {
+              "enabled": false
+            }
+          }
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power",
+          "showPercentage": false
+        }
       ]
     }
   },
