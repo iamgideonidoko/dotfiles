@@ -157,6 +157,12 @@ alias history='history -30'
 alias x='exit'
 alias cx='headroom wrap codex --no-proxy'
 
+# kanata-bin ships `kanata` without command actions. This config uses command
+# actions for Omarchy launch-or-focus, so use its explicitly enabled binary.
+if command -v kanata_cmd_allowed &>/dev/null; then
+  alias kanata='kanata_cmd_allowed'
+fi
+
 if command -v yazi &>/dev/null; then
   alias y='yazi'
 fi

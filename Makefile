@@ -3,7 +3,7 @@ export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 SKILL_AGENTS ?=
 
-.PHONY: homebrew deps brew-install brew-clean symlink omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload shell font-jetbrains macos sketchybar gh-extensions mise mise-verify skills-export skills-install spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner agent-config agent-optimize agent-verify
+.PHONY: homebrew deps brew-install brew-clean symlink omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload shell font-jetbrains macos sketchybar gh-extensions mise mise-verify skills-export skills-install spicetify kb svim svim-activate svim-start svim-verify stylus aoe karabiner kanata kanata-setup kanata-restart kanata-reload agent-config agent-optimize agent-verify
 
 homebrew:
 	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -137,6 +137,21 @@ stylus:
 
 karabiner:
 	yarn --cwd karabiner build
+
+kanata:
+	npm --prefix kanata run build
+
+kanata-setup:
+	$(MAKE) kanata
+	$(MAKE) omarchy-install
+	$(MAKE) omarchy-symlink
+	./kanata/setup.sh
+
+kanata-restart: kanata
+	kanata_cmd_allowed --check --cfg "$$HOME/.config/kanata/kanata.kbd"
+	systemctl --user daemon-reload
+	systemctl --user restart kanata.service
+	systemctl --user --no-pager --full status kanata.service
 
 svim:
 	./svim/install.sh
