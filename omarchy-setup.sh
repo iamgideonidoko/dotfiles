@@ -39,6 +39,7 @@ set_dark_theme() {
   grep -qx 'mode = "dark"' "$colors"
   omarchy theme set "$theme"
   grep -qx 'mode = "dark"' "$HOME/.local/state/omarchy/current/theme/colors.toml"
+  omarchy theme bg set "$repo_dir/wallpapers/min-omarchy.jpg"
 }
 
 case "${1:-setup}" in
