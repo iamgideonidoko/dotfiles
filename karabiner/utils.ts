@@ -25,6 +25,30 @@ export function createHyperSubLayer(
   allSubLayerVariables: string[],
 ): Manipulator[] {
   const subLayerVariableName = generateSubLayerVariableName(sublayer_key);
+  const latchedVariableName = `${subLayerVariableName}_latched`;
+  const variable = (name: string, value: number): To => ({ set_variable: { name, value } });
+  const commandManipulators = (variableName: string, clear = false): Manipulator[] =>
+    (Object.keys(commands) as (keyof typeof commands)[])
+      .filter((commandKey) => commandKey !== 'from')
+      .flatMap((commandKey) => {
+        const command = commands[commandKey];
+        const variants = Array.isArray(command) ? command : [command];
+
+        return variants.map((variant) => ({
+          ...(variant ? Object.fromEntries(Object.entries(variant).filter(([key]) => key !== 'from')) : {}),
+          ...(clear ? { to: [...(variant?.to ?? []), variable(variableName, 0)] } : {}),
+          type: 'basic' as const,
+          from: {
+            key_code: commandKey,
+            modifiers: { optional: ['any'] as const },
+            ...variant?.from,
+          },
+          conditions: [
+            { type: 'variable_if' as const, name: variableName, value: 1 },
+            ...(clear ? [{ type: 'variable_if' as const, name: 'hyper', value: 1 }] : []),
+          ],
+        }));
+      });
 
   return [
     // When Hyper + sublayer_key is pressed, set the variable to 1; on key_up, set it to 0 again
@@ -49,6 +73,7 @@ export function createHyperSubLayer(
         },
       ],
       to: [
+        variable(latchedVariableName, 0),
         {
           set_variable: {
             name: subLayerVariableName,
@@ -56,6 +81,14 @@ export function createHyperSubLayer(
           },
         },
       ],
+      to_if_alone: [variable(latchedVariableName, 1)],
+      to_delayed_action: {
+        to_if_invoked: [variable(latchedVariableName, 0)],
+        to_if_canceled: [],
+      },
+      parameters: {
+        'basic.to_delayed_action_delay_milliseconds': 2000,
+      },
       // This enables us to press other sublayer keys in the current sublayer
       // (e.g. Hyper + O > M even though Hyper + M is also a sublayer)
       // basically, only trigger a sublayer if no other sublayer is active
@@ -74,56 +107,8 @@ export function createHyperSubLayer(
         },
       ],
     },
-    // Define the individual commands that are meant to trigger in the sublayer
-    ...(Object.keys(commands) as (keyof typeof commands)[])
-      .filter((command_key) => command_key !== 'from')
-      .map((command_key): Manipulator[] => {
-        const command = commands[command_key];
-        return Array.isArray(command)
-          ? command.map((c) => ({
-              ...(c ? Object.fromEntries(Object.entries(c).filter(([key]) => key !== 'from')) : undefined),
-              type: 'basic' as const,
-              from: {
-                key_code: command_key,
-                modifiers: {
-                  optional: ['any'],
-                },
-                ...c?.from,
-              },
-              // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
-              conditions: [
-                {
-                  type: 'variable_if',
-                  name: subLayerVariableName,
-                  value: 1,
-                },
-              ],
-            }))
-          : [
-              {
-                ...(command
-                  ? Object.fromEntries(Object.entries(command).filter(([key]) => key !== 'from'))
-                  : undefined),
-                type: 'basic' as const,
-                from: {
-                  key_code: command_key,
-                  modifiers: {
-                    optional: ['any'],
-                  },
-                  ...command?.from,
-                },
-                // Only trigger this command if the variable is 1 (i.e., if Hyper + sublayer is held)
-                conditions: [
-                  {
-                    type: 'variable_if',
-                    name: subLayerVariableName,
-                    value: 1,
-                  },
-                ],
-              },
-            ];
-      })
-      .flat(),
+    ...commandManipulators(subLayerVariableName),
+    ...commandManipulators(latchedVariableName, true),
   ];
 }
 
