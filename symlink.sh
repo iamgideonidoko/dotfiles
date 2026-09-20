@@ -83,6 +83,7 @@ create_symlink "$repo_dir/tmux/.tmux.conf" ~/.tmux.conf
 create_symlink "$repo_dir/vim/.vimrc" ~/.vimrc
 create_symlink "$repo_dir/vim/coc-settings.json" ~/.vim/coc-settings.json
 create_symlink "$repo_dir/opencode/opencode.jsonc" ~/.config/opencode/opencode.jsonc
+create_symlink "$repo_dir/ghui/config.json" ~/.config/ghui/config.json
 create_symlink "$repo_dir/agent-of-empires/config.toml" ~/.config/agent-of-empires/config.toml
 create_symlink "$repo_dir/svim/com.dotfiles.svim.plist" ~/Library/LaunchAgents/com.dotfiles.svim.plist
 create_symlink "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/rose-pine.yaml
