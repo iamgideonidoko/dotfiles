@@ -107,16 +107,12 @@
 
 (deflayermap (window)
   e      (macro esc esc)
+  h      mbck
   i      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window shortcut previous-tab)
   o      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window shortcut next-tab)
   p      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle prev)
   n      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle next)
-  lmet   (layer-while-held window-meta)
-)
-
-(deflayermap (window-meta)
-  i      mbck
-  o      mfwd
+  l      mfwd
 )
 
 (deflayermap (system)

@@ -98,13 +98,13 @@ const layers: Record<string, Layer> = {
   },
   window: {
     e: '(macro esc esc)',
+    h: 'mbck',
     i: command(join(kanataDir, 'window'), 'shortcut', 'previous-tab'),
     o: command(join(kanataDir, 'window'), 'shortcut', 'next-tab'),
     p: command(join(kanataDir, 'window'), 'cycle', 'prev'),
     n: command(join(kanataDir, 'window'), 'cycle', 'next'),
-    lmet: heldLayer('window-meta'),
+    l: 'mfwd',
   },
-  'window-meta': { i: 'mbck', o: 'mfwd' },
   system: {
     o: command('omarchy-audio-output-volume', 'raise'),
     i: command('omarchy-audio-output-volume', 'lower'),
