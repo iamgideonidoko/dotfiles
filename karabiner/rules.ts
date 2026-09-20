@@ -307,44 +307,22 @@ const rules: KarabinerRules[] = [
       e: {
         to: [{ key_code: 'escape' }, { key_code: 'escape', repeat: false }],
       },
-      i: [
-        {
-          to: [{ pointing_button: 'button4' }],
-          from: {
-            modifiers: {
-              mandatory: ['left_command'],
-            },
-          },
-        },
-        {
-          description: 'Window: Previous Tab',
-          to: [
-            {
-              key_code: 'tab',
-              modifiers: ['right_control', 'right_shift'],
-            },
-          ],
-        },
-      ],
-      o: [
-        {
-          to: [{ pointing_button: 'button5' }],
-          from: {
-            modifiers: {
-              mandatory: ['left_command'],
-            },
-          },
-        },
-        {
-          description: 'Window: Next Tab',
-          to: [
-            {
-              key_code: 'tab',
-              modifiers: ['right_control'],
-            },
-          ],
-        },
-      ],
+      h: {
+        description: 'Window: Back',
+        to: [{ pointing_button: 'button4' }],
+      },
+      l: {
+        description: 'Window: Forward',
+        to: [{ pointing_button: 'button5' }],
+      },
+      i: {
+        description: 'Window: Previous Tab',
+        to: [{ key_code: 'tab', modifiers: ['right_control', 'right_shift'] }],
+      },
+      o: {
+        description: 'Window: Next Tab',
+        to: [{ key_code: 'tab', modifiers: ['right_control'] }],
+      },
       p: {
         description: 'Window: Previous Window',
         to: [

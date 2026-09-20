@@ -3413,6 +3413,7 @@
                 ]
               },
               {
+                "description": "Window: Back",
                 "to": [
                   {
                     "pointing_button": "button4"
@@ -3420,9 +3421,31 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "i",
+                  "key_code": "h",
                   "modifiers": {
-                    "mandatory": ["left_command"]
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_w",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Window: Forward",
+                "to": [
+                  {
+                    "pointing_button": "button5"
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": ["any"]
                   }
                 },
                 "conditions": [
@@ -3446,27 +3469,6 @@
                   "key_code": "i",
                   "modifiers": {
                     "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "pointing_button": "button5"
-                  }
-                ],
-                "type": "basic",
-                "from": {
-                  "key_code": "o",
-                  "modifiers": {
-                    "mandatory": ["left_command"]
                   }
                 },
                 "conditions": [
@@ -3583,6 +3585,7 @@
                 ]
               },
               {
+                "description": "Window: Back",
                 "to": [
                   {
                     "pointing_button": "button4"
@@ -3596,9 +3599,42 @@
                 ],
                 "type": "basic",
                 "from": {
-                  "key_code": "i",
+                  "key_code": "h",
                   "modifiers": {
-                    "mandatory": ["left_command"]
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_w_latched",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "hyper",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Window: Forward",
+                "to": [
+                  {
+                    "pointing_button": "button5"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "hyper_sublayer_w_latched",
+                      "value": 0
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": ["any"]
                   }
                 },
                 "conditions": [
@@ -3633,38 +3669,6 @@
                   "key_code": "i",
                   "modifiers": {
                     "optional": ["any"]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w_latched",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "pointing_button": "button5"
-                  },
-                  {
-                    "set_variable": {
-                      "name": "hyper_sublayer_w_latched",
-                      "value": 0
-                    }
-                  }
-                ],
-                "type": "basic",
-                "from": {
-                  "key_code": "o",
-                  "modifiers": {
-                    "mandatory": ["left_command"]
                   }
                 },
                 "conditions": [
