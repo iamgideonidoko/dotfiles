@@ -21,8 +21,8 @@ brew-clean: deps
 	brew bundle cleanup --force --file=$(ROOT)brew/Brewfile
 
 symlink:
-	chmod +x ~/dotfiles/symlink.sh
-	~/dotfiles/symlink.sh
+	chmod +x ~/dotfiles/symlink-macos.sh
+	~/dotfiles/symlink-macos.sh
 
 omarchy-setup:
 	chmod +x ./omarchy-setup.sh
@@ -53,7 +53,7 @@ omarchy-reload: omarchy-symlink hyprland-reload
 	omarchy restart shell
 
 agent-config:
-	./symlink.sh codex
+	./symlink-macos.sh codex
 
 agent-optimize: agent-config
 	@command -v rtk >/dev/null || { echo 'rtk not found; install it first' >&2; exit 1; }

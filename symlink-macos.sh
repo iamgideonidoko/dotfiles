@@ -15,8 +15,8 @@ mkdir -p ~/.config
 mkdir -p ~/Library/LaunchAgents
 mkdir -p ~/.vim/{undodir,pack,autoload,sessions}
 ##############################################################################
-# Helper function for creating symlinks
-create_symlink() {
+# Helper for creating symlinks
+link() {
   local source_path=$1
   local target_path=$2
   local target_parent
@@ -78,40 +78,40 @@ if [ "${1:-}" = "codex" ]; then
 fi
 ##############################################################################
 # Creating symlinks for files
-create_symlink "$repo_dir/zsh/.zshrc" ~/.zshrc
-create_symlink "$repo_dir/tmux/.tmux.conf" ~/.tmux.conf
-create_symlink "$repo_dir/vim/.vimrc" ~/.vimrc
-create_symlink "$repo_dir/vim/coc-settings.json" ~/.vim/coc-settings.json
-create_symlink "$repo_dir/opencode/opencode.jsonc" ~/.config/opencode/opencode.jsonc
-create_symlink "$repo_dir/ghui/config.json" ~/.config/ghui/config.json
-create_symlink "$repo_dir/agent-of-empires/config.toml" ~/.config/agent-of-empires/config.toml
-create_symlink "$repo_dir/svim/com.dotfiles.svim.plist" ~/Library/LaunchAgents/com.dotfiles.svim.plist
-create_symlink "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/rose-pine.yaml
-create_symlink "$repo_dir/ghostty/config" ~/.config/ghostty/config
-create_symlink "$repo_dir/starship/starship.toml" ~/.config/starship.toml
-create_symlink "$repo_dir/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
-create_symlink "$repo_dir/karabiner/open-android-emulator.sh" ~/.config/karabiner/open-android-emulator.sh
-create_symlink "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
-create_symlink "$repo_dir/yazi/keymap.toml" ~/.config/yazi/keymap.toml
-create_symlink "$repo_dir/yazi/theme.toml" ~/.config/yazi/theme.toml
-create_symlink "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
-create_symlink "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
-create_symlink "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
-create_symlink "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
-create_symlink "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
-create_symlink "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
-create_symlink "$repo_dir/git/ignore" ~/.config/git/ignore
-create_symlink "$repo_dir/mise/config.toml" ~/.config/mise/config.toml
-create_symlink "$repo_dir/rainfrog/rainfrog_config.toml" ~/.config/rainfrog/rainfrog_config.toml
-create_symlink "$repo_dir/kact/kact.toml" ~/.config/kact/kact.toml
+link "$repo_dir/zsh/.zshrc" ~/.zshrc
+link "$repo_dir/tmux/.tmux.conf" ~/.tmux.conf
+link "$repo_dir/vim/.vimrc" ~/.vimrc
+link "$repo_dir/vim/coc-settings.json" ~/.vim/coc-settings.json
+link "$repo_dir/opencode/opencode.jsonc" ~/.config/opencode/opencode.jsonc
+link "$repo_dir/ghui/config.json" ~/.config/ghui/config.json
+link "$repo_dir/agent-of-empires/config.toml" ~/.config/agent-of-empires/config.toml
+link "$repo_dir/svim/com.dotfiles.svim.plist" ~/Library/LaunchAgents/com.dotfiles.svim.plist
+link "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/rose-pine.yaml
+link "$repo_dir/ghostty/config" ~/.config/ghostty/config
+link "$repo_dir/starship/starship.toml" ~/.config/starship.toml
+link "$repo_dir/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
+link "$repo_dir/karabiner/open-android-emulator.sh" ~/.config/karabiner/open-android-emulator.sh
+link "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
+link "$repo_dir/yazi/keymap.toml" ~/.config/yazi/keymap.toml
+link "$repo_dir/yazi/theme.toml" ~/.config/yazi/theme.toml
+link "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
+link "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
+link "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
+link "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
+link "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
+link "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
+link "$repo_dir/git/ignore" ~/.config/git/ignore
+link "$repo_dir/mise/config.toml" ~/.config/mise/config.toml
+link "$repo_dir/rainfrog/rainfrog_config.toml" ~/.config/rainfrog/rainfrog_config.toml
+link "$repo_dir/kact/kact.toml" ~/.config/kact/kact.toml
 render_codex_agents
 ##############################################################################
 # Creating symlinks for directories
-create_symlink "$repo_dir/nvim/" ~/.config/nvim
-create_symlink "$repo_dir/svim/" ~/.config/svim
-create_symlink "$repo_dir/btop/" ~/.config/btop
-create_symlink "$repo_dir/sketchybar/" ~/.config/sketchybar
-create_symlink "$repo_dir/tuicr/" ~/.config/tuicr
-create_symlink "$repo_dir/posting" ~/.config/posting
-create_symlink "$repo_dir/spicetify/Themes/RosePine" ~/.config/spicetify/Themes/RosePine
+link "$repo_dir/nvim/" ~/.config/nvim
+link "$repo_dir/svim/" ~/.config/svim
+link "$repo_dir/btop/" ~/.config/btop
+link "$repo_dir/sketchybar/" ~/.config/sketchybar
+link "$repo_dir/tuicr/" ~/.config/tuicr
+link "$repo_dir/posting" ~/.config/posting
+link "$repo_dir/spicetify/Themes/RosePine" ~/.config/spicetify/Themes/RosePine
 ##############################################################################
