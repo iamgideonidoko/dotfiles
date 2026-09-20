@@ -53,6 +53,13 @@ webapp)
     focus_or_launch "$2" "$4"
   fi
   ;;
+previous-app)
+  class="$(hyprctl activewindow -j | jq -r '.class')"
+  address="$(hyprctl clients -j | jq -r --arg class "$class" '
+    map(select(.class != $class)) | sort_by(.focusHistoryID // 2147483647) | .[0].address // empty
+  ')"
+  [[ -n $address ]] && focus "$address"
+  ;;
 cycle)
   active="$(hyprctl activewindow -j)"
   address="$(jq -r '.address' <<<"$active")"

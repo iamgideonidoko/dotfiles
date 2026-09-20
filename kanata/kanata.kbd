@@ -28,7 +28,7 @@
 )
 
 (deflayermap (open)
-  a      (cmd-log none error hyprctl dispatch "hl.dsp.focus({ last = true })")
+  a      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window previous-app)
   c      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
   j      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
   g      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus com.mitchellh.ghostty "uwsm-app -- gtk-launch com.mitchellh.ghostty.desktop")

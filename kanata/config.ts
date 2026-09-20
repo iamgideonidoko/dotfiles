@@ -35,7 +35,7 @@ const layers: Record<string, Layer> = {
     x: command('omarchy-launch-browser', 'https://x.com'),
   },
   open: {
-    a: command('hyprctl', 'dispatch', 'hl.dsp.focus({ last = true })'),
+    a: command(join(kanataDir, 'window'), 'previous-app'),
     c: desktop('google-chrome', 'google-chrome.desktop'),
     j: desktop('google-chrome', 'google-chrome.desktop'),
     g: desktop('com.mitchellh.ghostty', 'com.mitchellh.ghostty.desktop'),
