@@ -14,13 +14,13 @@
 )
 
 (deflayermap (hyper)
-  b      (layer-while-held browse)
-  o      (layer-while-held open)
-  e      (layer-while-held mouse)
-  w      (layer-while-held window)
-  s      (layer-while-held system)
-  v      (layer-while-held move)
-  c      (layer-while-held music)
+  b      (one-shot 2000 (layer-while-held browse))
+  o      (one-shot 2000 (layer-while-held open))
+  e      (one-shot 2000 (layer-while-held mouse))
+  w      (one-shot 2000 (layer-while-held window))
+  s      (one-shot 2000 (layer-while-held system))
+  v      (one-shot 2000 (layer-while-held move))
+  c      (one-shot 2000 (layer-while-held music))
 )
 
 (deflayermap (browse)
@@ -28,7 +28,7 @@
 )
 
 (deflayermap (open)
-  a      (cmd-log none error hyprctl dispatch focuscurrentorlast)
+  a      (cmd-log none error hyprctl dispatch "hl.dsp.focus({ last = true })")
   c      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
   j      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
   g      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus com.mitchellh.ghostty "uwsm-app -- gtk-launch com.mitchellh.ghostty.desktop")
@@ -107,8 +107,8 @@
 
 (deflayermap (window)
   e      (macro esc esc)
-  i      C-S-tab
-  o      C-tab
+  i      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window shortcut previous-tab)
+  o      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window shortcut next-tab)
   p      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle prev)
   n      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle next)
   lmet   (layer-while-held window-meta)

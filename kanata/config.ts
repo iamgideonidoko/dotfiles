@@ -15,6 +15,7 @@ const desktop = (pattern: string, desktopId: string): Action =>
 const webapp = (pattern: string, url: string): Action =>
   command(join(kanataDir, 'window'), 'webapp', pattern, url, `uwsm-app -- omarchy-launch-webapp ${url}`);
 const heldLayer = (name: string): Action => `(layer-while-held ${name})`;
+const subLayer = (name: string): Action => `(one-shot 2000 ${heldLayer(name)})`;
 
 const layers: Record<string, Layer> = {
   base: {
@@ -22,19 +23,19 @@ const layers: Record<string, Layer> = {
     ___: '_',
   },
   hyper: {
-    b: heldLayer('browse'),
-    o: heldLayer('open'),
-    e: heldLayer('mouse'),
-    w: heldLayer('window'),
-    s: heldLayer('system'),
-    v: heldLayer('move'),
-    c: heldLayer('music'),
+    b: subLayer('browse'),
+    o: subLayer('open'),
+    e: subLayer('mouse'),
+    w: subLayer('window'),
+    s: subLayer('system'),
+    v: subLayer('move'),
+    c: subLayer('music'),
   },
   browse: {
     x: command('omarchy-launch-browser', 'https://x.com'),
   },
   open: {
-    a: command('hyprctl', 'dispatch', 'focuscurrentorlast'),
+    a: command('hyprctl', 'dispatch', 'hl.dsp.focus({ last = true })'),
     c: desktop('google-chrome', 'google-chrome.desktop'),
     j: desktop('google-chrome', 'google-chrome.desktop'),
     g: desktop('com.mitchellh.ghostty', 'com.mitchellh.ghostty.desktop'),
@@ -97,8 +98,8 @@ const layers: Record<string, Layer> = {
   },
   window: {
     e: '(macro esc esc)',
-    i: 'C-S-tab',
-    o: 'C-tab',
+    i: command(join(kanataDir, 'window'), 'shortcut', 'previous-tab'),
+    o: command(join(kanataDir, 'window'), 'shortcut', 'next-tab'),
     p: command(join(kanataDir, 'window'), 'cycle', 'prev'),
     n: command(join(kanataDir, 'window'), 'cycle', 'next'),
     lmet: heldLayer('window-meta'),

@@ -56,9 +56,9 @@ webapp)
 cycle)
   active="$(hyprctl activewindow -j)"
   address="$(jq -r '.address' <<<"$active")"
-  class="$(jq -r '.class' <<<"$active")"
-  mapfile -t windows < <(hyprctl clients -j | jq -r --arg class "$class" '
-    map(select(.class == $class)) | sort_by(.focusHistoryID // 2147483647)[] | .address
+  pid="$(jq -r '.pid' <<<"$active")"
+  mapfile -t windows < <(hyprctl clients -j | jq -r --argjson pid "$pid" '
+    map(select(.pid == $pid)) | sort_by(.focusHistoryID // 2147483647)[] | .address
   ')
   (( ${#windows[@]} > 1 )) || exit 0
   for index in "${!windows[@]}"; do [[ ${windows[index]} == "$address" ]] && break; done
@@ -68,6 +68,14 @@ cycle)
     index=$(( (index + 1) % ${#windows[@]} ))
   fi
   focus "${windows[index]}"
+  ;;
+shortcut)
+  if [[ $2 == previous-tab ]]; then
+    mods="CTRL SHIFT"
+  else
+    mods="CTRL"
+  fi
+  hyprctl dispatch "hl.dsp.send_shortcut({ mods = \"$mods\", key = \"TAB\" })" >/dev/null
   ;;
 *)
   exit 2
