@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+focus() {
+  hyprctl dispatch "hl.dsp.focus({ window = \"address:$1\" })" >/dev/null 2>&1 ||
+    hyprctl dispatch focuswindow "address:$1" >/dev/null
+}
+
+matching_windows() {
+  hyprctl clients -j | jq -r --arg pattern "$1" '
+    map(select((.class | test("\\b" + $pattern + "\\b"; "i")) or (.title | test("\\b" + $pattern + "\\b"; "i"))))
+    | sort_by(.focusHistoryID // 2147483647)[] | [.address, .pid] | @tsv
+  '
+}
+
+all_windows() {
+  hyprctl clients -j | jq -r '
+    sort_by(.focusHistoryID // 2147483647)[] | [.address, .pid] | @tsv
+  '
+}
+
+last_matching_window() {
+  matching_windows "$1" | head -n1 | cut -f1
+}
+
+focus_or_launch() {
+  local address
+  address="$(last_matching_window "$1")"
+  if [[ -n $address ]]; then
+    focus "$address"
+  else
+    eval "exec setsid $2"
+  fi
+}
+
+case "${1:-}" in
+focus)
+  focus_or_launch "$2" "$3"
+  ;;
+webapp)
+  address=""
+  while IFS=$'\t' read -r candidate pid; do
+    [[ -r /proc/$pid/cmdline ]] || continue
+    command_line="$(tr '\0' ' ' < "/proc/$pid/cmdline")"
+    if [[ $command_line == *"--app=$3"* ]]; then
+      address=$candidate
+      break
+    fi
+  done < <(all_windows)
+  if [[ -n $address ]]; then
+    focus "$address"
+  else
+    focus_or_launch "$2" "$4"
+  fi
+  ;;
+cycle)
+  active="$(hyprctl activewindow -j)"
+  address="$(jq -r '.address' <<<"$active")"
+  class="$(jq -r '.class' <<<"$active")"
+  mapfile -t windows < <(hyprctl clients -j | jq -r --arg class "$class" '
+    map(select(.class == $class)) | sort_by(.focusHistoryID // 2147483647)[] | .address
+  ')
+  (( ${#windows[@]} > 1 )) || exit 0
+  for index in "${!windows[@]}"; do [[ ${windows[index]} == "$address" ]] && break; done
+  if [[ $2 == prev ]]; then
+    index=$(( (index - 1 + ${#windows[@]}) % ${#windows[@]} ))
+  else
+    index=$(( (index + 1) % ${#windows[@]} ))
+  fi
+  focus "${windows[index]}"
+  ;;
+*)
+  exit 2
+  ;;
+esac

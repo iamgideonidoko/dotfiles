@@ -5,14 +5,15 @@ import { fileURLToPath } from 'node:url';
 type Action = string;
 type Layer = Record<string, Action>;
 const XX = 'XX';
+const kanataDir = dirname(fileURLToPath(import.meta.url));
 
 const command = (...args: string[]): Action => `(cmd-log none error ${args.map(quote).join(' ')})`;
 const launchOrFocus = (pattern: string, launch: string): Action =>
-  command('omarchy-launch-or-focus', pattern, launch);
+  command(join(kanataDir, 'window'), 'focus', pattern, launch);
 const desktop = (pattern: string, desktopId: string): Action =>
   launchOrFocus(pattern, `uwsm-app -- gtk-launch ${desktopId}`);
 const webapp = (pattern: string, url: string): Action =>
-  launchOrFocus(pattern, `uwsm-app -- omarchy-launch-webapp ${url}`);
+  command(join(kanataDir, 'window'), 'webapp', pattern, url, `uwsm-app -- omarchy-launch-webapp ${url}`);
 const heldLayer = (name: string): Action => `(layer-while-held ${name})`;
 
 const layers: Record<string, Layer> = {
@@ -33,7 +34,7 @@ const layers: Record<string, Layer> = {
     x: command('omarchy-launch-browser', 'https://x.com'),
   },
   open: {
-    a: command('hyprctl', 'dispatch', 'cyclenext'),
+    a: command('hyprctl', 'dispatch', 'focuscurrentorlast'),
     c: desktop('google-chrome', 'google-chrome.desktop'),
     j: desktop('google-chrome', 'google-chrome.desktop'),
     g: desktop('com.mitchellh.ghostty', 'com.mitchellh.ghostty.desktop'),
@@ -61,10 +62,10 @@ const layers: Record<string, Layer> = {
   mouse: {
     f: command('kact', 'activate', 'elements'),
     '/': command('kact', 'activate', 'grid'),
-    h: '(movemouse-accel-left 1 800 2 24)',
-    j: '(movemouse-accel-down 1 800 2 24)',
-    k: '(movemouse-accel-up 1 800 2 24)',
-    l: '(movemouse-accel-right 1 800 2 24)',
+    h: '(movemouse-accel-left 10 800 2 15)',
+    j: '(movemouse-accel-down 10 800 2 15)',
+    k: '(movemouse-accel-up 10 800 2 15)',
+    l: '(movemouse-accel-right 10 800 2 15)',
     ret: 'mlft',
     spc: 'mlft',
     i: '(mwheel-up 50 120)',
@@ -76,34 +77,37 @@ const layers: Record<string, Layer> = {
     rmet: heldLayer('mouse-right-click'),
     lalt: heldLayer('mouse-slow'),
   },
-  'mouse-control': { h: 'left', j: 'down', k: 'up', l: 'rght', spc: 'mmid' },
+  'mouse-control': { h: 'left', j: 'down', k: 'up', l: 'rght', ret: 'mlft', spc: 'mmid' },
   'mouse-fast': {
-    h: '(movemouse-accel-left 1 800 8 96)',
-    j: '(movemouse-accel-down 1 800 8 96)',
-    k: '(movemouse-accel-up 1 800 8 96)',
-    l: '(movemouse-accel-right 1 800 8 96)',
+    h: '(movemouse-accel-left 10 800 8 60)',
+    j: '(movemouse-accel-down 10 800 8 60)',
+    k: '(movemouse-accel-up 10 800 8 60)',
+    l: '(movemouse-accel-right 10 800 8 60)',
+    ret: 'mlft',
+    spc: 'mlft',
   },
   'mouse-right-click': { ret: 'mrgt', spc: 'mrgt' },
   'mouse-slow': {
-    h: '(movemouse-accel-left 1 800 1 10)',
-    j: '(movemouse-accel-down 1 800 1 10)',
-    k: '(movemouse-accel-up 1 800 1 10)',
-    l: '(movemouse-accel-right 1 800 1 10)',
+    h: '(movemouse-accel-left 10 800 1 6)',
+    j: '(movemouse-accel-down 10 800 1 6)',
+    k: '(movemouse-accel-up 10 800 1 6)',
+    l: '(movemouse-accel-right 10 800 1 6)',
     ret: 'mmid',
+    spc: 'mlft',
   },
   window: {
     e: '(macro esc esc)',
     i: 'C-S-tab',
     o: 'C-tab',
-    p: command('hyprctl', 'dispatch', 'cyclenext', 'prev'),
-    n: command('hyprctl', 'dispatch', 'cyclenext'),
+    p: command(join(kanataDir, 'window'), 'cycle', 'prev'),
+    n: command(join(kanataDir, 'window'), 'cycle', 'next'),
     lmet: heldLayer('window-meta'),
   },
   'window-meta': { i: 'mbck', o: 'mfwd' },
   system: {
     o: command('omarchy-audio-output-volume', 'raise'),
     i: command('omarchy-audio-output-volume', 'lower'),
-    k: command('omarchy-brightness-display', '+5%'),
+    k: command('omarchy-brightness-display', '5%+'),
     j: command('omarchy-brightness-display', '5%-'),
     l: command('omarchy-system-lock'),
     c: 'S-M-c',

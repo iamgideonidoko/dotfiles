@@ -28,26 +28,26 @@
 )
 
 (deflayermap (open)
-  a      (cmd-log none error hyprctl dispatch cyclenext)
-  c      (cmd-log none error omarchy-launch-or-focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
-  j      (cmd-log none error omarchy-launch-or-focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
-  g      (cmd-log none error omarchy-launch-or-focus com.mitchellh.ghostty "uwsm-app -- gtk-launch com.mitchellh.ghostty.desktop")
-  f      (cmd-log none error omarchy-launch-or-focus org.gnome.Nautilus "uwsm-app -- gtk-launch org.gnome.Nautilus.desktop")
-  s      (cmd-log none error omarchy-launch-or-focus spotify "uwsm-app -- omarchy-launch-webapp https://open.spotify.com/")
-  d      (cmd-log none error omarchy-launch-or-focus dictionary "uwsm-app -- omarchy-launch-webapp https://www.google.com/search?q=define%3A")
-  n      (cmd-log none error omarchy-launch-or-focus obsidian "uwsm-app -- gtk-launch obsidian.desktop")
-  k      (cmd-log none error omarchy-launch-or-focus slack "uwsm-app -- omarchy-launch-webapp https://app.slack.com/client/")
-  w      (cmd-log none error omarchy-launch-or-focus whatsapp "uwsm-app -- gtk-launch WhatsApp.desktop")
-  r      (cmd-log none error omarchy-launch-or-focus discord "uwsm-app -- gtk-launch Discord.desktop")
-  p      (cmd-log none error omarchy-launch-or-focus postman "uwsm-app -- gtk-launch postman.desktop")
-  z      (cmd-log none error omarchy-launch-or-focus zoom "uwsm-app -- gtk-launch Zoom.desktop")
-  h      (cmd-log none error omarchy-launch-or-focus notion "uwsm-app -- omarchy-launch-webapp https://www.notion.so/")
-  b      (cmd-log none error omarchy-launch-or-focus dbeaver "uwsm-app -- gtk-launch io.dbeaver.DBeaverCommunity.desktop")
-  l      (cmd-log none error omarchy-launch-or-focus blender "uwsm-app -- gtk-launch blender.desktop")
-  y      (cmd-log none error omarchy-launch-or-focus youtube "uwsm-app -- gtk-launch YouTube.desktop")
-  m      (cmd-log none error omarchy-launch-or-focus youtube-music "uwsm-app -- omarchy-launch-webapp https://music.youtube.com/")
-  e      (cmd-log none error omarchy-launch-or-focus photopea "uwsm-app -- omarchy-launch-webapp https://www.photopea.com/")
-  t      (cmd-log none error omarchy-launch-or-focus jetbrains-studio "uwsm-app -- gtk-launch android-studio.desktop")
+  a      (cmd-log none error hyprctl dispatch focuscurrentorlast)
+  c      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
+  j      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus google-chrome "uwsm-app -- gtk-launch google-chrome.desktop")
+  g      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus com.mitchellh.ghostty "uwsm-app -- gtk-launch com.mitchellh.ghostty.desktop")
+  f      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus org.gnome.Nautilus "uwsm-app -- gtk-launch org.gnome.Nautilus.desktop")
+  s      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp spotify https://open.spotify.com/ "uwsm-app -- omarchy-launch-webapp https://open.spotify.com/")
+  d      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp dictionary "https://www.google.com/search?q=define%3A" "uwsm-app -- omarchy-launch-webapp https://www.google.com/search?q=define%3A")
+  n      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus obsidian "uwsm-app -- gtk-launch obsidian.desktop")
+  k      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp slack https://app.slack.com/client/ "uwsm-app -- omarchy-launch-webapp https://app.slack.com/client/")
+  w      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus whatsapp "uwsm-app -- gtk-launch WhatsApp.desktop")
+  r      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus discord "uwsm-app -- gtk-launch Discord.desktop")
+  p      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus postman "uwsm-app -- gtk-launch postman.desktop")
+  z      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus zoom "uwsm-app -- gtk-launch Zoom.desktop")
+  h      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp notion https://www.notion.so/ "uwsm-app -- omarchy-launch-webapp https://www.notion.so/")
+  b      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus dbeaver "uwsm-app -- gtk-launch io.dbeaver.DBeaverCommunity.desktop")
+  l      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus blender "uwsm-app -- gtk-launch blender.desktop")
+  y      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus youtube "uwsm-app -- gtk-launch YouTube.desktop")
+  m      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp youtube-music https://music.youtube.com/ "uwsm-app -- omarchy-launch-webapp https://music.youtube.com/")
+  e      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp photopea https://www.photopea.com/ "uwsm-app -- omarchy-launch-webapp https://www.photopea.com/")
+  t      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus jetbrains-studio "uwsm-app -- gtk-launch android-studio.desktop")
   x      XX
   ,      XX
   .      XX
@@ -57,10 +57,10 @@
 (deflayermap (mouse)
   f      (cmd-log none error kact activate elements)
   /      (cmd-log none error kact activate grid)
-  h      (movemouse-accel-left 1 800 2 24)
-  j      (movemouse-accel-down 1 800 2 24)
-  k      (movemouse-accel-up 1 800 2 24)
-  l      (movemouse-accel-right 1 800 2 24)
+  h      (movemouse-accel-left 10 800 2 15)
+  j      (movemouse-accel-down 10 800 2 15)
+  k      (movemouse-accel-up 10 800 2 15)
+  l      (movemouse-accel-right 10 800 2 15)
   ret    mlft
   spc    mlft
   i      (mwheel-up 50 120)
@@ -78,14 +78,17 @@
   j      down
   k      up
   l      rght
+  ret    mlft
   spc    mmid
 )
 
 (deflayermap (mouse-fast)
-  h      (movemouse-accel-left 1 800 8 96)
-  j      (movemouse-accel-down 1 800 8 96)
-  k      (movemouse-accel-up 1 800 8 96)
-  l      (movemouse-accel-right 1 800 8 96)
+  h      (movemouse-accel-left 10 800 8 60)
+  j      (movemouse-accel-down 10 800 8 60)
+  k      (movemouse-accel-up 10 800 8 60)
+  l      (movemouse-accel-right 10 800 8 60)
+  ret    mlft
+  spc    mlft
 )
 
 (deflayermap (mouse-right-click)
@@ -94,19 +97,20 @@
 )
 
 (deflayermap (mouse-slow)
-  h      (movemouse-accel-left 1 800 1 10)
-  j      (movemouse-accel-down 1 800 1 10)
-  k      (movemouse-accel-up 1 800 1 10)
-  l      (movemouse-accel-right 1 800 1 10)
+  h      (movemouse-accel-left 10 800 1 6)
+  j      (movemouse-accel-down 10 800 1 6)
+  k      (movemouse-accel-up 10 800 1 6)
+  l      (movemouse-accel-right 10 800 1 6)
   ret    mmid
+  spc    mlft
 )
 
 (deflayermap (window)
   e      (macro esc esc)
   i      C-S-tab
   o      C-tab
-  p      (cmd-log none error hyprctl dispatch cyclenext prev)
-  n      (cmd-log none error hyprctl dispatch cyclenext)
+  p      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle prev)
+  n      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window cycle next)
   lmet   (layer-while-held window-meta)
 )
 
@@ -118,7 +122,7 @@
 (deflayermap (system)
   o      (cmd-log none error omarchy-audio-output-volume raise)
   i      (cmd-log none error omarchy-audio-output-volume lower)
-  k      (cmd-log none error omarchy-brightness-display +5%)
+  k      (cmd-log none error omarchy-brightness-display 5%+)
   j      (cmd-log none error omarchy-brightness-display 5%-)
   l      (cmd-log none error omarchy-system-lock)
   c      S-M-c
