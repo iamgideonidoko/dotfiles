@@ -48,7 +48,6 @@ brew "mysql-client@8.0"
 brew "felixkratz/formulae/borders" # Adds colored borders to user windows on macOS 14.0+
 brew "felixkratz/formulae/sketchybar" # Adds a highly customizable status bar to macOS
 brew "jq"
-brew "gh"
 brew "switchaudio-osx"
 brew "mkcert" # Local certificates
 brew "rclone" # Rsync for cloud storage
@@ -57,7 +56,6 @@ brew "lazygit"
 brew "lazydocker"
 brew "websocat"
 brew "mole"
-brew "anomalyco/tap/opencode"
 brew "presenterm"
 brew "tuicr"
 brew "rainfrog"
@@ -92,7 +90,6 @@ cask "postman"
 cask "nikitabobko/tap/aerospace"
 cask "sf-symbols"
 cask "zulu@17"
-cask "codex"
 cask "terminal-browser"
 cask "handy" # Speech to text
 ##############################################################################
