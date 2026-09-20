@@ -74,10 +74,10 @@ const layers: Record<string, Layer> = {
     '.': '(mwheel-right 50 120)',
     lctl: heldLayer('mouse-control'),
     lmet: heldLayer('mouse-fast'),
-    rmet: heldLayer('mouse-right-click'),
+    ralt: heldLayer('mouse-center-click'),
     lalt: heldLayer('mouse-slow'),
   },
-  'mouse-control': { h: 'left', j: 'down', k: 'up', l: 'rght', ret: 'mlft', spc: 'mmid' },
+  'mouse-control': { h: 'left', j: 'down', k: 'up', l: 'rght', ret: 'mrgt', spc: 'mrgt' },
   'mouse-fast': {
     h: '(movemouse-accel-left 10 800 8 60)',
     j: '(movemouse-accel-down 10 800 8 60)',
@@ -86,13 +86,13 @@ const layers: Record<string, Layer> = {
     ret: 'mlft',
     spc: 'mlft',
   },
-  'mouse-right-click': { ret: 'mrgt', spc: 'mrgt' },
+  'mouse-center-click': { ret: 'mmtp', spc: 'mmid' },
   'mouse-slow': {
     h: '(movemouse-accel-left 10 800 1 6)',
     j: '(movemouse-accel-down 10 800 1 6)',
     k: '(movemouse-accel-up 10 800 1 6)',
     l: '(movemouse-accel-right 10 800 1 6)',
-    ret: 'mmid',
+    ret: 'mlft',
     spc: 'mlft',
   },
   window: {
@@ -107,7 +107,7 @@ const layers: Record<string, Layer> = {
   system: {
     o: command('omarchy-audio-output-volume', 'raise'),
     i: command('omarchy-audio-output-volume', 'lower'),
-    k: command('omarchy-brightness-display', '5%+'),
+    k: command('omarchy-brightness-display', '+5%'),
     j: command('omarchy-brightness-display', '5%-'),
     l: command('omarchy-system-lock'),
     c: 'S-M-c',

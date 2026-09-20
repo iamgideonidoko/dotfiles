@@ -69,7 +69,7 @@
   .      (mwheel-right 50 120)
   lctl   (layer-while-held mouse-control)
   lmet   (layer-while-held mouse-fast)
-  rmet   (layer-while-held mouse-right-click)
+  ralt   (layer-while-held mouse-center-click)
   lalt   (layer-while-held mouse-slow)
 )
 
@@ -78,8 +78,8 @@
   j      down
   k      up
   l      rght
-  ret    mlft
-  spc    mmid
+  ret    mrgt
+  spc    mrgt
 )
 
 (deflayermap (mouse-fast)
@@ -91,9 +91,9 @@
   spc    mlft
 )
 
-(deflayermap (mouse-right-click)
-  ret    mrgt
-  spc    mrgt
+(deflayermap (mouse-center-click)
+  ret    mmtp
+  spc    mmid
 )
 
 (deflayermap (mouse-slow)
@@ -101,7 +101,7 @@
   j      (movemouse-accel-down 10 800 1 6)
   k      (movemouse-accel-up 10 800 1 6)
   l      (movemouse-accel-right 10 800 1 6)
-  ret    mmid
+  ret    mlft
   spc    mlft
 )
 
@@ -122,7 +122,7 @@
 (deflayermap (system)
   o      (cmd-log none error omarchy-audio-output-volume raise)
   i      (cmd-log none error omarchy-audio-output-volume lower)
-  k      (cmd-log none error omarchy-brightness-display 5%+)
+  k      (cmd-log none error omarchy-brightness-display +5%)
   j      (cmd-log none error omarchy-brightness-display 5%-)
   l      (cmd-log none error omarchy-system-lock)
   c      S-M-c
