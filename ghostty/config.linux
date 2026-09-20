@@ -17,3 +17,4 @@ window-step-resize = false
 mouse-hide-while-typing = true
 confirm-close-surface = always
 gtk-custom-css = ~/.config/gtk-4.0/gtk.css
+keybind = shift+insert=paste_from_clipboard
