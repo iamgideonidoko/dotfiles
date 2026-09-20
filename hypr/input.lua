@@ -10,3 +10,10 @@ hl.config({
     },
   },
 })
+
+-- Kanata owns this keyboard. Keep Hyprland from retaining a second, stale
+-- Caps Lock state for the grabbed physical device.
+hl.device({
+  name = "at-translated-set-2-keyboard",
+  enabled = false,
+})
