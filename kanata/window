@@ -13,12 +13,6 @@ matching_windows() {
   '
 }
 
-all_windows() {
-  hyprctl clients -j | jq -r '
-    sort_by(.focusHistoryID // 2147483647)[] | [.address, .pid] | @tsv
-  '
-}
-
 last_matching_window() {
   matching_windows "$1" | head -n1 | cut -f1
 }
@@ -38,20 +32,7 @@ focus)
   focus_or_launch "$2" "$3"
   ;;
 webapp)
-  address=""
-  while IFS=$'\t' read -r candidate pid; do
-    [[ -r /proc/$pid/cmdline ]] || continue
-    command_line="$(tr '\0' ' ' < "/proc/$pid/cmdline")"
-    if [[ $command_line == *"--app=$3"* ]]; then
-      address=$candidate
-      break
-    fi
-  done < <(all_windows)
-  if [[ -n $address ]]; then
-    focus "$address"
-  else
-    focus_or_launch "$2" "$4"
-  fi
+  focus_or_launch "$2" "$4"
   ;;
 previous-app)
   class="$(hyprctl activewindow -j | jq -r '.class')"

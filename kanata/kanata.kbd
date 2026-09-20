@@ -44,8 +44,8 @@
   h      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp notion https://www.notion.so/ "uwsm-app -- omarchy-launch-webapp https://www.notion.so/")
   b      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus dbeaver "uwsm-app -- gtk-launch io.dbeaver.DBeaverCommunity.desktop")
   l      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus blender "uwsm-app -- gtk-launch blender.desktop")
-  y      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus youtube "uwsm-app -- gtk-launch YouTube.desktop")
-  m      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp youtube-music https://music.youtube.com/ "uwsm-app -- omarchy-launch-webapp https://music.youtube.com/")
+  y      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp chrome-youtube.com__-Default https://youtube.com/ "uwsm-app -- omarchy-launch-webapp https://youtube.com/")
+  m      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp chrome-music.youtube.com__-Default https://music.youtube.com/ "uwsm-app -- omarchy-launch-webapp https://music.youtube.com/")
   e      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window webapp photopea https://www.photopea.com/ "uwsm-app -- omarchy-launch-webapp https://www.photopea.com/")
   t      (cmd-log none error /home/iamgideonidoko/dotfiles/kanata/window focus jetbrains-studio "uwsm-app -- gtk-launch android-studio.desktop")
   x      XX
