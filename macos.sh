@@ -22,9 +22,9 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock launchanim -bool false
 defaults write com.apple.dock appswitcher-animation-off -bool true
 
-# Keyboard: fast repeat, short delay, and no press-and-hold accent picker.
-defaults write -g KeyRepeat -int 1
-defaults write -g InitialKeyRepeat -int 10
+# Keyboard: match Omarchy's 40 repeats/s and 250 ms delay (macOS uses 15 ms units).
+defaults write -g KeyRepeat -float 1.666667
+defaults write -g InitialKeyRepeat -float 16.666667
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Accessibility preference is stored in the system domain and needs admin access.
