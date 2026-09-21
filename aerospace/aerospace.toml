@@ -9,7 +9,7 @@ after-startup-command = [
 exec-on-workspace-change = [
   "/bin/bash",
   "-c",
-  "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE"
+  "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE; exec ~/.config/sketchybar/plugins/aerospace-fullscreen.sh sync"
 ]
 
 start-at-login = true
@@ -18,8 +18,8 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center', 'exec-and-forget sketchybar --trigger aerospace_focus_change']
-on-focus-changed = ['move-mouse window-lazy-center', 'exec-and-forget sketchybar --trigger aerospace_focus_change']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center', 'exec-and-forget sketchybar --trigger aerospace_focus_change', 'exec-and-forget ~/.config/sketchybar/plugins/aerospace-fullscreen.sh sync']
+on-focus-changed = ['move-mouse window-lazy-center', 'exec-and-forget sketchybar --trigger aerospace_focus_change', 'exec-and-forget ~/.config/sketchybar/plugins/aerospace-fullscreen.sh sync']
 automatically-unhide-macos-hidden-apps = true
 
 focus-follows-mouse.enabled = true
