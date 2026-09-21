@@ -61,7 +61,7 @@ gh_extensions_installed() {
   command -v gh >/dev/null || return 1
   local extension
   while read -r extension; do
-    gh extension list | awk '{print $1}' | grep -qxF "$extension" || return 1
+    gh extension list | grep -qF "$extension" || return 1
   done < <(make -s -C "$repo_dir" -pn | sed -n 's/^GH_EXTENSIONS := //p' | tr ' ' '\n')
 }
 

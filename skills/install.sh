@@ -19,6 +19,13 @@ installed_for_agents() {
   done
 }
 
+if [[ ${1:-} == --check ]]; then
+  while IFS=$'\t' read -r source skill; do
+    installed_for_agents "$skill" || exit 1
+  done < <(jq -r '.skills[] | [(.installSource // .source), .name] | @tsv' "$manifest")
+  exit 0
+fi
+
 while IFS=$'\t' read -r source skill; do
   if installed_for_agents "$skill"; then
     echo "Skipping $skill (already installed for ${agents[*]})"

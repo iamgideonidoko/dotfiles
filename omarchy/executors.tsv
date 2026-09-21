@@ -1,0 +1,7 @@
+# Name<TAB>verify command<TAB>install command
+aoe	command -v aoe	curl -fsSL https://raw.githubusercontent.com/agent-of-empires/agent-of-empires/main/scripts/install.sh | bash
+headroom	command -v headroom	uv tool install --python 3.13 'headroom-ai[proxy,mcp,code]'
+posting	command -v posting	uv tool install posting
+agent skills	bash "$REPO_DIR/skills/install.sh" --check	make -C "$REPO_DIR" skills-install
+GitHub extensions	for extension in $(sed -n 's/^GH_EXTENSIONS := //p' "$REPO_DIR/Makefile"); do gh extension list | grep -qF "$extension" || exit 1; done	mise exec -- make -C "$REPO_DIR" gh-extensions
+AoE sounds	aoe sounds list | grep -Eq 'Total: [1-9][0-9]* sounds'	make -C "$REPO_DIR" aoe
