@@ -51,6 +51,11 @@ aerospace_workspaces=(
   label.padding_left=6
 )
 
+aerospace_fullscreen=(
+  drawing=off
+  script="$PLUGIN_DIR/aerospace-fullscreen.sh"
+)
+
 aerospace_separator_2=(
   icon="􀆊"
   icon.font.style=Heavy
@@ -73,6 +78,15 @@ done
 sketchybar --add item aerospace.separator.1 left --set aerospace.separator.1 "${aerospace_separator_1[@]}"
 
 sketchybar --add item aerospace.workspaces left --set aerospace.workspaces "${aerospace_workspaces[@]}"
+
+sketchybar --add item aerospace.fullscreen left --set aerospace.fullscreen "${aerospace_fullscreen[@]}" \
+  --subscribe aerospace.fullscreen aerospace_item_init \
+  --subscribe aerospace.fullscreen aerospace_workspace_change \
+  --subscribe aerospace.fullscreen aerospace_focus_change \
+  --subscribe aerospace.fullscreen space_change \
+  --subscribe aerospace.fullscreen space_windows_change \
+  --subscribe aerospace.fullscreen display_change \
+  --subscribe aerospace.fullscreen system_woke
 
 sketchybar --add item aerospace.separator.2 left --set aerospace.separator.2 "${aerospace_separator_2[@]}" \
   --subscribe aerospace.separator.2 aerospace_workspace_change \
