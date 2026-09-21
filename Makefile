@@ -27,6 +27,7 @@ aoe:
 	aoe sounds install
 
 spicetify:
+	# Sign in to Spotify first. First run backs up Spotify; later runs apply the theme.
 	spicetify config current_theme RosePine color_scheme Main inject_css 1 replace_colors 1
 	@if grep -q '^\[Backup\]$$' "$$(spicetify -c)"; then \
 		spicetify apply; \
@@ -73,6 +74,7 @@ brew-install:
 	bash $(ROOT)macos-packages.sh install
 
 brew-clean:
+	# Review carefully: removes Homebrew packages outside brew/Brewfile.
 	bash $(ROOT)macos-packages.sh clean
 
 brew-audit:
@@ -141,6 +143,7 @@ karabiner:
 	yarn --cwd karabiner build
 
 svim:
+	# Patched service prevents SketchyVim child-process leaks; grant Accessibility before starting it.
 	./svim/install.sh
 	@printf 'Grant Accessibility to ~/.local/opt/svim/bin/svim, then run: make svim-start\n'
 
