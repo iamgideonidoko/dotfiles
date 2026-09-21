@@ -5,7 +5,9 @@ GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 SKILL_AGENTS ?=
 VIMIUM_OPTION_PATH ?= ~/Downloads/vimium-options.json
 
-# General/agnostic
+# ╭────────────────────╮
+# │ GENERAL / AGNOSTIC │
+# ╰────────────────────╯
 
 .PHONY: shell gh-extensions skills-export skills-install aoe spicetify vimium-options stylus kanata
 
@@ -50,7 +52,9 @@ stylus:
 kanata:
 	npm --prefix kanata run build
 
-# macOS specific
+# ╭────────────────╮
+# │ MACOS SPECIFIC │
+# ╰────────────────╯
 
 .PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
 
@@ -149,7 +153,9 @@ svim-start:
 svim-verify:
 	./svim/verify.sh 300
 
-# Omarchy specific
+# ╭──────────────────╮
+# │ OMARCHY SPECIFIC │
+# ╰──────────────────╯
 
 .PHONY: omarchy-only omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb
 
