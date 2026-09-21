@@ -22,6 +22,9 @@ case "$mode" in
     [ -n "$window_id" ] || exit 0
     if [ "$fullscreen" = true ]; then
       aerospace fullscreen off
+      current_workspace=$(aerospace list-workspaces --focused)
+      aerospace workspace aerospace-refresh
+      aerospace workspace "$current_workspace"
       if { [ "$mode" = fullscreen ] && [ -f "$edge_file" ]; } ||
         { [ "$mode" = maximized ] && [ ! -f "$edge_file" ]; }; then
         rm -f "$edge_file"
