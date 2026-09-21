@@ -91,8 +91,8 @@ alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
 alt-enter = 'layout floating tiling'
-alt-f = 'fullscreen'
-alt-shift-f = 'exec-and-forget ~/.config/sketchybar/plugins/aerospace-fullscreen.sh toggle'
+alt-f = 'exec-and-forget ~/.config/sketchybar/plugins/aerospace-fullscreen.sh maximized'
+alt-shift-f = 'exec-and-forget ~/.config/sketchybar/plugins/aerospace-fullscreen.sh fullscreen'
 alt-a = 'workspace-back-and-forth'
 alt-shift-a = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
