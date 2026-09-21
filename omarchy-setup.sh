@@ -49,8 +49,8 @@ set_dark_theme() {
 
 case "${1:-setup}" in
   setup)
-    bash "$repo_dir/omarchy-packages.sh" install
     bash "$repo_dir/symlink-omarchy.sh"
+    bash "$repo_dir/omarchy-packages.sh" install
     bash "$repo_dir/kanata/setup.sh"
     set_dark_theme
     omarchy default terminal ghostty

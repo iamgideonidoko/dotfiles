@@ -4,9 +4,25 @@ set -euo pipefail
 [[ $(uname) == Linux ]] && command -v omarchy >/dev/null || { echo 'omarchy-packages.sh requires Omarchy' >&2; exit 1; }
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 
 packages() {
-  sed '/^[[:space:]]*$/d; /^[[:space:]]*#/d' "$repo_dir/omarchy/$1"
+  sed 's/[[:space:]]*#.*$//; s/^[[:space:]]*//; s/[[:space:]]*$//; /^[[:space:]]*$/d' "$repo_dir/omarchy/$1"
+}
+
+install_tools() {
+  local name executable install_command
+  while IFS=$'\t' read -r name executable install_command; do
+    [[ -z $name || $name == \#* ]] && continue
+    [[ -n $executable && -n $install_command ]] || { echo "Invalid tool entry: $name" >&2; return 1; }
+    if command -v "$executable" >/dev/null 2>&1; then
+      printf 'Skipping %s (already installed)\n' "$name"
+      continue
+    fi
+    printf 'Installing %s\n' "$name"
+    bash -o pipefail -c "$install_command"
+    command -v "$executable" >/dev/null 2>&1 || { echo "$name installed but $executable is not on PATH" >&2; return 1; }
+  done < "$repo_dir/omarchy/tools.tsv"
 }
 
 case "${1:-}" in
@@ -15,6 +31,12 @@ case "${1:-}" in
     mapfile -t aur_packages < <(packages packages.aur)
     ((${#pacman_packages[@]})) && omarchy pkg add "${pacman_packages[@]}"
     ((${#aur_packages[@]})) && omarchy pkg aur add "${aur_packages[@]}"
+    if command -v lt >/dev/null 2>&1; then
+      echo 'Skipping localtunnel (already installed)'
+    else
+      mise install npm:localtunnel
+    fi
+    install_tools
     ;;
   clean)
     mapfile -t drop_packages < <(packages packages.drop)

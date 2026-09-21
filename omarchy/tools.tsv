@@ -1,0 +1,4 @@
+# Name<TAB>executable<TAB>install command
+aoe	aoe	curl -fsSL https://raw.githubusercontent.com/agent-of-empires/agent-of-empires/main/scripts/install.sh | bash
+headroom	headroom	uv tool install --python 3.13 'headroom-ai[proxy,mcp,code]'
+posting	posting	uv tool install posting
