@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+[[ $(uname) == Linux ]] && command -v omarchy >/dev/null || { echo 'omarchy-packages.sh requires Omarchy' >&2; exit 1; }
+
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 packages() {

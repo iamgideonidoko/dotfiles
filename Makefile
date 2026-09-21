@@ -52,7 +52,12 @@ kanata:
 
 # macOS specific
 
-.PHONY: homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+
+macos-only:
+	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
+
+homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
 
 homebrew:
 	bash $(ROOT)macos-packages.sh bootstrap
@@ -146,7 +151,12 @@ svim-verify:
 
 # Omarchy specific
 
-.PHONY: omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb
+.PHONY: omarchy-only omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb
+
+omarchy-only:
+	@test "$$(uname)" = Linux && command -v omarchy >/dev/null || { echo 'This target requires Omarchy' >&2; exit 1; }
+
+omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb: omarchy-only
 
 omarchy-setup:
 	chmod +x ./omarchy-setup.sh

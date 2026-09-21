@@ -2,6 +2,8 @@
 # Replace Homebrew's leaking svim LaunchAgent after a successful local build.
 set -euo pipefail
 
+[[ $(uname) == Darwin ]] || { echo 'svim/activate.sh requires macOS' >&2; exit 1; }
+
 root_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 uid=$(id -u)
 label=com.dotfiles.svim

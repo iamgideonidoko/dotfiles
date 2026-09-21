@@ -2,6 +2,8 @@
 # Verify service identity and detect new unreaped svim children.
 set -euo pipefail
 
+[[ $(uname) == Darwin ]] || { echo 'svim/verify.sh requires macOS' >&2; exit 1; }
+
 interval=${1:-60}
 (( interval > 0 )) || { printf 'interval must be positive\n' >&2; exit 2; }
 binary="$HOME/.local/opt/svim/bin/svim"

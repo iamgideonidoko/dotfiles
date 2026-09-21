@@ -2,6 +2,8 @@
 # Build pinned SketchyVim with zombie-child reaping.
 set -euo pipefail
 
+[[ $(uname) == Darwin ]] || { echo 'svim/install.sh requires macOS' >&2; exit 1; }
+
 revision=b9b656dd7a49c1c5daa84a54c73c0aab778bfeb5
 repository=https://github.com/FelixKratz/SketchyVim.git
 root_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
