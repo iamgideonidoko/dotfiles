@@ -26,7 +26,11 @@ aoe:
 
 spicetify:
 	spicetify config current_theme RosePine color_scheme Main inject_css 1 replace_colors 1
-	spicetify backup apply
+	@if grep -q '^\[Backup\]$$' "$$(spicetify -c)"; then \
+		spicetify apply; \
+	else \
+		spicetify backup apply; \
+	fi
 
 vimium-options:
 	@test -f $(path) && mv -f $(VIMIUM_OPTION_PATH) ./vimium/ || echo "File not found: $(path)"
