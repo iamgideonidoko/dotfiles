@@ -54,6 +54,7 @@ case "${1:-setup}" in
     bash "$repo_dir/kanata/setup.sh"
     set_dark_theme
     omarchy default terminal ghostty
+    omarchy default browser chrome
     if [[ "$(getent passwd "$USER" | cut -d: -f7)" != /usr/bin/zsh ]]; then
       chsh -s /usr/bin/zsh "$USER"
     fi
