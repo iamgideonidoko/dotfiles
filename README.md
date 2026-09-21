@@ -12,7 +12,7 @@ cd ~/dotfiles
 
 ## macOS
 
-![macOS workspace preview](./preview.jpg)
+![macOS workspace preview](./preview-macos.jpg)
 
 ```sh
 make macos-setup
