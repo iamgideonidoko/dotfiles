@@ -13,7 +13,7 @@
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
-    <string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
   </dict>
   <key>KeepAlive</key>
   <true/>
@@ -24,8 +24,8 @@
   <key>ThrottleInterval</key>
   <integer>10</integer>
   <key>StandardErrorPath</key>
-  <string>/Users/macbook/Library/Logs/svim.log</string>
+  <string>__HOME__/Library/Logs/svim.log</string>
   <key>StandardOutPath</key>
-  <string>/Users/macbook/Library/Logs/svim.log</string>
+  <string>__HOME__/Library/Logs/svim.log</string>
 </dict>
 </plist>

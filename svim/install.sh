@@ -13,6 +13,15 @@ command -v git >/dev/null
 command -v make >/dev/null
 command -v clang >/dev/null
 test -f "$patch_file"
+patch_sha256=$(shasum -a 256 "$patch_file" | awk '{print $1}')
+
+if [[ -x "$install_dir/bin/svim" && -f "$install_dir/BUILD-INFO" ]] &&
+  grep -qxF "revision=$revision" "$install_dir/BUILD-INFO" &&
+  grep -qxF "patch_sha256=$patch_sha256" "$install_dir/BUILD-INFO" &&
+  codesign --verify --strict "$install_dir/bin/svim"; then
+  printf 'using installed patched svim: %s\n' "$install_dir/bin/svim"
+  exit 0
+fi
 
 if [[ ! -d "$source_dir/.git" ]]; then
   mkdir -p "$(dirname "$source_dir")"
@@ -40,5 +49,5 @@ mkdir -p "$install_dir/bin"
 install -m 755 "$source_dir/bin/svim" "$install_dir/bin/svim"
 codesign --force --sign - --identifier com.dotfiles.svim --timestamp=none "$install_dir/bin/svim"
 codesign --verify --strict --verbose=2 "$install_dir/bin/svim"
-printf 'revision=%s\npatch_sha256=%s\n' "$revision" "$(shasum -a 256 "$patch_file" | awk '{print $1}')" >"$install_dir/BUILD-INFO"
+printf 'revision=%s\npatch_sha256=%s\n' "$revision" "$patch_sha256" >"$install_dir/BUILD-INFO"
 printf 'installed patched svim: %s\n' "$install_dir/bin/svim"

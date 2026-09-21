@@ -48,26 +48,34 @@ kanata:
 
 # macOS specific
 
-.PHONY: homebrew deps brew-install brew-clean symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+.PHONY: homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
 
 homebrew:
-	@command -v brew >/dev/null || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	bash $(ROOT)macos-packages.sh bootstrap
 
-deps: homebrew
-	brew trust felixkratz/formulae
-	brew trust nikitabobko/tap
-	brew trust --cask nikitabobko/tap/aerospace
-	brew trust anomalyco/tap
+deps:
+	bash $(ROOT)macos-packages.sh trust
 
-brew-install: deps
-	brew bundle --verbose --file=$(ROOT)brew/Brewfile
+brew-install:
+	bash $(ROOT)macos-packages.sh install
 
-brew-clean: deps
-	brew bundle cleanup --force --file=$(ROOT)brew/Brewfile
+brew-clean:
+	bash $(ROOT)macos-packages.sh clean
+
+brew-audit:
+	bash $(ROOT)macos-packages.sh audit
+
+macos-install: brew-install
+
+macos-clean: brew-clean
+
+macos-audit: brew-audit
+
+macos-setup:
+	bash $(ROOT)macos-setup.sh
 
 symlink:
-	chmod +x ~/dotfiles/symlink-macos.sh
-	~/dotfiles/symlink-macos.sh
+	bash $(ROOT)symlink-macos.sh
 
 agent-config:
 	./symlink-macos.sh codex

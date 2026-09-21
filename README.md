@@ -4,7 +4,7 @@
 
 ## Setup
 
-Follow the below steps to set up in a few seconds.
+Clone the repository, then run the macOS or Omarchy setup.
 
 ### Clone dotfiles
 
@@ -14,21 +14,24 @@ Clone this repository into `~/dotfiles`, then run these commands from that direc
 git clone git@github.com:iamgideonidoko/dotfiles.git ~/dotfiles
 ```
 
-### Install Software
+### Full macOS setup
 
-Install Homebrew if needed, then all software listed in the `Brewfile`:
-
-```sh
-make brew-install
-```
-
-### Create Symlink
-
-Create a symlink to the necessary configuration files and directories:
+On a new Mac, run this from the cloned repository in an interactive terminal:
 
 ```sh
-make symlink
+make macos-setup
 ```
+
+The script installs Brewfile packages, links configuration, applies macOS
+preferences, installs pinned runtimes and agent tools, and starts Sketchybar,
+borders, AeroSpace, Headroom, and patched SketchyVim. It pauses for Spotify
+sign-in and SketchyVim Accessibility permission. Fix any failed step and rerun;
+installed steps are safe to repeat. It never removes extra Homebrew packages.
+Preview the steps with `bash macos-setup.sh --dry-run`.
+
+Individual commands remain available: `make brew-install`, `make symlink`,
+`make macos`, `make mise`, and `make brew-audit`. Run `make brew-clean` only when
+you intend to review and remove packages outside the Brewfile.
 
 ### Configure Omarchy
 
@@ -54,6 +57,10 @@ matching `*.drop` files.
 `make omarchy-clean` removes only packages named in
 [`omarchy/packages.drop`](./omarchy/packages.drop), removes stale non-Codex
 agent usage records, then opens Omarchy's orphan-package review.
+
+### Individual setup commands
+
+The commands below are useful when setting up or repairing one component.
 
 ### Install Runtime Versions
 

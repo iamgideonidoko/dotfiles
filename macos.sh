@@ -31,6 +31,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 sudo defaults write com.apple.universalaccess reduceMotion -bool true
 
 # Reload only processes affected by these preferences.
-killall Dock
-killall SystemUIServer
-killall cfprefsd
+killall Dock 2>/dev/null || true
+killall SystemUIServer 2>/dev/null || true
+killall cfprefsd 2>/dev/null || true
