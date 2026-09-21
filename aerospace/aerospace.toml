@@ -92,7 +92,7 @@ alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
 alt-enter = 'layout floating tiling'
 alt-f = 'fullscreen'
-alt-shift-f = 'macos-native-fullscreen'
+alt-shift-f = 'exec-and-forget if [ "$(aerospace list-windows --focused --format "%{window-is-fullscreen}")" = true ]; then aerospace fullscreen --no-outer-gaps && sketchybar --bar hidden=off; else aerospace fullscreen --no-outer-gaps && sketchybar --bar hidden=on; fi'
 alt-a = 'workspace-back-and-forth'
 alt-shift-a = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
