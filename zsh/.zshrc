@@ -22,7 +22,11 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
-export SHELL=/usr/bin/zsh
+if [[ "$(uname -s)" == Darwin ]]; then
+  export SHELL=/bin/zsh
+else
+  export SHELL=/usr/bin/zsh
+fi
 export RAINFROG_CONFIG="$XDG_CONFIG_HOME/rainfrog"
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
