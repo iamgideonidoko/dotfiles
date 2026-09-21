@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [[ $(uname) != Darwin ]]; then
-  printf 'macos.sh must run on macOS\n' >&2
+  printf 'macos-preferences.sh must run on macOS\n' >&2
   exit 1
 fi
 

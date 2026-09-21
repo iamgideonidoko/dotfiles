@@ -104,7 +104,7 @@ verify_aerospace() {
 
 step_unless 'Install Homebrew packages' brew_bundle_installed bash "$repo_dir/macos-packages.sh" install
 step 'Link configuration' bash "$repo_dir/symlink-macos.sh"
-step 'Apply macOS preferences' bash "$repo_dir/macos.sh"
+step 'Apply macOS preferences' bash "$repo_dir/macos-preferences.sh"
 step 'Install pinned runtimes' make -C "$repo_dir" mise
 step_unless 'Install Nerd Font' jetbrains_nerd_font_installed make -C "$repo_dir" font-jetbrains
 step 'Install agent skills' make -C "$repo_dir" skills-install

@@ -57,12 +57,12 @@ kanata:
 # │ MACOS SPECIFIC │
 # ╰────────────────╯
 
-.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
 
-homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
+homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
 
 homebrew:
 	bash $(ROOT)macos-packages.sh bootstrap
@@ -119,8 +119,8 @@ agent-verify:
 font-jetbrains:
 	@font_archive=$$(mktemp); trap 'rm -f "$$font_archive"' EXIT; curl -fL -o "$$font_archive" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip; unzip -o "$$font_archive" -d "$$HOME/Library/Fonts/"
 
-macos:
-	./macos.sh
+macos-preferences:
+	./macos-preferences.sh
 
 sketchybar:
 	find $(ROOT)sketchybar -type f -name '*.sh' -exec chmod +x {} +

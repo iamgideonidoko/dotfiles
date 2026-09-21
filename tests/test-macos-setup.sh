@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-for script in macos-packages.sh macos-setup.sh macos.sh symlink-macos.sh svim/install.sh svim/activate.sh; do
+for script in macos-packages.sh macos-setup.sh macos-preferences.sh symlink-macos.sh svim/install.sh svim/activate.sh; do
   bash -n "$repo_dir/$script"
 done
 
