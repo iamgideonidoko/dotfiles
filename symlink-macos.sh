@@ -92,6 +92,7 @@ link "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
 link "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
 link "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
 link "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
+link "$repo_dir/git/config" ~/.config/git/config
 link "$repo_dir/git/ignore" ~/.config/git/ignore
 link "$repo_dir/mise/config.toml" ~/.config/mise/config.toml
 link "$repo_dir/rainfrog/rainfrog_config.toml" ~/.config/rainfrog/rainfrog_config.toml
