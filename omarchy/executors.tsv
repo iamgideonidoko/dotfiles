@@ -4,5 +4,5 @@ headroom	command -v headroom	uv tool install --python 3.13 'headroom-ai[proxy,mc
 posting	command -v posting	uv tool install posting
 agent skills	bash "$REPO_DIR/skills/install.sh" --check	make -C "$REPO_DIR" skills-install
 Codex and Headroom	make -s -C "$REPO_DIR" agent-verify >/dev/null 2>&1	make -C "$REPO_DIR" agent-optimize
-GitHub extensions	for extension in $(sed -n 's/^GH_EXTENSIONS := //p' "$REPO_DIR/Makefile"); do gh extension list | grep -qF "$extension" || exit 1; done	mise exec -- make -C "$REPO_DIR" gh-extensions
-AoE sounds	aoe sounds list | grep -Eq 'Total: [1-9][0-9]* sounds'	make -C "$REPO_DIR" aoe
+GitHub extensions	for extension in $(sed -n 's/^GH_EXTENSIONS := //p' "$REPO_DIR/Makefile"); do gh extension list | grep -F "$extension" >/dev/null || exit 1; done	mise exec -- make -C "$REPO_DIR" gh-extensions
+AoE sounds	aoe sounds list | grep -E 'Total: [1-9][0-9]* sounds' >/dev/null	make -C "$REPO_DIR" aoe
