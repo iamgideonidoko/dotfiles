@@ -20,7 +20,7 @@ make macos-setup
 
 ## Omarchy
 
-![Omarchy workspace preview](./preview.jpg)
+![Omarchy workspace preview](./preview-omarchy.jpg)
 
 ```sh
 make omarchy-setup
