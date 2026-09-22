@@ -104,6 +104,7 @@ link "$repo_dir/karabiner/open-android-emulator.sh" ~/.config/karabiner/open-and
 link "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
 link "$repo_dir/yazi/keymap.toml" ~/.config/yazi/keymap.toml
 link "$repo_dir/yazi/theme.toml" ~/.config/yazi/theme.toml
+link "$repo_dir/yazi/flavors/rose-pine.yazi" ~/.config/yazi/flavors/rose-pine.yazi
 link "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
 link "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
 link "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
