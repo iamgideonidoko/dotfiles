@@ -45,12 +45,16 @@ previous-app)
 cycle)
   active="$(hyprctl activewindow -j)"
   address="$(jq -r '.address' <<<"$active")"
-  pid="$(jq -r '.pid' <<<"$active")"
-  mapfile -t windows < <(hyprctl clients -j | jq -r --argjson pid "$pid" '
-    map(select(.pid == $pid)) | sort_by(.focusHistoryID // 2147483647)[] | .address
+  class="$(jq -r '.class' <<<"$active")"
+  mapfile -t windows < <(hyprctl clients -j | jq -r --arg class "$class" '
+    map(select(.class == $class)) | sort_by(.workspace.id, .address)[] | .address
   ')
   (( ${#windows[@]} > 1 )) || exit 0
-  for index in "${!windows[@]}"; do [[ ${windows[index]} == "$address" ]] && break; done
+  index=-1
+  for i in "${!windows[@]}"; do
+    if [[ ${windows[i]} == "$address" ]]; then index=$i; break; fi
+  done
+  (( index >= 0 )) || exit 0
   if [[ $2 == prev ]]; then
     index=$(( (index - 1 + ${#windows[@]}) % ${#windows[@]} ))
   else

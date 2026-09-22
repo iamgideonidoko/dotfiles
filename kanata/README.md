@@ -16,6 +16,10 @@ Caps Lock taps as Caps Lock. Hold Caps Lock for Hyper, then hold a layer key:
 - `V`: Vim navigation
 - `C`: media controls
 
+In the `W` layer, `N` and `P` cycle through windows with the same Hyprland
+class across all workspaces. Browser windows, webapps, and terminal apps with
+different classes stay in separate cycles.
+
 In the `O` layer, `S` opens the Spotify desktop app and `K` opens the Slack
 desktop app. `H` opens Notion, `M` YouTube Music, and `E` Photopea through the
 launchers installed from `omarchy/webapps.jsonc`.
