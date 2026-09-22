@@ -9,12 +9,16 @@ for key, direction in pairs(directions) do
   o.bind("SUPER + SHIFT + " .. key, "Move window " .. direction, hl.dsp.window.swap({ direction = direction }))
 end
 
+hl.unbind("SUPER + SLASH")
+o.bind("SUPER + SLASH", "Toggle window split", hl.dsp.layout("togglesplit"))
+o.bind("SUPER + PERIOD", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+hl.unbind("SUPER + ALT + SLASH")
+o.bind("SUPER + BRACKETLEFT", "Monitor scaling down", "omarchy-hyprland-monitor-scaling down")
+o.bind("SUPER + BRACKETRIGHT", "Monitor scaling up", "omarchy-hyprland-monitor-scaling up")
+
 hl.unbind("SUPER + RETURN")
 o.bind("SUPER + RETURN", "Toggle floating", hl.dsp.window.float({ action = "toggle" }))
 o.bind("SUPER + A", "Previous workspace", hl.dsp.focus({ workspace = "previous" }))
-
-hl.unbind("SUPER + SHIFT + S")
-o.bind("SUPER + SHIFT + S", "Screenshot", "omarchy-capture-screenshot")
 
 -- SUPER + SHIFT + SLASH was Passwords.
 hl.unbind("SUPER + SHIFT + SLASH")
