@@ -1,0 +1,12 @@
+# Name<TAB>verify command<TAB>install command
+JetBrains Mono Nerd Font	find "$HOME/Library/Fonts" -maxdepth 1 -type f -name 'JetBrainsMonoNerdFont-*.ttf' -print -quit 2>/dev/null | grep . >/dev/null	make -C "$REPO_DIR" font-jetbrains
+headroom	command -v headroom >/dev/null && python="$(head -n1 "$(command -v headroom)" | sed 's/^#!//')" && [[ -n $python && -x $python ]] && "$python" -c 'import fastapi'	uv tool install --reinstall --python 3.13 'headroom-ai[proxy,mcp,code]'
+posting	command -v posting	uv tool install --reinstall posting
+agent skills	bash "$REPO_DIR/skills/install.sh" --check	make -C "$REPO_DIR" skills-install
+Codex and Headroom	make -s -C "$REPO_DIR" agent-verify >/dev/null 2>&1	make -C "$REPO_DIR" agent-optimize
+GitHub extensions	for extension in $(sed -n 's/^GH_EXTENSIONS := //p' "$REPO_DIR/Makefile"); do gh extension list | grep -F "$extension" >/dev/null || exit 1; done	mise exec -- make -C "$REPO_DIR" gh-extensions
+AoE sounds	aoe sounds list | grep -E 'Total: [1-9][0-9]* sounds' >/dev/null	make -C "$REPO_DIR" aoe
+Sketchybar	brew services list 2>/dev/null | awk '$1 == "sketchybar" && $2 == "started" { found = 1 } END { exit !found }'	make -C "$REPO_DIR" sketchybar
+borders	brew services list 2>/dev/null | awk '$1 == "borders" && $2 == "started" { found = 1 } END { exit !found }'	brew services start borders
+AeroSpace	for _ in {1..10}; do pgrep -x AeroSpace >/dev/null && exit 0; sleep 1; done; echo 'AeroSpace did not start; check macOS permissions and rerun setup' >&2; exit 1	open -a AeroSpace
+patched SketchyVim	launchctl print "gui/$(id -u)/com.dotfiles.svim" >/dev/null 2>&1	make -C "$REPO_DIR" svim-activate
