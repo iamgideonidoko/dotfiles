@@ -9,7 +9,7 @@ VIMIUM_OPTION_PATH ?= ~/Downloads/vimium-options.json
 # │ GENERAL / AGNOSTIC │
 # ╰────────────────────╯
 
-.PHONY: shell gh-extensions skills-export skills-install aoe spicetify vimium-options stylus kanata
+.PHONY: shell gh-extensions skills-export skills-install aoe spicetify vimium-options stylus kanata mise agent-config agent-optimize agent-verify
 
 shell:
 	exec /bin/zsh -l
@@ -53,16 +53,45 @@ stylus:
 kanata:
 	npm --prefix kanata run build
 
+mise:
+	@command -v mise >/dev/null || { echo 'mise not found; install platform packages first' >&2; exit 1; }
+	@test -f "$$HOME/.config/mise/config.toml" || { printf 'Run make symlink-macos or make omarchy-symlink before make mise\n' >&2; exit 1; }
+	mise install
+
+agent-config:
+	bash $(ROOT)codex/render-agents.sh
+
+agent-optimize: agent-config
+	@command -v rtk >/dev/null || { echo 'rtk not found; install it first' >&2; exit 1; }
+	@command -v headroom >/dev/null || { echo 'headroom not found; install it first' >&2; exit 1; }
+	headroom install apply --scope user --providers manual --target codex
+	rtk init --global --codex
+	$(MAKE) agent-verify
+
+agent-verify:
+	@command -v rtk >/dev/null || { echo 'rtk not found' >&2; exit 1; }
+	@command -v headroom >/dev/null || { echo 'headroom not found' >&2; exit 1; }
+	@headroom_python="$$(head -n1 "$$(command -v headroom)" | sed 's/^#!//')"; "$$headroom_python" -c 'import fastapi' || { echo "Headroom proxy dependencies missing; run: uv tool install --python 3.13 --upgrade 'headroom-ai[proxy,mcp,code]'" >&2; exit 1; }
+	@headroom install status | rg -q '^Status: +running$$' || { echo 'Headroom proxy is not running' >&2; exit 1; }
+	@test -f "$$HOME/.codex/AGENTS.md"
+	@test -r "$$HOME/.codex/RTK.md"
+	@rg -q "^@$$HOME/\.codex/RTK\.md$$" "$$HOME/.codex/AGENTS.md"
+	@rg -q "^@$$HOME/\.agents/skills/caveman/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
+	@rg -q "^@$$HOME/\.agents/skills/ponytail/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
+	rtk --version
+	headroom --version
+	@echo 'agent-verify: OK'
+
 # ╭────────────────╮
 # │ MACOS SPECIFIC │
 # ╰────────────────╯
 
-.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
 
-homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
+homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify: macos-only
 
 homebrew:
 	bash $(ROOT)macos-packages.sh bootstrap
@@ -92,30 +121,6 @@ macos-setup:
 symlink-macos:
 	bash $(ROOT)symlink-macos.sh
 
-agent-config:
-	./symlink-macos.sh codex
-
-agent-optimize: agent-config
-	@command -v rtk >/dev/null || { echo 'rtk not found; install it first' >&2; exit 1; }
-	@command -v headroom >/dev/null || { echo 'headroom not found; install it first' >&2; exit 1; }
-	headroom install apply --scope user --providers manual --target codex
-	rtk init --global --codex
-	$(MAKE) agent-verify
-
-agent-verify:
-	@command -v rtk >/dev/null || { echo 'rtk not found' >&2; exit 1; }
-	@command -v headroom >/dev/null || { echo 'headroom not found' >&2; exit 1; }
-	@headroom_python="$$(head -n1 "$$(command -v headroom)" | sed 's/^#!//')"; "$$headroom_python" -c 'import fastapi' || { echo "Headroom proxy dependencies missing; run: uv tool install --python 3.13 --upgrade 'headroom-ai[proxy,mcp,code]'" >&2; exit 1; }
-	@headroom install status | rg -q '^Status: +running$$' || { echo 'Headroom proxy is not running' >&2; exit 1; }
-	@test -f "$$HOME/.codex/AGENTS.md"
-	@test -r "$$HOME/.codex/RTK.md"
-	@rg -q "^@$$HOME/\.codex/RTK\.md$$" "$$HOME/.codex/AGENTS.md"
-	@rg -q "^@$$HOME/\.agents/skills/caveman/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
-	@rg -q "^@$$HOME/\.agents/skills/ponytail/SKILL\.md$$" "$$HOME/.codex/AGENTS.md"
-	rtk --version
-	headroom --version
-	@echo 'agent-verify: OK'
-
 font-jetbrains:
 	@font_archive=$$(mktemp); trap 'rm -f "$$font_archive"' EXIT; curl -fL -o "$$font_archive" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip; unzip -o "$$font_archive" -d "$$HOME/Library/Fonts/"
 
@@ -126,18 +131,6 @@ sketchybar:
 	find $(ROOT)sketchybar -type f -name '*.sh' -exec chmod +x {} +
 	curl -fL -o "$$HOME/Library/Fonts/sketchybar-app-font.ttf" https://github.com/kvndrsslr/sketchybar-app-font/releases/latest/download/sketchybar-app-font.ttf
 	brew services restart sketchybar
-
-mise:
-	@test -f "$$HOME/.config/mise/config.toml" || { printf 'Run make symlink-macos before make mise\n' >&2; exit 1; }
-	brew install mise
-	mise install
-	$(MAKE) mise-verify
-
-mise-verify:
-	mise exec node -- node --version
-	mise exec python -- python --version
-	mise exec go -- go version
-	mise exec rust -- rustc --version
 
 karabiner:
 	yarn --cwd karabiner build
