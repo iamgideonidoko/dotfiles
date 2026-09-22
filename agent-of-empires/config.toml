@@ -90,7 +90,7 @@ strict_hotkeys = false
 tie_workdir_to_name = true
 trash_retention_days = 30
 unread_indicator = true
-yolo_mode_default = false
+yolo_mode_default = true
 
 [skills]
 auto_propagate = false
