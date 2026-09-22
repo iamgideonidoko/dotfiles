@@ -57,12 +57,12 @@ kanata:
 # │ MACOS SPECIFIC │
 # ╰────────────────╯
 
-.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
+.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
 
-homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
+homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos agent-config agent-optimize agent-verify font-jetbrains macos-preferences sketchybar mise mise-verify karabiner svim svim-activate svim-start svim-verify: macos-only
 
 homebrew:
 	bash $(ROOT)macos-packages.sh bootstrap
@@ -89,7 +89,7 @@ macos-audit: brew-audit
 macos-setup:
 	bash $(ROOT)macos-setup.sh
 
-symlink:
+symlink-macos:
 	bash $(ROOT)symlink-macos.sh
 
 agent-config:
@@ -128,7 +128,7 @@ sketchybar:
 	brew services restart sketchybar
 
 mise:
-	@test -f "$$HOME/.config/mise/config.toml" || { printf 'Run make symlink before make mise\n' >&2; exit 1; }
+	@test -f "$$HOME/.config/mise/config.toml" || { printf 'Run make symlink-macos before make mise\n' >&2; exit 1; }
 	brew install mise
 	mise install
 	$(MAKE) mise-verify
