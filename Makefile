@@ -1,5 +1,5 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-.DEFAULT_GOAL := homebrew
+.DEFAULT_GOAL := noop
 export PATH := /opt/homebrew/bin:/usr/local/bin:$(PATH)
 GH_EXTENSIONS := dlvhdr/gh-dash dlvhdr/gh-enhance
 SKILL_AGENTS ?=
@@ -9,10 +9,10 @@ VIMIUM_OPTION_PATH ?= ~/Downloads/vimium-options.json
 # │ GENERAL / AGNOSTIC │
 # ╰────────────────────╯
 
-.PHONY: shell gh-extensions skills-export skills-install aoe spicetify vimium-options stylus kanata mise agent-config agent-optimize agent-verify
+.PHONY: noop gh-extensions skills-export skills-install aoe spicetify vimium-options stylus kanata mise agent-config agent-optimize agent-verify
 
-shell:
-	exec /bin/zsh -l
+noop:
+	@:
 
 gh-extensions:
 	@for extension in $(GH_EXTENSIONS); do gh extension install "$$extension" --force; done
@@ -86,40 +86,28 @@ agent-verify:
 # │ MACOS SPECIFIC │
 # ╰────────────────╯
 
-.PHONY: macos-only homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify
+.PHONY: macos-only macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
 
-homebrew deps brew-install brew-clean brew-audit macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify: macos-only
-
-homebrew:
-	bash $(ROOT)macos-packages.sh bootstrap
-
-deps:
-	bash $(ROOT)macos-packages.sh trust
-
-brew-install:
-	bash $(ROOT)macos-packages.sh install
-
-brew-clean:
-	# Review carefully: removes Homebrew packages outside brew/Brewfile.
-	bash $(ROOT)macos-packages.sh clean
-
-brew-audit:
-	bash $(ROOT)macos-packages.sh audit
-
-macos-install: brew-install
-
-macos-clean: brew-clean
-
-macos-audit: brew-audit
-
-macos-setup:
-	bash $(ROOT)macos-setup.sh
+symlink-macos macos-install macos-clean macos-audit macos-setup font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify: macos-only
 
 symlink-macos:
 	bash $(ROOT)symlink-macos.sh
+
+macos-install:
+	bash $(ROOT)macos-packages.sh install
+
+macos-clean:
+	# Review carefully: removes Homebrew packages outside brew/Brewfile.
+	bash $(ROOT)macos-packages.sh clean
+
+macos-audit:
+	bash $(ROOT)macos-packages.sh audit
+
+macos-setup:
+	bash $(ROOT)macos-setup.sh
 
 font-jetbrains:
 	@font_archive=$$(mktemp); trap 'rm -f "$$font_archive"' EXIT; curl -fL -o "$$font_archive" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip; unzip -o "$$font_archive" -d "$$HOME/Library/Fonts/"
@@ -153,16 +141,12 @@ svim-verify:
 # │ OMARCHY SPECIFIC │
 # ╰──────────────────╯
 
-.PHONY: omarchy-only omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb
+.PHONY: omarchy-only omarchy-symlink omarchy-install omarchy-clean omarchy-audit omarchy-setup hyprland-reload omarchy-reload kanata-setup kanata-restart
 
 omarchy-only:
 	@test "$$(uname)" = Linux && command -v omarchy >/dev/null || { echo 'This target requires Omarchy' >&2; exit 1; }
 
-omarchy-setup omarchy-symlink omarchy-install omarchy-clean omarchy-audit hyprland-reload omarchy-reload kanata-setup kanata-restart kanata-reload kb: omarchy-only
-
-omarchy-setup:
-	chmod +x ./omarchy-setup.sh
-	./omarchy-setup.sh setup
+omarchy-symlink omarchy-install omarchy-clean omarchy-audit omarchy-setup hyprland-reload omarchy-reload kanata-setup kanata-restart: omarchy-only
 
 omarchy-symlink:
 	chmod +x ./symlink-omarchy.sh
@@ -179,6 +163,10 @@ omarchy-clean:
 omarchy-audit:
 	chmod +x ./omarchy-packages.sh
 	./omarchy-packages.sh audit
+
+omarchy-setup:
+	chmod +x ./omarchy-setup.sh
+	./omarchy-setup.sh setup
 
 hyprland-reload:
 	hyprctl reload
