@@ -8,12 +8,10 @@ const XX = 'XX';
 const kanataDir = dirname(fileURLToPath(import.meta.url));
 
 const command = (...args: string[]): Action => `(cmd-log none error ${args.map(quote).join(' ')})`;
-const launchOrFocus = (pattern: string, launch: string): Action =>
-  command(join(kanataDir, 'window'), 'focus', pattern, launch);
 const desktop = (pattern: string, desktopId: string): Action =>
-  launchOrFocus(pattern, `uwsm-app -- gtk-launch ${desktopId}`);
+  command(join(kanataDir, 'window'), 'desktop', pattern, desktopId);
 const webapp = (pattern: string, url: string): Action =>
-  command(join(kanataDir, 'window'), 'webapp', pattern, url, `uwsm-app -- omarchy-launch-webapp ${url}`);
+  command(join(kanataDir, 'window'), 'webapp', pattern, url);
 const heldLayer = (name: string): Action => `(layer-while-held ${name})`;
 const subLayer = (name: string): Action => `(one-shot 2000 ${heldLayer(name)})`;
 
@@ -49,9 +47,9 @@ const layers: Record<string, Layer> = {
     p: desktop('postman', 'postman.desktop'),
     z: desktop('zoom', 'Zoom.desktop'),
     h: desktop('notion', 'Notion.desktop'),
-    b: desktop('dbeaver', 'io.dbeaver.DBeaverCommunity.desktop'),
+    b: desktop('dbeaver', 'io.dbeaver.DBeaver.desktop'),
     l: desktop('blender', 'blender.desktop'),
-    y: webapp('chrome-youtube.com__-Default', 'https://youtube.com/'),
+    y: desktop('chrome-youtube.com__-Default', 'YouTube.desktop'),
     m: desktop('chrome-music.youtube.com__-Default', 'YouTube Music.desktop'),
     e: desktop('photopea', 'Photopea.desktop'),
     t: desktop('jetbrains-studio', 'android-studio.desktop'),

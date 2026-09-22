@@ -23,16 +23,17 @@ focus_or_launch() {
   if [[ -n $address ]]; then
     focus "$address"
   else
-    eval "exec setsid $2"
+    shift
+    exec setsid "$@"
   fi
 }
 
 case "${1:-}" in
-focus)
-  focus_or_launch "$2" "$3"
+desktop)
+  focus_or_launch "$2" uwsm-app -- gtk-launch "$3"
   ;;
 webapp)
-  focus_or_launch "$2" "$4"
+  focus_or_launch "$2" uwsm-app -- omarchy-launch-webapp "$3"
   ;;
 previous-app)
   class="$(hyprctl activewindow -j | jq -r '.class')"
