@@ -16,6 +16,11 @@ Caps Lock taps as Caps Lock. Hold Caps Lock for Hyper, then hold a layer key:
 - `V`: Vim navigation
 - `C`: media controls
 
+In the `O` layer, `S` opens the Spotify desktop app and `K` opens the Slack
+desktop app. `H` opens Notion, `M` YouTube Music, and `E` Photopea through the
+launchers installed from `omarchy/webapps.jsonc`.
+`D` opens a dictionary search, and `Y` opens Omarchy's preinstalled YouTube app.
+
 `kanata/setup.sh` grants raw keyboard access through the `input` group, as required by Kanata's official Linux setup. Any process running as this user can then read keyboard events.
 
 ## Why sublayers use tap activation
