@@ -14,3 +14,6 @@ window-step-resize = false
 macos-titlebar-style = hidden
 macos-option-as-alt = left
 mouse-hide-while-typing = true
+# Carry Shift-Enter through nested tmux as the standard F12 sequence. Each
+# tmux layer restores the CSI-u Shift-Enter event for its application.
+keybind = shift+enter=csi:24~
