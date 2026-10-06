@@ -92,4 +92,5 @@ cask "sf-symbols"
 cask "zulu@17"
 cask "terminal-browser"
 cask "handy" # Speech to text
+cask "openvpn-connect"
 ##############################################################################
