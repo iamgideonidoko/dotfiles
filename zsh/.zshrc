@@ -160,6 +160,7 @@ alias python='python3'
 alias history='history -30'
 alias x='exit'
 alias cx='headroom wrap codex --no-proxy'
+alias b='terminal-browser'
 
 # kanata-bin ships `kanata` without command actions. This config uses command
 # actions for Omarchy launch-or-focus, so use its explicitly enabled binary.
