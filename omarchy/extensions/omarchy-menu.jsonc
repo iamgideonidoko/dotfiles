@@ -48,7 +48,7 @@
   "install.browser": {"when": "false"},
   "install.ai": {"when": "false"},
   "install.gaming": {"when": "false"},
-  "install.windows": {"when": "false"},
+  // "install.windows": {"when": "false"},
   "install.preinstalls": {"when": "false"},
   "install.browser.chrome": {"when": "false"},
   "install.browser.edge": {"when": "false"},
