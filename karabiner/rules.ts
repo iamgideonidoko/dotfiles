@@ -112,13 +112,12 @@ const rules: KarabinerRules[] = [
       period: app('Simulator'), // Xcode's iOS Simulator
       p: app('Postman'), // "p"ostman
       z: app('Zoom.us'), // "z"oom
-      h: app('Notion'), // pronounced no-s"h"on :>
       b: app('DBeaver'), // D"b"eaver
       l: app('Blender'), // B"l"ender
       // Chrome apps (chrome://apps)
       y: app('YouTube'), // "y"ouTube
       m: app('YouTube Music'), // YouTube "m"usic
-      e: app('Photopea'), // "p"hotopea
+      h: app('Photopea'), // p"h"otopea
     },
     // e = Mous"e" (I need a better cursor actuator but for now i'm stuck with using Karabiner Elements)
     e: {
