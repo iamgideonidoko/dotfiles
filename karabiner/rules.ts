@@ -78,17 +78,13 @@ const rules: KarabinerRules[] = [
     },
     // o = "O"pen applications
     o: {
-      // Alternate app
+      // Return to the last focused window of a different app across displays.
       a: {
+        description: 'Focus previous app',
         to: [
           {
-            key_code: 'tab',
-            modifiers: ['right_command'],
+            shell_command: '$HOME/.local/bin/dotfiles-window previous',
             repeat: false,
-          },
-          {
-            key_code: 'vk_none',
-            halt: true,
           },
         ],
       },

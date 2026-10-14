@@ -21,7 +21,7 @@ class WindowManagerTest(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         root = Path(self.temporary.name)
-        for name, value in [('STATE', root), ('BACKUP', root / 'preferences.json'), ('AGENT', root / 'login.plist')]:
+        for name, value in [('STATE', root), ('BACKUP', root / 'preferences.json'), ('AGENT', root / 'login.plist'), ('FOCUS_AGENT', root / 'focus.plist')]:
             patcher = patch.object(manager, name, value)
             patcher.start()
             self.addCleanup(patcher.stop)
@@ -60,6 +60,9 @@ class WindowManagerTest(unittest.TestCase):
         self.assertEqual(agent['Label'], 'com.dotfiles.omniwm')
         self.assertEqual(agent['ProgramArguments'][-1], '--login')
         self.assertTrue(agent['RunAtLoad'])
+        focus_agent = plistlib.loads(manager.FOCUS_AGENT.read_bytes())
+        self.assertTrue(focus_agent['KeepAlive'])
+        self.assertEqual(focus_agent['ProgramArguments'][-1], 'watch')
         self.assertEqual(manager.BACKUP.read_bytes(), original)
 
     def test_login_starts_only_omniwm_and_enables_shortcuts(self):

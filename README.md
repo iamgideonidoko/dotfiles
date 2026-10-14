@@ -17,8 +17,6 @@ cd ~/dotfiles
 make macos-setup
 ```
 
-[OmniWM setup and shortcuts](./omniwm/README.md) · [Karabiner](./karabiner/README.md)
-
 ## Omarchy
 
 ![Omarchy workspace preview](./preview-omarchy.jpg)

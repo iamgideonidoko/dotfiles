@@ -17,6 +17,10 @@ if [ "$1" = query ]; then
     printf '{"ok":true,"result":{"kind":"workspaces","payload":{"workspaces":[{"layout":"%s"}]}}}\n' "${TEST_LAYOUT:-dwindle}"
     exit
   fi
+  if [ -n "${TEST_WINDOWS:-}" ]; then
+    printf '{"ok":true,"result":{"kind":"windows","payload":{"windows":%s}}}\n' "$TEST_WINDOWS"
+    exit
+  fi
   printf '%s\n' '{"ok":true,"result":{"kind":"windows","payload":{"windows":[{"id":"ow_test","app":{"name":"Ghostty"},"title":"Terminal"},{"id":"ow_emulator","app":{"name":"qemu-system-aarch64"},"title":"Android"}]}}}'
 else
   printf '%s\n' "$*" >>"$TEST_LOG"
@@ -30,7 +34,17 @@ cat >"$test_dir/mdls" <<'SH'
 #!/bin/sh
 printf '%s\n' '(null)'
 SH
-chmod +x "$test_dir/pgrep" "$test_dir/omniwmctl" "$test_dir/open" "$test_dir/mdls"
+cat >"$test_dir/python3" <<'SH'
+#!/bin/sh
+cat >/dev/null
+[ "${TEST_AX_FAIL:-0}" = 0 ] || exit 1
+printf '%s\n' "${TEST_NATIVE_ID:-202}"
+SH
+cat >"$test_dir/dotfiles-window-history" <<'SH'
+#!/bin/sh
+printf 'history %s\n' "$*" >>"$TEST_LOG"
+SH
+chmod +x "$test_dir/pgrep" "$test_dir/omniwmctl" "$test_dir/open" "$test_dir/mdls" "$test_dir/python3" "$test_dir/dotfiles-window-history"
 # The helper adds Homebrew paths, so copy it with only the test PATH for isolation.
 sed '/^export PATH=/d' "$repo_dir/macos/window" >"$test_dir/window"
 export PATH="$test_dir:$PATH"
@@ -76,4 +90,28 @@ if bash "$test_dir/window" resize invalid; then
   exit 1
 fi
 [[ $(cat "$TEST_LOG") == "$before" ]]
+export TEST_WINDOWS='[
+  {"id":"older","pid":42,"windowId":101,"app":{"name":"Ghostty"},"workspace":{"number":1},"display":{"id":"external"},"isFocused":false},
+  {"id":"recent","pid":42,"windowId":202,"app":{"name":"Ghostty"},"workspace":{"number":9},"display":{"id":"built-in"},"isFocused":false}
+]'
+bash "$test_dir/window" app Ghostty
+[[ $(tail -n 1 "$TEST_LOG") == 'window navigate recent' ]]
+TEST_NATIVE_ID=101 bash "$test_dir/window" app Ghostty
+[[ $(tail -n 1 "$TEST_LOG") == 'window navigate older' ]]
+before=$(cat "$TEST_LOG")
+if TEST_AX_FAIL=1 bash "$test_dir/window" app Ghostty; then
+  echo 'Failed focus lookup must not select an arbitrary window' >&2
+  exit 1
+fi
+if TEST_NATIVE_ID=999 bash "$test_dir/window" app Ghostty; then
+  echo 'Unmanaged focused window must not select an arbitrary window' >&2
+  exit 1
+fi
+[[ $(cat "$TEST_LOG") == "$before" ]]
+TEST_WINDOWS=$(jq '.[0].isFocused = true' <<<"$TEST_WINDOWS")
+TEST_AX_FAIL=1 bash "$test_dir/window" app Ghostty
+[[ $(tail -n 1 "$TEST_LOG") == 'window navigate older' ]]
+unset TEST_WINDOWS
+bash "$test_dir/window" previous
+[[ $(tail -n 1 "$TEST_LOG") == 'history previous' ]]
 echo 'window helpers: OK'

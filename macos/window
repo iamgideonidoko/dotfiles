@@ -36,6 +36,10 @@ case "${1:-}" in
     [[ $# == 2 ]] || exit 64
     omniwmctl window navigate "$2"
     ;;
+  previous)
+    [[ $# == 1 ]] || exit 64
+    dotfiles-window-history previous
+    ;;
   app)
     [[ $# == 2 ]] || exit 64
     if pgrep -x OmniWM >/dev/null; then
@@ -48,9 +52,55 @@ case "${1:-}" in
           break
         fi
       done
-      window_id=$(jq -r --arg app "$2" --arg bundle "$bundle_id" '[.[]
+      app_windows=$(jq -c --arg app "$2" --arg bundle "$bundle_id" '[.[]
         | select(.app.name == $app or ($bundle != "" and .app.bundleId == $bundle))]
-        | sort_by(.isFocused != true) | .[0].id // empty' <<<"$current_windows")
+        | sort_by(.isFocused != true)' <<<"$current_windows")
+      window_id=$(jq -r '.[0].id // empty' <<<"$app_windows")
+      if [[ $(jq 'length > 1 and (.[0].isFocused != true)' <<<"$app_windows") == true ]]; then
+        # macOS retains each app's focused window even while another app is active.
+        pid=$(jq -r '.[0].pid' <<<"$app_windows")
+        native_id=$(python3 - "$pid" <<'PY'
+import ctypes as c
+import sys
+
+ax = c.CDLL('/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices')
+cf = c.CDLL('/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation')
+ax.AXUIElementCreateApplication.argtypes = [c.c_int]
+ax.AXUIElementCreateApplication.restype = c.c_void_p
+ax.AXUIElementCopyAttributeValue.argtypes = [c.c_void_p, c.c_void_p, c.POINTER(c.c_void_p)]
+ax._AXUIElementGetWindow.argtypes = [c.c_void_p, c.POINTER(c.c_uint32)]
+cf.CFStringCreateWithCString.argtypes = [c.c_void_p, c.c_char_p, c.c_uint32]
+cf.CFStringCreateWithCString.restype = c.c_void_p
+cf.CFRelease.argtypes = [c.c_void_p]
+app = ax.AXUIElementCreateApplication(int(sys.argv[1]))
+try:
+    for name in (b'AXFocusedWindow', b'AXMainWindow'):
+        key = cf.CFStringCreateWithCString(None, name, 0x08000100)
+        window = c.c_void_p()
+        try:
+            if ax.AXUIElementCopyAttributeValue(app, key, c.byref(window)) == 0:
+                try:
+                    window_id = c.c_uint32()
+                    if ax._AXUIElementGetWindow(window, c.byref(window_id)) == 0:
+                        print(window_id.value)
+                        break
+                finally:
+                    cf.CFRelease(window)
+        finally:
+            cf.CFRelease(key)
+    else:
+        sys.exit('Cannot read the app focused window; check Accessibility permissions.')
+finally:
+    cf.CFRelease(app)
+PY
+        ) || exit
+        window_id=$(jq -r --argjson native "$native_id" \
+          '[.[] | select(.windowId == $native)][0].id // empty' <<<"$app_windows")
+        [[ -n $window_id ]] || {
+          echo 'The app focused window is not managed by OmniWM.' >&2
+          exit 1
+        }
+      fi
       if [[ -n $window_id ]]; then
         omniwmctl window navigate "$window_id"
         exit
@@ -74,7 +124,7 @@ case "${1:-}" in
     "$emulator" -avd "$avd" >/dev/null 2>&1 &
     ;;
   *)
-    echo 'Usage: window {list|navigate <id>|app <name>|emulator|resize <grow|shrink>}' >&2
+    echo 'Usage: window {list|navigate <id>|previous|app <name>|emulator|resize <grow|shrink>}' >&2
     exit 64
     ;;
 esac

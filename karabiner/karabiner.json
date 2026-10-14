@@ -308,15 +308,11 @@
                 ]
               },
               {
+                "description": "Focus previous app",
                 "to": [
                   {
-                    "key_code": "tab",
-                    "modifiers": ["right_command"],
+                    "shell_command": "$HOME/.local/bin/dotfiles-window previous",
                     "repeat": false
-                  },
-                  {
-                    "key_code": "vk_none",
-                    "halt": true
                   }
                 ],
                 "type": "basic",
@@ -820,15 +816,11 @@
                 ]
               },
               {
+                "description": "Focus previous app",
                 "to": [
                   {
-                    "key_code": "tab",
-                    "modifiers": ["right_command"],
+                    "shell_command": "$HOME/.local/bin/dotfiles-window previous",
                     "repeat": false
-                  },
-                  {
-                    "key_code": "vk_none",
-                    "halt": true
                   },
                   {
                     "set_variable": {

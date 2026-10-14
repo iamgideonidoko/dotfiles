@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 STATE = Path.home() / '.local/state/dotfiles/window-manager'
 BACKUP = STATE / 'preferences.json'
 AGENT = Path.home() / 'Library/LaunchAgents/com.dotfiles.omniwm.plist'
+FOCUS_AGENT = AGENT.with_name('com.dotfiles.window-focus.plist')
 KARABINER = '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli'
 PREFERENCES = [
     ('com.apple.spaces', 'spans-displays', 'bool', False),
@@ -113,6 +114,22 @@ def start_omniwm():
     run('open', '-a', 'OmniWM')
 
 
+def install_focus_history():
+    STATE.mkdir(parents=True, exist_ok=True, mode=0o700)
+    FOCUS_AGENT.parent.mkdir(parents=True, exist_ok=True)
+    FOCUS_AGENT.write_bytes(plistlib.dumps({
+        'Label': 'com.dotfiles.window-focus',
+        'ProgramArguments': [sys.executable, str(ROOT / 'macos/window-history.py'), 'watch'],
+        'RunAtLoad': True,
+        'KeepAlive': True,
+        'StandardErrorPath': str(STATE / 'focus.log'),
+    }))
+    service = f'gui/{os.getuid()}/com.dotfiles.window-focus'
+    subprocess.run(['launchctl', 'bootout', service], capture_output=True)
+    run('launchctl', 'enable', service)
+    run('launchctl', 'bootstrap', f'gui/{os.getuid()}', str(FOCUS_AGENT))
+
+
 def activate():
     if not Path('/Applications/OmniWM.app').is_dir():
         run('brew', 'install', '--cask', 'omniwm')
@@ -139,6 +156,7 @@ def activate():
     run('launchctl', 'enable', service)
     run('launchctl', 'bootstrap', f'gui/{os.getuid()}', str(AGENT))
     start_omniwm()
+    install_focus_history()
     print('OmniWM selected. Grant Accessibility and Input Monitoring in System Settings.')
     print('Screen Recording enables Overview thumbnails and hover previews.')
     print('Disable macOS three-finger desktop swipes and four-finger Mission Control gestures to use OmniWM gestures.')

@@ -13,6 +13,8 @@ make omniwm # Link configs, build Karabiner, activate; also included in make mac
   prefer one native macOS Space per display.
 - Leave OmniWM's **Start at Login** off: `~/Library/LaunchAgents/com.dotfiles.omniwm.plist`
   handles startup and enables Karabiner's OmniWM shortcuts.
+- `com.dotfiles.window-focus.plist` records focus events for Hyper + O + A, bypassing
+  OmniWM's previous-window history. It includes floating windows.
 - Changing Reduce Motion may require an admin password. Reopen apps to apply the
   8-point system window corners; custom app chrome may ignore them.
 - Gestures are disabled. If enabled, avoid conflicting finger counts/axes and
@@ -67,6 +69,7 @@ Hidden Bar needs macOS 27+. Native borders, Overview, and Quake are currently di
 
 ```sh
 python3 macos/test-window-manager.py
+python3 macos/test-window-history.py
 bash macos/test-window.sh
 python3 macos/window-manager.py --dry-run
 bash macos-setup.sh --dry-run
