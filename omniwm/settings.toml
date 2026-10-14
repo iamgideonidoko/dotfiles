@@ -192,8 +192,8 @@ solidBlackBackground = false
 systemStatsButton = true
 transparentBackground = false
 windowLevel = "popup"
-xOffset = 100.0
-yOffset = 2.0
+xOffset = 0.0
+yOffset = 4.0
 
 [workspaceBar.accentColor]
 alpha = 1.0
