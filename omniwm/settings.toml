@@ -6,11 +6,11 @@ monitorOrientationOverrides = []
 schemaVersion = 4
 
 [appearance]
-mode = "dark"
+mode = "automatic"
 tabRailAppIcons = true
 
 [borders]
-enabled = true
+enabled = false
 width = 2.0
 
 [borders.color]
@@ -54,7 +54,7 @@ right = 5.0
 top = 5.0
 
 [general]
-animationSpeed = 1.0
+animationSpeed = 1.5
 animationsEnabled = true
 defaultLayoutType = "dwindle"
 hotkeysEnabled = true
@@ -160,7 +160,7 @@ mode = "macOS"
 
 [statusBar]
 showAppNames = false
-showIcon = true
+showIcon = false
 showWorkspaceName = false
 useWorkspaceId = false
 
@@ -1085,7 +1085,7 @@ id = "toggleSystemStats"
 
 [[workspaces]]
 id = "4C464E69-67D0-5906-917E-DCECF2336513"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "1"
 
 [workspaces.monitorAssignment]
