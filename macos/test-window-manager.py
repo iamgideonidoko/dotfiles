@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check backup/rollback without changing the desktop or macOS preferences."""
+"""Check OmniWM setup and backups without changing the desktop or preferences."""
 import importlib.util
 import json
 from pathlib import Path
@@ -44,33 +44,37 @@ class WindowManagerTest(unittest.TestCase):
             manager.snapshot()
         self.assertEqual(manager.BACKUP.read_bytes(), original)
 
-    def test_rollback_restores_backup_and_disables_shortcuts(self):
-        saved = self.snapshot()
-        manager.AGENT.write_text('agent')
-        with patch.object(manager, 'quit_app') as quit_app, patch.object(manager, 'login_items'), patch.object(
-            manager, 'set_hyper'
-        ) as hyper, patch.object(manager, 'write_preference') as preference, patch.object(
-            manager, 'wallpaper'
-        ) as wallpaper, patch.object(manager, 'run'), patch.object(manager.subprocess, 'run'):
-            manager.rollback()
-        quit_app.assert_called_once_with('OmniWM')
-        hyper.assert_called_once_with(False)
-        self.assertEqual(preference.call_count, len(saved['preferences']))
-        wallpaper.assert_any_call('/one.jpg', 'Built-in Retina Display')
-        wallpaper.assert_any_call('/two.jpg', 'Mi Monitor')
-        self.assertFalse(manager.BACKUP.exists())
-        self.assertFalse(manager.AGENT.exists())
-
-    def test_failed_restore_keeps_backup(self):
+    def test_activation_keeps_backup_and_installs_login_agent(self):
         self.snapshot()
-        with patch.object(manager, 'quit_app'), patch.object(manager, 'login_items'), patch.object(
-            manager, 'set_hyper'
-        ), patch.object(manager, 'write_preference', side_effect=RuntimeError('cannot restore')), patch.object(
-            manager.subprocess, 'run'
-        ):
+        original = manager.BACKUP.read_bytes()
+        with patch.object(manager, 'login_items') as login, patch.object(
+            manager, 'write_preference'
+        ), patch.object(manager, 'wallpaper') as wallpaper, patch.object(
+            manager, 'run'
+        ), patch.object(manager, 'start_omniwm') as start, patch.object(manager.subprocess, 'run'):
+            manager.activate()
+        login.assert_called_once_with(('OmniWM',))
+        wallpaper.assert_called_once_with(str(manager.ROOT / 'wallpapers/min-apple.jpg'))
+        start.assert_called_once_with()
+        agent = plistlib.loads(manager.AGENT.read_bytes())
+        self.assertEqual(agent['Label'], 'com.dotfiles.omniwm')
+        self.assertEqual(agent['ProgramArguments'][-1], '--login')
+        self.assertTrue(agent['RunAtLoad'])
+        self.assertEqual(manager.BACKUP.read_bytes(), original)
+
+    def test_login_starts_only_omniwm_and_enables_shortcuts(self):
+        with patch.object(manager, 'run') as run, patch.object(manager, 'set_hyper') as hyper:
+            manager.start_omniwm()
+        hyper.assert_called_once_with(True)
+        run.assert_called_once_with('open', '-a', 'OmniWM')
+
+    def test_failed_activation_keeps_backup(self):
+        self.snapshot()
+        with patch.object(manager, 'run'), patch.object(manager, 'write_preference', side_effect=RuntimeError('cannot apply')):
             with self.assertRaises(RuntimeError):
-                manager.rollback()
+                manager.activate()
         self.assertTrue(manager.BACKUP.exists())
+        self.assertFalse(manager.AGENT.exists())
 
     def test_absent_preference_is_deleted_only_when_present(self):
         with patch.object(manager.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)), patch.object(manager, 'run') as run:

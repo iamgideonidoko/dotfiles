@@ -1,28 +1,27 @@
 # OmniWM desktop
 
-Stable OmniWM v0.7.6 replaces the active AeroSpace desktop, using Dwindle tiling,
-animations, the native workspace bar, and native focus borders. AeroSpace,
-SketchyBar, and JankyBorders remain installed and their original configs remain
-in this repository. Linux/Omarchy configuration is unchanged.
+OmniWM is the macOS desktop's window manager, with Dwindle and Niri layouts,
+animations, and a native workspace bar. Linux/Omarchy configuration is unchanged.
 
 ```sh
-make omniwm    # Link configs, build Karabiner, activate OmniWM
-make aerospace # Restore preferences and the legacy desktop
+make omniwm # Link configs, build Karabiner, activate OmniWM
 ```
 
-`make macos-setup` now selects OmniWM too. Switch scripts back up affected motion,
+`make macos-setup` selects OmniWM too. Activation backs up affected motion,
 Spaces, and window-corner preferences and each display's wallpaper under
 `~/.local/state/dotfiles/window-manager/preferences.json`. Repeated activation
-keeps the original backup; successful rollback removes it. Failures retain it.
+keeps the original backup for manual recovery; setup failures retain it.
 Changing Reduce Motion requires an administrator password when its current value
 differs. An already-correct value is left alone.
 
 Startup uses `~/Library/LaunchAgents/com.dotfiles.omniwm.plist`. Leave OmniWM's
 own Start at Login switch off to avoid duplicate startup. Activation removes
-the AeroSpace login item after quitting it; rollback launches AeroSpace, whose
-original `start-at-login = true` config restores its login registration.
+OmniWM's native login entry before installing the managed LaunchAgent.
 Karabiner's `dotfiles_omniwm` variable enables the OmniWM-only terminal and
 screenshot shortcuts; the startup agent restores it at login.
+
+SketchyVim remains enabled. Its mode/command-line hook is a no-op because the
+upstream binary invokes that file unconditionally.
 
 ## First launch
 
@@ -31,10 +30,9 @@ screenshot shortcuts; the startup agent restores it at login.
 - Log out and back in after enabling **Displays have separate Spaces**. Setup
   enables this setting but never forces a logout. Prefer one native Space per
   display; navigate with OmniWM workspaces.
-- Disable macOS three-finger desktop swipes and four-finger Mission Control
-  gestures under Trackpad → More Gestures. OmniWM uses three-finger horizontal
-  workspace swipes and four-finger vertical Overview swipes. Its trackpad
-  column scrolling is disabled so gesture assignments cannot overlap.
+- Workspace, Overview, and column-scroll gestures are currently disabled. If
+  enabling them, disable matching macOS gestures under Trackpad → More Gestures
+  and give each enabled OmniWM gesture a non-conflicting finger count/axis.
 - Fully quit and reopen affected apps for the 8-point system window corners.
   Apps drawing their own chrome may ignore this setting.
 
@@ -66,8 +64,9 @@ screenshot shortcuts; the startup agent restores it at login.
 
 Caps Lock Hyper layers remain in Karabiner. App launchers focus an existing
 OmniWM window across workspaces before launching an app. `wps` remains an fzf
-window picker. Both helpers retain AeroSpace support. An IPC failure aborts
-navigation rather than launching duplicate apps or emulators.
+window picker. Window navigation and emulator reuse require OmniWM IPC. An IPC
+failure aborts rather than launching duplicate apps or emulators. App launchers
+use native macOS activation when OmniWM is not running.
 
 Workspaces 1–10 initially use the main display. Number shortcuts are global;
 they focus the workspace on whichever display currently owns it. Workspace
@@ -106,12 +105,12 @@ omniwmctl query workspaces --json
 Manually check motion, three-window splits/swaps, fullscreen restoration,
 workspace 10, move-and-follow, Hyper launchers, emulator reuse, and native bar
 placement. On multiple displays check workspace transfers, disconnect/reconnect,
-and login startup. Check rollback separately after saving your current layout.
+and login startup.
 
 Initial verification passed IPC ping, config loading with ten Dwindle workspaces,
 workspace 10 switching and restoration, and native bar queries. Automated tests
 cover preference backups, per-display wallpaper restoration, missing preferences,
-rollback failures, window helpers, IPC failures, and AeroSpace fallback. Live
+activation failures, window helpers, IPC failures, and native app launching. Live
 window-focus verification and animation/display handoff remain pending completion
 of the separate Spaces logout/login step.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Activate OmniWM or restore AeroSpace without editing legacy dotfiles."""
+"""Set up the OmniWM desktop and its login startup."""
 import argparse
 import json
 import os
@@ -7,7 +7,6 @@ from pathlib import Path
 import plistlib
 import subprocess
 import sys
-import time
 
 ROOT = Path(__file__).resolve().parent.parent
 STATE = Path.home() / '.local/state/dotfiles/window-manager'
@@ -43,17 +42,6 @@ def login_items(remove=()):
         end repeat
       end tell
     end run''', *remove)
-
-
-def quit_app(name):
-    if subprocess.run(['pgrep', '-x', name], capture_output=True).returncode:
-        return
-    apple('on run argv\n tell application (item 1 of argv) to quit\nend run', name)
-    for _ in range(50):
-        if subprocess.run(['pgrep', '-x', name], capture_output=True).returncode:
-            return
-        time.sleep(0.1)
-    raise RuntimeError(f'{name} did not quit; close it before switching window managers')
 
 
 def set_hyper(enabled):
@@ -121,7 +109,6 @@ def wallpaper(path, display=''):
 
 
 def start_omniwm():
-    quit_app('AeroSpace')
     set_hyper(True)
     run('open', '-a', 'OmniWM')
 
@@ -134,17 +121,11 @@ def activate():
     # Keep the logout reminder after a partially completed activation is retried.
     changed_spaces = any(domain == 'com.apple.spaces' and key == 'spans-displays' and value is True
                          for domain, key, _, value in saved['preferences'])
-    # Finish preference changes before stopping the previous desktop.
+    # Apply preferences before configuring login startup.
     for domain, key, kind, value in PREFERENCES:
         write_preference(domain, key, kind, value)
     wallpaper(str(ROOT / 'wallpapers/min-apple.jpg'))
-    # Remove the OS login entry after quitting so AeroSpace cannot re-register it.
-    quit_app('AeroSpace')
-    login_items(('AeroSpace', 'OmniWM'))
-    run('brew', 'services', 'stop', 'sketchybar')
-    run('brew', 'services', 'stop', 'borders')
-    for name in ('sketchybar', 'borders'):
-        subprocess.run(['pkill', '-x', name], check=False)
+    login_items(('OmniWM',))
     AGENT.parent.mkdir(parents=True, exist_ok=True)
     # A LaunchAgent makes startup reproducible without driving OmniWM's Settings UI.
     AGENT.write_bytes(plistlib.dumps({
@@ -166,51 +147,27 @@ def activate():
         print('Log out and back in to enable separate display Spaces. No logout was forced.')
 
 
-def rollback():
-    quit_app('OmniWM')
-    login_items(('OmniWM',))
-    subprocess.run(['launchctl', 'bootout', f'gui/{os.getuid()}/com.dotfiles.omniwm'], capture_output=True)
-    AGENT.unlink(missing_ok=True)
-    set_hyper(False)
-    if BACKUP.exists():
-        saved = json.loads(BACKUP.read_text())
-        for domain, key, kind, value in saved['preferences']:
-            write_preference(domain, key, kind, value)
-        for display, picture in saved['wallpapers']:
-            wallpaper(picture, display)
-    run('open', '-a', 'AeroSpace')
-    run('brew', 'services', 'restart', 'sketchybar')
-    run('brew', 'services', 'restart', 'borders')
-    BACKUP.unlink(missing_ok=True)
-    print('AeroSpace restored. Log out and back in if the separate Spaces setting changed.')
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('manager', nargs='?', choices=['omniwm', 'aerospace'], default='omniwm')
     parser.add_argument('--login', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()
     if args.dry_run:
-        print(f'{args.manager}: preserve legacy configs; ' + (
-            'back up preferences, stop legacy services, enable motion/Spaces, install login agent, open OmniWM'
-            if args.manager == 'omniwm' else 'stop OmniWM, remove login agent, restore preferences, start AeroSpace/bar/borders'))
+        print('OmniWM: back up preferences, enable motion/Spaces, set Apple wallpaper, install login agent, open OmniWM')
         return
     if sys.platform != 'darwin':
         parser.error('requires macOS')
-    if args.manager == 'omniwm' and (os.uname().machine != 'arm64' or int(run('sw_vers', '-productVersion', capture=True).stdout.split('.')[0]) < 26):
+    if (os.uname().machine != 'arm64' or int(run('sw_vers', '-productVersion', capture=True).stdout.split('.')[0]) < 26):
         parser.error('OmniWM requires Apple Silicon and macOS 26+')
     if args.login:
         start_omniwm()
-    elif args.manager == 'omniwm':
-        activate()
     else:
-        rollback()
+        activate()
 
 
 if __name__ == '__main__':
     try:
         main()
     except (subprocess.CalledProcessError, RuntimeError) as error:
-        print(f'Window manager switch failed: {error}. Preferences backup: {BACKUP}', file=sys.stderr)
+        print(f'OmniWM activation failed: {error}. Preferences backup: {BACKUP}', file=sys.stderr)
         sys.exit(1)

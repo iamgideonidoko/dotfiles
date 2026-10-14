@@ -428,7 +428,7 @@ const rules: KarabinerRules[] = [
   }),
 ];
 
-// App-launch and screenshot chords stay inactive during AeroSpace rollback.
+// OmniWM startup enables these app-launch and screenshot chords.
 for (const [key, command, description] of [
   ['semicolon', "$HOME/.local/bin/dotfiles-window app 'Ghostty'", 'Terminal'],
   ['s', '/usr/sbin/screencapture -i -c', 'Screenshot'],

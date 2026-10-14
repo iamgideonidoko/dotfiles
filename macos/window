@@ -30,19 +30,11 @@ case "${1:-}" in
     fi
     ;;
   list)
-    if pgrep -x OmniWM >/dev/null; then
-      windows | jq -r '.[] | [.id, .app.name, .title] | @tsv'
-    else
-      aerospace list-windows --all
-    fi
+    windows | jq -r '.[] | [.id, .app.name, .title] | @tsv'
     ;;
   navigate)
     [[ $# == 2 ]] || exit 64
-    if pgrep -x OmniWM >/dev/null; then
-      omniwmctl window navigate "$2"
-    else
-      aerospace focus --window-id "$2"
-    fi
+    omniwmctl window navigate "$2"
     ;;
   app)
     [[ $# == 2 ]] || exit 64
@@ -67,9 +59,6 @@ case "${1:-}" in
     open -a "$2"
     ;;
   emulator)
-    if ! pgrep -x OmniWM >/dev/null; then
-      exec bash "$(cd "$(dirname "$0")/.." && pwd)/karabiner/open-android-emulator.sh"
-    fi
     current_windows=$(windows) || exit
     window_id=$(jq -r '[.[] | select((.app.name // "") | contains("qemu-system-aarch64"))]
       | .[0].id // empty' <<<"$current_windows")

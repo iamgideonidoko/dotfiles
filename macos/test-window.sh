@@ -30,15 +30,7 @@ cat >"$test_dir/mdls" <<'SH'
 #!/bin/sh
 printf '%s\n' '(null)'
 SH
-cat >"$test_dir/aerospace" <<'SH'
-#!/bin/sh
-if [ "$1" = list-windows ]; then
-  printf '%s\n' '123 | Ghostty | Terminal'
-else
-  printf '%s\n' "aerospace $*" >>"$TEST_LOG"
-fi
-SH
-chmod +x "$test_dir/pgrep" "$test_dir/omniwmctl" "$test_dir/open" "$test_dir/mdls" "$test_dir/aerospace"
+chmod +x "$test_dir/pgrep" "$test_dir/omniwmctl" "$test_dir/open" "$test_dir/mdls"
 # The helper adds Homebrew paths, so copy it with only the test PATH for isolation.
 sed '/^export PATH=/d' "$repo_dir/macos/window" >"$test_dir/window"
 export PATH="$test_dir:$PATH"
@@ -57,9 +49,14 @@ if TEST_IPC_FAIL=1 bash "$test_dir/window" emulator; then
   exit 1
 fi
 [[ $(cat "$TEST_LOG") == "$before" ]]
-[[ $(TEST_OMNI_RUNNING=1 bash "$test_dir/window" list) == '123 | Ghostty | Terminal' ]]
-TEST_OMNI_RUNNING=1 bash "$test_dir/window" navigate 123
-[[ $(tail -n 1 "$TEST_LOG") == 'aerospace focus --window-id 123' ]]
+if TEST_IPC_FAIL=1 bash "$test_dir/window" list; then
+  echo 'Failed window query must not list windows' >&2
+  exit 1
+fi
+bash "$test_dir/window" navigate ow_test
+[[ $(tail -n 1 "$TEST_LOG") == 'window navigate ow_test' ]]
+TEST_OMNI_RUNNING=1 bash "$test_dir/window" app Ghostty
+[[ $(tail -n 1 "$TEST_LOG") == 'open -a Ghostty' ]]
 TEST_LAYOUT=niri bash "$test_dir/window" resize grow
 TEST_LAYOUT=niri bash "$test_dir/window" resize shrink
 TEST_LAYOUT=dwindle bash "$test_dir/window" resize grow
