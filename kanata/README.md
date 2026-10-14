@@ -1,39 +1,32 @@
 # Kanata
 
-TypeScript source generates `kanata.kbd`, matching the Karabiner Hyper-key layout.
+Linux Hyper-key layers matching Karabiner. Edit [config.ts](./config.ts); it generates `kanata.kbd`.
+Run these commands from the repo root:
 
 ```sh
-make kanata
+make kanata-setup   # Build, install, link, and enable
+make kanata         # Rebuild config
+make kanata-restart # Rebuild and restart
 ```
 
-Caps Lock taps as Caps Lock. Hold Caps Lock for Hyper, then hold a layer key:
+Tap Caps Lock for Caps Lock; hold it for Hyper. Hold a layer key, or tap it and
+press the action key within two seconds:
 
-- `O`: launch or focus apps through Omarchy
-- `B`: browser shortcuts
-- `E`: mouse control
-- `W`: tabs and windows
-- `S`: system controls
-- `V`: Vim navigation
-- `C`: media controls
+| Layer | Actions           |
+| ----- | ----------------- |
+| O     | Launch/focus apps |
+| B     | Browser shortcuts |
+| E     | Mouse control     |
+| W     | Tabs and windows  |
+| S     | System controls   |
+| V     | Vim navigation    |
+| C     | Media controls    |
 
-In the `W` layer, `N` and `P` cycle through windows with the same Hyprland
-class across all workspaces. Browser windows, webapps, and terminal apps with
-different classes stay in separate cycles.
+`W + N/P` cycles windows of the same Hyprland class across workspaces.
+Apps and webapps with different classes stay separate; see `config.ts` for app mappings.
 
-In the `O` layer, `S` opens the Spotify desktop app and `K` opens the Slack
-desktop app. `H` opens Notion, `M` YouTube Music, and `E` Photopea through the
-launchers installed from `omarchy/webapps.jsonc`.
-`D` opens a dictionary search, and `Y` opens Omarchy's preinstalled YouTube app.
+Some keyboards drop three-key chords. If `Caps Lock + S + K` fails, hold Caps Lock,
+tap and release S, then press K. Kanata cannot handle key events the keyboard drops.
 
-`kanata/setup.sh` grants raw keyboard access through the `input` group, as required by Kanata's official Linux setup. Any process running as this user can then read keyboard events.
-
-## Why sublayers use tap activation
-
-Some laptop keyboards cannot report every three-key combination. For example, the keyboard may report Caps Lock and `S`, but suppress `K` or `L` while both remain held. This is a hardware or keyboard-firmware rollover limitation: Kanata enters the correct sublayer, but it cannot handle a final key event that the keyboard never sends. Which combinations fail depends on the keyboard matrix, so similar shortcuts may still work with other keys or an external keyboard.
-
-Hyper sublayers therefore use a two-second one-shot layer. Both interaction styles are supported when the keyboard can report the held chord:
-
-- Hold Caps Lock and the sublayer key, then press the action key.
-- Hold Caps Lock, tap and release the sublayer key, then press the action key within two seconds.
-
-For example, if holding `Caps Lock + S + K` does not change brightness, hold Caps Lock, tap and release `S`, then press `K`. Releasing the sublayer key reduces the physical combination to two simultaneous keys and avoids the rollover limitation.
+Setup grants `input`/`uinput` group access. Any process running as your user can then
+read keyboard events. Log out and back in if setup requests it.

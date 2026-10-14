@@ -1,25 +1,16 @@
-# Karabiner Elements configuration
+# Karabiner
 
-## Installation
+macOS Hyper-key layers. Edit [rules.ts](./rules.ts) and [utils.ts](./utils.ts);
+the build generates `karabiner.json`.
 
-Setup `dotfiles` as instructed (brew install, symlink, ...), restart Karabiner Elements and finish up setup (permission, keyboard pick...) if you haven't yet.
+Run from the repo root:
 
-## Development
-
-Install the dependencies:
-
-```
-yarn install
-```
-
-Build the `karabiner.json` from the `rules.ts`.
-
-```
-yarn run build
+```sh
+yarn --cwd karabiner install
+make karabiner                 # Build
+yarn --cwd karabiner watch     # Rebuild on changes
 ```
 
-Watch the TypeScript files and rebuilds whenever they change.
-
-```
-yarn run watch
-```
+`make macos-setup` installs and links the config. Restart Karabiner, grant its
+permissions, and select your keyboard. App/window shortcuts use
+[dotfiles-window](../macos/window); see [OmniWM](../omniwm/README.md) for bindings.

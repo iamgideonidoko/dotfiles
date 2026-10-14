@@ -1,7 +1,6 @@
 # dotfiles
 
-Personal dotfiles for a seamless macOS and Omarchy workspace built for focused,
-high-leverage work.
+Personal macOS and Omarchy dotfiles.
 
 ## Clone
 
@@ -18,8 +17,7 @@ cd ~/dotfiles
 make macos-setup
 ```
 
-macOS uses [OmniWM](./omniwm/README.md) with Omarchy-style shortcuts and motion.
-Use `make omniwm` to link configs, build shortcuts, and activate the desktop.
+[OmniWM setup and shortcuts](./omniwm/README.md) · [Karabiner](./karabiner/README.md)
 
 ## Omarchy
 
@@ -28,3 +26,5 @@ Use `make omniwm` to link configs, build shortcuts, and activate the desktop.
 ```sh
 make omarchy-setup
 ```
+
+[Kanata setup and Hyper layers](./kanata/README.md)
