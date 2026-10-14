@@ -137,7 +137,7 @@ def activate():
     # Finish preference changes before stopping the previous desktop.
     for domain, key, kind, value in PREFERENCES:
         write_preference(domain, key, kind, value)
-    wallpaper(str(ROOT / 'wallpapers/min-omarchy.jpg'))
+    wallpaper(str(ROOT / 'wallpapers/min-apple.jpg'))
     # Remove the OS login entry after quitting so AeroSpace cannot re-register it.
     quit_app('AeroSpace')
     login_items(('AeroSpace', 'OmniWM'))
