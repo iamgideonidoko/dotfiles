@@ -41,7 +41,7 @@ followsWindowToMonitor = true
 lockModifier = "off"
 moveCrossesMonitorAtEdge = true
 moveMouseToFocusedWindow = true
-raiseOnMouseFocus = false
+raiseOnMouseFocus = true
 
 [gaps]
 fullscreenUsesOuterGaps = false
@@ -106,7 +106,7 @@ singleWindowFit = "fill"
 visibleContainerCount = 2
 
 [overview]
-enabled = true
+enabled = false
 invertScrollDirection = false
 matchFocusBorder = true
 mouseScrollSpeed = 1.0
@@ -1085,7 +1085,7 @@ id = "toggleSystemStats"
 
 [[workspaces]]
 id = "4C464E69-67D0-5906-917E-DCECF2336513"
-layoutType = "dwindle"
+layoutType = "default"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -1109,7 +1109,7 @@ type = "main"
 
 [[workspaces]]
 id = "39DCEB26-E03C-5EAF-A919-3A6A4CB8AF67"
-layoutType = "default"
+layoutType = "dwindle"
 name = "4"
 
 [workspaces.monitorAssignment]
