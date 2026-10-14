@@ -1,7 +1,6 @@
 ##############################################################################
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "felixkratz/formulae"
 ##############################################################################
 # LANGUAGES
 # Required by Homebrew's awscli, llvm, and watchman. Mise owns interactive Python.
@@ -45,8 +44,6 @@ brew "awscli"
 brew "aria2" # Download utility but faster
 brew "postgresql"
 brew "mysql-client@8.0"
-brew "felixkratz/formulae/borders" # Adds colored borders to user windows on macOS 14.0+
-brew "felixkratz/formulae/sketchybar" # Adds a highly customizable status bar to macOS
 brew "jq"
 brew "switchaudio-osx"
 brew "mkcert" # Local certificates
@@ -87,7 +84,6 @@ cask "android-file-transfer" # Android - macOS file transfer
 cask "logi-options+"
 cask "capcut"
 cask "postman"
-cask "nikitabobko/tap/aerospace"
 cask "omniwm" # Native Dwindle tiling, workspace bar, and focus borders.
 cask "sf-symbols"
 cask "zulu@17"

@@ -15,9 +15,6 @@ bootstrap() {
 }
 
 trust() {
-  brew trust felixkratz/formulae
-  brew trust nikitabobko/tap
-  brew trust --cask nikitabobko/tap/aerospace
   brew trust anomalyco/tap
 }
 

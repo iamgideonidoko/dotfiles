@@ -81,17 +81,14 @@ link "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/ros
 link "$repo_dir/ghostty/config" ~/.config/ghostty/config
 link "$repo_dir/starship/starship.toml" ~/.config/starship.toml
 link "$repo_dir/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
-link "$repo_dir/karabiner/open-android-emulator.sh" ~/.config/karabiner/open-android-emulator.sh
 link "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
 link "$repo_dir/yazi/keymap.toml" ~/.config/yazi/keymap.toml
 link "$repo_dir/yazi/theme.toml" ~/.config/yazi/theme.toml
 link "$repo_dir/yazi/flavors/rose-pine.yazi" ~/.config/yazi/flavors/rose-pine.yazi
 link "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
 link "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
-link "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
 link "$repo_dir/omniwm" ~/.config/omniwm
 link "$repo_dir/macos/window" ~/.local/bin/dotfiles-window
-link "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
 link "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
 link "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml
 link "$repo_dir/git/config" ~/.config/git/config
@@ -105,7 +102,6 @@ bash "$repo_dir/codex/render-agents.sh"
 link "$repo_dir/nvim/" ~/.config/nvim
 link "$repo_dir/svim/" ~/.config/svim
 link "$repo_dir/btop/" ~/.config/btop
-link "$repo_dir/sketchybar/" ~/.config/sketchybar
 link "$repo_dir/tuicr/" ~/.config/tuicr
 link "$repo_dir/posting" ~/.config/posting
 link "$repo_dir/spicetify/Themes/RosePine" ~/.config/spicetify/Themes/RosePine

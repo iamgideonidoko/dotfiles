@@ -202,9 +202,6 @@ if command -v fastfetch &>/dev/null; then
   alias ffm='fastfetch --structure "Title:OS:Kernel:Uptime:CPU:CPU_cores:GPU:Memory:Resolution:Hostname:Shell:Packages:Disk:Battery" '
 fi
 
-if [[ -f "$HOME/dotfiles/zsh/aerospace.sh" ]]; then
-  source "$HOME/dotfiles/zsh/aerospace.sh"
-fi
 if [[ -f "$HOME/dotfiles/zsh/window-manager.sh" ]]; then
   source "$HOME/dotfiles/zsh/window-manager.sh"
 fi

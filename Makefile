@@ -86,19 +86,16 @@ agent-verify:
 # │ MACOS SPECIFIC │
 # ╰────────────────╯
 
-.PHONY: macos-only macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify
-.PHONY: omniwm aerospace
+.PHONY: macos-only macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences karabiner svim svim-activate svim-start svim-verify
+.PHONY: omniwm
 
 omniwm: macos-only symlink-macos karabiner
-	python3 $(ROOT)macos/window-manager.py omniwm
-
-aerospace: macos-only
-	python3 $(ROOT)macos/window-manager.py aerospace
+	python3 $(ROOT)macos/window-manager.py
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }
 
-symlink-macos macos-install macos-clean macos-audit macos-setup font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify: macos-only
+symlink-macos macos-install macos-clean macos-audit macos-setup font-jetbrains macos-preferences karabiner svim svim-activate svim-start svim-verify: macos-only
 
 symlink-macos:
 	bash $(ROOT)symlink-macos.sh
@@ -121,11 +118,6 @@ font-jetbrains:
 
 macos-preferences:
 	./macos-preferences.sh
-
-sketchybar:
-	find $(ROOT)sketchybar -type f -name '*.sh' -exec chmod +x {} +
-	curl -fL -o "$$HOME/Library/Fonts/sketchybar-app-font.ttf" https://github.com/kvndrsslr/sketchybar-app-font/releases/latest/download/sketchybar-app-font.ttf
-	brew services restart sketchybar
 
 karabiner:
 	yarn --cwd karabiner build
