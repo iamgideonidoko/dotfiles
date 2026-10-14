@@ -79,6 +79,7 @@ link "$repo_dir/ghui/config.json" ~/.config/ghui/config.json
 link "$repo_dir/agent-of-empires/config.toml" ~/.config/agent-of-empires/config.toml
 link "$repo_dir/posting/themes/rose-pine.yaml" ~/.local/share/posting/themes/rose-pine.yaml
 link "$repo_dir/ghostty/config" ~/.config/ghostty/config
+link "$repo_dir/codex/themes/rose-pine.tmTheme" ~/.codex/themes/rose-pine.tmTheme
 link "$repo_dir/starship/starship.toml" ~/.config/starship.toml
 link "$repo_dir/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
 link "$repo_dir/yazi/yazi.toml" ~/.config/yazi/yazi.toml
