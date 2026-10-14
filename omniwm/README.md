@@ -53,7 +53,7 @@ screenshot shortcuts; the startup agent restores it at login.
 | Option + Shift + F | macOS native fullscreen Space |
 | Option + / | Toggle Dwindle split |
 | Option + . | Toggle Dwindle/Niri |
-| Option + − / = | Shrink/grow focused Dwindle window |
+| Option + − / = | Shrink/grow Dwindle window or Niri column (5% steps) |
 | Option + Shift + B | Balance tile sizes |
 | Control + Option + Shift + H/J/K/L | Move workspace to adjacent display |
 | Option + Space | Palette: windows, menus, clipboard, commands, apps, files |
@@ -76,8 +76,12 @@ configuration reapply. No workspace numbers are reserved for external monitors.
 Move a workspace to an external display with Control + Option + Shift + H/J/K/L
 before using tiles there; a display with no assigned workspace has no tiled area.
 Tile swaps use Move Container; tab joining/extraction remains accessible through
-the command palette. Dwindle resize shortcuts do not resize Niri columns; use
-Option + right-drag there.
+the command palette. Karabiner dispatches Option + − / = through `dotfiles-window`
+to the active layout's resize command, so OmniWM's native resize chords remain
+unassigned. Niri starts with 49% columns and two visible containers, no automatic
+centering or looping, and no extra inner gaps at the viewport edges. Width presets
+are one-third, 49%, two-thirds, and full width. The resize helper uses fixed 5%
+steps to match `niri.resizeStepPercent`.
 
 ## Configuration and checks
 

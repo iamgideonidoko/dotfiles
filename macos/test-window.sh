@@ -13,6 +13,10 @@ cat >"$test_dir/omniwmctl" <<'SH'
 #!/bin/sh
 if [ "$1" = query ]; then
   [ "${TEST_IPC_FAIL:-0}" = 0 ] || exit 3
+  if [ "$2" = workspaces ]; then
+    printf '{"ok":true,"result":{"kind":"workspaces","payload":{"workspaces":[{"layout":"%s"}]}}}\n' "${TEST_LAYOUT:-dwindle}"
+    exit
+  fi
   printf '%s\n' '{"ok":true,"result":{"kind":"windows","payload":{"windows":[{"id":"ow_test","app":{"name":"Ghostty"},"title":"Terminal"},{"id":"ow_emulator","app":{"name":"qemu-system-aarch64"},"title":"Android"}]}}}'
 else
   printf '%s\n' "$*" >>"$TEST_LOG"
@@ -56,4 +60,23 @@ fi
 [[ $(TEST_OMNI_RUNNING=1 bash "$test_dir/window" list) == '123 | Ghostty | Terminal' ]]
 TEST_OMNI_RUNNING=1 bash "$test_dir/window" navigate 123
 [[ $(tail -n 1 "$TEST_LOG") == 'aerospace focus --window-id 123' ]]
+TEST_LAYOUT=niri bash "$test_dir/window" resize grow
+TEST_LAYOUT=niri bash "$test_dir/window" resize shrink
+TEST_LAYOUT=dwindle bash "$test_dir/window" resize grow
+TEST_LAYOUT=dwindle bash "$test_dir/window" resize shrink
+[[ $(tail -n 4 "$TEST_LOG") == $'command set-container-primary-span +5%\ncommand set-container-primary-span -5%\ncommand resize-focused grow\ncommand resize-focused shrink' ]]
+before=$(cat "$TEST_LOG")
+if TEST_IPC_FAIL=1 bash "$test_dir/window" resize grow; then
+  echo 'Failed workspace query must not resize' >&2
+  exit 1
+fi
+if TEST_LAYOUT=unknown bash "$test_dir/window" resize grow; then
+  echo 'Unknown layout must not resize' >&2
+  exit 1
+fi
+if bash "$test_dir/window" resize invalid; then
+  echo 'Invalid resize direction must fail' >&2
+  exit 1
+fi
+[[ $(cat "$TEST_LOG") == "$before" ]]
 echo 'window helpers: OK'

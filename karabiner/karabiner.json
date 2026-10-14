@@ -4873,6 +4873,58 @@
                 ]
               }
             ]
+          },
+          {
+            "description": "OmniWM: shrink window or Niri column",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "hyphen",
+                  "modifiers": {
+                    "mandatory": ["option"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "$HOME/.local/bin/dotfiles-window resize shrink"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "dotfiles_omniwm",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "OmniWM: grow window or Niri column",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "equal_sign",
+                  "modifiers": {
+                    "mandatory": ["option"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "$HOME/.local/bin/dotfiles-window resize grow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "dotfiles_omniwm",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

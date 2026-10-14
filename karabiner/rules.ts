@@ -429,17 +429,35 @@ const rules: KarabinerRules[] = [
 ];
 
 // App-launch and screenshot chords stay inactive during AeroSpace rollback.
-for (const [key, command] of [
-  ['semicolon', "$HOME/.local/bin/dotfiles-window app 'Ghostty'"],
-  ['s', '/usr/sbin/screencapture -i -c'],
+for (const [key, command, description] of [
+  ['semicolon', "$HOME/.local/bin/dotfiles-window app 'Ghostty'", 'Terminal'],
+  ['s', '/usr/sbin/screencapture -i -c', 'Screenshot'],
 ] as const) {
   rules.push({
-    description: `OmniWM: ${key === 's' ? 'Screenshot' : 'Terminal'}`,
+    description: `OmniWM: ${description}`,
     manipulators: [
       {
         type: 'basic',
         from: { key_code: key, modifiers: { mandatory: ['option', 'shift'] } },
         to: [{ shell_command: command, repeat: false }],
+        conditions: [{ type: 'variable_if', name: 'dotfiles_omniwm', value: 1 }],
+      },
+    ],
+  });
+}
+
+// Dispatch resize by the current layout; one chord cannot bind two OmniWM actions.
+for (const [key, direction] of [
+  ['hyphen', 'shrink'],
+  ['equal_sign', 'grow'],
+] as const) {
+  rules.push({
+    description: `OmniWM: ${direction} window or Niri column`,
+    manipulators: [
+      {
+        type: 'basic',
+        from: { key_code: key, modifiers: { mandatory: ['option'] } },
+        to: [{ shell_command: `$HOME/.local/bin/dotfiles-window resize ${direction}` }],
         conditions: [{ type: 'variable_if', name: 'dotfiles_omniwm', value: 1 }],
       },
     ],

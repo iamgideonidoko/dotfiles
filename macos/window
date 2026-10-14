@@ -14,6 +14,21 @@ windows() {
 }
 
 case "${1:-}" in
+  resize)
+    [[ $# == 2 && ( $2 == grow || $2 == shrink ) ]] || exit 64
+    response=$(omniwmctl query workspaces --current --json) || exit
+    layout=$(jq -er 'select(.ok == true) | .result.payload.workspaces
+      | if length == 1 then .[0].layout else error("No unique current workspace") end
+      | select(. == "niri" or . == "dwindle")' <<<"$response") || exit
+    if [[ $layout == niri ]]; then
+      # Match the configured five-percent Niri resize step.
+      delta='+5%'
+      [[ $2 == shrink ]] && delta='-5%'
+      omniwmctl command set-container-primary-span "$delta"
+    else
+      omniwmctl command resize-focused "$2"
+    fi
+    ;;
   list)
     if pgrep -x OmniWM >/dev/null; then
       windows | jq -r '.[] | [.id, .app.name, .title] | @tsv'
@@ -70,7 +85,7 @@ case "${1:-}" in
     "$emulator" -avd "$avd" >/dev/null 2>&1 &
     ;;
   *)
-    echo 'Usage: window {list|navigate <id>|app <name>|emulator}' >&2
+    echo 'Usage: window {list|navigate <id>|app <name>|emulator|resize <grow|shrink>}' >&2
     exit 64
     ;;
 esac
