@@ -88,6 +88,7 @@ cask "logi-options+"
 cask "capcut"
 cask "postman"
 cask "nikitabobko/tap/aerospace"
+cask "omniwm" # Native Dwindle tiling, workspace bar, and focus borders.
 cask "sf-symbols"
 cask "zulu@17"
 cask "terminal-browser"

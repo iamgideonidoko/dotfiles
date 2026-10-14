@@ -33,6 +33,8 @@ pause_for() {
 step 'Link configuration' bash "$repo_dir/symlink-macos.sh"
 step 'Install packages, runtimes, and executors' bash "$repo_dir/macos-packages.sh" install
 step 'Apply macOS preferences' bash "$repo_dir/macos-preferences.sh"
+step 'Build keyboard shortcuts' make -C "$repo_dir" karabiner
+step 'Activate OmniWM desktop' python3 "$repo_dir/macos/window-manager.py" omniwm
 pause_for 'Grant Accessibility permission to ~/.local/opt/svim/bin/svim in System Settings.'
 step 'Verify patched SketchyVim' bash "$repo_dir/svim/verify.sh" 60
 pause_for 'Open Spotify, sign in, and leave it open for one minute.'

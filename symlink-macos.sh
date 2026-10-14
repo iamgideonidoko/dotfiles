@@ -89,6 +89,8 @@ link "$repo_dir/yazi/flavors/rose-pine.yazi" ~/.config/yazi/flavors/rose-pine.ya
 link "$repo_dir/eza/theme.yml" ~/.config/eza/theme.yml
 link "$repo_dir/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
 link "$repo_dir/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
+link "$repo_dir/omniwm" ~/.config/omniwm
+link "$repo_dir/macos/window" ~/.local/bin/dotfiles-window
 link "$repo_dir/borders/bordersrc" ~/.config/borders/bordersrc
 link "$repo_dir/lazygit/config.yml" ~/.config/lazygit/config.yml
 link "$repo_dir/lazydocker/config.yml" ~/.config/lazydocker/config.yml

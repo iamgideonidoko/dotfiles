@@ -205,6 +205,9 @@ fi
 if [[ -f "$HOME/dotfiles/zsh/aerospace.sh" ]]; then
   source "$HOME/dotfiles/zsh/aerospace.sh"
 fi
+if [[ -f "$HOME/dotfiles/zsh/window-manager.sh" ]]; then
+  source "$HOME/dotfiles/zsh/window-manager.sh"
+fi
 
 ##############################################################################
 # Android SDK tools

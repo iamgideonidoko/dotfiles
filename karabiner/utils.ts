@@ -206,7 +206,10 @@ export function shell(strings: TemplateStringsArray, ...values: any[]): LayerCom
  * Shortcut for "Open an app" command (of which there are a bunch)
  */
 export function app(name: string): LayerCommand {
-  return open(`-a '${name}.app'`);
+  return {
+    to: [{ shell_command: `$HOME/.local/bin/dotfiles-window app '${name}'` }],
+    description: `Open ${name}.app`,
+  };
 }
 
 /**

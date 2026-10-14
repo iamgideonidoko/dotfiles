@@ -87,6 +87,13 @@ agent-verify:
 # ╰────────────────╯
 
 .PHONY: macos-only macos-install macos-clean macos-audit macos-setup symlink-macos font-jetbrains macos-preferences sketchybar karabiner svim svim-activate svim-start svim-verify
+.PHONY: omniwm aerospace
+
+omniwm: macos-only symlink-macos karabiner
+	python3 $(ROOT)macos/window-manager.py omniwm
+
+aerospace: macos-only
+	python3 $(ROOT)macos/window-manager.py aerospace
 
 macos-only:
 	@test "$$(uname)" = Darwin || { echo 'This target requires macOS' >&2; exit 1; }

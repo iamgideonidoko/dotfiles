@@ -106,7 +106,7 @@ const rules: KarabinerRules[] = [
       x: app('Xcode-16.2.0'), // "x"code
       t: app('Android Studio'), // Android S"t"udio
       comma: {
-        to: [{ shell_command: '$HOME/.config/karabiner/open-android-emulator.sh', repeat: false }],
+        to: [{ shell_command: '$HOME/.local/bin/dotfiles-window emulator', repeat: false }],
         description: 'Open Android Emulator',
       },
       period: app('Simulator'), // Xcode's iOS Simulator
@@ -427,6 +427,24 @@ const rules: KarabinerRules[] = [
     },
   }),
 ];
+
+// App-launch and screenshot chords stay inactive during AeroSpace rollback.
+for (const [key, command] of [
+  ['semicolon', "$HOME/.local/bin/dotfiles-window app 'Ghostty'"],
+  ['s', '/usr/sbin/screencapture -i -c'],
+] as const) {
+  rules.push({
+    description: `OmniWM: ${key === 's' ? 'Screenshot' : 'Terminal'}`,
+    manipulators: [
+      {
+        type: 'basic',
+        from: { key_code: key, modifiers: { mandatory: ['option', 'shift'] } },
+        to: [{ shell_command: command, repeat: false }],
+        conditions: [{ type: 'variable_if', name: 'dotfiles_omniwm', value: 1 }],
+      },
+    ],
+  });
+}
 
 fs.writeFileSync(
   'karabiner.json',

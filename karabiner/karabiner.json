@@ -337,10 +337,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Google Chrome.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Google Chrome'"
                   }
                 ],
-                "description": "Open -a 'Google Chrome.app'",
+                "description": "Open Google Chrome.app",
                 "type": "basic",
                 "from": {
                   "key_code": "c",
@@ -359,10 +359,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Safari.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Safari'"
                   }
                 ],
-                "description": "Open -a 'Safari.app'",
+                "description": "Open Safari.app",
                 "type": "basic",
                 "from": {
                   "key_code": "j",
@@ -381,10 +381,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Ghostty.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Ghostty'"
                   }
                 ],
-                "description": "Open -a 'Ghostty.app'",
+                "description": "Open Ghostty.app",
                 "type": "basic",
                 "from": {
                   "key_code": "g",
@@ -403,10 +403,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Finder.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Finder'"
                   }
                 ],
-                "description": "Open -a 'Finder.app'",
+                "description": "Open Finder.app",
                 "type": "basic",
                 "from": {
                   "key_code": "f",
@@ -425,10 +425,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Spotify.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Spotify'"
                   }
                 ],
-                "description": "Open -a 'Spotify.app'",
+                "description": "Open Spotify.app",
                 "type": "basic",
                 "from": {
                   "key_code": "s",
@@ -447,10 +447,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Dictionary.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Dictionary'"
                   }
                 ],
-                "description": "Open -a 'Dictionary.app'",
+                "description": "Open Dictionary.app",
                 "type": "basic",
                 "from": {
                   "key_code": "d",
@@ -469,10 +469,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Notes.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Notes'"
                   }
                 ],
-                "description": "Open -a 'Notes.app'",
+                "description": "Open Notes.app",
                 "type": "basic",
                 "from": {
                   "key_code": "n",
@@ -491,10 +491,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Slack.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Slack'"
                   }
                 ],
-                "description": "Open -a 'Slack.app'",
+                "description": "Open Slack.app",
                 "type": "basic",
                 "from": {
                   "key_code": "k",
@@ -513,10 +513,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Whatsapp.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Whatsapp'"
                   }
                 ],
-                "description": "Open -a 'Whatsapp.app'",
+                "description": "Open Whatsapp.app",
                 "type": "basic",
                 "from": {
                   "key_code": "w",
@@ -535,10 +535,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Discord.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Discord'"
                   }
                 ],
-                "description": "Open -a 'Discord.app'",
+                "description": "Open Discord.app",
                 "type": "basic",
                 "from": {
                   "key_code": "r",
@@ -557,10 +557,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'iPhone Mirroring.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'iPhone Mirroring'"
                   }
                 ],
-                "description": "Open -a 'iPhone Mirroring.app'",
+                "description": "Open iPhone Mirroring.app",
                 "type": "basic",
                 "from": {
                   "key_code": "i",
@@ -579,10 +579,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Xcode-16.2.0.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Xcode-16.2.0'"
                   }
                 ],
-                "description": "Open -a 'Xcode-16.2.0.app'",
+                "description": "Open Xcode-16.2.0.app",
                 "type": "basic",
                 "from": {
                   "key_code": "x",
@@ -601,10 +601,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Android Studio.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Android Studio'"
                   }
                 ],
-                "description": "Open -a 'Android Studio.app'",
+                "description": "Open Android Studio.app",
                 "type": "basic",
                 "from": {
                   "key_code": "t",
@@ -623,7 +623,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "$HOME/.config/karabiner/open-android-emulator.sh",
+                    "shell_command": "$HOME/.local/bin/dotfiles-window emulator",
                     "repeat": false
                   }
                 ],
@@ -646,10 +646,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Simulator.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Simulator'"
                   }
                 ],
-                "description": "Open -a 'Simulator.app'",
+                "description": "Open Simulator.app",
                 "type": "basic",
                 "from": {
                   "key_code": "period",
@@ -668,10 +668,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Postman.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Postman'"
                   }
                 ],
-                "description": "Open -a 'Postman.app'",
+                "description": "Open Postman.app",
                 "type": "basic",
                 "from": {
                   "key_code": "p",
@@ -690,10 +690,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Zoom.us.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Zoom.us'"
                   }
                 ],
-                "description": "Open -a 'Zoom.us.app'",
+                "description": "Open Zoom.us.app",
                 "type": "basic",
                 "from": {
                   "key_code": "z",
@@ -712,10 +712,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'DBeaver.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'DBeaver'"
                   }
                 ],
-                "description": "Open -a 'DBeaver.app'",
+                "description": "Open DBeaver.app",
                 "type": "basic",
                 "from": {
                   "key_code": "b",
@@ -734,10 +734,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Blender.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Blender'"
                   }
                 ],
-                "description": "Open -a 'Blender.app'",
+                "description": "Open Blender.app",
                 "type": "basic",
                 "from": {
                   "key_code": "l",
@@ -756,10 +756,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'YouTube.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'YouTube'"
                   }
                 ],
-                "description": "Open -a 'YouTube.app'",
+                "description": "Open YouTube.app",
                 "type": "basic",
                 "from": {
                   "key_code": "y",
@@ -778,10 +778,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'YouTube Music.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'YouTube Music'"
                   }
                 ],
-                "description": "Open -a 'YouTube Music.app'",
+                "description": "Open YouTube Music.app",
                 "type": "basic",
                 "from": {
                   "key_code": "m",
@@ -800,10 +800,10 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Photopea.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Photopea'"
                   }
                 ],
-                "description": "Open -a 'Photopea.app'",
+                "description": "Open Photopea.app",
                 "type": "basic",
                 "from": {
                   "key_code": "h",
@@ -860,7 +860,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Google Chrome.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Google Chrome'"
                   },
                   {
                     "set_variable": {
@@ -869,7 +869,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Google Chrome.app'",
+                "description": "Open Google Chrome.app",
                 "type": "basic",
                 "from": {
                   "key_code": "c",
@@ -893,7 +893,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Safari.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Safari'"
                   },
                   {
                     "set_variable": {
@@ -902,7 +902,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Safari.app'",
+                "description": "Open Safari.app",
                 "type": "basic",
                 "from": {
                   "key_code": "j",
@@ -926,7 +926,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Ghostty.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Ghostty'"
                   },
                   {
                     "set_variable": {
@@ -935,7 +935,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Ghostty.app'",
+                "description": "Open Ghostty.app",
                 "type": "basic",
                 "from": {
                   "key_code": "g",
@@ -959,7 +959,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Finder.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Finder'"
                   },
                   {
                     "set_variable": {
@@ -968,7 +968,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Finder.app'",
+                "description": "Open Finder.app",
                 "type": "basic",
                 "from": {
                   "key_code": "f",
@@ -992,7 +992,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Spotify.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Spotify'"
                   },
                   {
                     "set_variable": {
@@ -1001,7 +1001,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Spotify.app'",
+                "description": "Open Spotify.app",
                 "type": "basic",
                 "from": {
                   "key_code": "s",
@@ -1025,7 +1025,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Dictionary.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Dictionary'"
                   },
                   {
                     "set_variable": {
@@ -1034,7 +1034,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Dictionary.app'",
+                "description": "Open Dictionary.app",
                 "type": "basic",
                 "from": {
                   "key_code": "d",
@@ -1058,7 +1058,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Notes.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Notes'"
                   },
                   {
                     "set_variable": {
@@ -1067,7 +1067,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Notes.app'",
+                "description": "Open Notes.app",
                 "type": "basic",
                 "from": {
                   "key_code": "n",
@@ -1091,7 +1091,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Slack.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Slack'"
                   },
                   {
                     "set_variable": {
@@ -1100,7 +1100,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Slack.app'",
+                "description": "Open Slack.app",
                 "type": "basic",
                 "from": {
                   "key_code": "k",
@@ -1124,7 +1124,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Whatsapp.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Whatsapp'"
                   },
                   {
                     "set_variable": {
@@ -1133,7 +1133,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Whatsapp.app'",
+                "description": "Open Whatsapp.app",
                 "type": "basic",
                 "from": {
                   "key_code": "w",
@@ -1157,7 +1157,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Discord.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Discord'"
                   },
                   {
                     "set_variable": {
@@ -1166,7 +1166,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Discord.app'",
+                "description": "Open Discord.app",
                 "type": "basic",
                 "from": {
                   "key_code": "r",
@@ -1190,7 +1190,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'iPhone Mirroring.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'iPhone Mirroring'"
                   },
                   {
                     "set_variable": {
@@ -1199,7 +1199,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'iPhone Mirroring.app'",
+                "description": "Open iPhone Mirroring.app",
                 "type": "basic",
                 "from": {
                   "key_code": "i",
@@ -1223,7 +1223,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Xcode-16.2.0.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Xcode-16.2.0'"
                   },
                   {
                     "set_variable": {
@@ -1232,7 +1232,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Xcode-16.2.0.app'",
+                "description": "Open Xcode-16.2.0.app",
                 "type": "basic",
                 "from": {
                   "key_code": "x",
@@ -1256,7 +1256,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Android Studio.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Android Studio'"
                   },
                   {
                     "set_variable": {
@@ -1265,7 +1265,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Android Studio.app'",
+                "description": "Open Android Studio.app",
                 "type": "basic",
                 "from": {
                   "key_code": "t",
@@ -1289,7 +1289,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "$HOME/.config/karabiner/open-android-emulator.sh",
+                    "shell_command": "$HOME/.local/bin/dotfiles-window emulator",
                     "repeat": false
                   },
                   {
@@ -1323,7 +1323,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Simulator.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Simulator'"
                   },
                   {
                     "set_variable": {
@@ -1332,7 +1332,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Simulator.app'",
+                "description": "Open Simulator.app",
                 "type": "basic",
                 "from": {
                   "key_code": "period",
@@ -1356,7 +1356,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Postman.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Postman'"
                   },
                   {
                     "set_variable": {
@@ -1365,7 +1365,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Postman.app'",
+                "description": "Open Postman.app",
                 "type": "basic",
                 "from": {
                   "key_code": "p",
@@ -1389,7 +1389,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Zoom.us.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Zoom.us'"
                   },
                   {
                     "set_variable": {
@@ -1398,7 +1398,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Zoom.us.app'",
+                "description": "Open Zoom.us.app",
                 "type": "basic",
                 "from": {
                   "key_code": "z",
@@ -1422,7 +1422,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'DBeaver.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'DBeaver'"
                   },
                   {
                     "set_variable": {
@@ -1431,7 +1431,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'DBeaver.app'",
+                "description": "Open DBeaver.app",
                 "type": "basic",
                 "from": {
                   "key_code": "b",
@@ -1455,7 +1455,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Blender.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Blender'"
                   },
                   {
                     "set_variable": {
@@ -1464,7 +1464,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Blender.app'",
+                "description": "Open Blender.app",
                 "type": "basic",
                 "from": {
                   "key_code": "l",
@@ -1488,7 +1488,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'YouTube.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'YouTube'"
                   },
                   {
                     "set_variable": {
@@ -1497,7 +1497,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'YouTube.app'",
+                "description": "Open YouTube.app",
                 "type": "basic",
                 "from": {
                   "key_code": "y",
@@ -1521,7 +1521,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'YouTube Music.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'YouTube Music'"
                   },
                   {
                     "set_variable": {
@@ -1530,7 +1530,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'YouTube Music.app'",
+                "description": "Open YouTube Music.app",
                 "type": "basic",
                 "from": {
                   "key_code": "m",
@@ -1554,7 +1554,7 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Photopea.app'"
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Photopea'"
                   },
                   {
                     "set_variable": {
@@ -1563,7 +1563,7 @@
                     }
                   }
                 ],
-                "description": "Open -a 'Photopea.app'",
+                "description": "Open Photopea.app",
                 "type": "basic",
                 "from": {
                   "key_code": "h",
@@ -4814,6 +4814,60 @@
                   {
                     "type": "variable_if",
                     "name": "hyper",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "OmniWM: Terminal",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "mandatory": ["option", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "$HOME/.local/bin/dotfiles-window app 'Ghostty'",
+                    "repeat": false
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "dotfiles_omniwm",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "OmniWM: Screenshot",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": ["option", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "/usr/sbin/screencapture -i -c",
+                    "repeat": false
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "dotfiles_omniwm",
                     "value": 1
                   }
                 ]

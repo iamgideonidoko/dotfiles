@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Shared window navigation for shell and Karabiner launchers.
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
+
+windows() {
+  local response
+  response=$(omniwmctl query windows --json) || {
+    echo 'OmniWM IPC unavailable: finish permission setup and enable IPC in its menu.' >&2
+    return 1
+  }
+  jq -r 'if .ok == true and .result.kind == "windows" then .result.payload.windows
+    else error("OmniWM returned an invalid window query") end' <<<"$response"
+}
+
+case "${1:-}" in
+  list)
+    if pgrep -x OmniWM >/dev/null; then
+      windows | jq -r '.[] | [.id, .app.name, .title] | @tsv'
+    else
+      aerospace list-windows --all
+    fi
+    ;;
+  navigate)
+    [[ $# == 2 ]] || exit 64
+    if pgrep -x OmniWM >/dev/null; then
+      omniwmctl window navigate "$2"
+    else
+      aerospace focus --window-id "$2"
+    fi
+    ;;
+  app)
+    [[ $# == 2 ]] || exit 64
+    if pgrep -x OmniWM >/dev/null; then
+      current_windows=$(windows) || exit
+      bundle_id=''
+      for app_path in "/Applications/$2.app" "$HOME/Applications/$2.app"; do
+        if [[ -d $app_path ]]; then
+          bundle_id=$(mdls -raw -name kMDItemCFBundleIdentifier "$app_path") || exit
+          [[ $bundle_id == '(null)' ]] && bundle_id=''
+          break
+        fi
+      done
+      window_id=$(jq -r --arg app "$2" --arg bundle "$bundle_id" '[.[]
+        | select(.app.name == $app or ($bundle != "" and .app.bundleId == $bundle))]
+        | sort_by(.isFocused != true) | .[0].id // empty' <<<"$current_windows")
+      if [[ -n $window_id ]]; then
+        omniwmctl window navigate "$window_id"
+        exit
+      fi
+    fi
+    open -a "$2"
+    ;;
+  emulator)
+    if ! pgrep -x OmniWM >/dev/null; then
+      exec bash "$(cd "$(dirname "$0")/.." && pwd)/karabiner/open-android-emulator.sh"
+    fi
+    current_windows=$(windows) || exit
+    window_id=$(jq -r '[.[] | select((.app.name // "") | contains("qemu-system-aarch64"))]
+      | .[0].id // empty' <<<"$current_windows")
+    if [[ -n $window_id ]]; then
+      omniwmctl window navigate "$window_id"
+      exit
+    fi
+    emulator="$HOME/Library/Android/sdk/emulator/emulator"
+    [[ -x $emulator ]] || { echo "Android emulator not found: $emulator" >&2; exit 1; }
+    avds=$("$emulator" -list-avds) || exit
+    avd=$(head -n 1 <<<"$avds")
+    [[ -n $avd ]] || { echo 'No Android virtual devices found' >&2; exit 1; }
+    "$emulator" -avd "$avd" >/dev/null 2>&1 &
+    ;;
+  *)
+    echo 'Usage: window {list|navigate <id>|app <name>|emulator}' >&2
+    exit 64
+    ;;
+esac
