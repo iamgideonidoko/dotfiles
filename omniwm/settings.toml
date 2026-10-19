@@ -996,11 +996,11 @@ binding = "Unassigned"
 id = "resizeShrink.vertical"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Equal"
 id = "resizeFocusedWindow.grow"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Minus"
 id = "resizeFocusedWindow.shrink"
 
 [[hotkeys]]
