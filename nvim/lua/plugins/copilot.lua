@@ -8,7 +8,7 @@ return {
     event = "InsertEnter",
     opts = {
       keymaps = {
-        accept_suggestion = "<M-Space>",
+        accept_suggestion = "<C-y>",
         clear_suggestion = "<C-]>",
         accept_word = "<M-w>",
       },
@@ -29,7 +29,7 @@ return {
         auto_trigger = true,
         debounce = 75,
         keymap = {
-          accept = "<M-Space>",
+          accept = "<C-y>",
           accept_word = false,
           accept_line = false,
           next = "<M-'>",
