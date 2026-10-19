@@ -20,7 +20,7 @@ green = 0.6549019607843137
 red = 0.7686274509803922
 
 [clipboard]
-historyEnabled = false
+historyEnabled = true
 ignoredTypes = []
 maxItemBytes = 8388608
 maxItems = 200
