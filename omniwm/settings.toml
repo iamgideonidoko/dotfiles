@@ -54,7 +54,7 @@ right = 5.0
 top = 5.0
 
 [general]
-animationSpeed = 1.5
+animationSpeed = 2.0
 animationsEnabled = true
 defaultLayoutType = "dwindle"
 hotkeysEnabled = true
