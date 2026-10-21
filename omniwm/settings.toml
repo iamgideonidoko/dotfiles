@@ -1085,7 +1085,7 @@ id = "toggleSystemStats"
 
 [[workspaces]]
 id = "4C464E69-67D0-5906-917E-DCECF2336513"
-layoutType = "default"
+layoutType = "dwindle"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -1093,7 +1093,7 @@ type = "main"
 
 [[workspaces]]
 id = "7899EDAC-8EDA-504F-A199-4CEAAD1BD4AA"
-layoutType = "default"
+layoutType = "dwindle"
 name = "2"
 
 [workspaces.monitorAssignment]
@@ -1101,7 +1101,7 @@ type = "main"
 
 [[workspaces]]
 id = "DFE39F47-13DD-5DB1-B857-F1B5D7266CA6"
-layoutType = "default"
+layoutType = "dwindle"
 name = "3"
 
 [workspaces.monitorAssignment]
@@ -1117,7 +1117,7 @@ type = "main"
 
 [[workspaces]]
 id = "30D9F61D-6A13-5A91-86DB-8F57A1F6456F"
-layoutType = "default"
+layoutType = "dwindle"
 name = "5"
 
 [workspaces.monitorAssignment]
@@ -1125,7 +1125,7 @@ type = "main"
 
 [[workspaces]]
 id = "14243DEF-2299-5A55-AF2A-8AB1BC922586"
-layoutType = "default"
+layoutType = "dwindle"
 name = "6"
 
 [workspaces.monitorAssignment]
@@ -1133,7 +1133,7 @@ type = "main"
 
 [[workspaces]]
 id = "ED4CB32B-3867-5126-BF41-756B838AEC9C"
-layoutType = "default"
+layoutType = "dwindle"
 name = "7"
 
 [workspaces.monitorAssignment]
@@ -1141,7 +1141,7 @@ type = "main"
 
 [[workspaces]]
 id = "C5128296-9AD7-5ECB-863F-CCB7F0B4EAE3"
-layoutType = "default"
+layoutType = "dwindle"
 name = "8"
 
 [workspaces.monitorAssignment]
@@ -1149,7 +1149,7 @@ type = "main"
 
 [[workspaces]]
 id = "9CD6064A-ED60-5557-9D32-10D07B6E059C"
-layoutType = "default"
+layoutType = "dwindle"
 name = "9"
 
 [workspaces.monitorAssignment]
@@ -1157,7 +1157,7 @@ type = "main"
 
 [[workspaces]]
 id = "AC5B0DB4-D48A-5E56-9044-335C871E3BA9"
-layoutType = "default"
+layoutType = "dwindle"
 name = "10"
 
 [workspaces.monitorAssignment]
