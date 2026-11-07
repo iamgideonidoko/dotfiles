@@ -7,14 +7,18 @@ auto_stop_idle_secs = 3600
 compaction_reminder = false
 compaction_reminder_percent = 75
 default_agent = "aoe-agent"
+default_new_session_view = "auto"
 max_concurrent_workers = 100
 node_path = ""
+notice_display = "persistent"
+notice_timeout_secs = 10
 offer_structured_in_new_session = false
 rate_limit_auto_resume = false
 replay_events = 0
 restrict_agents = false
 show_tool_durations = true
 silent_orphan_grace_secs = 120
+wrap_tool_output = false
 
 [auth]
 persist_sessions = true
@@ -52,6 +56,7 @@ environment = [
 ]
 extra_volumes = []
 mount_ssh = false
+privileged = false
 selinux_relabel = false
 volume_ignores = []
 volume_ignores_strategy = "anonymous"
@@ -61,27 +66,38 @@ agent_status_hooks = true
 auto_resume_on_restart = true
 auto_stop_idle_secs = 0
 click_action = "live_send"
-confirm_before_quit = false
+confirm_before_quit = true
 confirm_delete = true
 conversation_summary = false
-default_attach_mode = "tmux"
+daemon_sidebar = true
+default_attach_mode = "live_send"
 default_tool = "codex"
 delete_to_trash = true
 favorites_first = true
+host_tab_title = true
 inherit_host_environment = false
 live_send_exit_chord = "C-q"
 live_send_leader = "C-b"
-live_send_on_view_switch = false
+live_send_on_view_switch = true
 merge_hooks_into_selected_agent = true
 mouse_capture = true
+name_agent_session = true
+new_session_mode = "match_default"
 opencode_preassign_session_id = false
+pre_trust_agent_folders = true
 prevent_sleep_idle_grace_minutes = 15
-prevent_sleep_when_active = false
+prevent_sleep_when_active = true
+preview_link_prefixes = []
 restart_wake_message = "wake up: pick up what you were doing"
 row_tag = "branch"
-show_diagnostics_pane = false
+scratch_smart_rename = "inherit"
+session_id_poller_max_threads = 50
+show_activity_age = true
+show_diagnostics_pane = true
 show_session_colors = true
-show_tips = true
+show_shortcut_bar = false
+show_tips = false
+sidebar_position = "left"
 smart_rename = true
 smart_rename_agent = ""
 snooze_duration_minutes = 30
@@ -98,6 +114,7 @@ codex = "headroom wrap codex --no-proxy"
 auto_propagate = false
 
 [sound]
+browser_enabled = true
 enabled = true
 on_approval = "gem.wav"
 on_error = "error.wav"
@@ -105,10 +122,17 @@ on_idle = "idle.wav"
 on_running = "start.wav"
 on_start = "start.wav"
 on_waiting = "waiting.wav"
+server_enabled = true
 volume = 1.5
 
 [status_hooks]
 enabled = false
+
+[systemd]
+enabled = true
+slice = "background-aoe-{profile}.slice"
+survive_daemon_restart = true
+tasks_max = 0
 
 [telemetry]
 enabled = false
@@ -122,7 +146,7 @@ name = "rose-pine"
 clipboard = "auto"
 mouse = "auto"
 socket_name = "aoe"
-status_bar = "auto"
+status_bar = "enabled"
 vt_live = true
 
 [tools.github]
@@ -143,6 +167,7 @@ auto_update_plugins = false
 update_check_mode = "notify"
 
 [web]
+mcp_enabled = false
 notifications_enabled = true
 notify_on_error = true
 notify_on_idle = false
