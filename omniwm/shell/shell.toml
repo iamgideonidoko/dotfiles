@@ -5,5 +5,8 @@
 theme = "rose-pine"
 trailing = ["media", "notifications", "volume", "wifi", "bluetooth", "battery-details", "control-center", "system-stats", "clock"]
 
+[profiles.default.hiddenBar]
+enabled = true
+
 [profiles.default.workspaceBar]
 height = 28
