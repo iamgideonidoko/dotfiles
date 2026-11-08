@@ -1,0 +1,9 @@
+
+[profiles]
+
+[profiles.default]
+theme = "rose-pine"
+trailing = ["media", "notifications", "volume", "wifi", "bluetooth", "battery-details", "control-center", "system-stats", "clock"]
+
+[profiles.default.workspaceBar]
+height = 28

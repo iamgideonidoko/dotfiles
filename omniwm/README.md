@@ -1,6 +1,6 @@
 # OmniWM
 
-macOS tiling with Dwindle, Niri, and the native workspace bar. Run from the repo root:
+macOS tiling with Dwindle, Niri, and the default OmniShell style in Rosé Pine. Run from the repo root:
 
 ```sh
 make omniwm # Link configs, build Karabiner, activate; also included in make macos-setup
@@ -27,23 +27,23 @@ mode hook is a no-op.
 
 ## Shortcuts
 
-| Shortcut                            | Action                                                      |
-| ----------------------------------- | ----------------------------------------------------------- |
-| Alt + H/J/K/L                       | Focus left/down/up/right                                    |
-| Alt + Shift + H/J/K/L               | Swap whole tiles/containers                                 |
-| Alt + 1–9 / 0                       | Workspace 1–9 / 10; add Shift to move window and follow     |
-| Alt + A                             | Previous active workspace                                   |
-| Alt + Enter / Tab                   | Toggle floating / switch floating–tiled focus               |
-| Alt + F                             | Workspace fullscreen; add Shift for native macOS fullscreen |
-| Alt + /; Alt + .                    | Toggle Dwindle split / toggle Dwindle–Niri                  |
-| Alt + − / =                         | Shrink/grow Dwindle window or Niri column (Niri: 5% steps)  |
-| Alt + Shift + B                     | Balance sizes                                               |
-| Ctrl + Alt + Shift + H/J/K/L        | Move workspace to adjacent display                          |
-| Alt + Space                         | Window/app/file/command palette                             |
-| Ctrl + Alt + M                      | App menus at cursor                                         |
-| Alt + Shift + ; / S                 | Ghostty / screenshot selection to clipboard                 |
-| Alt + left/right drag               | Swap/resize windows                                         |
-| Alt + Shift + O; Alt + grave accent | Overview / Quake terminal (currently disabled)              |
+| Shortcut                            | Action                                                              |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| Alt + H/J/K/L                       | Focus left/down/up/right                                            |
+| Alt + Shift + H/J/K/L               | Swap whole tiles/containers                                         |
+| Alt + 1–9 / 0                       | Workspace 1–9 / 10; add Shift to move window and follow             |
+| Alt + A                             | Previous active workspace                                           |
+| Alt + Enter / Tab                   | Toggle floating / switch floating–tiled focus                       |
+| Alt + F                             | Workspace fullscreen; add Shift for native macOS fullscreen         |
+| Alt + /; Alt + .                    | Toggle Dwindle split / toggle Dwindle–Niri                          |
+| Alt + − / =                         | Shrink/grow Dwindle window or Niri column (Niri: 5% steps)          |
+| Alt + Shift + B                     | Balance sizes                                                       |
+| Ctrl + Alt + Shift + H/J/K/L        | Move workspace to adjacent display                                  |
+| Alt + Space                         | Window/app/file/command palette                                     |
+| Ctrl + Alt + M                      | App menus at cursor                                                 |
+| Alt + Shift + ; / S                 | Ghostty / screenshot selection to clipboard                         |
+| Alt + left/right drag               | Move/resize windows; drop at center to swap, near an edge to insert |
+| Alt + Shift + O; Alt + grave accent | Overview / Quake terminal (currently disabled)                      |
 
 Caps Lock Hyper layers stay in [Karabiner](../karabiner/README.md). `wps` picks windows
 with fzf. [dotfiles-window](../macos/window) handles app/emulator reuse and layout-aware
@@ -52,13 +52,13 @@ OmniWM isn't running; native resize bindings stay unassigned.
 
 ## Behavior overrides
 
-| Action | Native behavior replaced | Dotfiles behavior |
-| --- | --- | --- |
-| Hyper + O + A | The old binding sent macOS Command+Tab, which switches apps and lets macOS choose the window. OmniWM's `focus previous` instead selects the previous tiled window, including windows of the same app. | Selects the last observed window of a different app across workspaces and displays; includes floating windows and skips closed windows. |
-| Hyper app launchers | `open -a` activates an app; macOS chooses its window. | Reuses the app's focused window, reading its remembered macOS focus when several windows exist, then navigates to its workspace/display. Launches the app if no managed window exists. |
-| Android emulator launcher | Starting the emulator directly can create another instance. | Navigates to an existing managed emulator window; otherwise starts the first configured AVD. |
-| Alt + − / = | OmniWM exposes separate Dwindle and Niri resize commands. | Chooses the command for the current layout: Dwindle grow/shrink or a five-percent Niri column-width change. |
-| Desktop setup/login | Preferences, wallpaper, and login startup are configured manually. | Backs up preferences/wallpaper, applies this setup, and installs the OmniWM and focus-history login agents. |
+| Action                    | Native behavior replaced                                                                                                                                                                              | Dotfiles behavior                                                                                                                                                                      |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hyper + O + A             | The old binding sent macOS Command+Tab, which switches apps and lets macOS choose the window. OmniWM's `focus previous` instead selects the previous tiled window, including windows of the same app. | Selects the last observed window of a different app across workspaces and displays; includes floating windows and skips closed windows.                                                |
+| Hyper app launchers       | `open -a` activates an app; macOS chooses its window.                                                                                                                                                 | Reuses the app's focused window, reading its remembered macOS focus when several windows exist, then navigates to its workspace/display. Launches the app if no managed window exists. |
+| Android emulator launcher | Starting the emulator directly can create another instance.                                                                                                                                           | Navigates to an existing managed emulator window; otherwise starts the first configured AVD.                                                                                           |
+| Alt + − / =               | OmniWM exposes separate Dwindle and Niri resize commands.                                                                                                                                             | Chooses the command for the current layout: Dwindle grow/shrink or a five-percent Niri column-width change.                                                                            |
+| Desktop setup/login       | Preferences, wallpaper, and login startup are configured manually.                                                                                                                                    | Backs up preferences/wallpaper, applies this setup, and installs the OmniWM and focus-history login agents.                                                                            |
 
 For example, after focusing Ghostty on 3, Chrome on 9, then Chrome on 10,
 Hyper + O + A skips Chrome on 9 and returns to Ghostty. Pressing it again returns
@@ -85,12 +85,25 @@ Niri uses two visible containers, 49% default width, no automatic centering/loop
 and no extra edge gaps. Width presets: ⅓, 49%, ⅔, full. The resize helper uses fixed
 5% steps, matching `niri.resizeStepPercent`.
 
+Focus follows the mouse. In Niri, only fully visible tiled windows receive hover
+focus, and hovering at screen edges does not navigate columns. Clicks, keyboard
+navigation, Dwindle, and floating windows are unaffected by this restriction.
+
 ## Config and checks
 
 `~/.config/omniwm` links here: UI edits and upgrades change tracked settings, so review
 Git diffs. Keep runtime/clipboard state outside Git. The strict schema rejects missing
 required fields and unknown/duplicate actions; check Settings → Troubleshooting.
-Hidden Bar needs macOS 27+. Native borders, Overview, and Quake are currently disabled.
+Hidden Bar needs macOS 27+. Focus borders are enabled at 2 points in Rosé Pine Iris
+(`#C4A7E7`), with full opacity. Overview and Quake remain disabled.
+
+OmniWM 0.8.0 uses settings schema 5 and IPC protocol 22; keep `omniwmctl` updated
+alongside the app. OmniShell layout and appearance overrides belong in
+`shell/shell.toml`, under `profiles.default`; the profile currently selects Rosé Pine
+and adds Bluetooth beside Wi-Fi in the default widget layout. Both widgets open
+their built-in popouts when clicked. The style's bar settings take precedence
+over matching keys in `settings.toml`. OmniWM manages `shell/default/` during upgrades;
+use profile overrides or ejected widget copies for customizations.
 
 ```sh
 python3 macos/test-window-manager.py
@@ -107,4 +120,4 @@ emulator reuse, bar placement, display reconnects, and login startup.
 
 [Configuration](https://omniwm.app/config/configuration/) ·
 [Compatibility](https://omniwm.app/help/known-limitations/) ·
-[v0.7.6 source](https://github.com/OmniNull/OmniWM/tree/v0.7.6)
+[v0.8.0 source](https://github.com/OmniNull/OmniWM/tree/v0.8.0)
