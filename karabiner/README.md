@@ -17,3 +17,7 @@ permissions, and select your keyboard. App/window shortcuts use
 Hyper + O + A returns to the last focused window of a different app across
 workspaces and displays. The focus-history login agent
 records window IDs from OmniWM focus events.
+
+Hyper + S + Space opens System Settings.
+
+Builds touch the active config symlink after generation so Karabiner reloads changes.

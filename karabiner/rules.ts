@@ -340,6 +340,10 @@ const rules: KarabinerRules[] = [
 
     // s = "S"ystem
     s: {
+      spacebar: {
+        description: 'Open System Settings',
+        to: [{ shell_command: 'open -b com.apple.systempreferences', repeat: false }],
+      },
       o: {
         to: [
           {

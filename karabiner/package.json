@@ -14,6 +14,6 @@
     "format": "prettier --write './*.{ts,json}'",
     "build": "tsm rules.ts",
     "watch": "nodemon --exec yarn build -e ts",
-    "postbuild": "yarn format"
+    "postbuild": "yarn format && if [ -L \"$HOME/.config/karabiner/karabiner.json\" ]; then touch -h \"$HOME/.config/karabiner/karabiner.json\"; fi"
   }
 }
