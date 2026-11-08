@@ -381,10 +381,12 @@ const rules: KarabinerRules[] = [
         ],
       },
       c: {
+        description: 'Toggle macOS Control Center',
         to: [
           {
             key_code: 'c',
-            modifiers: ['right_shift', 'right_command'],
+            modifiers: ['fn'],
+            repeat: false,
           },
         ],
       },

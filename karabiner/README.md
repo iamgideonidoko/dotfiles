@@ -19,5 +19,6 @@ workspaces and displays. The focus-history login agent
 records window IDs from OmniWM focus events.
 
 Hyper + S + Space opens System Settings.
+Hyper + S + C sends Fn + C to toggle native macOS Control Center.
 
 Builds touch the active config symlink after generation so Karabiner reloads changes.
