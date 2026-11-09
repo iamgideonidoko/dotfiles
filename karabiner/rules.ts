@@ -340,6 +340,10 @@ const rules: KarabinerRules[] = [
 
     // s = "S"ystem
     s: {
+      b: {
+        description: 'Toggle OmniWM bar position',
+        to: [{ shell_command: '$HOME/.local/bin/dotfiles-window toggle-bar-position', repeat: false }],
+      },
       spacebar: {
         description: 'Open System Settings',
         to: [{ shell_command: 'open -b com.apple.systempreferences', repeat: false }],

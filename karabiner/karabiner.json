@@ -3820,6 +3820,29 @@
                 ]
               },
               {
+                "description": "Toggle OmniWM bar position",
+                "to": [
+                  {
+                    "shell_command": "$HOME/.local/bin/dotfiles-window toggle-bar-position",
+                    "repeat": false
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_s",
+                    "value": 1
+                  }
+                ]
+              },
+              {
                 "description": "Open System Settings",
                 "to": [
                   {
@@ -3968,6 +3991,40 @@
                   {
                     "type": "variable_if",
                     "name": "hyper_sublayer_s",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "description": "Toggle OmniWM bar position",
+                "to": [
+                  {
+                    "shell_command": "$HOME/.local/bin/dotfiles-window toggle-bar-position",
+                    "repeat": false
+                  },
+                  {
+                    "set_variable": {
+                      "name": "hyper_sublayer_s_latched",
+                      "value": 0
+                    }
+                  }
+                ],
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_sublayer_s_latched",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "hyper",
                     "value": 1
                   }
                 ]

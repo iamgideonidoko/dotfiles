@@ -5,12 +5,14 @@ repo_dir="$(cd "$(dirname "$0")/.." && pwd)"
 test_dir=$(mktemp -d)
 trap 'rm -rf "$test_dir"' EXIT
 export TEST_LOG="$test_dir/log"
+export TEST_PYTHON="$(command -v python3)"
 cat >"$test_dir/pgrep" <<'SH'
 #!/bin/sh
 exit "${TEST_OMNI_RUNNING:-0}"
 SH
 cat >"$test_dir/omniwmctl" <<'SH'
 #!/bin/sh
+[ "${TEST_IPC_FAIL:-0}" = 0 ] || exit 3
 if [ "$1" = query ]; then
   [ "${TEST_IPC_FAIL:-0}" = 0 ] || exit 3
   if [ "$2" = workspaces ]; then
@@ -36,6 +38,7 @@ printf '%s\n' '(null)'
 SH
 cat >"$test_dir/python3" <<'SH'
 #!/bin/sh
+[ "$#" != 1 ] || exec "$TEST_PYTHON" "$@"
 cat >/dev/null
 [ "${TEST_AX_FAIL:-0}" = 0 ] || exit 1
 printf '%s\n' "${TEST_NATIVE_ID:-202}"
@@ -114,4 +117,26 @@ TEST_AX_FAIL=1 bash "$test_dir/window" app Ghostty
 unset TEST_WINDOWS
 bash "$test_dir/window" previous
 [[ $(tail -n 1 "$TEST_LOG") == 'history previous' ]]
+export XDG_CONFIG_HOME="$test_dir/config"
+mkdir -p "$XDG_CONFIG_HOME/omniwm/shell"
+shell_config="$XDG_CONFIG_HOME/omniwm/shell/shell.toml"
+ln -s "$test_dir/shell-profile.toml" "$shell_config"
+printf '# Keep this comment.\n[profiles.default.workspaceBar]\nheight = 28\nposition = "overlappingMenuBar" # placement\n' >"$shell_config"
+bash "$test_dir/window" toggle-bar-position
+[[ -L $shell_config ]]
+[[ $(cat "$shell_config") == $'# Keep this comment.\n[profiles.default.workspaceBar]\nheight = 28\nposition = "belowMenuBar" # placement' ]]
+bash "$test_dir/window" toggle-bar-position
+[[ $(cat "$shell_config") == $'# Keep this comment.\n[profiles.default.workspaceBar]\nheight = 28\nposition = "overlappingMenuBar" # placement' ]]
+before=$(cat "$TEST_LOG")
+if TEST_IPC_FAIL=1 bash "$test_dir/window" toggle-bar-position; then
+  echo 'Failed IPC must fail the bar position toggle' >&2
+  exit 1
+fi
+[[ $(cat "$shell_config") == $'# Keep this comment.\n[profiles.default.workspaceBar]\nheight = 28\nposition = "overlappingMenuBar" # placement' ]]
+printf '[profiles.default.workspaceBar]\nposition = "bottom"\n' >"$shell_config"
+if bash "$test_dir/window" toggle-bar-position; then
+  echo 'Unsupported bar position must not be replaced' >&2
+  exit 1
+fi
+[[ $(cat "$TEST_LOG") == "$before" ]]
 echo 'window helpers: OK'

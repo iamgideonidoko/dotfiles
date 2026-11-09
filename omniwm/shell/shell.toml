@@ -10,3 +10,4 @@ enabled = true
 
 [profiles.default.workspaceBar]
 height = 28
+position = "overlappingMenuBar"

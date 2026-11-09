@@ -14,6 +14,54 @@ windows() {
 }
 
 case "${1:-}" in
+  toggle-bar-position)
+    [[ $# == 1 ]] || exit 64
+    python3 - <<'PY'
+import os
+from pathlib import Path
+import re
+import stat
+import subprocess
+import sys
+import tempfile
+import tomllib
+
+config_home = os.environ.get('XDG_CONFIG_HOME', '')
+root = (Path(config_home) if config_home.startswith('/') else Path.home() / '.config') / 'omniwm'
+path = (root / 'shell/shell.toml').resolve(strict=True)
+text = path.read_text()
+config = tomllib.loads(text)
+profile = config.get('profile', 'default')
+position = config.get('profiles', {}).get(profile, {}).get('workspaceBar', {}).get('position')
+if position not in ('overlappingMenuBar', 'belowMenuBar'):
+    sys.exit('Set the active shell profile bar position to overlappingMenuBar or belowMenuBar first.')
+target = 'belowMenuBar' if position == 'overlappingMenuBar' else 'overlappingMenuBar'
+lines = text.splitlines(keepends=True)
+in_section = False
+for index, line in enumerate(lines):
+    if line.lstrip().startswith('['):
+        in_section = line.strip() == f'[profiles.{profile}.workspaceBar]'
+    if in_section and re.match(r'^\s*position\s*=', line):
+        lines[index], count = re.subn(r'(["\x27])' + position + r'\1', f'"{target}"', line, count=1)
+        if count != 1:
+            sys.exit('Cannot safely update the bar position.')
+        break
+else:
+    sys.exit('Cannot find the active profile bar position line.')
+updated = ''.join(lines)
+tomllib.loads(updated)
+subprocess.run(['omniwmctl', 'ping'], check=True, stdout=subprocess.DEVNULL)
+with tempfile.NamedTemporaryFile(mode='w', dir=path.parent, delete=False) as temporary:
+    replacement = Path(temporary.name)
+    os.fchmod(temporary.fileno(), stat.S_IMODE(path.stat().st_mode))
+    temporary.write(updated)
+try:
+    os.replace(replacement, path)
+finally:
+    replacement.unlink(missing_ok=True)
+print(target)
+PY
+    ;;
   resize)
     [[ $# == 2 && ( $2 == grow || $2 == shrink ) ]] || exit 64
     response=$(omniwmctl query workspaces --current --json) || exit
@@ -124,7 +172,7 @@ PY
     "$emulator" -avd "$avd" >/dev/null 2>&1 &
     ;;
   *)
-    echo 'Usage: window {list|navigate <id>|previous|app <name>|emulator|resize <grow|shrink>}' >&2
+    echo 'Usage: window {list|navigate <id>|previous|app <name>|emulator|resize <grow|shrink>|toggle-bar-position}' >&2
     exit 64
     ;;
 esac

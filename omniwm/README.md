@@ -105,6 +105,12 @@ their built-in popouts when clicked. The style's bar settings take precedence
 over matching keys in `settings.toml`. OmniWM manages `shell/default/` during upgrades;
 use profile overrides or ejected widget copies for customizations.
 
+Hyper + S + B switches the bar between overlapping and below the native menu bar
+through `dotfiles-window toggle-bar-position`. The shortcut keeps OmniShell visible
+while exposing native controls; reserved space and tiled window sizes can change.
+The active profile needs an explicit `workspaceBar.position` override in
+`shell/shell.toml` set to `overlappingMenuBar` or `belowMenuBar`.
+
 ```sh
 python3 macos/test-window-manager.py
 python3 macos/test-window-history.py
