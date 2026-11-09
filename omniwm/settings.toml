@@ -194,8 +194,8 @@ showWorkspaceName = false
 useWorkspaceId = false
 
 [statusMenu]
-hiddenControls = []
-hiddenMenuItems = []
+hiddenControls = ["bordersEnabled", "focusCrossesMonitorAtEdge", "focusFollowsMouse", "focusFollowsWindowToMonitor", "mouseWarpEnabled", "moveCrossesMonitorAtEdge", "moveMouseToFocusedWindow"]
+hiddenMenuItems = ["advanced", "appRules", "checkForUpdates", "diagnostics", "helpLinks", "openShellFolder", "reportBug", "sponsors"]
 showControlHelp = true
 showControls = true
 showMenuItems = true
