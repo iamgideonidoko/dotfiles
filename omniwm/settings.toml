@@ -90,7 +90,7 @@ workspaceSwipeFingerCount = 3
 
 [hiddenBar]
 enabled = false
-hiddenBundleIDs = []
+hiddenBundleIDs = ["com.reddblock", "org.freedownloadmanager.fdm6", "com.mitchellh.ghostty", "com.google.Chrome", "com.pais.handy", "io.github.keycastr", "com.logi.cp-dev-mgr", "com.logi.pluginservice", "com.obsproject.obs-studio", "org.openvpn.client.app", "dev.kdrag0n.MacVirt", "com.apple.ScriptMonitor", "com.tinyspeck.slackmacgap", "org.videolan.vlc", "us.zoom.xos", "com.openai.sky.CUAService"]
 rehideIntervalSeconds = 5.0
 
 [island]
